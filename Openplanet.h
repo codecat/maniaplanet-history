@@ -5440,6 +5440,7 @@ struct CGameCtnEditorCommon : public CGameCtnEditor {
   void ButtonItemEditModeOnClick();
   void ButtonItemNewModeOnClick();
   void ButtonBlockItemCreateModeOnClick();
+  void ButtonItemCreateFromBlockModeOnClick();
   void ButtonLightOnClick();
   void ButtonChallengeTypeOnClick();
   void ButtonObjectivesOnClick();
@@ -6090,7 +6091,7 @@ struct CGamePlaygroundScript : public CMwNod {
   void ItemList_Begin();
   bool ItemList_Begin2();
   UnknownType ItemList_Add(wstring ModelName);
-  UnknownType ItemList_AddWithSkin(wstring ModelName, wstring SkinName);
+  UnknownType ItemList_AddWithSkin(wstring ModelName, wstring SkinNameOrUrl);
   void ItemList_End();
   void DemoToken_StartUsingToken();
   void DemoToken_StopUsingToken();
@@ -6995,6 +6996,7 @@ struct CGameEditorPluginMapScriptEvent : public CGameManiaAppScriptEvent {
   const bool IsFromPad;
   const bool IsFromMouse;
   const bool IsFromKeyboard;
+  const bool OnlyScriptMetadataModified;
 };
 
 // File extension: 'GameCtnMediaBlockDirtyLens.gbx'
@@ -7518,9 +7520,10 @@ struct CGameScriptChatEvent : public CMwNod {
     BuddyChange = 3,
     AddBuddyResult = 4,
     RemoveBuddyResult = 5,
-    ConnectionStatusUpdate = 6,
-    HistoryUpdate = 7,
-    ContactListChange = 8,
+    JoinRoomResult = 6,
+    ConnectionStatusUpdate = 7,
+    HistoryUpdate = 8,
+    ContactListChange = 9,
   };
   enum ESubscriptionStatus {
     None = 0,
@@ -7570,6 +7573,7 @@ struct CGameScriptChatEvent : public CMwNod {
   const bool ContactListIncomingBuddyRequest;
   const bool ContactListOutgoingBuddyRequest;
   const string BuddyLogin;
+  const string RoomName;
   const bool Success;
   const wstring ErrorMessage;
   const CGameScriptChatHistory* History;
@@ -8545,8 +8549,8 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
   void EditGhosts(wstring Map);
   void EditAsset(wstring EditorName, string MainPluginSettingsXml, wstring RelativeFileName);
   void EditMap(wstring Map, wstring EditorPluginScript, string EditorPluginArgument);
-  void EditNewMap1(string Environment, string Decoration, string ModUrl, string PlayerModel, wstring MapType, wstring EditorPluginScript, string EditorPluginArgument);
-  void EditNewMap2(string Environment, string Decoration, string ModUrl, string PlayerModel, wstring MapType, bool UseSimpleEditor, wstring EditorPluginScript, string EditorPluginArgument);
+  void EditNewMap1(string Environment, string Decoration, wstring ModNameOrUrl, string PlayerModel, wstring MapType, wstring EditorPluginScript, string EditorPluginArgument);
+  void EditNewMap2(string Environment, string Decoration, wstring ModNameOrUrl, string PlayerModel, wstring MapType, bool UseSimpleEditor, wstring EditorPluginScript, string EditorPluginArgument);
   void EditBadges();
   void EditBadgesOld(UnknownType UserId DEPRECATED);
   const NodArray LocalServers;
@@ -10140,6 +10144,13 @@ struct CGameEditorMesh : public CGameEditorAsset {
     Atlas_ApplyOnClic = 1,
     Atlas_SelectOnClic = 2,
   };
+  enum EUVEditorProjectionType {
+    Planar = 0,
+    Curve2D = 1,
+    Cubic = 2,
+    Polyedric = 3,
+    Cylindrical = 4,
+  };
   void UVEditor_UVMode();
   void UVEditor_AtlasMode();
   const CControlFrame* UIRoot;
@@ -10191,6 +10202,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Material_UVEditor_Close();
   void Material_UVEditor_SetMode(EUVEditorMode Mode);
   EUVEditorMode Material_UVEditor_GetMode();
+  void Material_UVEditor_SetProjectionType(EUVEditorProjectionType ProjectionType);
   const uint Material_Atlas_SelectedSubTexIndex;
   const EInteraction CurrentInteraction;
   const uint CreationElemsCount;
@@ -10279,6 +10291,10 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const int PrefabNamesUpdateId;
   void Prefab_Export();
   void Prefab_Import(uint PrefabIndex);
+  void Parts_GroupSelectedParts();
+  void Parts_UngroupSelectedParts();
+  void Parts_MergeSelectedParts();
+  void Parts_GroupSelectedFaces();
   void Cut();
   void Copy();
   void SetBaseUndoState();
@@ -12986,6 +13002,7 @@ struct CPlugBitmap : public CPlug {
     Color16b = 33,
     SpecFIEN_FI0E = 34,
     SpecFI0E = 35,
+    MetalRough = 36,
   };
   enum EColorDepth {
     DefaultColorDepth = 0,
@@ -15066,11 +15083,13 @@ struct CPlugBulletModel : public CMwNod {
   uint HomingLockDuration;
   UnknownType GuidedAngularSpeed;
   uint GuidedMinLifeTime;
+  UnknownType GuidedRollAngleMax;
   bool IsFlare;
   float FlareAttractionRadius;
   float FlareExplosionRadius;
   bool IsWard;
   float WardRadius;
+  bool MultiSphereDetection;
   bool Sm_AutoAim;
   float Sm_AimIntertia;
   uint Sm_ThisHitOtherBulletBonusDuration;
@@ -19535,8 +19554,6 @@ struct CTrackManiaNetworkServerInfo : public CGameCtnNetServerInfo {
 
 struct CTrackManiaPlayerInfo : public CGamePlayerInfo {
   const CTrackManiaScore* RaceScore;
-  bool ReadyToGoNext;
-  uint ReadyEnum;
 };
 
 struct CTrackManiaRaceNetRounds : public CTrackManiaRaceNet {
@@ -19649,7 +19666,6 @@ struct CTrackManiaRaceNet : public CTrackManiaRace {
   NodArray GeneralScores;
   NodArray CurrentScores;
   NodArray TeamScores;
-  bool ReadyToGoNext;
 };
 
 struct CTrackManiaRaceNetTimeAttack : public CTrackManiaRaceNet {
@@ -19800,7 +19816,6 @@ struct CTrackManiaControlPlayerInfoCard : public CTrackManiaControlCard {
 
   bool ShowBasedTimeInfosInRounds;
   CPlugBitmap* Avatar;
-  const bool ReadyToGoNext;
   const wstring StrPlayerName;
   const wstring StrCountryName;
   const string StrLadderTeamName;
@@ -21188,6 +21203,7 @@ struct CGameSpawnModel : public CMwNod {
   bool Underground;
   float TorqueX;
   uint TorqueDuration;
+  vec3 DefaultGravitySpawn;
 };
 
 // File extension: 'CaptureZone.gbx'
