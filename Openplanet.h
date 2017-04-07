@@ -1035,6 +1035,7 @@ struct CGameDialogs : public CMwNod {
   wstring String;
   void DialogSaveAs_HierarchyUp();
   const wstring DialogSaveAs_Path;
+  const wstring DialogSaveAs_PathToDisplay;
   void DialogSaveAs_OnRefresh();
   void DialogSaveAs_OnValidate();
   void DialogSaveAs_OnCancel();
@@ -1623,7 +1624,6 @@ struct CGameCtnBlockInfo : public CGameCtnCollector {
   const NodArray AdditionalVariantsAir;
   bool IsPillar;
   EWayPointType EdWaypointType;
-  bool SpawnUnderground;
   EBaseType BaseType;
   UnknownType SymmetricalBlockInfoId;
   UnknownType Dir;
@@ -2079,7 +2079,7 @@ struct CGameCtnMediaClip : public CMwNod {
 
   wstring Name;
   const NodArray Tracks;
-  uint LocalPlayerGhostId;
+  uint LocalPlayerClipEntIndex;
   bool StopOnRespawn;
 };
 
@@ -2142,7 +2142,7 @@ struct CGameCtnMediaBlockCameraGame : public CGameCtnMediaBlockCamera {
   CGameCtnMediaBlockCameraGame();
 
   EGameCam GameCam;
-  uint EntityReplicaId;
+  uint ClipEntId;
 };
 
 struct CGameCtnMediaBlockTime : public CGameCtnMediaBlock {
@@ -3784,6 +3784,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   bool MenuReplay_SortOrderAsc;
   void MenuReplay_OnReplayRemovedConfirmed();
   const wstring MenuReplay_CurPath;
+  const wstring MenuReplay_CurPathToDisplay;
   const uint MenuReplay_ReplaysCount;
   const NodArray ReplayList;
   const NodArray ReplayDirsList;
@@ -4174,6 +4175,7 @@ struct CGameCtnApp : public CGameApp {
   bool CanModifyWithoutInvalidate;
   CGameAdvertising* Advertising;
   const CGameScriptChatManager* ChatManagerScript;
+  const CGameMatchSettingsManagerScript* MapSettingsManagerScript;
   const CGameYoutube* Youtube;
   const CGameUserManagerScript* UserManagerScript;
 };
@@ -6544,14 +6546,6 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
     NextDirOnly = 5,
     PreviousDirOnly = 6,
   };
-  enum PhysicsModTriggerTypeEnum {
-    InsideToOutside_ZP = 0,
-    InsideToOutside_YP = 1,
-    InsideToOutside_XP = 2,
-    InsideToOutside_ZN = 3,
-    InsideToOutside_YN = 4,
-    InsideToOutside_XN = 5,
-  };
   enum VariantBaseTypeEnum {
     Inherit = 0,
     None = 1,
@@ -6567,8 +6561,6 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
   CPlugSolid* HelperSolidFid;
   CPlugSolid* FacultativeHelperSolidFid;
   CMwNod* WayPointTriggerSolid;
-  PhysicsModTriggerTypeEnum PhysicsModTriggerType;
-  CMwNod* PhysicsModTriggerSolid;
   CMwNod* ScreenInteractionTriggerSolid;
   CGameGateModel* Gate;
   CGameTeleporterModel* Teleporter;
@@ -10194,6 +10186,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Material_ClearFilters();
   void Material_UVEditor_SetIsRotation(bool IsRotation);
   void Material_UVEditor_SetIsScale(bool IsScale);
+  void Material_UVEditor_SetIsScale1D(bool IsScale);
   void Material_UVEditor_Open(UnknownType MaterialId, CGameManialinkQuad* LocationQuad);
   void Material_UVEditor_Close();
   void Material_UVEditor_SetMode(EUVEditorMode Mode);
@@ -10502,6 +10495,23 @@ struct CWebServicesTaskResult_RealLeaderBoardInfoListScript : public CWebService
   const uint FromIndex;
   const uint Count;
   const NodArray LeaderBoardInfo;
+};
+
+struct CGameMatchSettingsManagerScript : public CMwNod {
+  void Debug_MatchSettings_New();
+  void Debug_MatchSettings_Save();
+  void Debug_MatchSettings_EditScriptSettings();
+  void MatchSettings_Refresh();
+  CGameMatchSettingsScript* MatchSettings_Create(wstring Name);
+  void MatchSettings_Save(CGameMatchSettingsScript* MatchSettings);
+  void MatchSettings_EditScriptSettings(CGameMatchSettingsScript* MatchSettings);
+  const bool MatchSettings_EditScriptSettings_Ongoing;
+  const NodArray MatchSettings;
+};
+
+struct CGameMatchSettingsScript : public CMwNod {
+  const wstring Name;
+  wstring ScriptModeName;
 };
 
 } // namespace Game
@@ -11681,24 +11691,6 @@ struct CHmsVisMiniMap : public CMwNod {
 struct CHmsCollType_Warp : public CMwNod {
 };
 
-struct CHmsCollType_TriggerInsideToOutisde_X : public CMwNod {
-};
-
-struct CHmsCollType_TriggerInsideToOutisde_mX : public CMwNod {
-};
-
-struct CHmsCollType_TriggerInsideToOutisde_Y : public CMwNod {
-};
-
-struct CHmsCollType_TriggerInsideToOutisde_mY : public CMwNod {
-};
-
-struct CHmsCollType_TriggerInsideToOutisde_Z : public CMwNod {
-};
-
-struct CHmsCollType_TriggerInsideToOutisde_mZ : public CMwNod {
-};
-
 struct CHmsMoodBlender : public CMwNod {
 };
 
@@ -12824,7 +12816,7 @@ struct CPlugBitmapRenderShadow : public CPlugBitmapRender {
 struct CPlugSurface : public CPlug {
   CPlugSurface();
 
-  const NodArray Materials;
+  NodArray Materials;
   CPlugSkel* Skel;
   void UpdateSurfMaterialIdsFromMaterialIndexs();
   _EGmSurfType GmSurfType;
@@ -13477,6 +13469,7 @@ struct CPlugAudioBalance : public CPlugAudio {
   float MinimumDuration;
   float ReleaseDuration;
   void SetDefaultValues();
+  void ApplySceneVolume();
   UnknownType SceneVolumedB;
   UnknownType UiVolumedB;
   UnknownType SceneLfeSenddB;
@@ -21034,10 +21027,6 @@ struct CGameItemModel : public CGameCtnCollector {
   CMwNod* PhyModelCustom;
   bool HasPath;
   bool CanFly;
-  wstring Name;
-  const wstring Description;
-  uint Occupation;
-  EnumInventoryItemClass InventoryItemClass;
   EnumItemType ItemTypeE;
   string SkinDirNameCustom;
   CPlugFileFidContainer* DefaultSkinFid;
@@ -21433,6 +21422,12 @@ struct CGameCommonItemEntityModelEdition : public CMwNod {
     Wagon = 10,
     Block = 11,
   };
+  enum EnumInventoryItemClass {
+    Weapon = 0,
+    Movement = 1,
+    Consumable = 2,
+    Armor = 3,
+  };
   const EnumItemType ItemType;
   CPlugCrystal* MeshCrystal;
   UnknownType Sprites;
@@ -21446,13 +21441,27 @@ struct CGameCommonItemEntityModelEdition : public CMwNod {
   CPlugCrystal* PickupActionModel;
   const NodArray TriggeredActions;
   NodArray Triggers;
+  wstring InventoryName;
+  wstring InventoryDescription;
+  EnumInventoryItemClass InventoryItemClass;
+  uint InventoryOccupation;
 };
 
 struct CGameCommonItemEntityModel : public CMwNod {
   CGameCommonItemEntityModel();
 
+  enum EnumInventoryItemClass {
+    Weapon = 0,
+    Movement = 1,
+    Consumable = 2,
+    Armor = 3,
+  };
   CMwNod* VisModel;
   CMwNod* PhyModel;
+  wstring Name;
+  wstring Description;
+  uint Occupation;
+  EnumInventoryItemClass InventoryItemClass;
 };
 
 } // namespace GameData
