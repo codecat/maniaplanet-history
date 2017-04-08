@@ -893,6 +893,9 @@ source\GameMasterServerTask_SetBuddies.cpp
 source\GameMasterServerTask_SetTitlePaid.cpp
 source\GameMasterServerUserInfo.cpp
 source\GameMasterServerUserOnlineSignals.cpp
+source\GameMatchSettingsManager.cpp
+source\GameMatchSettingsManagerScript.cpp
+source\GameMatchSettingsScript.cpp
 source\GameMenu.cpp
 source\GameMenuColorEffect.cpp
 source\GameMenuFrame.cpp
