@@ -619,6 +619,7 @@ source\GameCtnMasterServerTask_GetCampaignPlayerRecords.cpp
 source\GameCtnMasterServerTask_GetChallengeRecordsComparisonSummaries.cpp
 source\GameCtnMasterServerTask_GetDisplayNameScript.cpp
 source\GameCtnMasterServerTask_GetLeagues.cpp
+source\GameCtnMasterServerTask_GetNaturalLeaderBoard.cpp
 source\GameCtnMasterServerTask_GetNaturalLeaderBoardSummaries.cpp
 source\GameCtnMasterServerTask_GetOnlinePresenceForPlayers.cpp
 source\GameCtnMasterServerTask_GetRealLeaderBoard.cpp
@@ -927,6 +928,7 @@ source\GameModuleScriptItem.cpp
 source\GameModuleScriptStoreCategory.cpp
 source\GameMultiplayerScoreManager.cpp
 source\GameNaturalLeaderBoard.cpp
+source\GameNaturalLeaderBoardInfoScript.cpp
 source\GameNetClient.cpp
 source\GameNetDataDownload.cpp
 source\GameNetForm.cpp
@@ -1031,6 +1033,7 @@ source\GameScoreTask_BuddiesChallengeRecordsComparison.cpp
 source\GameScoreTask_BuddiesChallengeRecordsForMap.cpp
 source\GameScoreTask_BuddyChallengeRecordsComparison.cpp
 source\GameScoreTask_GetCampaignMapRecordGhost.cpp
+source\GameScoreTask_GetNaturalLeaderBoardPlayerList.cpp
 source\GameScoreTask_GetRealLeaderBoardPlayerList.cpp
 source\GameScoreTask_LoadPlayerScores.cpp
 source\GameScoreTask_SetNewMapRecord.cpp
@@ -1786,6 +1789,7 @@ source\ScriptLibraryFunction.cpp
 source\ScriptLibraryMapUnits.cpp
 source\ScriptLibraryMath.cpp
 source\ScriptLibraryText.cpp
+source\ScriptLibraryTime.cpp
 source\ScriptSetting.cpp
 source\ScriptTraitsChunkable.cpp
 source\ScriptTraitsLocal.cpp
@@ -1852,6 +1856,7 @@ source\SystemDialogManagerWin32.cpp
 source\SystemDump.cpp
 source\SystemEngine.cpp
 source\SystemEngine_Audio.cpp
+source\SystemEngine_Gpu.cpp
 source\SystemFid.cpp
 source\SystemFidContainer.cpp
 source\SystemFidFile.cpp
@@ -2013,7 +2018,8 @@ source\WebServicesTaskResult_GhostListScript.cpp
 source\WebServicesTaskResult_GhostScript.cpp
 source\WebServicesTaskResult_LaunchUplayScriptResult.cpp
 source\WebServicesTaskResult_MapBestRecords.cpp
-source\WebServicesTaskResult_MapListScript.cpp
+source\WebServicesTaskResult_NaturalLeaderBoardInfoList.cpp
+source\WebServicesTaskResult_NaturalLeaderBoardInfoListScript.cpp
 source\WebServicesTaskResult_NaturalLeaderBoardSummaries.cpp
 source\WebServicesTaskResult_OnlinePresenceList.cpp
 source\WebServicesTaskResult_OnlineSignals.cpp
