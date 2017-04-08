@@ -1017,6 +1017,7 @@ source\GamePodiumInfo.cpp
 source\GamePopUp.cpp
 source\GameRace.cpp
 source\GameRealLeaderBoard.cpp
+source\GameRealLeaderBoardInfoScript.cpp
 source\GameRemoteBuffer.cpp
 source\GameRemoteBufferDataInfoFinds.cpp
 source\GameRemoteBufferDataInfoSearchs.cpp
@@ -2025,7 +2026,8 @@ source\WebServicesTaskResult_OnlinePresenceList.cpp
 source\WebServicesTaskResult_OnlineSignals.cpp
 source\WebServicesTaskResult_PlayerFeatureLimitList.cpp
 source\WebServicesTaskResult_PlayerMapRecords.cpp
-source\WebServicesTaskResult_RealLeaderBoard.cpp
+source\WebServicesTaskResult_RealLeaderBoardInfoList.cpp
+source\WebServicesTaskResult_RealLeaderBoardInfoListScript.cpp
 source\WebServicesTaskResult_RealLeaderBoardSummaries.cpp
 source\WebServicesTaskResult_ZoneList.cpp
 source\WebServicesTaskScheduler.cpp
