@@ -7,7 +7,7 @@ CodeBaseTrunkNonDev\Engines\Classic\include\ClassicThread.h
 codebasetrunknondev\engines\classic\include\ConstArray.h
 CodeBaseTrunkNonDev\Engines\Classic\include\FastArray.h
 codebasetrunknondev\engines\classic\include\FastBuffer.h
-codebasetrunknondev\engines\classic\include\FastBufferCat.h
+CodeBaseTrunkNonDev\Engines\Classic\include\FastBufferCat.h
 CodeBaseTrunkNonDev\Engines\Classic\include\FastBufferWheel.h
 codebasetrunknondev\engines\classic\include\FastCallbackTemplate.h
 CodeBaseTrunkNonDev\Engines\Classic\include\FastHashTable.h
@@ -29,7 +29,6 @@ codebasetrunknondev\engines\crystal\include\CrystalEdge.h
 CodeBaseTrunkNonDev\Engines\Geom\include\FastBufferKey.h
 CodeBaseTrunkNonDev\Engines\Geom\include\GmAABBTree.h
 CodeBaseTrunkNonDev\Engines\Geom\include\GmAABRTree.h
-codebasetrunknondev\engines\geom\include\GmBinTree2.h
 CodeBaseTrunkNonDev\Engines\Geom\include\GmBitFace4.h
 CodeBaseTrunkNonDev\Engines\Geom\include\GmBoxNat3.h
 CodeBaseTrunkNonDev\Engines\Geom\include\GmLooseOctree.h
@@ -40,11 +39,9 @@ codebasetrunknondev\engines\geom\include\GmNat4.h
 CodeBaseTrunkNonDev\Engines\Geom\include\GmSAT.h
 codebasetrunknondev\engines\geom\include\GmSmoothReal.h
 CodeBaseTrunkNonDev\Engines\Geom\include\GmSurf.h
-codebasetrunknondev\engines\geom\include\GmVec4.h
 CodeBaseTrunkNonDev\Engines\Graphic\include\GxColor.h
 CodeBaseTrunkNonDev\Engines\Graphic\include\GxFogGlobal.h
 codebasetrunknondev\engines\graphic\include\GxLight.h
-CodeBaseTrunkNonDev\Engines\Graphic\include\GxSurfQuadHeight.h
 codebasetrunknondev\engines\graphic\include\GxTexCoord.h
 CodeBaseTrunkNonDev\Engines\Graphic\include\GxTexOp.h
 codebasetrunknondev\engines\graphic\include\GxTypes.h
@@ -63,7 +60,7 @@ CodeBaseTrunkNonDev\Engines\HmsEngine\include\HmsTextureLock.h
 CodeBaseTrunkNonDev\Engines\HmsEngine\include\HmsViewport.h
 CodeBaseTrunkNonDev\Engines\HmsEngine\include\HmsVisDynaSprite.h
 CodeBaseTrunkNonDev\Engines\HmsEngine\include\HmsZone.h
-codebasetrunknondev\engines\hmsengine\include\HmsZoneVisionCst.h
+CodeBaseTrunkNonDev\Engines\HmsEngine\include\HmsZoneVisionCst.h
 CodeBaseTrunkNonDev\Engines\HmsEngine\include\HmsZoneVPacker.h
 CodeBaseTrunkNonDev\Engines\ImportLib\stb\stb_image.h
 CodeBaseTrunkNonDev\Engines\MotionEngine\include\MotionManager.h
@@ -82,7 +79,6 @@ codebasetrunknondev\engines\mwfoundations\include\MwParamAction.h
 codebasetrunknondev\engines\mwfoundations\include\MwParamBool.h
 codebasetrunknondev\engines\mwfoundations\include\MwParamClass.h
 codebasetrunknondev\engines\mwfoundations\include\MwParamColor.h
-codebasetrunknondev\engines\mwfoundations\include\MwParamDesc.h
 codebasetrunknondev\engines\mwfoundations\include\MwParamEnum.h
 codebasetrunknondev\engines\mwfoundations\include\MwParamFastArray.h
 codebasetrunknondev\engines\mwfoundations\include\MwParamFastBuffer.h
@@ -128,11 +124,10 @@ CodeBaseTrunkNonDev\Engines\Plug\include\PlugBitmapRenderHemisphere.h
 codebasetrunknondev\engines\plug\include\PlugBitmapRenderNew.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugBlendShapes.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugBodyGraph.h
-codebasetrunknondev\engines\plug\include\PlugDecalModel.h
 codebasetrunknondev\engines\plug\include\PlugEnums.h
 codebasetrunknondev\engines\plug\include\PlugFile.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugFile_Types.h
-codebasetrunknondev\engines\plug\include\PlugFileGPU.h
+CodeBaseTrunkNonDev\Engines\Plug\include\PlugFileGPU.h
 codebasetrunknondev\engines\plug\include\PlugFileImg.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugGameSkin.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugIndexBuffer.h
@@ -166,13 +161,13 @@ CodeBaseTrunkNonDev\Engines\Plug\include\PlugVisualSprite.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugVisualStrip.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugVisualVertexs.h
 codebasetrunknondev\engines\plug\include\PlugWebm.h
-codebasetrunknondev\engines\sceneengine\include\SceneFx.h
+CodeBaseTrunkNonDev\Engines\SceneEngine\include\SceneFx.h
 codebasetrunknondev\engines\sceneengine\include\SceneFxCompo.h
 CodeBaseTrunkNonDev\Engines\SceneEngine\include\SceneFxSuperSample.h
-codebasetrunknondev\engines\sceneengine\include\SceneLocation.h
+CodeBaseTrunkNonDev\Engines\SceneEngine\include\SceneLocation.h
 codebasetrunknondev\engines\sceneengine\include\SceneMgr.h
 CodeBaseTrunkNonDev\Engines\SceneEngine\include\SceneMgrCharPhy.h
-codebasetrunknondev\engines\sceneengine\include\SceneObject.h
+CodeBaseTrunkNonDev\Engines\SceneEngine\include\SceneObject.h
 CodeBaseTrunkNonDev\Engines\SceneEngine\include\SceneToyBoatSoundIds.h
 codebasetrunknondev\engines\sceneengine\include\SceneVehicle.h
 CodeBaseTrunkNonDev\Engines\SceneEngine\include\SceneVehicleCar_State.h
@@ -190,7 +185,6 @@ CodeBaseTrunkNonDev\Engines\SystemEngine\include\SystemConfigDisplay.h
 codebasetrunknondev\engines\systemengine\include\SystemFid.h
 CodeBaseTrunkNonDev\Engines\SystemEngine\include\SystemFidNodRef.h
 codebasetrunknondev\engines\systemengine\include\SystemFidParameters.h
-CodeBaseTrunkNonDev\Engines\SystemEngine\include\SystemFileMemMapped.h
 CodeBaseTrunkNonDev\Engines\SystemEngine\include\SystemStreamManager.h
 CodeBaseTrunkNonDev\Engines\SystemEngine\include\SystemUserDataMgr.h
 CodeBaseTrunkNonDev\Engines\SystemEngine\include\SystemUserDrives.h
@@ -199,10 +193,8 @@ codebasetrunknondev\engines\visionengine\include\Dx11Types.h
 codebasetrunknondev\engines\visionengine\include\Dx11Viewport_Resource.h
 CodeBaseTrunkNonDev\Engines\VisionEngine\include\VisionDynaSprite.h
 CodeBaseTrunkNonDev\Engines\VisionEngine\include\VisionFlareOcc.h
-codebasetrunknondev\engines\visionengine\include\VisionHmd.h
 codebasetrunknondev\engines\visionengine\include\VisionHmsZone.h
 codebasetrunknondev\engines\visionengine\include\VisionIndexBuffer.h
-codebasetrunknondev\engines\visionengine\include\VisionRenderContext.h
 codebasetrunknondev\engines\visionengine\include\VisionResourceFile.h
 codebasetrunknondev\engines\visionengine\include\VisionResourceFileList.h
 CodeBaseTrunkNonDev\Engines\VisionEngine\include\VisionResourceList.h
@@ -224,29 +216,27 @@ CodeBaseTrunkNonDev\Games\GameEngine\include\GameControlGridCtnChallengeGroup.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameCtnApp.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameCtnBlock.h
 codebasetrunknondev\games\gameengine\include\GameCtnBlockInfo.h
-CodeBaseTrunkNonDev\Games\GameEngine\include\GameCtnBlockInfoClip.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameCtnChallenge.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameCtnDecorationMusicIds.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameCtnDecorationSoundIds.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameCtnEditorBody.h
-codebasetrunknondev\games\gameengine\include\GameCtnEditorCommon.h
+CodeBaseTrunkNonDev\Games\GameEngine\include\GameCtnEditorCommon.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameCtnMediaBlockEditorTriangles.h
 codebasetrunknondev\games\gameengine\include\GameCtnMediaShootParams.h
-codebasetrunknondev\games\gameengine\include\GameCtnMenus.h
-codebasetrunknondev\games\gameengine\include\GameCtnNetwork.h
+CodeBaseTrunkNonDev\Games\GameEngine\include\GameCtnMenus.h
+CodeBaseTrunkNonDev\Games\GameEngine\include\GameCtnNetwork.h
 codebasetrunknondev\games\gameengine\include\GameCtnZoneGenealogy.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameDataManager.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameDataUserFileManager_Utils.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameEditorMesh.h
 codebasetrunknondev\games\gameengine\include\GameEditorMesh_Interaction.h
-codebasetrunknondev\games\gameengine\include\GameEditorMesh_TexCoords.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameEditorModuleEditInfo.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameManialink3dStyle.h
 codebasetrunknondev\games\gameengine\include\GameManialinkControl.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameMasterServerOnlineSignalsManager.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameMenuSceneManiaPlanet.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameMgrObjectVis.h
-codebasetrunknondev\games\gameengine\include\GameNetPlayerInfo.h
+CodeBaseTrunkNonDev\Games\GameEngine\include\GameNetPlayerInfo.h
 codebasetrunknondev\games\gameengine\include\GameNetTypes.h
 codebasetrunknondev\games\gameengine\include\GameNetwork.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameOverlayFadeFrom.h
@@ -275,7 +265,6 @@ Source\AudioPcmProcessing.cpp
 Source\AudioPort.cpp
 Source\AudioPort_ResourceManagement.cpp
 Source\AudioPortNull.cpp
-Source\AudioPortTools.cpp
 Source\AudioScriptManager.cpp
 Source\AudioScriptMusic.cpp
 Source\AudioScriptSound.cpp
@@ -308,7 +297,6 @@ source\ClassicLog.cpp
 source\ClassicMemory.cpp
 source\ClassicProfile.cpp
 source\ClassicStatic.cpp
-source\ClassicSymbolMap.cpp
 source\ClassicThread.cpp
 source\ClassicTraceMethod.cpp
 Source\ControlBase.cpp
@@ -739,6 +727,7 @@ source\GameDataFileTask_GhostLoadMedal.cpp
 source\GameDataFileTask_GhostLoadUserRecord_Maniaplanet.cpp
 source\GameDataFileTask_GhostStoreUserRecord_Maniaplanet.cpp
 source\GameDataFileTask_MapGetUserList.cpp
+source\GameDataFileTask_PackDownloadOrUpdate.cpp
 source\GameDataFileTask_UserDataCacheUpdate.cpp
 source\GameDataManager.cpp
 source\GameDataUserFileManager.cpp
@@ -774,7 +763,6 @@ source\GameEditorMesh_Voxel.cpp
 source\GameEditorModel.cpp
 source\GameEditorModule.cpp
 source\GameEditorPacks.cpp
-source\GameEditorParent.cpp
 source\GameEditorPixel.cpp
 source\GameEditorPixelEvent.cpp
 source\GameEditorPlugin.cpp
@@ -952,7 +940,6 @@ source\GameNetwork.cpp
 source\GameNetwork_Dedicated.cpp
 source\GameNod.cpp
 source\GameObjectPhyModel.cpp
-source\GameObjectVisDefs.cpp
 source\GameObjectVisModel.cpp
 source\GameOutlineBox.cpp
 source\GameOverlayFadeFrom.cpp
@@ -1111,7 +1098,6 @@ Source\GenAudioSoundSurface.cpp
 source\GmAABBTree.cpp
 source\GmAABRTree.cpp
 source\GmArchive.cpp
-source\GmBinTree2.cpp
 source\GmBitFace4.cpp
 source\GmBoxAligned.cpp
 source\GmBoxOriented.cpp
@@ -1122,12 +1108,9 @@ source\GmFrustum.cpp
 source\GmFunc.cpp
 source\GmFuncSolver.cpp
 source\GmGrid3.cpp
-source\GmIso3.cpp
 source\GmIso4.cpp
 source\GmMat3.cpp
 source\GmMat4.cpp
-source\GmNat2.cpp
-source\GmNoise.cpp
 source\GmPackReal2.cpp
 source\GmQuat.cpp
 source\GmRectAligned.cpp
@@ -1147,7 +1130,6 @@ source\GmTriangulation.cpp
 source\GmVec2.cpp
 source\GmVec3.cpp
 source\GmVec4.cpp
-source\GxClipper.cpp
 source\GxColor.cpp
 source\GxFilter.cpp
 source\GxFog.cpp
@@ -1160,7 +1142,6 @@ source\GxLightDirectional.cpp
 source\GxLightFrustum.cpp
 source\GxLightPoint.cpp
 source\GxLightSpot.cpp
-source\GxMesh.cpp
 source\GxSurfQuadHeight.cpp
 source\GxTexCoord.cpp
 source\HmsAerialGrid.cpp
@@ -1201,7 +1182,6 @@ source\HmsMgrVisEnvMap.cpp
 source\HmsMgrVisParticle.cpp
 source\HmsMgrVisVolume.cpp
 source\HmsMoodBlender.cpp
-source\HmsOcclusion.cpp
 source\HmsPicker.cpp
 source\HmsPoc.cpp
 source\HmsPortal.cpp
@@ -1341,7 +1321,6 @@ source\NetMasterServerTask_CheckFeatureTimeLimit.cpp
 source\NetMasterServerTask_CheckLoginForSubscribe.cpp
 source\NetMasterServerTask_CheckNetworkAvailability.cpp
 source\NetMasterServerTask_Connect.cpp
-source\NetMasterServerTask_GamerPic_GetUrl.cpp
 source\NetMasterServerTask_GetApplicationConfig.cpp
 source\NetMasterServerTask_GetDisplayNameFromManiaplanetLogin.cpp
 source\NetMasterServerTask_GetDisplayNameFromWebIdentity.cpp
@@ -1353,10 +1332,6 @@ source\NetMasterServerTask_GetWebIdentityFromManiaplanetLogin.cpp
 source\NetMasterServerTask_ImportAccount_IsFinished.cpp
 source\NetMasterServerTask_OpenSession.cpp
 source\NetMasterServerTask_Session_Get.cpp
-source\NetMasterServerTask_Session_InviteBuddy.cpp
-source\NetMasterServerTask_Session_JoinOrCreate.cpp
-source\NetMasterServerTask_Session_Leave.cpp
-source\NetMasterServerTask_Session_ShowInviteUI.cpp
 source\NetMasterServerTask_SetFeatureTimeUse.cpp
 source\NetMasterServerTask_ShowProfile.cpp
 source\NetMasterServerUptoDateCheck.cpp
@@ -1385,7 +1360,6 @@ source\PlugAnim_BVH.cpp
 source\PlugAnim_Edition.cpp
 source\PlugAnim_Graph.cpp
 source\PlugAnim_Tracks.cpp
-source\PlugAnim_Xml.cpp
 source\PlugAnimCurve.cpp
 source\PlugAnimLocSimple.cpp
 source\PlugAudio.cpp
@@ -1519,7 +1493,6 @@ source\PlugMaterialFxFur.cpp
 source\PlugMaterialFxGenCV.cpp
 source\PlugMaterialFxs.cpp
 source\PlugMaterialPack.cpp
-source\PlugMaterialTools.cpp
 source\PlugMaterialUserInst.cpp
 source\PlugModel.cpp
 source\PlugModelFences.cpp
@@ -1528,8 +1501,6 @@ source\PlugModelLodMesh.cpp
 source\PlugModelMesh.cpp
 source\PlugModelShading.cpp
 source\PlugModelTools.cpp
-source\PlugModelTools3ds.cpp
-source\PlugModelToolsCollada.cpp
 source\PlugModelToolsMesh.cpp
 source\PlugModelToolsObj.cpp
 source\PlugModelTree.cpp
@@ -1569,7 +1540,6 @@ source\PlugShieldEmitterModel.cpp
 source\PlugShieldModel.cpp
 source\PlugSimuDump.cpp
 source\PlugSkel.cpp
-source\PlugSkelHumano.cpp
 source\PlugSkelPose.cpp
 source\PlugSkelSetup.cpp
 source\PlugSolid.cpp
@@ -1609,7 +1579,6 @@ source\PlugTreeGenText.cpp
 source\PlugTreeLight.cpp
 source\PlugTreeViewDep.cpp
 source\PlugTreeVisualMip.cpp
-source\PlugTreeVisualPlane.cpp
 source\PlugTreeVisualPlaneOriented.cpp
 source\PlugTrigger.cpp
 source\PlugTurret.cpp
@@ -1647,13 +1616,11 @@ source\PlugVisualIndexedTriangles.cpp
 source\PlugVisualLines.cpp
 source\PlugVisualLines2D.cpp
 source\PlugVisualOctree.cpp
-source\PlugVisualPath.cpp
 source\PlugVisualQuads.cpp
 source\PlugVisualQuads2D.cpp
 source\PlugVisualSprite.cpp
 source\PlugVisualStrip.cpp
 source\PlugVisualTriangles.cpp
-source\PlugVisualVertexs.cpp
 source\PlugWebmDecoder.cpp
 source\PlugWebmEncoder.cpp
 source\Scene.cpp
@@ -1711,8 +1678,6 @@ source\SceneMgrParticle.cpp
 source\SceneMgrParticle_Beam.cpp
 source\SceneMgrParticle_Shield.cpp
 source\SceneMgrParticle_VortexSim.cpp
-source\SceneMgrSolid2Vis.cpp
-source\SceneMgrSolidVis.cpp
 source\SceneMgrTrafficPhy.cpp
 source\SceneMgrTrafficPhyCollisions.cpp
 source\SceneMgrTrafficVis.cpp
@@ -1746,7 +1711,6 @@ source\SceneProfiler.cpp
 source\SceneProfiler_History.cpp
 source\SceneRailroad.cpp
 source\SceneRecorder.cpp
-source\SceneRenderTest.cpp
 source\SceneSector.cpp
 source\SceneSoundManager.cpp
 source\SceneSoundSource.cpp
@@ -1860,7 +1824,6 @@ source\SystemDialogManagerWin32.cpp
 source\SystemDump.cpp
 source\SystemEngine.cpp
 source\SystemEngine_Audio.cpp
-source\SystemEngine_Gpu.cpp
 source\SystemFid.cpp
 source\SystemFidContainer.cpp
 source\SystemFidFile.cpp

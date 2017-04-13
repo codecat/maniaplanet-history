@@ -526,7 +526,7 @@ struct CGameMenuFrame : public CControlFrame {
   CScene3d* FrameScene;
   void RunOnShowScripts();
   bool AllowBgCamera;
-  uint NavigationDepth;
+  uint NavigationDepth_Manialink3d_Unused;
 };
 
 struct CGameSystemOverlay : public CMwNod {
@@ -3159,6 +3159,7 @@ struct CGameCtnNetServerInfo : public CGameNetServerInfo {
   const bool IsFavourite;
   const bool IsLobbyServer;
   const bool IsPrivate;
+  const bool IsPrivateForSpectator;
   wstring ServerName_Menu;
   wstring Comment_Menu;
   const string PlayerCountOverMax;
@@ -4175,7 +4176,7 @@ struct CGameCtnApp : public CGameApp {
   bool CanModifyWithoutInvalidate;
   CGameAdvertising* Advertising;
   const CGameScriptChatManager* ChatManagerScript;
-  const CGameMatchSettingsManagerScript* MapSettingsManagerScript;
+  const CGameMatchSettingsManagerScript* MatchSettingsManagerScript;
   const CGameYoutube* Youtube;
   const CGameUserManagerScript* UserManagerScript;
 };
@@ -8468,6 +8469,7 @@ struct CGameManiaAppTitle : public CGameManiaApp {
   void ExternalRequest_Clear();
   const CGameAchievementScriptManager* AchievementsManager;
   CGameManagerBadgeScript* BadgeManager;
+  CGameMatchSettingsManagerScript* MatchSettingsManager;
   void Authentication_GetToken(UnknownType UserId, string AppLogin);
   const bool Authentication_GetTokenResponseReceived;
   const uint Authentication_ErrorCode;
@@ -8518,6 +8520,7 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
     Error_Net_WrongPassword = 6,
     Error_Network_OnlineExpired = 7,
     Error_Network_ServerFull = 8,
+    Error_Abort = 9,
   };
   enum EEditorType {
     ActionMaker = 0,
@@ -8549,21 +8552,28 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
   void EditGhosts(wstring Map);
   void EditAsset(wstring EditorName, string MainPluginSettingsXml, wstring RelativeFileName);
   void EditMap(wstring Map, wstring EditorPluginScript, string EditorPluginArgument);
-  void EditNewMap1(string Environment, string Decoration, wstring ModNameOrUrl, string PlayerModel, wstring MapType, wstring EditorPluginScript, string EditorPluginArgument);
-  void EditNewMap2(string Environment, string Decoration, wstring ModNameOrUrl, string PlayerModel, wstring MapType, bool UseSimpleEditor, wstring EditorPluginScript, string EditorPluginArgument);
+  void EditNewMap1(string Environment, string Decoration, wstring ModNameOrUrl, wstring PlayerModel, wstring MapType, wstring EditorPluginScript, string EditorPluginArgument);
+  void EditNewMap2(string Environment, string Decoration, wstring ModNameOrUrl, wstring PlayerModel, wstring MapType, bool UseSimpleEditor, wstring EditorPluginScript, string EditorPluginArgument);
   void EditBadges();
   void EditBadgesOld(UnknownType UserId DEPRECATED);
   const NodArray LocalServers;
+  const NodArray LocalServers_CurrentTitle;
   void DiscoverLocalServers();
-  const CGameCtnNetServerInfo* JoinServer_ServerInfo;
   void CreateServer1(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, array<wstring>& MapList, wstring Mode, string ScriptsSettingsXml);
   void CreateServer2(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, wstring MatchSettingsFileName);
+  void GetServerInfo(string ServerLogin);
+  void GetServerInfoObj(CGameCtnNetServerInfo* LocalServer);
+  void GetServerInfo_Abort();
+  const CGameCtnNetServerInfo* GetServerInfo_Result;
+  void Join_GetServerInfo_Result(bool AsSpectator, string Password);
+  void JoinServer(string ServerLogin, bool AsSpectator, string Password);
+  void JoinServer_Abort();
+  const CGameCtnNetServerInfo* JoinServer_ServerInfo;
   void JoinServer_GetInfo(string ServerLogin);
   void JoinServer_GetInfoPwd(string ServerLogin, string ServerPassword);
   void JoinServer_GetInfoObj(CGameCtnNetServerInfo* Server);
   void JoinServer_GetInfoObjPwd(CGameCtnNetServerInfo* Server, string ServerPassword);
   void JoinServer_Join(bool AsSpectator);
-  void JoinServer_Abort();
   void Quit();
 };
 
@@ -10118,7 +10128,8 @@ struct CGameEditorMesh : public CGameEditorAsset {
     Scale = 7,
     Split = 8,
     Paste = 9,
-    None = 10,
+    PasteMaterial = 10,
+    None = 11,
   };
   enum ESelectionDragMode {
     Rect = 0,
@@ -10147,12 +10158,14 @@ struct CGameEditorMesh : public CGameEditorAsset {
   enum EUVEditorProjectionType {
     Planar = 0,
     Curve2D = 1,
-    Cubic = 2,
-    Polyedric = 3,
-    Cylindrical = 4,
+    Cylindrical2D = 2,
+    Cubic = 3,
+    Polyedric = 4,
+    Cylindrical = 5,
   };
   void UVEditor_UVMode();
   void UVEditor_AtlasMode();
+  const bool Tmp_UseParts;
   const CControlFrame* UIRoot;
   const CMwNod* EditedNod;
   const CPlugBitmap* EditedAtlasBitmap;
@@ -10212,6 +10225,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Interaction_Creation_GetElems(UnknownType ResultSetHandle);
   void Interaction_CloseCreation();
   void Interaction_StartPaste();
+  void Interaction_StartPasteMaterial();
   void Interaction_StartPick(EElemType ElemType);
   void Interaction_StartSelection(UnknownType SelectionSetHandle, EElemType ElemType, bool UseDoubleClickToSelectConnected, ESelectionDragMode DragMode, UnknownType SelectionSetToPickFrom);
   void Interaction_CloseSelection();
@@ -10272,9 +10286,12 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void VoxelSpace_Unset(int3 Pos);
   void VoxelSpace_GenerateMesh();
   void SetOfElements_ProjectOnPlane(UnknownType SetHandle);
+  void SetOfElements_SplitEdgeWithVertex(UnknownType SetHandle);
   void SetOfVertices_DrawCircle(UnknownType InputSetHandle, UnknownType ResultSetHandle);
   void SetOfVertices_DrawDisc(UnknownType InputSetHandle, UnknownType ResultSetHandle);
   void SetOfVertices_DrawCircle2(UnknownType CenterSetHandle, vec3 PointOnCircle, UnknownType ResultSetHandle);
+  void SetOfVertices_DrawPoly(UnknownType InputSetHandle, UnknownType ResultSetHandle, int VerticesCount);
+  void SetOfVertices_DrawPoly2(UnknownType CenterSetHandle, vec3 PointOnPoly, UnknownType ResultSetHandle, int VerticesCount);
   void SetOfVertices_DrawSpline(UnknownType ControlSetHandle, UnknownType ResultSetHandle);
   void SetOfVertices_Weld(UnknownType VerticesSetHandle);
   void SetOfVertices_DrawBox(UnknownType ControlSetHandle, UnknownType ResultSetHandle);
@@ -10291,10 +10308,9 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const int PrefabNamesUpdateId;
   void Prefab_Export();
   void Prefab_Import(uint PrefabIndex);
-  void Parts_GroupSelectedParts();
-  void Parts_UngroupSelectedParts();
   void Parts_MergeSelectedParts();
-  void Parts_GroupSelectedFaces();
+  void Parts_Group();
+  void Parts_UngroupSelectedParts();
   void Cut();
   void Copy();
   void SetBaseUndoState();
@@ -10400,6 +10416,7 @@ struct CGameDataFileManagerScript : public CMwNod {
     Script = 2,
     MatchSettings = 3,
     Module = 4,
+    Skins = 5,
   };
   const NodArray TaskResults;
   void TaskResult_Release(UnknownType TaskId);
@@ -10418,6 +10435,7 @@ struct CGameDataFileManagerScript : public CMwNod {
   CWebServicesTaskResult* Replay_Save(wstring Path, CGameCtnChallenge* Map, CGameGhostScript* Ghost);
   CWebServicesTaskResult_FileListScript* Media_GetGameList(EMediaType Type, wstring Path, bool Flatten);
   CWebServicesTaskResult_FileListScript* Media_GetFilteredGameList(EMediaType Type, uint Scope, wstring Path, bool Flatten);
+  CWebServicesTaskResult* Pack_DownloadOrUpdate(wstring DisplayName, string Url);
 };
 
 struct CGameDataUserFileManager : public CMwNod {
@@ -10528,6 +10546,12 @@ struct CGameMatchSettingsManagerScript : public CMwNod {
 struct CGameMatchSettingsScript : public CMwNod {
   const wstring Name;
   wstring ScriptModeName;
+};
+
+struct CGameDataFileTask_PackDownloadOrUpdate : public CWebServicesTaskSequence {
+};
+
+struct CWebServicesTaskResult_Title : public CWebServicesTaskResult {
 };
 
 } // namespace Game
@@ -11443,6 +11467,7 @@ struct CHmsViewport : public CMwNod {
   UnknownType PixelOutput;
   void ScreenShotDoCaptureWebp();
   void ScreenShotDoCaptureTga();
+  void ScreenShotDoCaptureJpg();
   void ScreenShotDoCaptureDDS();
   void ShaderConstantLogBindedValues();
   void LogHlslFromFixedVertex();
@@ -17507,6 +17532,7 @@ struct CVisionResourceFile : public CMwNod {
   CPlugBitmap* BitmapShadowLDir0;
   CPlugBitmap* BitmapShadowLDir0_Texture1;
   CPlugBitmap* BitmapShadowStaticSprite;
+  CPlugBitmap* BitmapShadowStaticSprite_T1;
   CPlugBitmap* BitmapShadowMaskDepth;
   CPlugBitmap* BitmapShadowPssmDepth;
   CPlugBitmap* BitmapMotion;
