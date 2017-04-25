@@ -26,6 +26,8 @@ CodeBaseTrunkNonDev\Engines\Classic\include\StridedArray.h
 CodeBaseTrunkNonDev\Engines\Control\Include\ControlTextEdition.h
 codebasetrunknondev\engines\crystal\include\Crystal.h
 codebasetrunknondev\engines\crystal\include\CrystalEdge.h
+codebasetrunknondev\engines\crystal\include\CrystalFace.h
+codebasetrunknondev\engines\crystal\include\CrystalVertex.h
 CodeBaseTrunkNonDev\Engines\Geom\include\FastBufferKey.h
 CodeBaseTrunkNonDev\Engines\Geom\include\GmAABBTree.h
 CodeBaseTrunkNonDev\Engines\Geom\include\GmAABRTree.h
@@ -357,6 +359,7 @@ source\Crystal.cpp
 source\CrystalEdge.cpp
 source\CrystalFace.cpp
 source\CrystalLink.cpp
+source\CrystalVertex.cpp
 Source\CtnMediaBlockEventTrackMania.cpp
 Source\CtnMediaBlockUiTMSimpleEvtsDisplay.cpp
 source\Dx11IndexBuffer.cpp
@@ -1050,6 +1053,7 @@ source\GameScriptNotificationsConsumer.cpp
 source\GameScriptNotificationsConsumerNotification.cpp
 source\GameScriptNotificationsProducer.cpp
 source\GameScriptNotificationsProducerEvent.cpp
+source\GameScriptServerAdmin.cpp
 source\GameScriptTurret.cpp
 source\GameSkinnedNod.cpp
 source\GameSkinnedVisModelCache.cpp
@@ -1083,6 +1087,7 @@ source\GameUserProfilesManager.cpp
 source\GameUserScript.cpp
 source\GameVideoScriptManager.cpp
 source\GameVideoScriptVideo.cpp
+source\GameViewportConfig.cpp
 source\GameVoiceChatManager.cpp
 source\GameVskObjectInfo.cpp
 source\GameWaypointSpecialProperty.cpp
@@ -1155,8 +1160,6 @@ source\HmsCorpus.cpp
 source\HmsCorpus2d.cpp
 source\HmsCorpusLight.cpp
 source\HmsData_PlugSolid.cpp
-source\HmsDynaReplayItem.cpp
-source\HmsDynaZone.cpp
 source\HmsEngine.cpp
 source\HmsFogPlane.cpp
 source\HmsItem.cpp
@@ -1634,6 +1637,8 @@ source\SceneCharVisDefs.cpp
 source\SceneConfig.cpp
 source\SceneConfigVision.cpp
 source\SceneDecalsManager.cpp
+source\SceneDynaReplayItem.cpp
+source\SceneDynaZone.cpp
 source\SceneEngine.cpp
 source\SceneFx.cpp
 source\SceneFxBloom.cpp

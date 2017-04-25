@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 0.02 (v4, Public)
+// Generated with Openplanet 0.04 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -4142,6 +4142,7 @@ struct CGameCtnNetwork : public CGameNetwork {
   CGamePlaygroundClientScriptAPI* PlaygroundClientScriptAPI;
   void RequestChangeSpectator_ToSpec();
   void RequestChangeSpectator_ToPlayer();
+  CGameScriptServerAdmin* GameScriptServerAdminAPI;
 };
 
 // File extension: 'GameCtnApp.Gbx'
@@ -5545,6 +5546,8 @@ struct CGameCtnEditorCommonInterface : public CMwNod {
   CPlugBitmap* EditSnapCamera_BitmapSnap;
   void HideInterface();
   void ShowInterface();
+  void ButtonItemPrevSubMenu();
+  void ButtonItemNextSubMenu();
 };
 
 struct CGameControlCameraFollowAboveWater : public CGameControlCameraTarget {
@@ -6069,6 +6072,7 @@ struct CGamePlaygroundScript : public CMwNod {
   void Ladder_EnableChallengeMode(bool Enable);
   bool Admin_KickUser(CGamePlayerInfo* User, wstring Reason);
   void Admin_SetLobbyInfo(bool IsLobby, int LobbyPlayerCount, int LobbyMaxPlayerCount, float LobbyPlayersLevel);
+  const CGameScriptServerAdmin* ServerAdmin;
   void AutoTeamBalance();
   void Solo_SetNewRecord(CGamePlaygroundScore* PlayerScore, EMedal PlayerScore);
   const bool Solo_NewRecordSequenceInProgress;
@@ -6929,6 +6933,15 @@ struct CGameCtnMediaBlockCameraEffectScript : public CGameCtnMediaBlockCameraEff
   const float C;
   vec3 OffsetPos;
   vec3 OffsetRot;
+};
+
+struct CGameScriptServerAdmin : public CMwNod {
+  const CGameCtnNetServerInfo* ServerInfo;
+  void AutoTeamBalance();
+  bool KickUser(CGamePlayerInfo* User, wstring Reason);
+  void SetLobbyInfo(bool IsLobby, int LobbyPlayerCount, int LobbyMaxPlayerCount, float LobbyPlayersLevel);
+  void SendToServerAfterMatch(string ServerUrl);
+  void CustomizeQuitDialog(string ManialinkPage, string SendToServerUrl, bool ProposeAddToFavorites, uint ForceDelay);
 };
 
 struct CGamePlayerProfileChunk_EditorSettings : public CGamePlayerProfileChunk {
@@ -8532,8 +8545,8 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
     PixelArt = 6,
     EditorEditor = 7,
   };
-  void Dbg_JoinLocalServer_GetInfo();
-  void Dbg_JoinLocalServer_Join();
+  void Dbg_GetServerInfoObj();
+  void Dbg_Join_GetServerInfo_Result();
   const bool IsReady;
   const EResult LatestResult;
   const wstring CustomResultType;
@@ -10190,6 +10203,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const bool GridSnap_IsActive;
   vec3 PickInfo_GetNormal();
   vec3 PickInfo_GetPosition();
+  float PickInfo_GetEdgeLength();
   vec3 PickInfo_GetNextVertexPosition();
   UnknownType PickInfo_GetMaterial();
   wstring PickInfo_GetError();
@@ -10216,6 +10230,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Material_UVEditor_SetMode(EUVEditorMode Mode);
   EUVEditorMode Material_UVEditor_GetMode();
   void Material_UVEditor_SetProjectionType(EUVEditorProjectionType ProjectionType);
+  void Material_PasteMaterial(UnknownType SetHandle);
   const uint Material_Atlas_SelectedSubTexIndex;
   const EInteraction CurrentInteraction;
   const uint CreationElemsCount;
@@ -10225,7 +10240,6 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Interaction_Creation_GetElems(UnknownType ResultSetHandle);
   void Interaction_CloseCreation();
   void Interaction_StartPaste();
-  void Interaction_StartPasteMaterial();
   void Interaction_StartPick(EElemType ElemType);
   void Interaction_StartSelection(UnknownType SelectionSetHandle, EElemType ElemType, bool UseDoubleClickToSelectConnected, ESelectionDragMode DragMode, UnknownType SelectionSetToPickFrom);
   void Interaction_CloseSelection();
@@ -10308,6 +10322,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const int PrefabNamesUpdateId;
   void Prefab_Export();
   void Prefab_Import(uint PrefabIndex);
+  bool Selection_UseParts;
   void Parts_MergeSelectedParts();
   void Parts_Group();
   void Parts_UngroupSelectedParts();
@@ -10534,10 +10549,12 @@ struct CWebServicesTaskResult_RealLeaderBoardInfoListScript : public CWebService
 struct CGameMatchSettingsManagerScript : public CMwNod {
   void Debug_MatchSettings_New();
   void Debug_MatchSettings_Save();
+  void Debug_MatchSettings_SaveAs();
   void Debug_MatchSettings_EditScriptSettings();
   void MatchSettings_Refresh();
   CGameMatchSettingsScript* MatchSettings_Create(wstring Name);
   void MatchSettings_Save(CGameMatchSettingsScript* MatchSettings);
+  CGameMatchSettingsScript* MatchSettings_SaveAs(wstring Name, CGameMatchSettingsScript* MatchSettings);
   void MatchSettings_EditScriptSettings(CGameMatchSettingsScript* MatchSettings);
   const bool MatchSettings_EditScriptSettings_Ongoing;
   const NodArray MatchSettings;
@@ -10546,12 +10563,24 @@ struct CGameMatchSettingsManagerScript : public CMwNod {
 struct CGameMatchSettingsScript : public CMwNod {
   const wstring Name;
   wstring ScriptModeName;
+  const NodArray Playlist;
+  bool Playlist_FileExists(wstring File);
+  bool Playlist_FileMatchesMode(wstring File);
+  void Playlist_Add(wstring File);
+  void Playlist_Remove(uint Index);
+  void Playlist_SwapUp(uint Index);
+  void Playlist_SwapDown(uint Index);
 };
 
 struct CGameDataFileTask_PackDownloadOrUpdate : public CWebServicesTaskSequence {
 };
 
 struct CWebServicesTaskResult_Title : public CWebServicesTaskResult {
+};
+
+struct CGameMatchSettingsPlaylistItemScript : public CMwNod {
+  const wstring Name;
+  const bool FileExists;
 };
 
 } // namespace Game
@@ -11662,8 +11691,6 @@ struct CHmsDynaZone : public CMwNod {
   const uint AllocatedByteCount;
   const uint UsedByteCount;
   const uint cDynaItem;
-  vec3 Gravity;
-  float ReplacementEpsilon;
 };
 
 struct CHmsCollZone : public CMwNod {
@@ -15330,7 +15357,9 @@ struct CPlugFxWindOnTreeSprite : public CPlug {
 struct CPlugFlockModel : public CMwNod {
   CPlugFlockModel();
 
+  UnknownType FlockType;
   CMwNod* BirdModelFid;
+  CMwNod* AnimFile;
   CPlugSound* SoundLoop;
   CPlugSound* SoundEventTakeOff;
   UnknownType Volatility;
@@ -15786,9 +15815,7 @@ struct CPlugTrainWagonModel : public CMwNod {
   CPlugSound* RailContact;
   CPlugSound* Collision;
   bool IsLoco;
-  float LocoMaxSpeed;
-  float LocoBrakeDuration;
-  float LocoAccelDuration;
+  CFuncKeysReal* AccelCurve;
   float WagonLength;
   float WagonColOffset;
   bool GenLengthFromShape;
