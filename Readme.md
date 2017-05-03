@@ -10,4 +10,4 @@ Just run the release build of Openplanet, which will generate the file.
 
 Run this:
 
-	strings /d/Games/ManiaPlanet4Beta/ManiaPlanet4_04_07.exe | grep -ioe '\(source\|codebasetrunknondev\)\\.*\.\(cpp\|h\)' | sort | uniq -i > cpp_files.txt
+	strings /d/Games/ManiaPlanet4Beta/ManiaPlanet.exe | grep -ioe '\(source\|codebasetrunknondev\)\\.*\.\(cpp\|h\)' | sort | uniq -i > cpp_files.txt

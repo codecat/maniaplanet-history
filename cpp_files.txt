@@ -119,6 +119,7 @@ codebasetrunknondev\engines\netengine\include\NetNod.h
 CodeBaseTrunkNonDev\Engines\NetEngine\include\NetNod_Archiver.h
 CodeBaseTrunkNonDev\Engines\NetEngine\include\NetServer.h
 codebasetrunknondev\engines\netengine\include\NetSystem.h
+CodeBaseTrunkNonDev\Engines\NetEngine\include\WebServicesTaskResult_StringIntList.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugAnimCurve.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugBitmap.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugBitmapAtlas.h
@@ -467,6 +468,7 @@ source\GameCampaignsScoresManager.cpp
 source\GameCaptureZoneModel.cpp
 source\GameCardEventInfo.cpp
 source\GameCardEventListInfo.cpp
+source\GameClientTracking.cpp
 source\GameCommonItemEntityModel.cpp
 source\GameCommonItemEntityModelEdition.cpp
 source\GameControlAvatar.cpp
@@ -947,6 +949,7 @@ source\GameObjectVisModel.cpp
 source\GameOutlineBox.cpp
 source\GameOverlayFadeFrom.cpp
 source\GamePackCreator_PackScript.cpp
+source\GamePackCreator_TitleInfosScript.cpp
 source\GamePackCreatorScript.cpp
 source\GamePixelArtModel.cpp
 source\GamePlayer.cpp
@@ -1335,6 +1338,8 @@ source\NetMasterServerTask_GetWebIdentityFromManiaplanetLogin.cpp
 source\NetMasterServerTask_ImportAccount_IsFinished.cpp
 source\NetMasterServerTask_OpenSession.cpp
 source\NetMasterServerTask_Session_Get.cpp
+source\NetMasterServerTask_Session_JoinOrCreate.cpp
+source\NetMasterServerTask_Session_Leave.cpp
 source\NetMasterServerTask_SetFeatureTimeUse.cpp
 source\NetMasterServerTask_ShowProfile.cpp
 source\NetMasterServerUptoDateCheck.cpp
@@ -1348,6 +1353,9 @@ source\NetSource.cpp
 source\NetSystem.cpp
 source\NetTransferInfoQueue.cpp
 source\NetUbiServicesNews.cpp
+source\NetUplayPC.cpp
+source\NetUplayPCTask_OpenOverlay.cpp
+source\NetUplayPCTask_UserTrophiesUnlock.cpp
 source\NetURLSource.cpp
 source\NetUserPlatformBuddiesMgr.cpp
 source\NetXmpp.cpp
@@ -1423,6 +1431,7 @@ source\PlugDecalModel.cpp
 source\PlugDecoratorSolid.cpp
 source\PlugDecoratorTree.cpp
 source\PlugEngine.cpp
+source\PlugEntitySpawner.cpp
 source\PlugEntRecord.cpp
 source\PlugFile.cpp
 source\PlugFileAudioMotors.cpp
@@ -1683,6 +1692,7 @@ source\SceneMgrParticle.cpp
 source\SceneMgrParticle_Beam.cpp
 source\SceneMgrParticle_Shield.cpp
 source\SceneMgrParticle_VortexSim.cpp
+source\SceneMgrSpawn.cpp
 source\SceneMgrTrafficPhy.cpp
 source\SceneMgrTrafficPhyCollisions.cpp
 source\SceneMgrTrafficVis.cpp
@@ -1852,6 +1862,7 @@ source\SystemPackManager.cpp
 source\SystemSteam.cpp
 source\SystemStreamManager.cpp
 source\SystemTime.cpp
+source\SystemUplayPC.cpp
 source\SystemUserDataMgr.cpp
 source\SystemUserDrives.cpp
 source\SystemUserMgr.cpp

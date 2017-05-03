@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 0.04 (v4, Public)
+// Generated with Openplanet 0.05 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -1608,6 +1608,7 @@ struct CGameCtnBlockInfo : public CGameCtnCollector {
     Checkpoint = 2,
     None = 3,
     StartFinish = 4,
+    Dispenser = 5,
   };
   enum MultiDirEnum {
     SameDir = 0,
@@ -2244,6 +2245,7 @@ struct CGamePlayerInfo : public CGameNetPlayerInfo {
   const float LadderPoints;
   const wstring LadderZoneName;
   const wstring LadderZoneFlagUrl;
+  const float ReferenceScore;
   const bool IsFakeUser;
   const array<uint> Tags_Favored_Indices;
   const array<string> Tags_Id;
@@ -3160,6 +3162,7 @@ struct CGameCtnNetServerInfo : public CGameNetServerInfo {
   const bool IsLobbyServer;
   const bool IsPrivate;
   const bool IsPrivateForSpectator;
+  const string SendToServerAfterMatchUrl;
   wstring ServerName_Menu;
   wstring Comment_Menu;
   const string PlayerCountOverMax;
@@ -5438,6 +5441,8 @@ struct CGameCtnEditorCommon : public CGameCtnEditor {
   void ButtonBlockPropertyModeOnClick();
   void ButtonBlockStockOnClick();
   void ButtonCopyPasteOnClick();
+  void DeleteArticle_OnRemoveInstancesOnly();
+  void DeleteArticle_OnRemoveInstancesAndModel();
   void DeleteArticle_OnYes();
   void ButtonItemEditModeOnClick();
   void ButtonItemNewModeOnClick();
@@ -6572,12 +6577,13 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
   CGameTeleporterModel* Teleporter;
   CGameTurbineModel* Turbine;
   CPlugFlockModel* FlockModel;
+  NodArray EntitySpawners;
   float FlockEmitterRadius;
   float FlockEmitterPower;
   uint FlockEmitterSpawnCount;
   bool FlockEmitterIsRepulsor;
   bool FlockEmitterIsLandingArea;
-  vec3 FlockEmitterPos;
+  UnknownType FlockEmitterLoc;
   CGameSpawnModel* SpawnModel;
   CPlugProbe* Probe;
   bool HasManualSymmetryH;
@@ -8397,7 +8403,7 @@ struct CGameManiaApp : public CMwNod {
   void UILayerDestroyAll();
   void LayerCustomEvent(CGameUILayer* Layer, wstring Type, array<wstring>& Data);
   void OpenLink(string Url, ELinkType LinkType);
-  void OpenFileInExplorer(wstring FileName);
+  bool OpenFileInExplorer(wstring FileName);
   void Dialog_Message(wstring Message);
   const CXmlScriptManager* Xml;
   const CNetScriptHttpManager* Http;
@@ -8574,6 +8580,8 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
   void DiscoverLocalServers();
   void CreateServer1(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, array<wstring>& MapList, wstring Mode, string ScriptsSettingsXml);
   void CreateServer2(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, wstring MatchSettingsFileName);
+  void CreateServer3(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, bool LocalOnly, array<wstring>& MapList, wstring Mode, string ScriptsSettingsXml);
+  void CreateServer4(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, bool LocalOnly, wstring MatchSettingsFileName);
   void GetServerInfo(string ServerLogin);
   void GetServerInfoObj(CGameCtnNetServerInfo* LocalServer);
   void GetServerInfo_Abort();
@@ -8999,6 +9007,8 @@ struct CGameUserScript : public CMwNod {
 };
 
 struct CGameUserManagerScript : public CMwNod {
+  const NodArray TaskResults;
+  void TaskResult_Release(UnknownType TaskId);
   void RequestMainUserChange();
   const NodArray Users;
   const CInputScriptPad* MainUserPad;
@@ -9010,6 +9020,7 @@ struct CGameUserManagerScript : public CMwNod {
   void DevSetSkipIntro();
   const bool MainUser_CanUseVoiceChat;
   bool VoiceChat_MuteAll;
+  CWebServicesTaskResult_StringIntList* GetGroups(UnknownType UserId);
   void ShowProfile(UnknownType UserId, string ProfileLogin);
 };
 
@@ -9873,6 +9884,7 @@ struct CGamePackCreator_TitleInfoScript : public CMwNod {
   string TitleVersion;
   string AllowedClientTitleVersion;
   string BaseTitleIds;
+  wstring ForcedPlayerModel;
   wstring Packaging_ImageFileName;
   wstring Packaging_LogosFileName;
   wstring Packaging_Group;
@@ -10142,7 +10154,8 @@ struct CGameEditorMesh : public CGameEditorAsset {
     Split = 8,
     Paste = 9,
     PasteMaterial = 10,
-    None = 11,
+    BlocTransformation = 11,
+    None = 12,
   };
   enum ESelectionDragMode {
     Rect = 0,
@@ -10240,6 +10253,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Interaction_Creation_GetElems(UnknownType ResultSetHandle);
   void Interaction_CloseCreation();
   void Interaction_StartPaste();
+  void Interaction_StartBlocTransformation(UnknownType TransformationSetHandle);
   void Interaction_StartPick(EElemType ElemType);
   void Interaction_StartSelection(UnknownType SelectionSetHandle, EElemType ElemType, bool UseDoubleClickToSelectConnected, ESelectionDragMode DragMode, UnknownType SelectionSetToPickFrom);
   void Interaction_CloseSelection();
@@ -10252,6 +10266,8 @@ struct CGameEditorMesh : public CGameEditorAsset {
   float Display_HideElemsByDistance_Opacity;
   void Display_HideElemsByDistance_Start(UnknownType SetHandle);
   void Display_HideElemsByDistance_Stop();
+  void Display_HideMap();
+  void Display_ShowMap();
   void MergeAllSuperposedElements(UnknownType SetHandle);
   void Interaction_StartTranslation(UnknownType TranslationSetHandle);
   void Interaction_StartPickTranslation(UnknownType TranslationSetHandle);
@@ -10278,6 +10294,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   uint SetOfElements_GetFacesCount(UnknownType SetHandle);
   void ExtendSelectedSet(UnknownType SetHandle);
   void GetBordersVertexs(UnknownType SetHandle, UnknownType SetVertexHandle);
+  void SelectionSet_SelectAll();
   void Curve2DPolygon(UnknownType FourVertexSetHandle, UnknownType Sethandle, uint SubTexIndex);
   UnknownType AtlasSelection_Create();
   void AtlasSelection_GetAtlasSelectionHandleFromSet(UnknownType SetHandle);
@@ -10438,12 +10455,14 @@ struct CGameDataFileManagerScript : public CMwNod {
   void ReleaseTaskResult(UnknownType TaskId);
   const NodArray Campaigns;
   CGameCtnCampaign* Campaign_Get(string CampaignId);
+  void Map_RefreshFromDisk();
   CWebServicesTaskResult_MapListScript* Map_GetUserList(UnknownType UserId);
   CWebServicesTaskResult_MapListScript* Map_GetGameList(wstring Path, bool Flatten);
   CWebServicesTaskResult_MapListScript* Map_GetFilteredGameList(uint Scope, wstring Path, bool Flatten);
   const NodArray Ghosts;
   void Ghost_Release(UnknownType GhostId);
   CWebServicesTaskResult_GhostScript* Ghost_Download(wstring FileName, string Url);
+  void Replay_RefreshFromDisk();
   CWebServicesTaskResult_ReplayListScript* Replay_GetGameList(wstring Path, bool Flatten);
   CWebServicesTaskResult_ReplayListScript* Replay_GetFilteredGameList(uint Scope, wstring Path, bool Flatten);
   CWebServicesTaskResult_GhostListScript* Replay_Load(wstring Path);
@@ -12933,6 +12952,7 @@ struct CPlugModelShading : public CMwNod {
   CPlugMaterial* MaterialFid_Char_ShowEnergy;
   CPlugLight* LightFid_Char_FakeShadowProj;
   CPlugMaterial* MaterialFid_Vehicle_Teleport;
+  CMwNod* MaterialRemapFid;
   CPlugMaterial* MaterialVehicle_Skin;
   CPlugMaterial* MaterialVehicle_Details;
   CPlugMaterial* MaterialVehicle_Glass;
@@ -15358,6 +15378,7 @@ struct CPlugFlockModel : public CMwNod {
   CPlugFlockModel();
 
   UnknownType FlockType;
+  uint DefSpawnCount;
   CMwNod* BirdModelFid;
   CMwNod* AnimFile;
   CPlugSound* SoundLoop;
@@ -15848,6 +15869,15 @@ struct CPlugTrainWagonModelCustom : public CMwNod {
   float Speed;
   float Accel;
   float Mass;
+};
+
+// File extension: 'EntitySpawner.Gbx'
+struct CPlugEntitySpawner : public CMwNod {
+  CPlugEntitySpawner();
+
+  UnknownType EntityType;
+  CMwNod* Model;
+  UnknownType Loc;
 };
 
 } // namespace Plug
@@ -17362,6 +17392,10 @@ struct CVisionResourceFile : public CMwNod {
 
   CSystemFidsFolder* FolderShaderBench;
   float BlurDepthTestMaxDist;
+  CPlugShaderApply* ShaderZOnly;
+  CPlugShaderApply* ShaderZOnly_Alpha01;
+  CPlugShaderApply* ShaderFillConst;
+  CPlugShaderApply* ShaderFillConst_Alpha01;
   CPlugShaderApply* ShaderDeferredFog;
   CPlugShaderApply* Shader3DVolumetricFog;
   CPlugShaderApply* ShaderParticleVoxelization;
@@ -17412,10 +17446,6 @@ struct CVisionResourceFile : public CMwNod {
   CPlugShaderApply* ShaderBlitCubeMapFromNormal;
   CPlugFont* FontDebugText;
   CPlugShaderApply* FillVtxColor_sRGB;
-  CPlugShaderApply* ShaderZOnly;
-  CPlugShaderApply* ShaderZOnly_Alpha01;
-  CPlugShaderApply* ShaderFillConst;
-  CPlugShaderApply* ShaderFillConst_Alpha01;
   CPlugShaderApply* LensFlareOccQuery;
   CPlugShaderApply* SignedDistanceField_DebugRender;
   CPlugShaderApply* VortexSimu_DebugRender;
@@ -18453,6 +18483,12 @@ struct CNetFormNewPing : public CNetNod {
 };
 
 struct CNetMasterServerUserInfo : public CMwNod {
+  enum EFirstPartySignInState {
+    Unknown = 0,
+    NotSignedUp = 1,
+    SignedOut = 2,
+    SignedIn = 3,
+  };
   enum EMasterServerConnectionStatus {
     NotConnected = 0,
     Connecting = 1,
@@ -18567,6 +18603,9 @@ struct CWebServicesTaskScheduler : public CMwNod {
 struct CNetMasterServerEmptyTask : public CWebServicesTaskVoid {
 };
 
+struct CNetUplayPC : public CMwNod {
+};
+
 struct CNetMasterServerTask_GetManiaplanetLoginFromWebIdentity : public CNetMasterServerRequestTask {
 };
 
@@ -18593,7 +18632,13 @@ struct CWebServicesTaskResult_String : public CWebServicesTaskResult {
 struct CNetMasterServerTask_GetClientConfigUrls : public CNetMasterServerRequestTask {
 };
 
+struct CNetUplayPCTask_OpenOverlay : public CWebServicesTaskSequence {
+};
+
 struct CNetMasterServerTask_CheckNetworkAvailability : public CWebServicesTaskSequence {
+};
+
+struct CNetUplayPCUserInfo : public CMwNod {
 };
 
 struct CNetMasterServerTask_GetApplicationConfig : public CNetMasterServerRequestTask {
@@ -18684,6 +18729,9 @@ struct CWebServicesTaskResult_StringInt : public CWebServicesTaskResult {
 struct CNetMasterServerTask_GetManiaplanetLoginAndWebIdentities : public CNetMasterServerRequestTask {
 };
 
+struct CNetUplayPCTask_UserTrophiesUnlock : public CWebServicesTaskSequence {
+};
+
 struct CWebServicesTaskVoid : public CWebServicesTask {
 };
 
@@ -18694,6 +18742,10 @@ struct CNetMasterServerTask_ImportAccount_IsFinished : public CNetMasterServerRe
 };
 
 struct CWebServicesTaskResult_OpenSession : public CWebServicesTaskResult {
+};
+
+struct CWebServicesTaskResult_StringIntList : public CWebServicesTaskResult {
+  const array<wstring> Values;
 };
 
 } // namespace Net
@@ -21044,6 +21096,7 @@ struct CGameItemModel : public CGameCtnCollector {
     Checkpoint = 2,
     None = 3,
     StartFinish = 4,
+    Dispenser = 5,
   };
   enum EnumDefaultCam {
     None = 0,
