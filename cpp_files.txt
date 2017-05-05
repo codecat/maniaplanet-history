@@ -954,6 +954,7 @@ source\GamePackCreatorScript.cpp
 source\GamePixelArtModel.cpp
 source\GamePlayer.cpp
 source\GamePlayerInfo.cpp
+source\GamePlayerMapRecordScript.cpp
 source\GamePlayerProfile.cpp
 source\GamePlayerProfileChunk.cpp
 source\GamePlayerProfileChunk_AccountSettings.cpp
@@ -1030,6 +1031,7 @@ source\GameScoreTask_BuddiesChallengeRecordsComparison.cpp
 source\GameScoreTask_BuddiesChallengeRecordsForMap.cpp
 source\GameScoreTask_BuddyChallengeRecordsComparison.cpp
 source\GameScoreTask_GetCampaignMapRecordGhost.cpp
+source\GameScoreTask_GetCampaignOpponentRecords.cpp
 source\GameScoreTask_GetNaturalLeaderBoardPlayerList.cpp
 source\GameScoreTask_GetRealLeaderBoardPlayerList.cpp
 source\GameScoreTask_LoadPlayerScores.cpp
@@ -2001,6 +2003,7 @@ source\WebServicesTaskResult_GhostListScript.cpp
 source\WebServicesTaskResult_GhostScript.cpp
 source\WebServicesTaskResult_LaunchUplayScriptResult.cpp
 source\WebServicesTaskResult_MapBestRecords.cpp
+source\WebServicesTaskResult_MapRecordListScript.cpp
 source\WebServicesTaskResult_NaturalLeaderBoardInfoList.cpp
 source\WebServicesTaskResult_NaturalLeaderBoardInfoListScript.cpp
 source\WebServicesTaskResult_NaturalLeaderBoardSummaries.cpp

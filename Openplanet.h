@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 0.05 (v4, Public)
+// Generated with Openplanet 0.06 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -690,6 +690,18 @@ struct CGameManiaPlanet : public CGameCtnApp {
 };
 
 struct CGameStation : public CGameNod {
+  enum EEchelon {
+    None = 0,
+    Bronze1 = 1,
+    Bronze2 = 2,
+    Bronze3 = 3,
+    Silver1 = 4,
+    Silver2 = 5,
+    Silver3 = 6,
+    Gold1 = 7,
+    Gold2 = 8,
+    Gold3 = 9,
+  };
   const CGameManiaTitle* Title;
   const uint AudienceRegisteredUsers;
   const uint AudienceInstalls;
@@ -699,6 +711,8 @@ struct CGameStation : public CGameNod {
   const uint CampaignMedalsRanking;
   const float LadderPoints;
   const uint LadderRank;
+  const EEchelon Echelon;
+  const uint NextEchelonPercent;
   bool DisableQuickEnter;
   bool IsLogoVisible;
   float GhostAlpha;
@@ -2908,8 +2922,8 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   UnknownType StereoSepMax;
   UnknownType StereoSepUpToMax;
   UnknownType StereoScreenDist;
-  UnknownType DofFocusZ;
-  UnknownType DofLensSize;
+  float DofFocusZ;
+  float DofLensSize;
   const wstring DofTargetName;
   void ButDofTargetPrev();
   void ButDofTargetNext();
@@ -9459,6 +9473,7 @@ struct CGameScoreAndLeaderBoardManagerScript : public CMwNod {
   uint Campaign_GetMultiAsyncLevel(UnknownType UserId, string CampaignId);
   uint Campaign_GetMultiAsyncLevelCount(UnknownType UserId, string CampaignId, uint MultiAsyncLevel);
   uint Campaign_GetSkillPoints(UnknownType UserId, string CampaignId);
+  CWebServicesTaskResult_MapRecordListScript* Campaign_GetOpponentRecords(UnknownType UserId, string CampaignId, string OpponentLogin);
   CWebServicesTaskResult_BuddiesChallengeRecord* Campaign_GetBuddiesMapRecord(UnknownType UserId, string CampaignId, string MapUid);
   bool Campaign_IsBuddiesMapRecordDirty(UnknownType UserId, string CampaignId, string MapUid);
   CWebServicesTaskResult_BuddiesChallengeRecordsComparison* Campaign_GetBuddiesMapRecordsComparison(UnknownType UserId, string CampaignId);
@@ -10151,11 +10166,12 @@ struct CGameEditorMesh : public CGameEditorAsset {
     Rotation = 5,
     PickRotation = 6,
     Scale = 7,
-    Split = 8,
-    Paste = 9,
-    PasteMaterial = 10,
-    BlocTransformation = 11,
-    None = 12,
+    Merge = 8,
+    Split = 9,
+    Paste = 10,
+    PasteMaterial = 11,
+    BlocTransformation = 12,
+    None = 13,
   };
   enum ESelectionDragMode {
     Rect = 0,
@@ -10204,6 +10220,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const float Scale;
   const float Step;
   const float Size;
+  const int RotationStep;
   bool DisplayVertices;
   bool DisplayFaces;
   EEdgesDisplay DisplayEdges;
@@ -10220,8 +10237,6 @@ struct CGameEditorMesh : public CGameEditorAsset {
   vec3 PickInfo_GetNextVertexPosition();
   UnknownType PickInfo_GetMaterial();
   wstring PickInfo_GetError();
-  void Materials_Undo();
-  void Materials_Redo();
   const NodArray AllBitmaps;
   const UnknownType MaterialIds;
   UnknownType Material_GetMaterialIdSelected();
@@ -10243,6 +10258,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Material_UVEditor_SetMode(EUVEditorMode Mode);
   EUVEditorMode Material_UVEditor_GetMode();
   void Material_UVEditor_SetProjectionType(EUVEditorProjectionType ProjectionType);
+  void Material_UVEditor_Apply();
   void Material_PasteMaterial(UnknownType SetHandle);
   const uint Material_Atlas_SelectedSubTexIndex;
   const EInteraction CurrentInteraction;
@@ -10255,6 +10271,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Interaction_StartPaste();
   void Interaction_StartBlocTransformation(UnknownType TransformationSetHandle);
   void Interaction_StartPick(EElemType ElemType);
+  void Interaction_StartMerge(UnknownType MergeSetHandle);
   void Interaction_StartSelection(UnknownType SelectionSetHandle, EElemType ElemType, bool UseDoubleClickToSelectConnected, ESelectionDragMode DragMode, UnknownType SelectionSetToPickFrom);
   void Interaction_CloseSelection();
   void Display_HighlightSet(UnknownType SetHandle);
@@ -10273,6 +10290,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Interaction_StartPickTranslation(UnknownType TranslationSetHandle);
   void Interaction_StartRotation(UnknownType RotationSetHandle);
   void Interaction_StartPickRotation(UnknownType RotationSetHandle);
+  void Interaction_Rotation_SetStep(int RotationStep);
   void Interaction_StartPickScale(UnknownType ScalingSetHandle, bool IsScaling1D);
   void Interaction_StartSplit();
   const UnknownType SelectionSet;
@@ -10600,6 +10618,27 @@ struct CWebServicesTaskResult_Title : public CWebServicesTaskResult {
 struct CGameMatchSettingsPlaylistItemScript : public CMwNod {
   const wstring Name;
   const bool FileExists;
+};
+
+struct CGameScoreTask_GetCampaignOpponentRecords : public CWebServicesTaskSequence {
+};
+
+struct CWebServicesTaskResult_MapRecordListScript : public CWebServicesTaskResult_PlayerMapRecords {
+  const NodArray MapRecordList;
+};
+
+struct CGamePlayerMapRecordScript : public CMwNod {
+  const string Context;
+  const string MapUid;
+  const wstring MapName;
+  const uint Score;
+  const uint Time;
+  const uint RespawnCount;
+  const uint Timestamp;
+  const uint MultiAsyncLevel;
+  const uint SkillPoints;
+  const wstring FileName;
+  const string ReplayUrl;
 };
 
 } // namespace Game
@@ -20342,6 +20381,7 @@ struct CSmPlayer : public CGamePlayer {
   float ForceLinearHue;
   UnknownType ForceModelId;
   bool HasShield;
+  const bool IsInVehicle;
   UnknownType ThrowSpeed;
   const int CurrentClan;
   const uint IdleDuration;
