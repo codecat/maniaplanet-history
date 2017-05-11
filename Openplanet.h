@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 0.06 (v4, Public)
+// Generated with Openplanet 0.07 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -4856,14 +4856,6 @@ struct CGameCtnArticleNode : public CMwNod {
 struct CGameSwitcher : public CMwNod {
   int FocusDialogCount;
   const NodArray ModuleStack;
-};
-
-struct CGameCtnSpawnPointInfo_deprecated : public CMwNod {
-  CGameCtnSpawnPointInfo_deprecated();
-
-  UnknownType Location;
-  UnknownType AllowedId;
-  uint BlockUnitIndex;
 };
 
 struct CGameManialinkOldTable : public CGameManialinkControl {
@@ -16862,8 +16854,6 @@ struct CSceneToyBoat : public CSceneToy {
   float ReplacementStepLength;
   float ContactRotationImpulseCoef;
   float ContactRelSpeedMultCoef;
-  bool DbgEngine;
-  float DbgEngineSpeedKnot;
   float GamePlayCoef_BSLevel;
   float GamePlayCoef_BSCatchBack;
   float GamePlayCoef_BSSpi;
@@ -18759,10 +18749,6 @@ struct CNetUbiServicesNews : public CMwNod {
 };
 
 struct CNetMasterServerTask_GamerPic_GetUrl : public CWebServicesTaskSequence {
-};
-
-struct CWebServicesTaskResult_StringInt : public CWebServicesTaskResult {
-  const wstring Value;
 };
 
 struct CNetMasterServerTask_GetManiaplanetLoginAndWebIdentities : public CNetMasterServerRequestTask {
