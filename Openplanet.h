@@ -10196,6 +10196,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
     Cubic = 3,
     Polyedric = 4,
     Cylindrical = 5,
+    ApplyOnlyMaterial = 6,
   };
   void UVEditor_UVMode();
   void UVEditor_AtlasMode();
@@ -10257,9 +10258,13 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const uint CreationElemsCount;
   void Interaction_Abort();
   void Interaction_SetPreview(UnknownType SetToPreview);
-  void Interaction_StartCreation(EEdgesConstraint EdgesConstraint, bool UseGrid, UnknownType CreationSetHandle, EElemType ElemType, bool RightClickClose, UnknownType SetToPickFromHandle);
+  void Interaction_StartCreation(UnknownType CreationSetHandle, EElemType ElemType, UnknownType SetToPickFromHandle);
   void Interaction_Creation_GetElems(UnknownType ResultSetHandle);
   void Interaction_CloseCreation();
+  void Interaction_Creation_ClearParams();
+  void Interaction_Creation_SetEdgesConstraint(EEdgesConstraint EdgesConstraint);
+  void Interaction_Creation_SetUseGrid(bool UseGrid);
+  void Interaction_Creation_SetAutoMerge(bool AutoMerge);
   void Interaction_StartPaste();
   void Interaction_StartBlocTransformation(UnknownType TransformationSetHandle);
   void Interaction_StartPick(EElemType ElemType);
@@ -21421,6 +21426,7 @@ struct CGameModulePlaygroundScoresTableModel : public CGameModulePlaygroundModel
   UnknownType TmStadiumBackground;
   UnknownType TmCanyonBackground;
   UnknownType TmValleyBackground;
+  UnknownType TmLagoonBackground;
   UnknownType SmHeaderTeam1Bg;
   UnknownType SmHeaderTeam2Bg;
   UnknownType TmHeaderTeam1Bg;
