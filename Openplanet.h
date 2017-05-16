@@ -5495,6 +5495,7 @@ struct CGameCtnEditorCommon : public CGameCtnEditor {
   void OnPluginOperationCancelled_OnNo();
   void SaveChallengeFromScript_OnSave();
   void ComputeShadowsFromScript_OnOk();
+  void SetObjectivesFromScript_OnOk();
   void HideInterfaceFromScript_OnOk();
   void HideInterfaceFromScript_OnCancel();
   void SwitchToMTFromScript_OnOk();
@@ -6776,6 +6777,7 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   void ComputeShadows1(ShadowsQuality ShadowsQuality);
   const ShadowsQuality CurrentShadowsQuality;
   const bool IsUltraShadowsQualityAvailable;
+  void DisplayDefaultSetObjectivesDialog();
   void Undo();
   void Redo();
   void Help();
@@ -8752,6 +8754,7 @@ struct CTmRaceResultNod : public CMwNod {
   };
   int Time;
   int Score;
+  int StuntsScore;
   int NbRespawns;
   array<int> Checkpoints;
   int Compare(CTmRaceResultNod* Other, ETmRaceResultCriteria Criteria);
@@ -9552,17 +9555,6 @@ struct CGameAchievementScriptAchievementDesc : public CMwNod {
   const wstring IconUrl;
 };
 
-struct CGameEditorVehicle : public CGameEditorAsset {
-  void Quit();
-  void Save();
-  UnknownType GridColorAlpha;
-  int PluginOffsetX;
-  int PluginOffsetY;
-  int PluginOffsetZ;
-  const CScene2d* InterfaceScene;
-  bool EmbedCustomItems;
-};
-
 struct CGameEditorParent : public CGameEditorBase {
   bool DummyBool;
 };
@@ -10328,11 +10320,14 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void VoxelSpace_Destroy();
   bool VoxelSpace_Get(int3 Pos);
   void VoxelSpace_Set(int3 Pos);
+  void VoxelSpace_SetVec3(vec3 Pos);
   void VoxelSpace_SetColor(int3 Pos, vec3 Color);
   void VoxelSpace_Unset(int3 Pos);
   void VoxelSpace_GenerateMesh();
   void SetOfElements_ProjectOnPlane(UnknownType SetHandle);
   void SetOfElements_SplitEdgeWithVertex(UnknownType SetHandle);
+  void SetOfElements_Subdivide(UnknownType SetHandle);
+  void SetOfElements_Subdivide_Interpolation(UnknownType SetHandle);
   void SetOfVertices_DrawCircle(UnknownType InputSetHandle, UnknownType ResultSetHandle);
   void SetOfVertices_DrawDisc(UnknownType InputSetHandle, UnknownType ResultSetHandle);
   void SetOfVertices_DrawCircle2(UnknownType CenterSetHandle, vec3 PointOnCircle, UnknownType ResultSetHandle);
@@ -21278,11 +21273,11 @@ struct CGameActionModel : public CMwNod {
   NodArray Beams;
   UnknownType CrossHair;
   CPlugShieldModel* ShieldModel;
-  const bool IsCustom;
   CPlugScriptWithSettings* Script;
   NodArray BulletModels;
   const uint ParticleBlockCount;
   void LogParticleBlockModelIds();
+  const bool IsCustom;
 };
 
 struct CGameWaypointSpecialProperty : public CMwNod {
@@ -21592,7 +21587,7 @@ struct CGameCommonItemEntityModelEdition : public CMwNod {
   CPlugCrystal* CustomHitShapeCrystal;
   bool UseMeshAsTriggerShape;
   CPlugCrystal* CustomTriggerShapeCrystal;
-  CPlugCrystal* PickupActionModel;
+  CGameActionModel* PickupActionModel;
   const NodArray TriggeredActions;
   NodArray Triggers;
   wstring InventoryName;
