@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 0.07 (v4, Public)
+// Generated with Openplanet 0.08 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -5814,7 +5814,6 @@ struct CGameCtnMediaBlockDOF : public CGameCtnMediaBlock {
 
   float FocusZ;
   float LensSize;
-  uint GhostId;
 };
 
 // File extension: 'GameCtnMediaBlockToneMapping.gbx'
@@ -8561,6 +8560,9 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
   };
   void Dbg_GetServerInfoObj();
   void Dbg_Join_GetServerInfo_Result();
+  void Dbg_PlayMatchSettingsObject();
+  void Dbg_PlaySplitScreenObj();
+  void Dbg_PlayMultiOnSameScreenObj();
   const bool IsReady;
   const EResult LatestResult;
   const wstring CustomResultType;
@@ -8569,8 +8571,12 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
   void PlayCampaign(CGameCtnCampaign* Campaign, CGameCtnChallengeInfo* MapInfo, wstring Mode, string SettingsXml);
   void PlayMapList(array<wstring>& MapList, wstring Mode, string SettingsXml);
   void PlayPlaylist(wstring Playlist, wstring OverrideMode, string OverrideSettingsXml);
+  void PlayMatchSettingsFile(wstring MatchSettingsFilePath, wstring OverrideMode, string OverrideSettingsXml);
+  void PlayMatchSettingsObject(CGameMatchSettingsScript* MatchSettings, wstring OverrideMode, string OverrideSettingsXml);
   void PlaySplitScreen(ESplitScreenLayout LayoutType, array<wstring>& MapList, wstring Mode, string SettingsXml);
   void PlayMultiOnSameScreen(ESplitScreenLayout LayoutType, array<wstring>& MapList, wstring Mode, string SettingsXml);
+  void PlaySplitScreenObj(ESplitScreenLayout LayoutType, CGameMatchSettingsScript* MatchSettings);
+  void PlayMultiOnSameScreenObj(ESplitScreenLayout LayoutType, CGameMatchSettingsScript* MatchSettings);
   void ViewReplay(wstring Replay);
   void OpenEditor(wstring EditorName, string MainPluginSettings);
   void OpenEditor2(EEditorType EditorType);
@@ -8583,13 +8589,17 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
   void EditNewMap2(string Environment, string Decoration, wstring ModNameOrUrl, wstring PlayerModel, wstring MapType, bool UseSimpleEditor, wstring EditorPluginScript, string EditorPluginArgument);
   void EditBadges();
   void EditBadgesOld(UnknownType UserId DEPRECATED);
+  const bool CanPublishFiles;
+  void PublishFile(wstring FileName);
   const NodArray LocalServers;
   const NodArray LocalServers_CurrentTitle;
   void DiscoverLocalServers();
   void CreateServer1(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, array<wstring>& MapList, wstring Mode, string ScriptsSettingsXml);
   void CreateServer2(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, wstring MatchSettingsFileName);
+  void CreateServer2Obj(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, CGameMatchSettingsScript* MatchSettings, string PasswordSpectators);
   void CreateServer3(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, bool LocalOnly, array<wstring>& MapList, wstring Mode, string ScriptsSettingsXml);
   void CreateServer4(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, bool LocalOnly, wstring MatchSettingsFileName);
+  void CreateServer4Obj(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, CGameMatchSettingsScript* MatchSettings, bool LocalOnly);
   void GetServerInfo(string ServerLogin);
   void GetServerInfoObj(CGameCtnNetServerInfo* LocalServer);
   void GetServerInfo_Abort();
@@ -9976,20 +9986,21 @@ struct CGameEditorEditor : public CGameCtnEditor {
   const CControlFrame* UIRoot;
   const CMwNod* EditedNod;
   const CGameEditorModel* EditedEditor;
-  void TestMeshEditorBindings();
   void FlushBindings();
   void Bindings_AddContext(wstring ContextName);
-  void Bindings_AddBinding(wstring ContextName, wstring BindingName);
+  void Bindings_AddBinding(wstring ContextName, wstring BindingScriptId, wstring BindingDisplayName);
   void Bindings_RemoveContext(wstring ContextName);
   void Bindings_RemoveBinding(wstring BindingName);
   void Bindings_RequestInput(wstring BindingName);
   const bool Bindings_RequestInput_Done;
-  void Bindings_SetBindingName(wstring BindingName, wstring NewBindingName);
+  void Bindings_SetBindingScriptId(wstring BindingScriptId, wstring NewBindingScriptId);
+  void Bindings_SetBindingDisplayName(wstring BindingScriptId, wstring BindingDisplayName);
   void Bindings_SetContextName(wstring ContextName, wstring NewContextName);
   const array<wstring> BindingContexts;
   void Bindings_GetContextBindings(wstring ContextName);
   const array<wstring> RequestedContextBindings;
   wstring Bindings_GetBindingActionName(wstring BindingName);
+  wstring Bindings_GetBindingDisplayName(wstring BindingName);
   const NodArray PendingEvents;
 };
 
@@ -10150,12 +10161,14 @@ struct CGameEditorMesh : public CGameEditorAsset {
     Rotation = 5,
     PickRotation = 6,
     Scale = 7,
-    Merge = 8,
-    Split = 9,
-    Paste = 10,
-    PasteMaterial = 11,
-    BlocTransformation = 12,
-    None = 13,
+    Curve2D = 8,
+    Merge = 9,
+    Split = 10,
+    Mirror = 11,
+    Paste = 12,
+    PasteMaterial = 13,
+    BlocTransformation = 14,
+    None = 15,
   };
   enum ESelectionDragMode {
     Rect = 0,
@@ -10210,6 +10223,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   bool DisplayFaces;
   EEdgesDisplay DisplayEdges;
   void EditedMesh_Clear();
+  void EditedMesh_Simplify();
   void UVUnwrap(UnknownType SetHandle, ETexCoordLayer ETexCoordLayer);
   void Undo();
   void Redo();
@@ -10247,9 +10261,9 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Material_PasteMaterial(UnknownType SetHandle);
   const uint Material_Atlas_SelectedSubTexIndex;
   const EInteraction CurrentInteraction;
-  const uint CreationElemsCount;
   void Interaction_Abort();
   void Interaction_SetPreview(UnknownType SetToPreview);
+  const uint CreationElemsCount;
   void Interaction_StartCreation(UnknownType CreationSetHandle, EElemType ElemType, UnknownType SetToPickFromHandle);
   void Interaction_Creation_GetElems(UnknownType ResultSetHandle);
   void Interaction_CloseCreation();
@@ -10259,10 +10273,20 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Interaction_Creation_SetAutoMerge(bool AutoMerge);
   void Interaction_StartPaste();
   void Interaction_StartBlocTransformation(UnknownType TransformationSetHandle);
+  void Interaction_StartCurve2D(UnknownType BordersSetHandle);
+  void Interaction_CloseCurve2D(bool CanDoCurve2D);
   void Interaction_StartPick(EElemType ElemType);
   void Interaction_StartMerge(UnknownType MergeSetHandle);
+  void Interaction_StartMirror(UnknownType SetHandle);
   void Interaction_StartSelection(UnknownType SelectionSetHandle, EElemType ElemType, bool UseDoubleClickToSelectConnected, ESelectionDragMode DragMode, UnknownType SelectionSetToPickFrom);
   void Interaction_CloseSelection();
+  void Interaction_StartTranslation(UnknownType TranslationSetHandle);
+  void Interaction_StartPickTranslation(UnknownType TranslationSetHandle);
+  void Interaction_StartRotation(UnknownType RotationSetHandle);
+  void Interaction_StartPickRotation(UnknownType RotationSetHandle);
+  void Interaction_Rotation_SetStep(int RotationStep);
+  void Interaction_StartPickScale(UnknownType ScalingSetHandle, bool IsScaling1D);
+  void Interaction_StartSplit();
   void Display_HighlightSet(UnknownType SetHandle);
   void Display_ClearHighlighting();
   void Display_AtlasSelectionsSet(bool DisplayAtlasSelection);
@@ -10275,13 +10299,6 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Display_HideMap();
   void Display_ShowMap();
   void MergeAllSuperposedElements(UnknownType SetHandle);
-  void Interaction_StartTranslation(UnknownType TranslationSetHandle);
-  void Interaction_StartPickTranslation(UnknownType TranslationSetHandle);
-  void Interaction_StartRotation(UnknownType RotationSetHandle);
-  void Interaction_StartPickRotation(UnknownType RotationSetHandle);
-  void Interaction_Rotation_SetStep(int RotationStep);
-  void Interaction_StartPickScale(UnknownType ScalingSetHandle, bool IsScaling1D);
-  void Interaction_StartSplit();
   const UnknownType SelectionSet;
   void Selection_Undo();
   void Selection_Redo();
@@ -10300,6 +10317,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   uint SetOfElements_GetEdgesCount(UnknownType SetHandle);
   uint SetOfElements_GetFacesCount(UnknownType SetHandle);
   void ExtendSelectedSet(UnknownType SetHandle);
+  void GetBordersSet(UnknownType SetHandle, UnknownType SetBordersHandle);
   void GetBordersVertexs(UnknownType SetHandle, UnknownType SetVertexHandle);
   void SelectionSet_SelectAll();
   void Curve2DPolygon(UnknownType FourVertexSetHandle, UnknownType Sethandle, uint SubTexIndex);
@@ -10326,22 +10344,28 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void VoxelSpace_GenerateMesh();
   void SetOfElements_ProjectOnPlane(UnknownType SetHandle);
   void SetOfElements_SplitEdgeWithVertex(UnknownType SetHandle);
+  void SetOfElements_CollapseEdgeWithVertex(UnknownType SetHandle);
   void SetOfElements_Subdivide(UnknownType SetHandle);
   void SetOfElements_Subdivide_Interpolation(UnknownType SetHandle);
   void SetOfVertices_DrawCircle(UnknownType InputSetHandle, UnknownType ResultSetHandle);
   void SetOfVertices_DrawDisc(UnknownType InputSetHandle, UnknownType ResultSetHandle);
   void SetOfVertices_DrawCircle2(UnknownType CenterSetHandle, vec3 PointOnCircle, UnknownType ResultSetHandle);
+  void SetOfVertices_DrawIcosahedron(UnknownType InputSetHandle, UnknownType ResultSetHandle);
+  void SetOfVertices_DrawIcosahedron2(UnknownType CenterSetHandle, vec3 PointOnCircle, UnknownType ResultSetHandle);
+  void SetOfVertices_DrawIcosahedricSphere(UnknownType InputSetHandle, UnknownType ResultSetHandle);
   void SetOfVertices_DrawPoly(UnknownType InputSetHandle, UnknownType ResultSetHandle, int VerticesCount);
   void SetOfVertices_DrawPoly2(UnknownType CenterSetHandle, vec3 PointOnPoly, UnknownType ResultSetHandle, int VerticesCount);
   void SetOfVertices_DrawSpline(UnknownType ControlSetHandle, UnknownType ResultSetHandle);
   void SetOfVertices_Weld(UnknownType VerticesSetHandle);
   void SetOfVertices_DrawBox(UnknownType ControlSetHandle, UnknownType ResultSetHandle);
   void SetOfEdges_Fill(UnknownType SetHandle);
+  void SetOfEdges_Flip(UnknownType SetHandle, UnknownType ResultSetHandle);
   void SetOfEdges_BorderExpand(UnknownType SetHandle);
   void SetOfOneEdge_FaceLoopExpand(UnknownType SetHandle);
   void SetOfOneEdge_EdgeLoopExpand(UnknownType SetHandle);
   void SetOfOneFace_CutHole(UnknownType FaceSetHandle, UnknownType EdgesSetHandle);
   void SetOfFaces_Extrude(UnknownType SetHandle, UnknownType ResultSetHandle);
+  void SetOfFaces_QuadsToTriangles(UnknownType SetHandle, UnknownType ResultSetHandle);
   void SetOfFaces_ApplyMaterial(UnknownType SetHandle, UnknownType MaterialId);
   void SetOfFaces_PlanarExpand(UnknownType FacesSetHandle);
   void SetOfFaces_ChangeOrientation(UnknownType FacesSetHandle);
@@ -10357,6 +10381,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Copy();
   void SetBaseUndoState();
   void AddUndoState();
+  void AutoSave(wstring FileName);
   const NodArray PendingEvents;
 };
 
@@ -10479,6 +10504,7 @@ struct CGameDataFileManagerScript : public CMwNod {
   CWebServicesTaskResult* Replay_Save(wstring Path, CGameCtnChallenge* Map, CGameGhostScript* Ghost);
   CWebServicesTaskResult_FileListScript* Media_GetGameList(EMediaType Type, wstring Path, bool Flatten);
   CWebServicesTaskResult_FileListScript* Media_GetFilteredGameList(EMediaType Type, uint Scope, wstring Path, bool Flatten);
+  CWebServicesTaskResult_GameModeListScript* GameMode_GetGameList(uint Scope, wstring Path, bool Flatten);
   CWebServicesTaskResult* Pack_DownloadOrUpdate(wstring DisplayName, string Url);
 };
 
@@ -10631,6 +10657,21 @@ struct CGamePlayerMapRecordScript : public CMwNod {
   const uint SkillPoints;
   const wstring FileName;
   const string ReplayUrl;
+};
+
+struct CGameDataFileTask_GameModeGetGameList : public CWebServicesTaskSequence {
+};
+
+struct CWebServicesTaskResult_GameModeListScript : public CWebServicesTaskResult {
+  const NodArray GameModes;
+};
+
+struct CGameGameModeInfoScript : public CMwNod {
+  const wstring Name;
+  const wstring Path;
+  const wstring Description;
+  const wstring Version;
+  const array<wstring> CompatibleMapTypes;
 };
 
 } // namespace Game
@@ -11549,7 +11590,6 @@ struct CHmsViewport : public CMwNod {
   void ScreenShotDoCaptureJpg();
   void ScreenShotDoCaptureDDS();
   void ShaderConstantLogBindedValues();
-  void LogHlslFromFixedVertex();
   NodArray Underlays;
   NodArray Cameras;
   NodArray Overlays;
@@ -13719,7 +13759,6 @@ struct CPlugTreeGenText : public CPlugTreeGenerator {
 struct CPlugFileGPU : public CPlugFile {
   CPlugFileGPU();
 
-  const string GeneratedFromFixedStage_FileName;
   const UnknownType GpuStage;
   const uint GpuVersionMajor;
   const uint GpuVersionMajorReq;
@@ -13761,17 +13800,12 @@ struct CPlugBitmapPackElem : public CPlug {
 struct CPlugBitmapAddress : public CPlugBitmapSampler {
   CPlugBitmapAddress();
 
-  bool ForcePassFill;
   bool UseBitmapTcScale;
   bool DirectTransfo;
   _EEGxUVGenerate GenerateUV;
   bool UVTransfoIso3;
   bool UVTransfoMat4;
-  bool AreUVProjected;
-  bool UseBumpEnvScale;
-  float BumpEnvScale;
   uint TexCoordIndex;
-  bool SkipAuto_m11_01;
   UnknownType TransfoIso3;
   vec4 TransfoMat4U;
   vec4 TransfoMat4V;
@@ -17156,6 +17190,7 @@ struct CSystemConfig : public CMwNod {
   bool NetworkUseProxy;
   string NetworkProxyLogin;
   string NetworkProxyPassword;
+  string NetworkProxyServerAndPort;
   uint NetworkServerPort;
   uint NetworkP2PServerPort;
   uint NetworkClientPort;
@@ -17425,6 +17460,7 @@ struct CVisionResourceFile : public CMwNod {
   CPlugShaderApply* ShaderZOnly_Alpha01;
   CPlugShaderApply* ShaderFillConst;
   CPlugShaderApply* ShaderFillConst_Alpha01;
+  CPlugShaderApply* ShaderFillConst_AutoExpScaled;
   CPlugShaderApply* ShaderDeferredFog;
   CPlugShaderApply* Shader3DVolumetricFog;
   CPlugShaderApply* ShaderParticleVoxelization;
@@ -18193,6 +18229,7 @@ struct CNetHttpClient : public CMwNod {
   uint Context;
   string UserName;
   string Password;
+  string ProxyServerAndPort;
   const string LastError;
   string LanguageHeader;
   string UserAgentHeader;
@@ -21162,7 +21199,8 @@ struct CGameItemModel : public CGameCtnCollector {
   };
   const EnumItemType ItemType;
   const NodArray Actions;
-  CGameItemPlacementParam* DefaultPlacementParam;
+  CGameItemPlacementParam* DefaultPlacementParam_Head;
+  CGameItemPlacementParam* DefaultPlacementParam_Content;
   CGameItemPlacementParam* DefaultPlacementParam_Dbg;
   UnknownType Icon;
   CMwNod* EntityModelEdition;
