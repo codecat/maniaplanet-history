@@ -18,6 +18,7 @@ CodeBaseTrunkNonDev\Engines\Classic\include\FastMapNatAdr.h
 CodeBaseTrunkNonDev\Engines\Classic\include\FastNodPool.h
 codebasetrunknondev\engines\classic\include\FastPool.h
 CodeBaseTrunkNonDev\Engines\Classic\include\FastPoolFlat.h
+codebasetrunknondev\engines\classic\include\FastString.h
 codebasetrunknondev\engines\classic\include\FastStringBase.h
 codebasetrunknondev\engines\classic\include\FixedDynArray.h
 CodeBaseTrunkNonDev\Engines\Classic\include\MultiArray.h
@@ -133,6 +134,7 @@ CodeBaseTrunkNonDev\Engines\Plug\include\PlugFile_Types.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugFileGPU.h
 codebasetrunknondev\engines\plug\include\PlugFileImg.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugGameSkin.h
+CodeBaseTrunkNonDev\Engines\Plug\include\PlugGpuResource.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugIndexBuffer.h
 CodeBaseTrunkNonDev\Engines\Plug\include\PlugMaterialCustom.h
 codebasetrunknondev\engines\plug\include\PlugMgrData.h
@@ -211,7 +213,7 @@ codebasetrunknondev\engines\visionengine\include\VisionVisual.h
 CodeBaseTrunkNonDev\Engines\VisionEngine\include\VisionVisual_LoadGeom.h
 CodeBaseTrunkNonDev\Engines\VisionEngine\include\VisMacroDecalDraw.h
 CodeBaseTrunkNonDev\Engines\Xml\Include\tinyxml2.h
-CodeBaseTrunkNonDev\Games\GameData\include\GameCtnCollector.h
+codebasetrunknondev\games\gamedata\include\GameCtnCollector.h
 CodeBaseTrunkNonDev\Games\GameData\include\GameItemClasses.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameApp.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameAvatar.h
@@ -231,7 +233,6 @@ CodeBaseTrunkNonDev\Games\GameEngine\include\GameCtnNetwork.h
 codebasetrunknondev\games\gameengine\include\GameCtnZoneGenealogy.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameDataManager.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameDataUserFileManager_Utils.h
-CodeBaseTrunkNonDev\Games\GameEngine\include\GameEditorMesh.h
 codebasetrunknondev\games\gameengine\include\GameEditorMesh_Interaction.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameEditorModuleEditInfo.h
 CodeBaseTrunkNonDev\Games\GameEngine\include\GameManialink3dStyle.h
@@ -357,6 +358,7 @@ Source\ControlUiElement.cpp
 Source\ControlUiRange.cpp
 Source\ControlUrlLinks.cpp
 source\Crystal.cpp
+source\CrystalDecimation.cpp
 source\CrystalEdge.cpp
 source\CrystalFace.cpp
 source\CrystalLink.cpp
@@ -624,6 +626,7 @@ source\GameCtnMediaBlock.cpp
 source\GameCtnMediaBlock3dStereo.cpp
 source\GameCtnMediaBlockBloomHdr.cpp
 source\GameCtnMediaBlockBulletFx.cpp
+source\GameCtnMediaBlockCameraCustom.cpp
 source\GameCtnMediaBlockCameraEffectInertialTracking.cpp
 source\GameCtnMediaBlockCameraEffectScript.cpp
 source\GameCtnMediaBlockCameraEffectShake.cpp
@@ -722,11 +725,13 @@ source\GameCtnZoneGenealogy.cpp
 source\GameCtnZoneTransition.cpp
 source\GameCursorBlock.cpp
 source\GameCursorItem.cpp
+source\GameCustomBlockModel.cpp
 source\GameDataEngine.cpp
 source\GameDataFileManager.cpp
 source\GameDataFileManagerScript.cpp
 source\GameDataFileTask_FileGetGameList.cpp
 source\GameDataFileTask_GameFidGetGameList.cpp
+source\GameDataFileTask_GameModeGetGameList.cpp
 source\GameDataFileTask_GhostDownload.cpp
 source\GameDataFileTask_GhostLoadMedal.cpp
 source\GameDataFileTask_GhostLoadUserRecord_Maniaplanet.cpp
@@ -784,7 +789,6 @@ source\GameEditorTimeLine.cpp
 source\GameEditorTrigger.cpp
 source\GameEditorUndoSystem.cpp
 source\GameEditorUtils.cpp
-source\GameEditorVehicle.cpp
 source\GameEditPos3D.cpp
 source\GameEngine.cpp
 source\GameEnvironmentManager.cpp
@@ -802,6 +806,7 @@ source\GameHighScoreList.cpp
 source\GameHud3d.cpp
 source\GameItemModel.cpp
 source\GameItemPlacementParam.cpp
+source\GameItemUtils.cpp
 source\GameLadderRanking.cpp
 source\GameLadderRankingSkill.cpp
 source\GameLeaderBoard.cpp
@@ -1491,6 +1496,7 @@ source\PlugGpuHlsl_D3D11.cpp
 source\PlugGpuHlslConst.cpp
 source\PlugGpuParamDefineNatural.cpp
 source\PlugGpuParamSkipSampler.cpp
+source\PlugGpuResource.cpp
 source\PlugIconIndex.cpp
 source\PlugImportMeshParam.cpp
 source\PlugIndexBuffer.cpp
@@ -1650,6 +1656,7 @@ source\SceneConfigVision.cpp
 source\SceneDecalsManager.cpp
 source\SceneDynaReplayItem.cpp
 source\SceneDynaZone.cpp
+source\SceneDynaZone_Tests.cpp
 source\SceneEngine.cpp
 source\SceneFx.cpp
 source\SceneFxBloom.cpp
@@ -1869,6 +1876,7 @@ source\SystemUserDataMgr.cpp
 source\SystemUserDrives.cpp
 source\SystemUserMgr.cpp
 source\SystemVirtualKeyboard.cpp
+source\SystemWin32.cpp
 source\SystemXmlTools.cpp
 Source\tinyxml2.cpp
 Source\TmEditorPluginMapType.cpp
@@ -1903,6 +1911,7 @@ Source\TrackManiaNetForm.cpp
 Source\TrackManiaNetIPCCallbacks.cpp
 Source\TrackManiaNetwork.cpp
 Source\TrackManiaNetwork_Dedicated.cpp
+Source\TrackManiaNetwork_PlaygroundSync.cpp
 Source\TrackManiaNetwork_RaceRules.cpp
 Source\TrackManiaNetwork_Referee.cpp
 Source\TrackManiaNetworkServerInfo.cpp

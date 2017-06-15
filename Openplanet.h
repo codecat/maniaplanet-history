@@ -5063,6 +5063,12 @@ struct CGamePlaygroundUIConfig : public CMwNod {
     Forbidden = 2,
     Manual = 3,
   };
+  enum EHudVisibility {
+    Nothing = 0,
+    Everything = 1,
+    MarkersOnly = 2,
+    Default = 3,
+  };
   EUISequence UISequence;
   const bool UISequenceIsCompleted;
   wstring UISequence_CustomMTClip;
@@ -5140,6 +5146,7 @@ struct CGamePlaygroundUIConfig : public CMwNod {
   bool ScreenIn3dHideVersus;
   int CountdownEndTime;
   EUIStatus UIStatus;
+  EHudVisibility LabelsVisibility;
   ELabelsVisibility AlliesLabelsVisibility;
   EVisibility AlliesLabelsShowGauges;
   EVisibility AlliesLabelsShowNames;
@@ -10170,12 +10177,6 @@ struct CGameEditorMesh : public CGameEditorAsset {
     BlocTransformation = 14,
     None = 15,
   };
-  enum ESelectionDragMode {
-    Rect = 0,
-    Spray = 1,
-    Smart = 2,
-    None = 3,
-  };
   enum ETexCoordLayer {
     Lightmap = 0,
   };
@@ -10219,6 +10220,9 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const float Step;
   const float Size;
   const int RotationStep;
+  const float RotationValue;
+  const float ScalingStep;
+  const float ScalingRatio;
   bool DisplayVertices;
   bool DisplayFaces;
   EEdgesDisplay DisplayEdges;
@@ -10269,7 +10273,6 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Interaction_CloseCreation();
   void Interaction_Creation_ClearParams();
   void Interaction_Creation_SetEdgesConstraint(EEdgesConstraint EdgesConstraint);
-  void Interaction_Creation_SetUseGrid(bool UseGrid);
   void Interaction_Creation_SetAutoMerge(bool AutoMerge);
   void Interaction_StartPaste();
   void Interaction_StartBlocTransformation(UnknownType TransformationSetHandle);
@@ -10278,14 +10281,15 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Interaction_StartPick(EElemType ElemType);
   void Interaction_StartMerge(UnknownType MergeSetHandle);
   void Interaction_StartMirror(UnknownType SetHandle);
-  void Interaction_StartSelection(UnknownType SelectionSetHandle, EElemType ElemType, bool UseDoubleClickToSelectConnected, ESelectionDragMode DragMode, UnknownType SelectionSetToPickFrom);
+  void Interaction_StartSelection(UnknownType SelectionSetHandle, EElemType ElemType, UnknownType SelectionSetToPickFrom);
   void Interaction_CloseSelection();
   void Interaction_StartTranslation(UnknownType TranslationSetHandle);
   void Interaction_StartPickTranslation(UnknownType TranslationSetHandle);
   void Interaction_StartRotation(UnknownType RotationSetHandle);
   void Interaction_StartPickRotation(UnknownType RotationSetHandle);
   void Interaction_Rotation_SetStep(int RotationStep);
-  void Interaction_StartPickScale(UnknownType ScalingSetHandle, bool IsScaling1D);
+  void Interaction_StartPickScale(UnknownType ScalingSetHandle);
+  void Interaction_Scale_SetStep(float ScalingStep);
   void Interaction_StartSplit();
   void Display_HighlightSet(UnknownType SetHandle);
   void Display_ClearHighlighting();
@@ -10343,6 +10347,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void VoxelSpace_Unset(int3 Pos);
   void VoxelSpace_GenerateMesh();
   void SetOfElements_ProjectOnPlane(UnknownType SetHandle);
+  void SetOfElements_ProjectOnGround(UnknownType SetHandle, float Height);
   void SetOfElements_SplitEdgeWithVertex(UnknownType SetHandle);
   void SetOfElements_CollapseEdgeWithVertex(UnknownType SetHandle);
   void SetOfElements_Subdivide(UnknownType SetHandle);
@@ -10607,9 +10612,9 @@ struct CGameMatchSettingsManagerScript : public CMwNod {
   void Debug_MatchSettings_SaveAs();
   void Debug_MatchSettings_EditScriptSettings();
   void MatchSettings_Refresh();
-  CGameMatchSettingsScript* MatchSettings_Create(wstring Name);
+  CGameMatchSettingsScript* MatchSettings_Create(wstring FilePath);
   void MatchSettings_Save(CGameMatchSettingsScript* MatchSettings);
-  CGameMatchSettingsScript* MatchSettings_SaveAs(wstring Name, CGameMatchSettingsScript* MatchSettings);
+  CGameMatchSettingsScript* MatchSettings_SaveAs(wstring FilePath, CGameMatchSettingsScript* MatchSettings);
   void MatchSettings_EditScriptSettings(CGameMatchSettingsScript* MatchSettings);
   const bool MatchSettings_EditScriptSettings_Ongoing;
   const NodArray MatchSettings;
@@ -10617,6 +10622,7 @@ struct CGameMatchSettingsManagerScript : public CMwNod {
 
 struct CGameMatchSettingsScript : public CMwNod {
   const wstring Name;
+  const wstring FileName;
   wstring ScriptModeName;
   const NodArray Playlist;
   bool Playlist_FileExists(wstring File);
@@ -12977,6 +12983,7 @@ struct CPlugSurface : public CPlug {
   NodArray Materials;
   CPlugSkel* Skel;
   void UpdateSurfMaterialIdsFromMaterialIndexs();
+  UnknownType Surf;
   _EGmSurfType GmSurfType;
   float Radius;
   vec3 Radii;
@@ -15945,6 +15952,9 @@ struct CPlugEntitySpawner : public CMwNod {
   UnknownType Loc;
 };
 
+struct CGmSurf {
+};
+
 } // namespace Plug
 
 namespace Scene {
@@ -17460,7 +17470,6 @@ struct CVisionResourceFile : public CMwNod {
   CPlugShaderApply* ShaderZOnly_Alpha01;
   CPlugShaderApply* ShaderFillConst;
   CPlugShaderApply* ShaderFillConst_Alpha01;
-  CPlugShaderApply* ShaderFillConst_AutoExpScaled;
   CPlugShaderApply* ShaderDeferredFog;
   CPlugShaderApply* Shader3DVolumetricFog;
   CPlugShaderApply* ShaderParticleVoxelization;
@@ -21252,14 +21261,8 @@ struct CGameObjectPhyModel : public CMwNod {
   CGameObjectPhyModel();
 
   UnknownType MoveShape;
-  CPlugSurface* MoveShapeNod;
-  wstring MoveShapeRefName;
   UnknownType HitShape;
-  CPlugSurface* HitShapeNod;
-  wstring HitShapeRefName;
   UnknownType TriggerShape;
-  CPlugSurface* TriggerShapeNod;
-  wstring TriggerShapeRefName;
   CPlugDynaPointModel* DynaPointModel;
   uint FirePeriod;
   UnknownType ActionModel;
@@ -21273,8 +21276,6 @@ struct CGameObjectVisModel : public CMwNod {
   CGameObjectVisModel();
 
   UnknownType Mesh;
-  wstring MeshRef;
-  CPlugSolid2Model* MeshNod;
   CPlugAnimLocSimple* LocAnim;
   wstring SoundRef_Spawn;
   wstring SoundRef_Unspawn;
@@ -21589,7 +21590,10 @@ struct CGamePixelArtModel : public CMwNod {
 struct CGameBlockItem : public CMwNod {
   CGameBlockItem();
 
-  CPlugCrystal* CrystalForEdition;
+  UnknownType ArchetypeBlockInfoId;
+  UnknownType ArchetypeBlockInfoCollectionId;
+  NodArray BlockInfoMobilSkins_Crystals;
+  array<uint> BlockInfoMobilSkins_VariantIds;
 };
 
 struct CGameCommonItemEntityModelEdition : public CMwNod {
@@ -21649,6 +21653,20 @@ struct CGameCommonItemEntityModel : public CMwNod {
   wstring Description;
   uint Occupation;
   EnumInventoryItemClass InventoryItemClass;
+};
+
+// File extension: 'Block.Gbx'
+struct CGameCustomBlockModel : public CGameCtnCollector {
+  CGameCustomBlockModel();
+
+  enum EProdState {
+    Aborted = 0,
+    GameBox = 1,
+    DevBuild = 2,
+    Release = 3,
+  };
+  UnknownType ArchetypeBlockInfoId;
+  NodArray BlockInfoMobilSkins_Crystals;
 };
 
 } // namespace GameData
