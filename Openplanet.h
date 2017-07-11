@@ -557,7 +557,6 @@ struct CGamePlayground : public CGameSwitcherModule {
   const NodArray UIConfigs;
   const CGameCtnReplayRecord* ReplayRecord;
   CGameCtnReplayRecord* PrevReplayRecord;
-  const CGamePlaygroundSpectating* Spectating;
   bool GameTerminals_IsBlackOut;
   bool GameTerminals_BlackOut_Auto2dVr;
   CGameAnalyzer* Analyzer;
@@ -609,7 +608,8 @@ struct CGameNetwork : public CMwNod {
   const NodArray OnlinePlayers;
   NodArray PlayerInfos;
   void FindServers();
-  const CGamePlaygroundUIConfigMgr* UIConfigMgr;
+  const CGamePlaygroundUIConfigMgrScript* UIConfigMgr_Rules;
+  const CGamePlaygroundUIConfigMgrScript* UIConfigMgr_ServerPlugin;
   float VoteDefaultRatio;
   uint CallVoteTimeOut;
   uint CallVotePercent;
@@ -994,6 +994,7 @@ struct CGameResources : public CMwNod {
   CPlugShaderApply* OffZoneLayerShaderFid;
   CGameEditorModel* DefaultEditorMeshFid;
   CGameEditorModel* DefaultEditorEditorFid;
+  CGameEditorModel* DefaultEditorVehicleFid;
 };
 
 struct CGameNetServerInfo : public CNetMasterHost {
@@ -2266,6 +2267,8 @@ struct CGamePlayerInfo : public CGameNetPlayerInfo {
   const UnknownType Tags_Type;
   const array<wstring> Tags_Comments;
   const array<wstring> Tags_Deliverer;
+  const EStereoDisplayMode StereoDisplayMode;
+  bool HackCamHmdDisabled;
   const bool VoiceChat_Supported;
   EMuteSetting VoiceChat_MuteSetting;
   const bool VoiceChat_IsSpeaking;
@@ -2274,8 +2277,6 @@ struct CGamePlayerInfo : public CGameNetPlayerInfo {
   const bool RequestsSpectate;
   const bool IsConnectedToMasterServer;
   const array<string> AlliesConnected;
-  const EStereoDisplayMode StereoDisplayMode;
-  bool HackCamHmdDisabled;
   const CPlugBitmap* ZoneBitmap;
   const CGameLeague* ZoneLeague;
   const bool WishSpectator;
@@ -2456,9 +2457,10 @@ struct CGameCtnGhost : public CGameGhost {
   const uint NbRespawns;
   const uint StuntsScore;
   const UnknownType Validate_ChallengeUid;
-  const string Validate_Version;
-  const string Validate_RaceSettings;
+  const string Validate_ExeVersion;
   const uint Validate_ExeChecksum;
+  const string Validate_TitleId;
+  const string Validate_RaceSettings;
   const uint Validate_OsKind;
   const uint Validate_CpuKind;
   const uint RecordedPlayerUid;
@@ -2688,9 +2690,7 @@ struct CGameCursorBlock : public CMwNod {
   UnknownType VariantForcedColor;
 };
 
-struct CGameCtnEditor : public CGameSwitcherModule {
-  const CGameScene* GameScene;
-  const CGameCamera* GameCamera;
+struct CGameCtnEditor : public CGameEditorParent {
   CControlContainer* FrameRoot;
   const CGameEditorMainPlugin* MainPLugin;
 };
@@ -3865,12 +3865,6 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void DialogViewScoresTableColumn_OnCustomInteger();
   void DialogViewScoresTableColumn_OnCustomTime();
   void DialogViewScoresTableColumn_OnBack();
-  void DialogViewEditorType_OnChallengeEditor();
-  void DialogViewEditorType_OnMeshEditor();
-  void DialogViewEditorType_OnModuleEditor();
-  void DialogViewEditorType_OnPixelEditor();
-  void DialogViewEditorType_OnEditorEditor();
-  void DialogViewEditorType_OnBack();
   void DialogViewPixelArtSize_OnBack();
   void DialogChooseEnumValue_OnBack();
   void InputsList_ResetToDefaults_OnYes();
@@ -4159,6 +4153,7 @@ struct CGameCtnNetwork : public CGameNetwork {
   CGamePlaygroundClientScriptAPI* PlaygroundClientScriptAPI;
   void RequestChangeSpectator_ToSpec();
   void RequestChangeSpectator_ToPlayer();
+  CGameServerPlugin* ServerPlugin;
   CGameScriptServerAdmin* GameScriptServerAdminAPI;
 };
 
@@ -4514,6 +4509,11 @@ struct CGamePlaygroundInterface : public CMwNod {
 };
 
 struct CGamePlaygroundSpectating : public CMwNod {
+};
+
+struct CGameMgrArenaVis : public CSceneMgrVis {
+  CGameMgrArenaVis();
+
 };
 
 // File extension: 'GameCtnMediaBlockGhost.gbx'
@@ -5459,8 +5459,9 @@ struct CGameCtnEditorCommon : public CGameCtnEditor {
   void DeleteArticle_OnYes();
   void ButtonItemEditModeOnClick();
   void ButtonItemNewModeOnClick();
-  void ButtonBlockItemCreateModeOnClick();
   void ButtonItemCreateFromBlockModeOnClick();
+  void ButtonBlockItemEditModeOnClick();
+  void ButtonBlockItemCreateModeOnClick();
   void ButtonLightOnClick();
   void ButtonChallengeTypeOnClick();
   void ButtonObjectivesOnClick();
@@ -5744,6 +5745,56 @@ struct CGameCtnZoneGenealogy : public CMwNod {
   void AddZoneId();
 };
 
+struct CGameServerPlugin : public CMwNod {
+  CPlugFileTextScript* Script;
+  const CGameManiaTitle* LoadedTitle;
+  const CGameCtnChallengeInfo* MapInfo;
+  CGameConnectedClient* GetClient(string Login);
+  const NodArray Clients;
+  const NodArray Spectators;
+  const NodArray Players;
+  const NodArray Scores;
+  const NodArray Users;
+  const NodArray Teams;
+  string NeutralEmblemUrl;
+  string ForcedClubLinkUrl1;
+  string ForcedClubLinkUrl2;
+  void TweakTeamColorsToAvoidHueOverlap();
+  const uint Now;
+  const uint Period;
+  const NodArray PendingEvents;
+  void TriggerModeScriptEvent2(wstring Type, array<wstring>& Data);
+  const bool MapLoaded;
+  const NodArray MapList;
+  const CGamePlaygroundUIConfigMgrScript* UIManager;
+  const CGameScriptServerAdmin* ServerAdmin;
+  const CXmlScriptManager* Xml;
+  const CNetScriptHttpManager* Http;
+  wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly);
+};
+
+struct CGameServerPluginEvent : public CMwNod {
+  enum EType {
+    Unknown = 0,
+    PlayerAdded = 1,
+    PlayerRemoved = 2,
+    MapLoaded = 3,
+    MapUnloaded = 4,
+    BeginRound = 5,
+    EndRound = 6,
+    ChatCommand = 7,
+    ChatMessage = 8,
+    ModeCallback = 9,
+  };
+  const EType Type;
+  const CGameConnectedClient* Client;
+  const wstring ChatText;
+  const wstring ChatCommandType;
+  const array<wstring> ChatCommandData;
+  const wstring ModeCallbackType;
+  const array<wstring> ModeCallbackData;
+};
+
 struct CGameCtnAutoTerrain : public CMwNod {
   CGameCtnAutoTerrain();
 
@@ -5769,7 +5820,8 @@ struct CGameCtnBlockInfoMobil : public CMwNod {
   const CSceneMobil* OldMobil;
   CPlugSolid* SolidFid;
   CPlugSolid* SolidAggreg;
-  CPlugSolid* SolidCache;
+  CPlugSolid2Model* Solid2Aggreg;
+  const CPlugSolid* SolidCache;
   CPlugPath* RailPath;
   bool RailIsStation;
   const NodArray TextureModifiedSolidsCache;
@@ -5779,6 +5831,15 @@ struct CGameCtnBlockInfoMobil : public CMwNod {
   uint NoDecalFrequency;
   vec3 GeomTranslation;
   vec3 GeomRotation;
+};
+
+struct CGameConnectedClient : public CMwNod {
+  const CGamePlayerInfo* User;
+  const CGamePlaygroundUIConfig* UI;
+  const bool IsConnectedToMasterServer;
+  const string ClientVersion;
+  const string ClientTitleVersion;
+  const bool IsSpectator;
 };
 
 struct CGameControlCameraEditorOrbital : public CGameControlCamera {
@@ -5978,24 +6039,25 @@ struct CGameCtnMediaBlockVehicleLight : public CGameCtnMediaBlock {
 struct CGameCardEventListInfo : public CGameCtnCollector {
 };
 
-struct CGamePlaygroundUIConfigMgr : public CMwNod {
+struct CGamePlaygroundUIConfigMgrScript : public CMwNod {
   void ResetAll();
   const CGamePlaygroundUIConfig* UIAll;
   const NodArray UI;
   CGamePlaygroundUIConfig* GetUI_Player(CGamePlayer* Player);
   CGamePlaygroundUIConfig* GetUI_User(CGamePlayerInfo* User);
+  CGamePlaygroundUIConfig* GetUI_ConnectedClient(CGameConnectedClient* Client);
   const NodArray UILayers;
   CGameUILayer* UILayerCreate();
   void UILayerDestroy(CGameUILayer* Layer);
   void UILayerDestroyAll();
   const NodArray UIReplayLayers;
+  uint UISequenceMaxDuration;
+  bool HoldLoadingScreen;
+  const NodArray PendingEvents;
   const CGamePlaygroundUIConfig* LocalPlayerConfig;
   const CGamePlaygroundUIConfig* LocalPlayerConfig1;
   const CGamePlaygroundUIConfig* LocalPlayerConfig2;
   const CGamePlaygroundUIConfig* LocalPlayerConfig3;
-  uint UISequenceMaxDuration;
-  bool HoldLoadingScreen;
-  const NodArray PendingEvents;
 };
 
 // File extension: 'Frame.Gbx'
@@ -6072,7 +6134,7 @@ struct CGamePlaygroundScript : public CMwNod {
   void RequestUnloadMap();
   const NodArray MapList;
   uint NextMapIndex;
-  const CGamePlaygroundUIConfigMgr* UIManager;
+  const CGamePlaygroundUIConfigMgrScript* UIManager;
   void Hud_Load(wstring ModuleName);
   const CGamePlaygroundModuleServerHud* Hud;
   void PassOnModuleEvent(CGamePlaygroundUIConfigEvent* EventToPassOn);
@@ -6397,7 +6459,7 @@ struct CGameEditorPluginMapMapType : public CGameEditorPluginMap {
   void RequestEnterPlayground();
   void RequestLeavePlayground();
   const bool IsSwitchedToPlayground;
-  const CGamePlaygroundUIConfigMgr* UIManager;
+  const CGamePlaygroundUIConfigMgrScript* UIManager;
   const NodArray Users;
 };
 
@@ -6958,7 +7020,13 @@ struct CGameCtnMediaBlockCameraEffectScript : public CGameCtnMediaBlockCameraEff
 struct CGameScriptServerAdmin : public CMwNod {
   const CGameCtnNetServerInfo* ServerInfo;
   void AutoTeamBalance();
+  bool Kick1(CGamePlayerInfo* User, wstring Reason);
+  bool Kick2(CGameConnectedClient* Client, wstring Reason);
   bool KickUser(CGamePlayerInfo* User, wstring Reason);
+  bool Ban1(CGamePlayerInfo* User, wstring Reason);
+  bool Ban2(CGameConnectedClient* Client, wstring Reason);
+  bool RequestSwitchToSpectator1(CGamePlayerInfo* User);
+  bool RequestSwitchToSpectator2(CGameConnectedClient* Client);
   void SetLobbyInfo(bool IsLobby, int LobbyPlayerCount, int LobbyMaxPlayerCount, float LobbyPlayersLevel);
   void SendToServerAfterMatch(string ServerUrl);
   void CustomizeQuitDialog(string ManialinkPage, string SendToServerUrl, bool ProposeAddToFavorites, uint ForceDelay);
@@ -7501,6 +7569,11 @@ struct CGameScriptChatContact : public CMwNod {
     RequestTo = 2,
     Both = 3,
   };
+  enum ESubscription {
+    None = 0,
+    Pending = 1,
+    Accepted = 2,
+  };
   enum EPresenceShow {
     Offline = 0,
     Available = 1,
@@ -7518,6 +7591,8 @@ struct CGameScriptChatContact : public CMwNod {
   const EPresenceShow PresenceShow;
   const wstring PresenceStatus;
   const ESubscriptionStatus SubscriptionStatus;
+  const ESubscription Subscription_From;
+  const ESubscription Subscription_To;
   const bool IsXmpp;
   const bool IsSteam;
   const bool IsLegacy;
@@ -7565,6 +7640,11 @@ struct CGameScriptChatEvent : public CMwNod {
     RequestTo = 2,
     Both = 3,
   };
+  enum ESubscription {
+    None = 0,
+    Pending = 1,
+    Accepted = 2,
+  };
   enum EPresenceShow {
     Offline = 0,
     Available = 1,
@@ -7590,7 +7670,9 @@ struct CGameScriptChatEvent : public CMwNod {
   const wstring PreviousServerModeStatus;
   const uint PreviousServerPlayerCount;
   const uint PreviousServerPlayerCountMax;
-  const wstring PreviousSubscriptionStatus;
+  const ESubscriptionStatus PreviousSubscriptionStatus;
+  const ESubscription PreviousSubscription_From;
+  const ESubscription PreviousSubscription_To;
   const wstring PreviousNickname;
   const wstring PreviousDescription;
   const bool ContactList;
@@ -7796,6 +7878,7 @@ struct CGamePlaygroundClientScriptAPI : public CMwNod {
   const bool IsLoadingScreen;
   void QuitServer(bool Silent);
   void QuitServerAndSetResult(bool Silent, wstring Type, array<wstring>& Data);
+  const bool IsInGameMenuDisplayed;
   void JoinTeam1();
   void JoinTeam2();
   const NodArray Teams;
@@ -8564,6 +8647,7 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
     ModuleStudio = 5,
     PixelArt = 6,
     EditorEditor = 7,
+    VehicleAssembler = 8,
   };
   void Dbg_GetServerInfoObj();
   void Dbg_Join_GetServerInfo_Result();
@@ -8924,9 +9008,7 @@ struct CGameBadgeScript : public CMwNod {
 struct CGameUserProfile : public CMwNod {
   CGameUserProfile();
 
-  wstring SkinName;
-  vec3 PrimaryColor;
-  UnknownType CamName;
+  ECamName CamName;
 };
 
 struct CGameUIAnimManager : public CMwNod {
@@ -9029,7 +9111,7 @@ struct CGameUserScript : public CMwNod {
   const bool PersistentIsReady;
   void PersistentSave();
   void SavePersistent();
-  const CGameUserProfile* Config;
+  const CGameUserProfileWrapper* Config;
 };
 
 struct CGameUserManagerScript : public CMwNod {
@@ -9153,11 +9235,6 @@ struct CGameHapticDevice : public CMwNod {
 struct CGamePluginInterfacesScript : public CMwNod {
   CGameManiaplanetPluginInterface* GetInterface(wstring Name);
   const NodArray Interfaces;
-};
-
-struct CGameEditorManialink2 : public CGameEditorBase {
-  CGameEditorManialink2();
-
 };
 
 struct CGameModuleMenuComponent : public CMwNod {
@@ -9572,8 +9649,14 @@ struct CGameAchievementScriptAchievementDesc : public CMwNod {
   const wstring IconUrl;
 };
 
-struct CGameEditorParent : public CGameEditorBase {
-  bool DummyBool;
+struct CGameEditorVehicle : public CGameEditorParent {
+};
+
+struct CGameEditorParent : public CGameSwitcherModule {
+  CGameEditorParent();
+
+  const CGameScene* GameScene;
+  const CGameCamera* GameCamera;
 };
 
 struct CWebServicesTaskResult_ZoneList : public CWebServicesTaskResult {
@@ -9838,6 +9921,7 @@ struct CGamePlaygroundUIConfigEvent : public CMwNod {
     OnModuleStorePurchase = 4,
     OnModuleInventoryDrop = 5,
     OnModuleInventoryEquip = 6,
+    OnLayerCustomEvent = 7,
   };
   enum EModuleType {
     Undefined = 0,
@@ -9850,12 +9934,16 @@ struct CGamePlaygroundUIConfigEvent : public CMwNod {
     MenuPage = 7,
   };
   const EType Type;
+  const CGamePlaygroundUIConfig* UI;
   const CGamePlaygroundUIConfig* UIConfig;
+  const EModuleType ModuleType;
   const wstring Param1;
   const array<wstring> Param2;
+  const CGameUILayer* CustomEventLayer;
+  const wstring CustomEventType;
+  const array<wstring> CustomEventData;
   const wstring ItemUrl;
   const uint Quantity;
-  const EModuleType ModuleType;
 };
 
 struct CGameMgrShieldPhy : public CSceneMgrPhy {
@@ -10162,20 +10250,21 @@ struct CGameEditorMesh : public CGameEditorAsset {
   enum EInteraction {
     Creation = 0,
     Pick = 1,
-    Selection = 2,
-    Translation = 3,
-    PickTranslation = 4,
-    Rotation = 5,
-    PickRotation = 6,
-    Scale = 7,
-    Curve2D = 8,
-    Merge = 9,
-    Split = 10,
-    Mirror = 11,
-    Paste = 12,
-    PasteMaterial = 13,
-    BlocTransformation = 14,
-    None = 15,
+    PickJoint = 2,
+    Selection = 3,
+    Translation = 4,
+    PickTranslation = 5,
+    Rotation = 6,
+    PickRotation = 7,
+    Scale = 8,
+    Curve2D = 9,
+    Merge = 10,
+    Split = 11,
+    Mirror = 12,
+    Paste = 13,
+    PasteMaterial = 14,
+    BlocTransformation = 15,
+    None = 16,
   };
   enum ETexCoordLayer {
     Lightmap = 0,
@@ -10209,7 +10298,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const bool Tmp_UseParts;
   const CControlFrame* UIRoot;
   const CMwNod* EditedNod;
-  const CPlugBitmap* EditedAtlasBitmap;
+  CPlugMaterialUserInst* MatUserInstToEdit;
   const uint VertexCount;
   const uint EdgeCount;
   const uint FaceCount;
@@ -10225,6 +10314,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const float ScalingRatio;
   bool DisplayVertices;
   bool DisplayFaces;
+  bool DisplayJoints;
   EEdgesDisplay DisplayEdges;
   void EditedMesh_Clear();
   void EditedMesh_Simplify();
@@ -10240,6 +10330,10 @@ struct CGameEditorMesh : public CGameEditorAsset {
   vec3 PickInfo_GetNextVertexPosition();
   UnknownType PickInfo_GetMaterial();
   wstring PickInfo_GetError();
+  void Part_SetAnchorPos(vec3 Position);
+  void Part_SetIsJoint(bool IsJoint);
+  void Part_ClearAnchor();
+  const int MaterialsUpdateId;
   const NodArray AllBitmaps;
   const UnknownType MaterialIds;
   UnknownType Material_GetMaterialIdSelected();
@@ -10278,9 +10372,13 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Interaction_StartBlocTransformation(UnknownType TransformationSetHandle);
   void Interaction_StartCurve2D(UnknownType BordersSetHandle);
   void Interaction_CloseCurve2D(bool CanDoCurve2D);
-  void Interaction_StartPick(EElemType ElemType);
+  void Interaction_StartPick(EElemType ElemType, UnknownType SetToPickFrom);
+  void Interaction_StartPickJoint();
   void Interaction_StartMerge(UnknownType MergeSetHandle);
   void Interaction_StartMirror(UnknownType SetHandle);
+  void Interaction_Selection_ClearParams();
+  void Interaction_Selection_SetUseParts(bool UseParts);
+  void Interaction_Selection_SetCanEnterLeaf(bool CanEnterLeaf);
   void Interaction_StartSelection(UnknownType SelectionSetHandle, EElemType ElemType, UnknownType SelectionSetToPickFrom);
   void Interaction_CloseSelection();
   void Interaction_StartTranslation(UnknownType TranslationSetHandle);
@@ -10378,7 +10476,6 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const int PrefabNamesUpdateId;
   void Prefab_Export();
   void Prefab_Import(uint PrefabIndex);
-  bool Selection_UseParts;
   void Parts_MergeSelectedParts();
   void Parts_Group();
   void Parts_UngroupSelectedParts();
@@ -10388,6 +10485,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void AddUndoState();
   void AutoSave(wstring FileName);
   const NodArray PendingEvents;
+  const bool IsExperimental;
 };
 
 struct CGameEditorEvent : public CGameManiaAppScriptEvent {
@@ -10624,6 +10722,8 @@ struct CGameMatchSettingsScript : public CMwNod {
   const wstring Name;
   const wstring FileName;
   wstring ScriptModeName;
+  bool ScriptModeName_Check(wstring ScriptModeName);
+  void ScriptModeName_Set(wstring ScriptModeName);
   const NodArray Playlist;
   bool Playlist_FileExists(wstring File);
   bool Playlist_FileMatchesMode(wstring File);
@@ -10678,6 +10778,46 @@ struct CGameGameModeInfoScript : public CMwNod {
   const wstring Description;
   const wstring Version;
   const array<wstring> CompatibleMapTypes;
+};
+
+struct CGameUserProfileWrapper : public CMwNod {
+  enum EMapEditorMode {
+    Ask = 0,
+    Advanced = 1,
+  };
+  EMapEditorMode MapEditorMode;
+};
+
+struct CGameEditorPluginAPI : public CMwNod {
+  CGameEditorPluginAPI();
+
+  void Undo();
+  void Redo();
+};
+
+struct CGameEditorVehiclePluginAPI : public CGameEditorPluginAPI {
+  CGameEditorVehiclePluginAPI();
+
+};
+
+struct CGameBlockItemVariantChooser : public CMwNod {
+  const CGameItemModel* ItemModelToView;
+  const CGameCtnBlockInfo* ArchetypeBlockInfo;
+  bool ShowOriginalVariant;
+  wstring VariantType;
+  uint VariantGroupCurrent;
+  const uint VariantGroupMax;
+  uint RandomVariantCurrent;
+  const uint RandomVariantMax;
+  void NextVariantType();
+  void PreviousVariantType();
+  void NextVariantGroup();
+  void PreviousVariantGroup();
+  void NextRandomVariant();
+  void PreviousRandomVariant();
+};
+
+struct CGameArenaPlayer : public CMwNod {
 };
 
 } // namespace Game
@@ -11853,6 +11993,9 @@ struct CHmsVisMiniMap : public CMwNod {
 };
 
 struct CHmsCollType_Warp : public CMwNod {
+};
+
+struct CHmsCollType_VehicleVisForBodyPart : public CMwNod {
 };
 
 struct CHmsMoodBlender : public CMwNod {
@@ -13240,6 +13383,7 @@ struct CPlugBitmap : public CPlug {
   UnknownType DefaultTexCoordRotate;
   EVideoTimer DefaultVideoTimer;
   const uint DefaultMaxMipLevel;
+  float HeightInMeters;
   bool Force1stPixelAlpha0;
   bool ForceBorderRGB;
   UnknownType BorderRGB;
@@ -15589,6 +15733,7 @@ struct CPlugCharPhyModelCustom : public CMwNod {
   uint Fov;
 };
 
+// File extension: 'Mat.Gbx'
 struct CPlugMaterialUserInst : public CMwNod {
   CPlugMaterialUserInst();
 
@@ -15596,6 +15741,9 @@ struct CPlugMaterialUserInst : public CMwNod {
   UnknownType Model;
   wstring BaseTexture;
   UnknownType Link;
+  ETexAddress IsTilingX;
+  ETexAddress IsTilingY;
+  float TextureHeightInMeters;
 };
 
 struct CPlugMoodSetting : public CPlug {
@@ -19764,6 +19912,8 @@ struct CTmRaceRulesPlayer : public CGamePlayer {
   const float AimYaw;
   const float AimPitch;
   const vec3 AimDirection;
+  const vec3 Velocity;
+  const float Speed;
   UnknownType ForceModelId;
   float AccelCoef;
   float ControlCoef;
@@ -19842,6 +19992,7 @@ struct CTrackManiaRaceNet : public CTrackManiaRace {
   NodArray GeneralScores;
   NodArray CurrentScores;
   NodArray TeamScores;
+  const CGamePlaygroundSpectating* Spectating;
 };
 
 struct CTrackManiaRaceNetTimeAttack : public CTrackManiaRaceNet {
@@ -20650,7 +20801,6 @@ struct CSmArenaServer : public CMwNod {
   uint ClientInputsMaxLatency;
   uint DbgMinInputDelay;
   uint DbgDelaySendSnapshots;
-  uint InputSnapshotYawPitchBits;
   bool FilterInputs;
 };
 
@@ -21142,6 +21292,7 @@ struct CGameCtnCollector : public CMwNod {
   uint IconQuarterRotationY;
   uint InterfaceNumber;
   const CPlugBitmap* Icon;
+  const CMwNod* ArticlePtr;
 };
 
 // File extension: 'Item.Gbx'
@@ -21213,6 +21364,7 @@ struct CGameItemModel : public CGameCtnCollector {
   CGameItemPlacementParam* DefaultPlacementParam_Dbg;
   UnknownType Icon;
   CMwNod* EntityModelEdition;
+  CMwNod* EntityModel;
   CMwNod* VisModel;
   CMwNod* VisModelCustom;
   UnknownType DefaultSkinFileRef;
@@ -21546,6 +21698,7 @@ struct CGameEditorModel : public CMwNod {
     ModuleStudio = 5,
     PixelArt = 6,
     EditorEditor = 7,
+    VehicleAssembler = 8,
   };
   const EEditorType EditorType;
   bool AutoGenerateHelp;
@@ -21590,10 +21743,12 @@ struct CGamePixelArtModel : public CMwNod {
 struct CGameBlockItem : public CMwNod {
   CGameBlockItem();
 
-  UnknownType ArchetypeBlockInfoId;
+  UnknownType ArchetypeBlockInfoId_GameBox;
   UnknownType ArchetypeBlockInfoCollectionId;
   NodArray BlockInfoMobilSkins_Crystals;
-  array<uint> BlockInfoMobilSkins_VariantIds;
+  array<uint> BlockInfoMobilSkins_MobilIds;
+  const UnknownType ArchetypeBlockInfoId;
+  const NodArray CustomizedVariants;
 };
 
 struct CGameCommonItemEntityModelEdition : public CMwNod {
