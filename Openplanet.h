@@ -19389,7 +19389,7 @@ struct CTrackManiaRaceRules : public CGamePlaygroundScript {
   const uint ClansNbTotal;
   const array<uint> ClansNbPlayers;
   const NodArray PendingEvents;
-  void PassOn(CTmRaceRulesEvent* Event);
+  bool PassOn(CTmRaceRulesEvent* Event);
   void Discard(CTmRaceRulesEvent* Event);
   void SpawnPlayer(CTmRaceRulesPlayer* Player, int ClanNum, int RaceStartTime);
   void UnspawnPlayer(CTmRaceRulesPlayer* Player);
