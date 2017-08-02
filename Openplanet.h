@@ -5761,7 +5761,6 @@ struct CGameServerPlugin : public CMwNod {
   string ForcedClubLinkUrl2;
   void TweakTeamColorsToAvoidHueOverlap();
   const uint Now;
-  const uint Period;
   const NodArray PendingEvents;
   void TriggerModeScriptEvent2(wstring Type, array<wstring>& Data);
   const bool MapLoaded;
