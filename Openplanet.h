@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 0.08 (v4, Public)
+// Generated with Openplanet 0.09 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -1414,6 +1414,8 @@ struct CGameCtnChallenge : public CMwNod {
   wstring ObjectiveTextBronze;
   const uint CopperPrice;
   const int3 Size;
+  const bool HasCustomIntro;
+  const bool HasCustomMusic;
   CGameCtnChallengeParameters* ChallengeParameters;
   CGameCtnCollectorList* BlockStock;
   const CPlugBitmap* AuthorZoneIcon;
@@ -4856,6 +4858,14 @@ struct CGameCtnArticleNode : public CMwNod {
 struct CGameSwitcher : public CMwNod {
   int FocusDialogCount;
   const NodArray ModuleStack;
+};
+
+struct CGameCtnSpawnPointInfo_deprecated : public CMwNod {
+  CGameCtnSpawnPointInfo_deprecated();
+
+  UnknownType Location;
+  UnknownType AllowedId;
+  uint BlockUnitIndex;
 };
 
 struct CGameManialinkOldTable : public CGameManialinkControl {
@@ -8664,9 +8674,9 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
   void PlayMatchSettingsFile(wstring MatchSettingsFilePath, wstring OverrideMode, string OverrideSettingsXml);
   void PlayMatchSettingsObject(CGameMatchSettingsScript* MatchSettings, wstring OverrideMode, string OverrideSettingsXml);
   void PlaySplitScreen(ESplitScreenLayout LayoutType, array<wstring>& MapList, wstring Mode, string SettingsXml);
-  void PlayMultiOnSameScreen(ESplitScreenLayout LayoutType, array<wstring>& MapList, wstring Mode, string SettingsXml);
+  void PlayMultiOnSameScreen(array<wstring>& MapList, wstring Mode, string SettingsXml);
   void PlaySplitScreenObj(ESplitScreenLayout LayoutType, CGameMatchSettingsScript* MatchSettings);
-  void PlayMultiOnSameScreenObj(ESplitScreenLayout LayoutType, CGameMatchSettingsScript* MatchSettings);
+  void PlayMultiOnSameScreenObj(CGameMatchSettingsScript* MatchSettings);
   void ViewReplay(wstring Replay);
   void OpenEditor(wstring EditorName, string MainPluginSettings);
   void OpenEditor2(EEditorType EditorType);
@@ -9080,6 +9090,7 @@ struct CGamePlaygroundModuleClient : public CGameManiaAppPlaygroundCommon {
 };
 
 struct CGameManiaAppPlayground : public CGameManiaAppPlaygroundCommon {
+  void SendCustomEvent(wstring Type, array<wstring>& Data);
 };
 
 struct CGameVideoScriptVideo : public CMwNod {
@@ -17045,6 +17056,8 @@ struct CSceneToyBoat : public CSceneToy {
   float ReplacementStepLength;
   float ContactRotationImpulseCoef;
   float ContactRelSpeedMultCoef;
+  bool DbgEngine;
+  float DbgEngineSpeedKnot;
   float GamePlayCoef_BSLevel;
   float GamePlayCoef_BSCatchBack;
   float GamePlayCoef_BSSpi;
@@ -18944,6 +18957,10 @@ struct CNetUbiServicesNews : public CMwNod {
 struct CNetMasterServerTask_GamerPic_GetUrl : public CWebServicesTaskSequence {
 };
 
+struct CWebServicesTaskResult_StringInt : public CWebServicesTaskResult {
+  const wstring Value;
+};
+
 struct CNetMasterServerTask_GetManiaplanetLoginAndWebIdentities : public CNetMasterServerRequestTask {
 };
 
@@ -19416,12 +19433,21 @@ struct CTrackManiaRaceRules : public CGamePlaygroundScript {
   bool EnableUniqueCamera;
   bool EnableBonusEvents;
   bool HideOpponents;
-  int ForceMaxOpponents;
+  uint ForceMaxOpponents;
   bool EnableLegacyXmlRpcCallbacks;
   bool MedalGhost_ShowGold;
   bool MedalGhost_ShowSilver;
   bool MedalGhost_ShowBronze;
   EPersonalGhost PersonalGhost;
+  bool StuntModel_EnableCustomisation;
+  bool StuntModel_MP3Combo;
+  bool StuntModel_MP3Points;
+  bool StuntModel_UseStricterAngle;
+  uint StuntModel_MinStuntDuration;
+  uint StuntModel_RespawnPenalty;
+  uint StuntModel_InterComboDelay;
+  uint StuntModel_InterComboDelayExtendPerPoint;
+  float StuntModel_FigureRepeatMalus;
   UnknownType RaceGhost_Add(CGameGhostScript* Ghost, bool DisplayAsPlayerBest);
   UnknownType RaceGhost_AddWithOffset(CGameGhostScript* Ghost, uint OffsetMs);
   UnknownType RaceGhost_AddModel(CGameGhostScript* Ghost, bool DisplayAsPlayerBest, UnknownType ModelId);
@@ -19584,8 +19610,6 @@ struct CTrackManiaMenus : public CGameCtnMenusManiaPlanet {
   void DialogChooseNbGhosts();
   void DialogChooseNbGhosts_On4();
   void DialogChooseNbGhosts_On7();
-  void DialogCreateStuntsGhost();
-  void DialogCreateStuntsGhost_OnQuit();
   void DialogHotSeatResult_OnRevenge();
   void DialogHotSeatResult_OnNext();
   void DialogHotSeatResult_OnQuit();
@@ -19748,6 +19772,25 @@ struct CTrackManiaPlayer : public CGamePlayer {
   const uint SkiddingDuration;
   const float SkiddingDistance;
   const float FlyingDistance;
+  const uint StuntLastTime;
+  const ESceneVehiclePhyStuntFigure StuntLast;
+  const uint StuntAngle;
+  const uint StuntPoints;
+  const uint StuntCombo;
+  const float StuntFactor;
+  const bool StuntStraightLanding;
+  const bool StuntReverseLanding;
+  const bool StuntPerfectLanding;
+  const bool StuntMasterJump;
+  const bool StuntMasterLanding;
+  const bool StuntEpicLanding;
+  const bool StuntIsInFigure;
+  const bool StuntCurFigureMasterJump;
+  const UnknownType StuntCurFigureMasterGauge;
+  const UnknownType StuntCurFigureEpicGauge;
+  const bool StuntCurComboChainCounter;
+  const uint TimeLeftForStuntCombo;
+  const uint TimeElapsedSinceLastStunt;
   const bool BonusModeIsJump;
   const bool BonusModeIsTurbo;
   const bool BonusModeIsMiniCar;
@@ -19765,34 +19808,24 @@ struct CTrackManiaPlayer : public CGamePlayer {
   const uint BonusModeTimeTillEventWarning;
   const ETmBonusModeEventType BonusModeEventType;
   const bool BonusModeEventIsGold;
-  const uint StuntLastTime;
-  const uint StuntPoints;
-  const uint StuntCombo;
-  const bool StuntPerfectLanding;
-  const bool StuntMasterLanding;
-  const bool StuntEpicLanding;
-  const ESceneVehiclePhyStuntFigure StuntLast;
   const uint StuntTurboGauge;
   const uint StuntTurboGaugeMax;
-  const uint TimeElapsedSinceLastStunt;
-  const uint StuntAngle;
+  const float StuntJumpCharge;
+  const bool StuntStickNeedHelp;
+  const bool StuntJumpNeedHelp;
+  void StuntStateReset();
+  const float StuntMasterCharge;
+  const float StuntEpicCharge;
   const uint UniqueCameraRespawnCount;
   const uint UniqueCameraAvailableRespawnLeft;
-  const uint TimeLeftForStuntCombo;
   const uint TimeTillSmashRespawn;
   const uint TimeTillSmashGiveUp;
   const bool SmashNeedHelp;
-  const bool StuntStickNeedHelp;
-  const bool StuntJumpNeedHelp;
-  const float StuntJumpCharge;
-  const float StuntMasterCharge;
-  const float StuntEpicCharge;
-  void StuntStateReset();
+  const int TimeBeforeDeadlyZone;
+  const bool IsDeadlyZoneActive;
   uint BonusEventStartTime;
   uint BonusEventDuration;
   uint BonusEventWarningDuration;
-  const int TimeBeforeDeadlyZone;
-  const bool IsDeadlyZoneActive;
   const uint NbRespawns;
   bool AutoPilotEnabled;
   const UnknownType SpawnLoc;
@@ -19871,7 +19904,7 @@ struct CTrackManiaNetworkServerInfo : public CGameCtnNetServerInfo {
   uint NextFinishTimeout;
   uint NextAllWarmUpDuration;
   bool NextDisableRespawn;
-  bool NextForceMaxOpponents;
+  uint NextForceMaxOpponents;
   wstring NextScriptRelName;
 };
 
@@ -20069,11 +20102,14 @@ struct CTmRaceRulesEvent : public CMwNod {
   const EStuntFigure StuntFigure;
   const uint Angle;
   const uint Points;
+  const float Factor;
   const uint Combo;
   const bool IsStraight;
   const bool IsReverse;
+  const bool IsPerfectLanding;
   const bool IsMasterJump;
-  const float Factor;
+  const bool IsMasterLanding;
+  const bool IsEpicLanding;
   const CGamePlayerInfo* User;
   const bool PlayerWasSpawned;
   const bool PlayerWasInLadderMatch;

@@ -562,6 +562,7 @@ source\GameManagerBadgeScript.cpp
 source\GameManiaApp.cpp
 source\GameManiaAppBrowser.cpp
 source\GameManiaAppMinimal.cpp
+source\GameManiaAppPlayground.cpp
 source\GameManiaAppPlaygroundCommon.cpp
 source\GameManiaAppPlaygroundScriptEvent.cpp
 source\GameManiaAppScriptEvent.cpp
@@ -1681,7 +1682,6 @@ Source\TrackManiaRaceNetTimeAttack.cpp
 Source\TrackManiaRaceNew.cpp
 Source\TrackManiaRaceRules.cpp
 Source\TrackManiaRaceRulesEvent.cpp
-Source\TrackManiaRaceStunts.cpp
 Source\TrackManiaResource.cpp
 Source\TrackManiaScore.cpp
 source\VisAsyncRender.cpp
