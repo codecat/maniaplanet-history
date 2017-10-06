@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 0.09 (v4, Public)
+// Generated with Openplanet 0.13 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -28,7 +28,7 @@ struct CMwNod {
   CMwNod();
 
   string IdName;
-  const UnknownType Id;
+  const MwId Id;
 };
 
 struct CMwEngine : public CMwNod {
@@ -161,7 +161,7 @@ struct CMwParamIso4 : public CMwParamStruct {
 struct CMwCmdBuffer : public CMwNod {
   CMwCmdBuffer();
 
-  const UnknownType Cmds;
+  const MwBufferCat<CMwCmd*> Cmds;
   const uint CmdCount;
 };
 
@@ -188,8 +188,8 @@ struct CMwCmdBufferCore : public CMwNod {
   const float SimulationRelativeSpeed;
   float PeriodEstimated;
   float DeltaSmoothed;
-  UnknownType PeriodSmoothing;
-  UnknownType DeltaSmoothing;
+  float PeriodSmoothing; // Range: 0 - 1
+  float DeltaSmoothing; // Range: 0 - 1
   const bool IsLagForbidden;
 };
 
@@ -219,7 +219,7 @@ struct CMwRefBuffer : public CMwNod {
   CMwRefBuffer();
 
   const uint Count;
-  const NodArray Nods;
+  const MwBuffer<CMwNod*> Nods;
   const bool UseAddRefRelease;
   uint NodClassId;
 };
@@ -237,7 +237,7 @@ struct CMwStatsValue : public CMwNod {
   uint ReductionRatio;
   bool ComputeBuckets;
   bool AutoBuckets;
-  array<float> BucketsRanges;
+  MwArray<float> BucketsRanges;
   void Log();
   const uint NbSamples;
   const string Summary;
@@ -250,7 +250,7 @@ struct CMwStatsValue : public CMwNod {
   const float Median;
   const float MedianStdDev;
   const float DeviatedMean;
-  array<float> BucketsRatio;
+  MwArray<float> BucketsRatio;
 };
 
 struct CMwCmdBlock : public CMwNod {
@@ -353,12 +353,12 @@ struct CGameManiaTitle : public CGameNod {
   uint SmGameplayVersion;
   bool InternalAllowLegacyNonScriptModes;
   bool UnlockAdvancedCollectors;
-  const NodArray CollectionFids;
-  UnknownType VehicleIdentId;
-  UnknownType VehicleIdentAuthor;
-  UnknownType VehicleIdentCollection;
-  const NodArray MusicFids;
-  const NodArray EditorSimpleChallengeFids;
+  const MwBuffer<CGameCtnCollection*> CollectionFids;
+  MwId VehicleIdentId;
+  MwId VehicleIdentAuthor;
+  MwId VehicleIdentCollection;
+  const MwBuffer<CPlugFileSnd*> MusicFids;
+  const MwBuffer<CGameCtnChallenge*> EditorSimpleChallengeFids;
   CPlugFileFidContainer* ModFid;
   string MenuMainManialinkUrl;
   CPlugFileImg* MenuBgFid;
@@ -420,7 +420,7 @@ struct CGameApp : public CMwNod {
   const CInputPort* InputPort;
   const CGameDialogs* BasicDialogs;
   const CGameSystemOverlay* SystemOverlay;
-  const NodArray ActiveMenus;
+  const MwBuffer<CGameMenu*> ActiveMenus;
   void ShowMenu(CGameMenu* Menu);
   void HideMenu(CGameMenu* Menu);
   void HeavyUpdate();
@@ -450,17 +450,17 @@ struct CGameMasterServer : public CNetMasterServer {
   void SendGfxPerformance();
   void SendMessages();
   void ReceiveMessages();
-  array<uint> FilesToSubmit;
-  array<uint> FilesToConfirm;
+  MwBuffer<uint> FilesToSubmit;
+  MwBuffer<uint> FilesToConfirm;
   const uint ReturnedError;
   const string ReturnedIP;
   const uint InboxMessagesCount;
   const uint OutboxMessagesCount;
-  const NodArray Pools;
-  const NodArray RemoteDataInfos;
+  const MwBuffer<CGameRemoteBufferPool*> Pools;
+  const MwBuffer<CGameRemoteBufferDataInfo*> RemoteDataInfos;
   void CheckDownloadToLaunch();
-  const NodArray Downloads;
-  const NodArray CurrentDownloads;
+  const MwBuffer<CMwNod*> Downloads;
+  const MwBuffer<CMwNod*> CurrentDownloads;
   uint Search_TimeToWait;
   const uint Search_Last;
   const CGameLeagueManager* LeaguesManager;
@@ -482,7 +482,7 @@ struct CGameMenu : public CMwNod {
     SystemDialog = 8,
     BasicDialog = 11,
   };
-  NodArray Frames;
+  MwArray<CGameMenuFrame*> Frames;
   CGameMenuFrame* MainFrame;
   const CGameMenuFrame* CurrentFrame;
   const CControlBase* CurrentFocusedControl;
@@ -516,7 +516,7 @@ struct CGameNetFormPlaygroundSync : public CNetNod {
 struct CGameMenuFrame : public CControlFrame {
   CGameMenuFrame();
 
-  UnknownType AutoBackButtonId;
+  MwId AutoBackButtonId;
   CPlugSound* UpDownSound;
   CPlugSound* ShowSound;
   CMwCmdBlockMain* OnHideScript;
@@ -552,9 +552,9 @@ struct CGameSystemOverlay : public CMwNod {
 
 struct CGamePlayground : public CGameSwitcherModule {
   const CGamePlaygroundInterface* Interface;
-  const NodArray Players;
-  const NodArray GameTerminals;
-  const NodArray UIConfigs;
+  const MwBuffer<CGamePlayer*> Players;
+  const MwBuffer<CGameTerminal*> GameTerminals;
+  const MwBuffer<CGamePlaygroundUIConfig*> UIConfigs;
   const CGameCtnReplayRecord* ReplayRecord;
   CGameCtnReplayRecord* PrevReplayRecord;
   bool GameTerminals_IsBlackOut;
@@ -597,16 +597,16 @@ struct CGameNetwork : public CMwNod {
   CGameNetServerInfo* ServerInfo;
   const CNetMasterServer* MasterServer;
   const CNetFileTransfer* FileTransfer;
-  const NodArray PackDescs;
+  const MwBuffer<CSystemPackDesc*> PackDescs;
   const CSystemFidsFolder* LocationPacksContent;
   const bool IsMultiInternet;
   const bool IsEnabled;
   const bool IsServer;
   const CNetServer* Server;
   const CNetClient* Client;
-  const NodArray OnlineServers;
-  const NodArray OnlinePlayers;
-  NodArray PlayerInfos;
+  const MwBuffer<CGameNetServerInfo*> OnlineServers;
+  const MwBuffer<CGameNetServerInfo*> OnlinePlayers;
+  MwBuffer<CGameNetPlayerInfo*> PlayerInfos;
   void FindServers();
   const CGamePlaygroundUIConfigMgrScript* UIConfigMgr_Rules;
   const CGamePlaygroundUIConfigMgrScript* UIConfigMgr_ServerPlugin;
@@ -616,11 +616,11 @@ struct CGameNetwork : public CMwNod {
   const bool InCallvote;
   const uint VoteNbYes;
   const uint VoteNbNo;
-  const array<wstring> ChatHistoryText;
-  const array<uint> ChatHistoryUid;
-  const array<uint> ChatHistoryTimestamp;
-  const array<wstring> ChatHistoryLines;
-  const NodArray ManialinkDataCache;
+  const MwBuffer<wstring> ChatHistoryText;
+  const MwBuffer<uint> ChatHistoryUid;
+  const MwBuffer<uint> ChatHistoryTimestamp;
+  const MwBuffer<wstring> ChatHistoryLines;
+  const MwBuffer<CSystemData*> ManialinkDataCache;
   const uint RecvNetRate;
   const uint SendNetRate;
   const float PacketLossRate;
@@ -673,8 +673,8 @@ struct CGameManiaPlanet : public CGameCtnApp {
   CPlugFileImg* TitleMainDefaultBgFid;
   CControlStyleSheet* DefaultStyleSheet;
   void ScanDiskForManiaTitles();
-  const NodArray ManiaTitles;
-  const NodArray Stations;
+  const MwBuffer<CGameManiaTitle*> ManiaTitles;
+  const MwBuffer<CGameStation*> Stations;
   const CGameManiaTitle* LoadedManiaTitle;
   const CGameManiaTitleCore* LoadedCore;
   const CGameManiaPlanetScriptAPI* ManiaPlanetScriptAPI;
@@ -751,7 +751,7 @@ struct CGameScene : public CScene3d {
   const CGameMgrActionFxVis* MgrActionFxVis;
   const CGameMgrCamera* MgrCamera;
   CSceneMobil* MarksMobil;
-  const NodArray ChallengeDecals_Models;
+  const MwBuffer<CPlugDecalModel*> ChallengeDecals_Models;
   CHmsVisMiniMap* MiniMap;
 };
 
@@ -759,10 +759,10 @@ struct CGameScene : public CScene3d {
 struct CGameMenuColorEffect : public CControlEffect {
   CGameMenuColorEffect();
 
-  NodArray ColorsBeam;
-  array<float> ColorPeriods;
-  array<float> BeamWidths;
-  array<float> InterWidths;
+  MwArray<CFuncFullColorGradient*> ColorsBeam;
+  MwArray<float> ColorPeriods;
+  MwArray<float> BeamWidths;
+  MwArray<float> InterWidths;
   float Period;
   bool IsBeamColorEvolving;
   bool IsBeamMoving;
@@ -778,8 +778,8 @@ struct CGameCtnCollectorList : public CMwNod {
   CGameCtnCollectorList();
 
   const uint Bob;
-  const UnknownType BlockStockIds;
-  array<uint> BlockStockNbAvailables;
+  const MwBuffer<MwId> BlockStockIds;
+  MwBuffer<uint> BlockStockNbAvailables;
 };
 
 struct CGameCtnChapter : public CMwNod {
@@ -787,7 +787,7 @@ struct CGameCtnChapter : public CMwNod {
 
   const CSystemFidFile* CollectionFid;
   const wstring LongDesc;
-  const NodArray Articles;
+  const MwBuffer<CGameCtnArticle*> Articles;
   vec2 MapCoordElem;
   vec2 MapCoordIcon;
   vec2 MapCoordDesc;
@@ -798,7 +798,7 @@ struct CGameCtnChapter : public CMwNod {
 struct CGameCtnCatalog : public CMwNod {
   CGameCtnCatalog();
 
-  const NodArray Chapters;
+  const MwBuffer<CGameCtnChapter*> Chapters;
 };
 
 struct CGameCtnArticle : public CMwNod {
@@ -809,9 +809,9 @@ struct CGameCtnArticle : public CMwNod {
   const bool IsLoaded;
   void Preload();
   void Purge();
-  const UnknownType IdentId;
+  const MwId IdentId;
   UnknownType CollectionId;
-  const UnknownType IdentAuthor;
+  const MwId IdentAuthor;
   const CPlugBitmap* BitmapIcon;
   const CPlugGameSkin* GameSkin;
   uint NbAvailableCurrent;
@@ -875,7 +875,7 @@ struct CGameRemoteBuffer : public CMwNod {
   const uint PerPageCount;
   const uint CacheDuration;
   const uint RegisteredUsersCount;
-  NodArray Datas;
+  MwBuffer<CMwNod*> Datas;
 };
 
 struct CGameRemoteBufferPool : public CMwNod {
@@ -892,8 +892,8 @@ struct CGameRemoteBufferDataInfo : public CMwNod {
 struct CGameResources : public CMwNod {
   CGameResources();
 
-  NodArray Sounds;
-  const NodArray AudioSources;
+  MwArray<CPlugSound*> Sounds;
+  const MwArray<CAudioSource*> AudioSources;
   CSystemFidsFolder* HymnsFolder;
   CSystemFidsFolder* MenuBackgroundsFolder;
   CSystemFidsFolder* FolderGlobalEnvBanners;
@@ -1038,7 +1038,7 @@ struct CGameDialogs : public CMwNod {
   void Message_Ok();
   const wstring WaitMessage_LabelText;
   const wstring WaitMessage_ButtonText;
-  const UnknownType WaitMessage_Progress;
+  const float WaitMessage_Progress; // Range: 0 - 1
   const bool WaitMessage_ShowProgressBar;
   const bool WaitMessage_ShowAbortButton;
   void WaitMessage_Ok();
@@ -1054,7 +1054,7 @@ struct CGameDialogs : public CMwNod {
   void DialogSaveAs_OnRefresh();
   void DialogSaveAs_OnValidate();
   void DialogSaveAs_OnCancel();
-  const NodArray DialogSaveAs_Files;
+  const MwBuffer<CGameFid*> DialogSaveAs_Files;
   void DbgTestDoMessage();
 };
 
@@ -1081,7 +1081,7 @@ struct CGameCtnCollection : public CMwNod {
   CGameCtnCollection();
 
   UnknownType CollectionId;
-  NodArray CompleteZoneList;
+  MwBuffer<CGameCtnZone*> CompleteZoneList;
   wstring DisplayName;
   uint CollectionPackMask;
   CGameCtnZone* DefaultZone;
@@ -1090,10 +1090,10 @@ struct CGameCtnCollection : public CMwNod {
   float BoardSquareHeight;
   float BoardSquareBorder;
   float TerrainHeightOffset;
-  UnknownType Water0_Id;
+  MwId Water0_Id;
   float Water0_OffsetTop;
   float Water0_OffsetBottom;
-  UnknownType Water1_Id;
+  MwId Water1_Id;
   float Water1_OffsetTop;
   float Water1_OffsetBottom;
   float WaterTop;
@@ -1106,14 +1106,14 @@ struct CGameCtnCollection : public CMwNod {
   bool ShadowCastBack;
   float ShadowSoftSizeInWorld;
   UnknownType VertexLighting;
-  UnknownType ColorVertexMin;
-  UnknownType ColorVertexMax;
+  float ColorVertexMin; // Range: 0 - 1
+  float ColorVertexMax; // Range: 0 - 1
   UnknownType LightMapMapper;
   float VisMeshLodDistScale;
   vec3 Tech3TunnelSpecularExpScaleMax;
   CGameCtnDecoration* DefaultDecoration;
-  UnknownType VehicleName;
-  UnknownType VehicleAuthor;
+  MwId VehicleName;
+  MwId VehicleAuthor;
   UnknownType VehicleCollection;
   bool IsEditable;
   CPlugBitmap* IconFid;
@@ -1135,18 +1135,18 @@ struct CGameCtnCollection : public CMwNod {
   vec2 MapCoordDesc;
   wstring LongDesc;
   void SetMapCoordFromRect();
-  array<wstring> BaseZoneStrings;
-  array<wstring> ReplacementZoneStrings;
-  NodArray ReplacementTerrainModifiers;
+  MwBuffer<wstring> BaseZoneStrings;
+  MwBuffer<wstring> ReplacementZoneStrings;
+  MwBuffer<CGameCtnDecorationTerrainModifier*> ReplacementTerrainModifiers;
   void AddReplacementZone();
   void RemoveReplacementZone();
-  const NodArray ParticleEmitterModelsFids;
-  UnknownType DecalsTypesId;
+  const MwBuffer<CPlugParticleEmitterModel*> ParticleEmitterModelsFids;
+  MwBuffer<MwId> DecalsTypesId;
   CSceneVehicleCarMarksModel* MarksModel;
   CFuncShaderLayerUV* FidFuncShaderCloudsX2;
   CPlugBitmap* FidPlugBitmapCloudsX2;
   CPlugFogMatter* OffZone_FogMatter;
-  const NodArray ZoneList;
+  const MwBuffer<CGameCtnZone*> ZoneList;
 };
 
 struct CGameCtnMediaBlockEditor : public CMwNod {
@@ -1159,7 +1159,7 @@ struct CGameVskObjectInfo : public CGameCtnCollector {
   CMwNod* Helper;
   CMwNod* Mobil;
   CMwNod* AltMobil;
-  NodArray Properties;
+  MwBuffer<CMwNod*> Properties;
 };
 
 struct CGameCtnBlockUnitInfo : public CMwNod {
@@ -1172,14 +1172,14 @@ struct CGameCtnBlockUnitInfo : public CMwNod {
     West = 3,
   };
   int3 OffsetE;
-  NodArray ClipsE;
+  MwArray<CGameCtnBlockInfoClip*> ClipsE;
   CGameCtnBlockInfoClip* TopClip;
   CGameCtnBlockInfoClip* BottomClip;
-  NodArray Pylons;
+  MwArray<CGameCtnBlockInfoPylon*> Pylons;
   uint AcceptPylons;
   uint PlacePylons;
   bool Underground;
-  UnknownType TerrainModifierId;
+  MwId TerrainModifierId;
   CGameCtnBlockUnitInfo* OriginalBlockUnitInfoCopy;
   const uint PlacedPillarIndex;
   const uint ReplacedPillarIndex;
@@ -1187,7 +1187,7 @@ struct CGameCtnBlockUnitInfo : public CMwNod {
   CardinalDirEnum BottomClipDir;
   const int3 Offset;
   const int3 RelativeOffset;
-  const NodArray Clips;
+  const MwArray<CGameCtnBlockInfoClip*> Clips;
 };
 
 struct CGameFid : public CMwNod {
@@ -1215,7 +1215,7 @@ struct CGameCtnDecoration : public CGameCtnCollector {
   CPlugGameSkin* VehicleFxSkin;
   CSystemFidsFolder* VehicleFxFolder;
   CPlugSound* DecoAudio_Ambient;
-  UnknownType DecorationZoneFrontierId;
+  MwId DecorationZoneFrontierId;
   void InitWithNoSkin();
   void ClearWithNoSkin();
   CPlugDecoratorSolid* DecoratorSolidWarp;
@@ -1225,9 +1225,9 @@ struct CGameCtnDecoration : public CGameCtnCollector {
 struct CGameCtnDecorationAudio : public CMwNod {
   CGameCtnDecorationAudio();
 
-  NodArray Sounds;
-  NodArray Musics;
-  UnknownType CameraWooshVolumedB;
+  MwArray<CPlugSound*> Sounds;
+  MwArray<CPlugSound*> Musics;
+  float CameraWooshVolumedB; // Range: -60 - 0
   float CameraWooshMinSpeedKmh;
   CPlugAudioEnvironment* AudioEnvOutsideOpen;
   CPlugAudioEnvironment* AudioEnvOutsideEnclosed;
@@ -1253,7 +1253,7 @@ struct CGameCtnDecorationAudio : public CMwNod {
   CPlugAudioBalance* AudioBalance_SM_EvtFire;
   float ReverbMinBlockDist;
   float ReverbMaxBlockDist;
-  array<float> ReverbMaterialGains;
+  MwBuffer<float> ReverbMaterialGains;
   CPlugFileText* ModifierXmlFile;
 };
 
@@ -1263,7 +1263,7 @@ struct CGameCtnDecorationMood : public CMwNod {
 
   uint ShadowCountCarHuman;
   uint ShadowCountCarOpponent;
-  UnknownType ShadowCarIntensity;
+  float ShadowCarIntensity; // Range: 0 - 1
   bool ShadowScene;
   bool BackgroundIsLocallyLighted;
   bool SolidLightAreSkinned;
@@ -1292,7 +1292,7 @@ struct CGameCtnDecorationMood : public CMwNod {
   CPlugFxWindOnTreeSprite* FxWindOnTreeSprite;
   CPlugFxHdrScales_Tech3* FxHdrScalesT3;
   CPlugMoodBlender* MoodBlender;
-  UnknownType RemappedStartDayTime;
+  float RemappedStartDayTime; // Range: 0 - 1
   bool IsNight;
   CPlugGameSkin* Remapping;
   CSystemFidsFolder* RemapFolder;
@@ -1320,7 +1320,7 @@ struct CGameCtnDecorationSize : public CMwNod {
 struct CGameCtnDecorationTerrainModifier : public CMwNod {
   CGameCtnDecorationTerrainModifier();
 
-  UnknownType IdName;
+  MwId IdName;
   CPlugGameSkin* Remapping;
   CSystemFidsFolder* RemapFolder;
 };
@@ -1333,7 +1333,7 @@ struct CGameAdvertising : public CGameNod {
   bool ImpressionHelpers_Enable;
   bool DisableOcclusion;
   bool EditionDummies;
-  const NodArray Files;
+  const MwBuffer<CMwNod*> Files;
   CPlugFileImg* EditonDummyImage;
   const string Identifier;
   const string PublicKey;
@@ -1351,14 +1351,14 @@ struct CGameAdvertising : public CGameNod {
   string ZoneHost;
   string Nation;
   string Login;
-  const NodArray ZoneElements;
+  const MwBuffer<CGameAdvertisingElement*> ZoneElements;
   const CSceneMobil* ImpressionHelpers_Mobil;
 };
 
 struct CGameAdvertisingElement : public CGameNod {
   const string Name;
   const uint ContentDisplayed;
-  const NodArray OwnerNods;
+  const MwBuffer<CMwNod*> OwnerNods;
   const CSystemFidFile* File;
   void DisplayOrig();
   const float Nadeo_MaxImpression;
@@ -1401,7 +1401,7 @@ struct CGameCtnChallenge : public CMwNod {
   const wstring AuthorZonePath;
   const wstring MapType;
   const wstring MapStyle;
-  const UnknownType TitleId;
+  const MwId TitleId;
   uint TMObjective_AuthorTime;
   uint TMObjective_GoldTime;
   uint TMObjective_SilverTime;
@@ -1421,8 +1421,8 @@ struct CGameCtnChallenge : public CMwNod {
   const CPlugBitmap* AuthorZoneIcon;
   const wstring MapTypeOrLegacyMode;
   string HashedPassword;
-  UnknownType VehicleName;
-  UnknownType VehicleAuthor;
+  MwId VehicleName;
+  MwId VehicleAuthor;
   UnknownType VehicleCollection;
   bool NeedUnlock;
   UnknownType Kind;
@@ -1432,13 +1432,13 @@ struct CGameCtnChallenge : public CMwNod {
   CSystemPackDesc* CustomMusicPackDesc;
   CPlugSound* CustomMusic;
   CGameCtnCollection* Collection;
-  const NodArray Blocks;
-  const NodArray BakedBlocks;
+  const MwBuffer<CGameCtnBlock*> Blocks;
+  const MwBuffer<CGameCtnBlock*> BakedBlocks;
   CPlugTrafficGraph* TrafficGraph;
-  const NodArray TrafficElemDescs;
-  const NodArray TrafficPathSplines;
-  const NodArray TrafficPathSquares;
-  const NodArray TrafficZoneSquares;
+  const MwBuffer<CGameCtnChallengeTrafficElemDesc*> TrafficElemDescs;
+  const MwBuffer<CPlugSpline3D*> TrafficPathSplines;
+  const MwBuffer<CPlugTrafficPathSquares*> TrafficPathSquares;
+  const MwBuffer<CPlugTrafficZoneSquares*> TrafficZoneSquares;
   void CheckPlayField();
   const uint VertexCount;
   uint TargetTime;
@@ -1451,11 +1451,11 @@ struct CGameCtnChallenge : public CMwNod {
   CGameCtnMediaClip* ClipAmbiance;
   vec2 MapCoordTarget;
   vec2 MapCoordOrigin;
-  NodArray CarMarksBuffer;
+  MwBuffer<CSceneVehicleCarMarksSamples*> CarMarksBuffer;
   void TmpBlockOffsetMoulinette();
   uint TmpBlockOffsetMoulinetteY;
   const uint LightMapCacheSmallByteSize;
-  NodArray AnchoredObjects;
+  MwBuffer<CGameCtnAnchoredObject*> AnchoredObjects;
   CPlugAnimFile* AnimLibrary;
   CScriptTraitsMetadata* ScriptMetadata;
   float ThumbnailCam_TransX;
@@ -1503,7 +1503,7 @@ struct CGameCtnChallengeInfo : public CGameFid {
   const uint OfficialBestTime;
   const uint OfficialMinRespawnCount;
   const uint GoldTime;
-  const NodArray SoloScores;
+  const MwBuffer<CGameHighScore*> SoloScores;
 };
 
 struct CGameOutlineBox : public CMwNod {
@@ -1521,7 +1521,7 @@ struct CGameOutlineBox : public CMwNod {
 struct CGameCtnParticleParam : public CMwNod {
   CGameCtnParticleParam();
 
-  UnknownType ParticleModelId;
+  MwId ParticleModelId;
 };
 
 struct CGameHighScore : public CMwNod {
@@ -1565,7 +1565,7 @@ struct CGameCtnPainterSetting : public CMwNod {
   CPlugBitmap* BitmapBrushFade;
   CPlugBitmap* BitmapStickerFade;
   CPlugFileImg* ImageSubObjectAllIcon;
-  const NodArray ScenesFids;
+  const MwBuffer<CScene3d*> ScenesFids;
   float MouseZDeltaRot;
   float MouseZDeltaScale;
   float MouseZDeltaTransparency;
@@ -1583,7 +1583,7 @@ struct CGameLeagueManager : public CMwNod {
   CGameLeagueManager();
 
   uint CacheDuration;
-  NodArray Leagues;
+  MwBuffer<CGameLeague*> Leagues;
 };
 
 struct CGameCtnMediaBlockEditorTriangles : public CGameCtnMediaBlockEditor {
@@ -1593,7 +1593,7 @@ struct CGameCtnMediaBlockEditorTriangles : public CGameCtnMediaBlockEditor {
   void ModeCreateTriangles();
   void ModeDeleteVertexs();
   UnknownType VertRGB;
-  UnknownType VertAlpha;
+  float VertAlpha; // Range: 0 - 1
   float VertPosX;
   float VertPosY;
   float VertPosZ;
@@ -1638,12 +1638,12 @@ struct CGameCtnBlockInfo : public CGameCtnCollector {
   };
   CGameCtnBlockInfoVariantGround* VariantBaseGround;
   CGameCtnBlockInfoVariantAir* VariantBaseAir;
-  const NodArray AdditionalVariantsGround;
-  const NodArray AdditionalVariantsAir;
+  const MwBuffer<CGameCtnBlockInfoVariantGround*> AdditionalVariantsGround;
+  const MwBuffer<CGameCtnBlockInfoVariantAir*> AdditionalVariantsAir;
   bool IsPillar;
   EWayPointType EdWaypointType;
   EBaseType BaseType;
-  UnknownType SymmetricalBlockInfoId;
+  MwId SymmetricalBlockInfoId;
   UnknownType Dir;
   CGameCtnBlockInfo* SymmetricalBlockInfoConnected;
   MultiDirEnum PillarShapeMultiDir;
@@ -1722,9 +1722,9 @@ struct CGameCtnBlockInfoClip : public CGameCtnBlockInfo {
   float PassingPointPosY;
   float PassingPointRoll;
   float PassingPointPitch;
-  UnknownType ASymmetricalClipId;
-  UnknownType ClipGroupId;
-  UnknownType SymmetricalClipGroupId;
+  MwId ASymmetricalClipId;
+  MwId ClipGroupId;
+  MwId SymmetricalClipGroupId;
   EnumClipType ClipType;
   bool IsFullFreeClip;
   bool IsExclusiveFreeClip;
@@ -1763,16 +1763,16 @@ struct CGameCtnBlock : public CMwNod {
     South = 2,
     West = 3,
   };
-  const UnknownType DescId;
+  const MwId DescId;
   const UnknownType CollectionId;
-  const UnknownType DescAuthor;
+  const MwId DescAuthor;
   uint CoordX;
   uint CoordY;
   uint CoordZ;
   CardinalDirections Dir;
   const uint MobilIndex;
   const CSceneMobil* Mobil;
-  NodArray BlockUnitsE;
+  MwArray<CGameCtnBlockUnit*> BlockUnitsE;
   const CGameCtnBlockSkin* Skin;
   void ApplySkin();
   bool Editable;
@@ -1785,7 +1785,7 @@ struct CGameCtnBlock : public CMwNod {
   void UseCustomAnchor();
   const int3 Coord;
   const CardinalDirections Direction;
-  const NodArray BlockUnits;
+  const MwArray<CGameCtnBlockUnit*> BlockUnits;
   const CGameCtnBlockInfo* BlockModel;
 };
 
@@ -1836,12 +1836,12 @@ struct CGameCtnChallengeParameters : public CMwNod {
 struct CGameCtnZone : public CMwNod {
   CGameCtnZone();
 
-  UnknownType ZoneId;
-  UnknownType SurfaceId;
-  UnknownType WaterId;
+  MwId ZoneId;
+  MwId SurfaceId;
+  MwId WaterId;
   bool IsLargeZone;
   float VisualTopGroundHeight;
-  UnknownType ForcedParentZoneFrontierId;
+  MwId ForcedParentZoneFrontierId;
   const uint Height;
 };
 
@@ -1863,14 +1863,14 @@ struct CGameCtnZoneFrontier : public CGameCtnZone {
 
   int ParentToChildHeightChange;
   const int BlockYOffsetFromParent;
-  UnknownType ParentZoneId;
-  UnknownType ChildZoneId;
+  MwId ParentZoneId;
+  MwId ChildZoneId;
   CGameCtnBlockInfoFrontier* BlockInfoFrontier;
   bool FrontierParentBorder_AcceptPylons;
   bool FrontierChildBorder_AcceptPylons;
   bool FrontierTransitionMiddle_AcceptPylons;
   bool FrontierStraightMiddle_AcceptPylons;
-  NodArray CompatibleZones;
+  MwBuffer<CGameCtnZoneFusionInfo*> CompatibleZones;
 };
 
 // File extension: 'GameSkinnedNod.gbx'
@@ -1879,7 +1879,7 @@ struct CGameSkinnedNod : public CGameNod {
 
   CMwNod* BaseNodFid;
   CPlugGameSkin* GameSkin;
-  NodArray RemapFids;
+  MwArray<CMwNod*> RemapFids;
 };
 
 struct CGameCtnMediaShootParams : public CMwNod {
@@ -1925,7 +1925,7 @@ struct CGameManialinkBrowser : public CMwNod {
   bool Manialink_Enabled;
   bool Manialink_Active;
   wstring ManialinkBrowser_Link;
-  UnknownType ManialinkBrowser_Frame3dFocused;
+  MwId ManialinkBrowser_Frame3dFocused;
   void ManialinkBrowser_OnHome();
   void ManialinkBrowser_OnQuit();
   void ManialinkBrowser_OnBack();
@@ -1987,7 +1987,7 @@ struct CGameControlCameraFree : public CGameControlCamera {
   float ClampPitchMax;
   float Acceleration;
   float StartMoveSpeed;
-  UnknownType MoveSpeedCoef;
+  uint MoveSpeedCoef; // Range: 0 - 15
   float MoveSpeed;
   float MoveInertia;
   float RotateSpeed;
@@ -2088,7 +2088,7 @@ struct CGameCtnMediaTrack : public CMwNod {
   bool IsReadOnly;
   bool IsKeepPlaying;
   bool IsCycling;
-  const NodArray Blocks;
+  const MwBuffer<CGameCtnMediaBlock*> Blocks;
 };
 
 // File extension: 'Clip.gbx'
@@ -2096,7 +2096,7 @@ struct CGameCtnMediaClip : public CMwNod {
   CGameCtnMediaClip();
 
   wstring Name;
-  const NodArray Tracks;
+  const MwBuffer<CGameCtnMediaTrack*> Tracks;
   uint LocalPlayerClipEntIndex;
   bool StopOnRespawn;
 };
@@ -2105,7 +2105,7 @@ struct CGameCtnMediaClip : public CMwNod {
 struct CGameCtnMediaClipGroup : public CMwNod {
   CGameCtnMediaClipGroup();
 
-  const NodArray Clips;
+  const MwBuffer<CGameCtnMediaClip*> Clips;
 };
 
 struct CGameCtnMediaBlockCamera : public CGameCtnMediaBlock {
@@ -2172,7 +2172,7 @@ struct CGameCtnMediaBlockTime : public CGameCtnMediaBlock {
 struct CGameCtnMediaClipPlayer : public CMwNod {
   const CGameCtnMediaClip* Clip;
   const CScene2d* Scene2d;
-  const NodArray EdMediaTracks;
+  const MwBuffer<CGameCtnMediaTrack*> EdMediaTracks;
   const uint LocalPlayerReplicaId;
 };
 
@@ -2264,11 +2264,11 @@ struct CGamePlayerInfo : public CGameNetPlayerInfo {
   const wstring LadderZoneFlagUrl;
   const float ReferenceScore;
   const bool IsFakeUser;
-  const array<uint> Tags_Favored_Indices;
-  const array<string> Tags_Id;
+  const MwBuffer<uint> Tags_Favored_Indices;
+  const MwBuffer<string> Tags_Id;
   const UnknownType Tags_Type;
-  const array<wstring> Tags_Comments;
-  const array<wstring> Tags_Deliverer;
+  const MwBuffer<wstring> Tags_Comments;
+  const MwBuffer<wstring> Tags_Deliverer;
   const EStereoDisplayMode StereoDisplayMode;
   bool HackCamHmdDisabled;
   const bool VoiceChat_Supported;
@@ -2278,13 +2278,13 @@ struct CGamePlayerInfo : public CGameNetPlayerInfo {
   const uint RequestedClan;
   const bool RequestsSpectate;
   const bool IsConnectedToMasterServer;
-  const array<string> AlliesConnected;
+  const MwBuffer<string> AlliesConnected;
   const CPlugBitmap* ZoneBitmap;
   const CGameLeague* ZoneLeague;
   const bool WishSpectator;
   const bool ForcedSpectator;
   uint PlaygroundTeamRequested;
-  UnknownType LightTrailLinearHue;
+  float LightTrailLinearHue; // Range: 0 - 1
   const wstring StrLadderRanking;
   const wstring StrLadderRankingSimple;
   const string StrLadderScore;
@@ -2312,7 +2312,7 @@ struct CGamePlayerProfile : public CMwNod {
   string ProfileName;
   const wstring DisplayProfileName;
   const uint TotalPlayTime;
-  const NodArray Chunks;
+  const MwBuffer<CGamePlayerProfileChunk*> Chunks;
   CGamePlayerProfileChunk_AccountSettings* AccountSettings;
   CGamePlayerProfileChunk_GameSettings* GameSettings;
   CGamePlayerProfileChunk_GameScores* GameScores;
@@ -2321,8 +2321,8 @@ struct CGamePlayerProfile : public CMwNod {
   CGamePlayerProfileChunk_InterfaceSettings* InterfaceSettings;
   CGamePlayerProfileChunk_VehiclesSettings* VehiclesSettings;
   CGamePlayerProfileChunk_ManiaPlanetStations* ManiaPlanetStations;
-  const NodArray InputBindingsConfigs;
-  const NodArray PackagesInfosChunks;
+  const MwBuffer<CGamePlayerProfileChunk_InputBindingsConfig*> InputBindingsConfigs;
+  const MwBuffer<CGamePlayerProfileChunk_PackagesInfos*> PackagesInfosChunks;
   const CScriptTraitsPersistent* ScriptPersistentTraits_NoTitle;
 };
 
@@ -2374,7 +2374,7 @@ struct CGameCtnChallengeGroup : public CMwNod {
   void CleanChallenges();
   void EmptyChallenges();
   void IsUnlocked();
-  const NodArray MapInfos;
+  const MwBuffer<CGameCtnChallengeInfo*> MapInfos;
 };
 
 // File extension: 'GameCtnCampaign.Gbx'
@@ -2412,8 +2412,8 @@ struct CGameCtnCampaign : public CMwNod {
     Author = 5,
   };
   const string CampaignId;
-  UnknownType CollectionId;
-  UnknownType IconId;
+  MwId CollectionId;
+  MwId IconId;
   wstring Name;
   EType Type;
   uint Index;
@@ -2426,7 +2426,7 @@ struct CGameCtnCampaign : public CMwNod {
   uint NbGoldMedals;
   uint NbAuthorMedals;
   const EMedal Medal;
-  NodArray MapGroups;
+  MwBuffer<CGameCtnChallengeGroup*> MapGroups;
   void AddChallengeGroup();
   wstring ModeScriptName;
   uint GetMapGroupCount();
@@ -2446,8 +2446,8 @@ struct CGameCtnGhostInfo : public CMwNod {
 struct CGameCtnGhost : public CGameGhost {
   CGameCtnGhost();
 
-  UnknownType ModelIdentName;
-  UnknownType ModelIdentAuthor;
+  MwId ModelIdentName;
+  MwId ModelIdentAuthor;
   UnknownType ModelIdentCollection;
   const uint EventsDuration;
   string GhostLogin;
@@ -2458,7 +2458,7 @@ struct CGameCtnGhost : public CGameGhost {
   const uint RaceTime;
   const uint NbRespawns;
   const uint StuntsScore;
-  const UnknownType Validate_ChallengeUid;
+  const MwId Validate_ChallengeUid;
   const string Validate_ExeVersion;
   const uint Validate_ExeChecksum;
   const string Validate_TitleId;
@@ -2473,7 +2473,7 @@ struct CGameCtnReplayRecord : public CMwNod {
   CGameCtnReplayRecord();
 
   const CGameCtnMediaClip* Clip;
-  const NodArray Ghosts;
+  const MwBuffer<CGameCtnGhost*> Ghosts;
   CGameCtnChallenge* Challenge;
   const uint Duration;
   void StopRecord();
@@ -2481,9 +2481,9 @@ struct CGameCtnReplayRecord : public CMwNod {
 };
 
 struct CGameCtnReplayRecordInfo : public CGameFid {
-  const UnknownType ChallengeId;
+  const MwId ChallengeId;
   const string MapUid;
-  const UnknownType CollectionId;
+  const MwId CollectionId;
   const uint BestTime;
   const wstring PlayerNickname;
   const string PlayerLogin;
@@ -2524,7 +2524,7 @@ struct CGameControlCard : public CControlFrame {
 struct CGameControlCardManager : public CMwNod {
   CGameControlCardManager();
 
-  const NodArray DataTypes;
+  const MwBuffer<CGameControlDataType*> DataTypes;
 };
 
 // File extension: 'CtnDispType.Gbx'
@@ -2553,7 +2553,7 @@ struct CGameCtnMediaBlockCameraPath : public CGameCtnMediaBlockCamera {
 
   const bool IsPathDirty;
   CFuncKeysTrans* Path;
-  const array<float> Lengths;
+  const MwArray<float> Lengths;
   const float CurveLength;
   const float TotalWeight;
 };
@@ -2808,26 +2808,26 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   void ButCamCustomAdvancedParams();
   void ButCamPathAdvancedParams();
   const CControlSimi2* ControlSimi2;
-  NodArray Clips;
-  NodArray Tracks;
+  MwBuffer<CGameCtnMediaClip*> Clips;
+  MwBuffer<CGameCtnMediaTrack*> Tracks;
   CGameCtnMediaTrack* SelTrack;
   wstring TrackName;
   wstring TrackText;
   float TextPosX;
   float TextPosY;
-  UnknownType TextDepth;
+  float TextDepth; // Range: 0 - 1
   float TextRot;
   float TextScaleX;
   float TextScaleY;
-  UnknownType TextOpacity;
+  float TextOpacity; // Range: 0 - 1
   const wstring TrackImage;
   float ImagePosX;
   float ImagePosY;
-  UnknownType ImageDepth;
+  float ImageDepth; // Range: 0 - 1
   float ImageRot;
   float ImageScaleX;
   float ImageScaleY;
-  UnknownType ImageOpacity;
+  float ImageOpacity; // Range: 0 - 1
   void ButChooseImage();
   void ButChooseSound();
   float TransFadeOpacity;
@@ -2837,7 +2837,7 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   float CamPitchCamCustom;
   float CamYawCamCustom;
   float CamRollCamCustom;
-  UnknownType CamFovCamCustom;
+  float CamFovCamCustom; // Range: 1 - 175
   const uint CamAnchorCamCustom;
   const wstring CamAnchorNameCamCustom;
   bool CamIsAnchorVisibleCamCustom;
@@ -2861,7 +2861,7 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   float CamPitchCamPath;
   float CamYawCamPath;
   float CamRollCamPath;
-  UnknownType CamFovCamPath;
+  float CamFovCamPath; // Range: 1 - 175
   const uint CamAnchorCamPath;
   const wstring CamAnchorNameCamPath;
   float CamWeightCamPath;
@@ -2889,27 +2889,27 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   void ButVehicleLightTargetNext();
   float TimeValue;
   float TimeTangent;
-  UnknownType FxColorsFxIntensity;
+  float FxColorsFxIntensity; // Range: 0 - 1
   UnknownType FxColorsZMode;
   float FxColorsZ_Near;
-  UnknownType FxColorsInverseRGB;
-  UnknownType FxColorsHue;
-  UnknownType FxColorsSaturation;
-  UnknownType FxColorsBrightness;
-  UnknownType FxColorsContrast;
-  UnknownType FxColorsModulateR;
-  UnknownType FxColorsModulateG;
-  UnknownType FxColorsModulateB;
-  UnknownType FxColorsIntensityF;
+  float FxColorsInverseRGB; // Range: 0 - 1
+  float FxColorsHue; // Range: 0 - 1
+  float FxColorsSaturation; // Range: -1 - 1
+  float FxColorsBrightness; // Range: -0.5 - 0.5
+  float FxColorsContrast; // Range: -0.6 - 0.6
+  float FxColorsModulateR; // Range: 0.2 - 1
+  float FxColorsModulateG; // Range: 0.2 - 1
+  float FxColorsModulateB; // Range: 0.2 - 1
+  float FxColorsIntensityF; // Range: 0 - 1
   float FxColorsZ_Far;
-  UnknownType FxColorsInverseRGBF;
-  UnknownType FxColorsHueF;
-  UnknownType FxColorsSaturationF;
-  UnknownType FxColorsBrightnessF;
-  UnknownType FxColorsContrastF;
-  UnknownType FxColorsModulateRF;
-  UnknownType FxColorsModulateGF;
-  UnknownType FxColorsModulateBF;
+  float FxColorsInverseRGBF; // Range: 0 - 1
+  float FxColorsHueF; // Range: 0 - 1
+  float FxColorsSaturationF; // Range: -1 - 1
+  float FxColorsBrightnessF; // Range: -0.5 - 0.5
+  float FxColorsContrastF; // Range: -0.6 - 0.6
+  float FxColorsModulateRF; // Range: 0.2 - 1
+  float FxColorsModulateGF; // Range: 0.2 - 1
+  float FxColorsModulateBF; // Range: 0.2 - 1
   float FxBlurDepthLensSize;
   bool FxBlurDepthForceZ;
   float FxBlurDepthFocusZ;
@@ -2921,9 +2921,9 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   float CamFxScriptA;
   float CamFxScriptB;
   float CamFxScriptC;
-  UnknownType StereoSepMax;
-  UnknownType StereoSepUpToMax;
-  UnknownType StereoScreenDist;
+  float StereoSepMax; // Range: 0 - 1
+  float StereoSepUpToMax; // Range: 0 - 1
+  float StereoScreenDist; // Range: 0.5 - 500
   float DofFocusZ;
   float DofLensSize;
   const wstring DofTargetName;
@@ -2956,8 +2956,8 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   const wstring TrackSound;
   bool SoundIsMusic;
   bool SoundStopWithClip;
-  UnknownType SoundVolume;
-  UnknownType SoundPan;
+  float SoundVolume; // Range: 0 - 1
+  float SoundPan; // Range: -1 - 1
   float SoundPosX;
   float SoundPosY;
   float SoundPosZ;
@@ -2970,9 +2970,9 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   bool ShowHUD;
   bool ShowPing;
   bool ShowCrossHair;
-  UnknownType CrossHairSizeScale;
-  UnknownType MusicVolume;
-  UnknownType GlobalSoundVolume;
+  float CrossHairSizeScale; // Range: 0.1 - 2
+  float MusicVolume; // Range: 0 - 1
+  float GlobalSoundVolume; // Range: 0 - 1
   wstring GhostName;
   const wstring GhostSkin;
   const uint GhostRaceTime;
@@ -2980,7 +2980,7 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   bool GhostNoDamage;
   bool GhostForceLight;
   bool GhostForceTeamColor;
-  UnknownType GhostLightIntens;
+  float GhostLightIntens; // Range: 0 - 1
   void BlockGhost_SetAsCameraTarget();
   void ButGhostOrEntitySkinSelect();
   bool RenderHq;
@@ -2997,10 +2997,10 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   wstring ManialinkInterface;
   bool ManialinkInterfaceShow;
   float FogDistance;
-  UnknownType FogIntensity;
-  UnknownType FogSkyIntensity;
-  UnknownType FogSliderBlendF;
-  UnknownType CloudsSliderOpacity;
+  float FogIntensity; // Range: 0 - 1
+  float FogSkyIntensity; // Range: 0 - 1
+  float FogSliderBlendF; // Range: 0 - 1
+  float CloudsSliderOpacity; // Range: 0 - 1
   float CloudsSliderSpeedScale;
   const CMwNod* TriggerOutlineBox;
   const CPlugBitmap* Shoot_Bitmap;
@@ -3063,10 +3063,10 @@ struct CGameCtnPainter : public CMwNod {
   bool ButtonLayerModeEnabled;
   bool ButtonTeamModeEnabled;
   UnknownType PaintColor;
-  UnknownType Scale;
-  UnknownType Angle;
-  UnknownType Shininess;
-  UnknownType Transparency;
+  float Scale; // Range: 0 - 1
+  float Angle; // Range: -3 - 3
+  float Shininess; // Range: 0 - 1
+  float Transparency; // Range: 0 - 1
   bool ButtonPaintSymModeSelected;
   bool ButtonColorPickerModeSelected;
   void OnOkInHelpFrame();
@@ -3144,8 +3144,8 @@ struct CGameControlGridCard : public CGameControlGrid {
   bool UseCustomSelection;
   bool FillWithDefault;
   string DefaultCardName;
-  NodArray NodsToDisplay;
-  NodArray NodCards;
+  MwBuffer<CMwNod*> NodsToDisplay;
+  MwBuffer<CGameControlCard*> NodCards;
   void UpdateFromDatas();
   void UpdateOnlyCards();
   void PrecacheAll();
@@ -3170,8 +3170,8 @@ struct CGameCtnNetServerInfo : public CGameNetServerInfo {
   const wstring ModeName;
   const float LadderServerLimitMax;
   const float LadderServerLimitMin;
-  const array<wstring> PlayerNames;
-  const array<wstring> ChallengeNames;
+  const MwBuffer<wstring> PlayerNames;
+  const MwBuffer<wstring> ChallengeNames;
   const uint NbChallenges;
   const bool HasBuddies;
   const bool IsFavourite;
@@ -3214,7 +3214,7 @@ struct CGameCtnNetServerInfo : public CGameNetServerInfo {
 struct CGameControlCardCtnChallengeInfo : public CGameControlCard {
   CGameControlCardCtnChallengeInfo();
 
-  const NodArray Groups;
+  const MwBuffer<CGameLeague*> Groups;
   uint LeagueNameMaxCharsCount;
   const wstring StrFullLeagueName;
   const wstring StrPlayerLeagueRanking;
@@ -3414,7 +3414,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   wstring SelectedNickname;
   wstring SelectedAvatarName;
   const CGameCtnChallengeInfo* SelectedChallengeInfo;
-  const NodArray EnvironmentChapters;
+  const MwBuffer<CGameCtnChapter*> EnvironmentChapters;
   void DialogMessenger_Update();
   void DialogMessenger_UpdateButtons();
   void DialogMessenger_Clean();
@@ -3434,17 +3434,17 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void Dialog_OnValidate_Normal();
   void Dialog_OnCancel_Normal();
   void DialogJoin_OnJoinAsSpectator();
-  const NodArray DialogList_Nods;
+  const MwBuffer<CMwNod*> DialogList_Nods;
   void DialogCardGrid_OnOk();
   void DialogCardGrid_OnCancel();
   void DialogCardGrid_OnRefresh();
   void DialogRefereeStatus_OnCancel();
-  const array<wstring> DialogRefereeStatus_Message;
+  const MwArray<wstring> DialogRefereeStatus_Message;
   wstring DialogChooseSkin_Name;
   bool DialogChooseSkin_SaveAsDds;
   uint DialogChooseSkin_SelectIndex;
   CGameCtnArticle* DialogChooseSkin_Article;
-  const NodArray DialogChooseSkin_SkinsItem;
+  const MwBuffer<CControlListItem*> DialogChooseSkin_SkinsItem;
   string TempLogin;
   string TempPassword;
   bool CheckPassword;
@@ -3479,39 +3479,39 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   bool DialogInputSettingsApplyOnlyToThisTitle;
   void DialogInputSettings_OnBindingsUnbindKey();
   void DialogInputSettings_OnBindingsResetToDefaults();
-  UnknownType DialogInputSettings_AnalogDeadZone;
-  UnknownType DialogInputSettings_AnalogSensitivity;
+  float DialogInputSettings_AnalogDeadZone; // Range: 0 - 0.25
+  float DialogInputSettings_AnalogSensitivity; // Range: 0.1 - 10
   bool DialogInputSettings_AnalogSteerV2;
-  UnknownType DialogInputSettings_RumbleIntensity;
-  UnknownType DialogInputSettings_CenterSpringIntensity;
+  float DialogInputSettings_RumbleIntensity; // Range: 0 - 2
+  float DialogInputSettings_CenterSpringIntensity; // Range: 0 - 1
   bool DialogInputSettings_MouseLookInvertY;
   UnknownType DialogInputSettings_MouseReleaseKey;
   bool DialogInputSettings_MouseAccel;
-  UnknownType DialogInputSettings_MouseScaleY;
-  UnknownType DialogInputSettings_MouseScaleFreeLook;
-  UnknownType DialogInputSettings_MouseAccelQuantity_NormalizedLog;
+  float DialogInputSettings_MouseScaleY; // Range: 0.1 - 3
+  float DialogInputSettings_MouseScaleFreeLook; // Range: 0.1 - 3
+  float DialogInputSettings_MouseAccelQuantity_NormalizedLog; // Range: 0 - 3
   bool DialogInputSettings_MouseSensitivities_EnableSpecific;
-  UnknownType DialogInputSettings_MouseSensitivity_Default_Normalized;
-  UnknownType DialogInputSettings_MouseSensitivity_Laser_Normalized;
-  UnknownType DialogInputSettings_MouseSensitivity_Default_NormalizedLog;
-  UnknownType DialogInputSettings_MouseSensitivity_Laser_NormalizedLog;
+  float DialogInputSettings_MouseSensitivity_Default_Normalized; // Range: 0.2 - 20
+  float DialogInputSettings_MouseSensitivity_Laser_Normalized; // Range: 0.2 - 20
+  float DialogInputSettings_MouseSensitivity_Default_NormalizedLog; // Range: -1 - 1
+  float DialogInputSettings_MouseSensitivity_Laser_NormalizedLog; // Range: -1 - 1
   void DialogInterfaceSettings_OnOk();
   void DialogInterfaceSettings_OnCancel();
   void DialogInterfaceSettings_OnCrosshairNameSelect();
   void DialogInterfaceSettings_OnCrosshairNameSelect_Yes();
   void DialogInterfaceSettings_OnCrosshairNameUseDefault();
   bool DialogInterfaceSettings_CrosshairCustomColor;
-  UnknownType DialogInterfaceSettings_CrosshairSaturation;
-  UnknownType DialogInterfaceSettings_CrosshairSize;
-  UnknownType DialogInterfaceSettings_CrosshairOpacity;
+  float DialogInterfaceSettings_CrosshairSaturation; // Range: 0 - 1
+  float DialogInterfaceSettings_CrosshairSize; // Range: 0.1 - 2
+  float DialogInterfaceSettings_CrosshairOpacity; // Range: 0.1 - 1
   const wstring DialogInterfaceSettings_CrosshairName;
   bool DialogInterfaceSettings_AllyCustomColor;
   bool DialogInterfaceSettings_OppoCustomColor;
-  UnknownType DialogInterfaceSettings_PlayerShieldScale;
-  UnknownType DialogInterfaceSettings_BulletHueOffset;
-  UnknownType DialogInterfaceSettings_BeaconOpacity;
-  UnknownType DialogInterfaceSettings_BeaconSize;
-  UnknownType DialogInterfaceSettings_BeaconDuration;
+  float DialogInterfaceSettings_PlayerShieldScale; // Range: 0.1 - 2
+  float DialogInterfaceSettings_BulletHueOffset; // Range: -0.5 - 0.5
+  float DialogInterfaceSettings_BeaconOpacity; // Range: 0 - 1
+  float DialogInterfaceSettings_BeaconSize; // Range: 0.1 - 5
+  float DialogInterfaceSettings_BeaconDuration; // Range: 0.5 - 15
   bool DialogInterfaceSettings_BeaconAllowCustom;
   void DialogReportAbuse_OnOk();
   void DialogReportAbuse_OnCancel();
@@ -3523,10 +3523,10 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void DialogStereoscopySettings_DefaultValues();
   float DialogStereoscopySettings_DisplaySize_cm;
   float DialogStereoscopySettings_DisplaySize_inch;
-  UnknownType DialogStereoscopySettings_Strength;
-  UnknownType DialogStereoscopySettings_StrengthPercent;
-  UnknownType DialogStereoscopySettings_ScreenDist;
-  UnknownType DialogStereoscopySettings_ColorFactor;
+  float DialogStereoscopySettings_Strength; // Range: 0 - 1
+  uint DialogStereoscopySettings_StrengthPercent; // Range: 0 - 100
+  float DialogStereoscopySettings_ScreenDist; // Range: 1 - 10
+  float DialogStereoscopySettings_ColorFactor; // Range: 0 - 1
   UnknownType DialogStereoscopySettings_Mode;
   bool DialogStereoscopySettings_HmdResetOnRaceReset;
   bool DialogStereoscopySettings_HmdGraphicOptions;
@@ -3629,7 +3629,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void MenuMultiLocal_OnBack();
   void MenuMultiLocal_OnOk();
   void MenuMultiLocal_OnConfigureInputs();
-  array<bool> MenuMultiLocal_SetUsedPlayersCount;
+  MwBuffer<bool> MenuMultiLocal_SetUsedPlayersCount;
   void MenuProfileAdvanced();
   void MenuProfile();
   void MenuProfile_Launch();
@@ -3648,7 +3648,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void MenuProfile_OnShowGameKeyInSteam();
   void MenuProfile_OnEditPodiumAnimWin();
   void MenuProfile_OnEditPodiumAnimLose();
-  UnknownType MenuProfile_SoundPitchLog;
+  float MenuProfile_SoundPitchLog; // Range: -0.5 - 2
   bool MenuProfile_ParentalLock;
   const CGameAvatar* MenuProfile_Avatar;
   const CGameLeague* Menu_GroupToManage;
@@ -3720,9 +3720,9 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   CGameLeague* OnlineAccount_NewLeague;
   bool OnlineAccount_AcceptNews;
   string YoutubeCode;
-  const NodArray DialogPlayers;
-  const NodArray ConfirmFiles;
-  NodArray ReplayInfos;
+  const MwBuffer<CControlListItem*> DialogPlayers;
+  const MwBuffer<CControlListItem*> ConfirmFiles;
+  MwBuffer<CGameCtnReplayRecordInfo*> ReplayInfos;
   void MenuMultiPlayerNetworkLan_OnRefresh();
   void MenuMultiPlayerNetworkLan_OnSel();
   void MenuMultiPlayerNetworkLan_OnCreate();
@@ -3806,8 +3806,8 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   const wstring MenuReplay_CurPath;
   const wstring MenuReplay_CurPathToDisplay;
   const uint MenuReplay_ReplaysCount;
-  const NodArray ReplayList;
-  const NodArray ReplayDirsList;
+  const MwBuffer<CGameCtnReplayRecordInfo*> ReplayList;
+  const MwBuffer<CGameCtnReplayRecordInfo*> ReplayDirsList;
   void DialogReplayLoaded_OnPlayAgainst();
   void DialogReplayLoaded_OnWatch();
   void DialogReplayLoaded_OnEdit();
@@ -3870,7 +3870,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void DialogViewPixelArtSize_OnBack();
   void DialogChooseEnumValue_OnBack();
   void InputsList_ResetToDefaults_OnYes();
-  const NodArray InputsList_Actions;
+  const MwBuffer<CControlListItem*> InputsList_Actions;
   void InputDevicesList_OnButtonRemove_OnYes();
   void MenuConfigureInputs();
   void MenuConfigureInputs_OnBack();
@@ -3915,8 +3915,8 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void DialogChangeTeam_OnJoinTeam1();
   void DialogChangeTeam_OnJoinTeam2();
   void DialogChangeTeam_OnCancel();
-  const NodArray DialogChangeTeam_Players1;
-  const NodArray DialogChangeTeam_Players2;
+  const MwBuffer<CControlListItem*> DialogChangeTeam_Players1;
+  const MwBuffer<CControlListItem*> DialogChangeTeam_Players2;
   void DialogPlayerProfile_OnOk();
   void DialogPlayerProfile_OnPrevPlayer();
   void DialogPlayerProfile_OnNextPlayer();
@@ -3955,7 +3955,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void DialogChooseAvatar_OnCancel();
   void DialogChooseAvatar_OnAddAvatar();
   bool NeverAskAgain;
-  const NodArray DataInfos;
+  const MwBuffer<CControlListItem*> DataInfos;
   bool DialogConnect_RememberOnlinePassword;
   bool DialogOnlineAccount_RememberOnlinePassword;
   bool DialogOnlineAccountPersonnal_ReceiveNews;
@@ -3985,9 +3985,9 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   uint DialogGraphicSettings_CarReflect;
   uint DialogGraphicSettings_Bloom;
   uint DialogGraphicSettings_MotionBlur;
-  UnknownType DialogGraphicSettings_MotionBlurIntens;
+  float DialogGraphicSettings_MotionBlurIntens; // Range: 0 - 1
   uint DialogGraphicSettings_SSAO;
-  UnknownType DialogGraphicSettings_FogScale;
+  float DialogGraphicSettings_FogScale; // Range: 0 - 1
   uint DialogGraphicSettings_ScreenShotExt;
   void DialogGraphicSettings_OnApply();
   void DialogGraphicSettings_OnCancel();
@@ -4001,8 +4001,8 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   uint DialogBroadcast_VideoTargetFps;
   uint DialogBroadcast_VideoCpuUsage;
   bool DialogBroadcast_AudioEnable;
-  UnknownType DialogBroadcast_AudioVolumePlayback;
-  UnknownType DialogBroadcast_AudioVolumeRecorder;
+  float DialogBroadcast_AudioVolumePlayback; // Range: 0 - 1
+  float DialogBroadcast_AudioVolumeRecorder; // Range: 0 - 1
   void DialogBroadcast_StartStop();
   const wstring DialogBroadcast_UserOutput;
   uint MenuProfile_TagsAdmin_CurTag;
@@ -4093,8 +4093,8 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void DialogEditBlockSpecialProperty_OnDefault();
   void DialogChooseMapTypeForEditorSimple_OnMapTypeChosen();
   void DialogUpdateFiles_Abort();
-  const UnknownType DialogUpdateFiles_OverallProgress;
-  const UnknownType DialogUpdateFiles_CurrentProgress;
+  const float DialogUpdateFiles_OverallProgress; // Range: 0 - 1
+  const float DialogUpdateFiles_CurrentProgress; // Range: 0 - 1
   const CGameMenuSkinChooser* MenuSkinChooser;
 };
 
@@ -4175,13 +4175,13 @@ struct CGameCtnApp : public CGameApp {
   const CGameCtnEditor* Editor;
   const CGamePlayground* CurrentPlayground;
   const CGameCtnCatalog* GlobalCatalog;
-  const NodArray AdditionalSkinsFids;
-  NodArray ChallengeInfos;
-  NodArray ReplayRecordInfos;
-  const NodArray PlayerProfiles;
+  const MwBuffer<CMwNod*> AdditionalSkinsFids;
+  MwBuffer<CGameCtnChallengeInfo*> ChallengeInfos;
+  MwBuffer<CGameCtnReplayRecordInfo*> ReplayRecordInfos;
+  const MwBuffer<CGamePlayerProfile*> PlayerProfiles;
   CGamePlayerProfile* CurrentProfile;
-  NodArray BaseOfficialCampaigns;
-  NodArray OfficialCampaigns;
+  MwBuffer<CGameCtnCampaign*> BaseOfficialCampaigns;
+  MwBuffer<CGameCtnCampaign*> OfficialCampaigns;
   const CGameCtnCampaign* CurrentCampaign;
   bool MenuBackground_MustLoopIntro;
   const uint MessagesCount;
@@ -4214,7 +4214,7 @@ struct CGameControlCardCtnCampaign : public CGameControlCard {
   const wstring StrLeagueName;
   const wstring StrSkillRank;
   const wstring StrSkillScore;
-  const UnknownType IconId;
+  const MwId IconId;
   const uint NbMedals;
   const wstring Name;
 };
@@ -4290,10 +4290,10 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
   const wstring CurrentTimezone;
   const CGamePlayerInfo* LocalUser;
   const CGameManiaTitle* LoadedTitle;
-  const NodArray TitlesAvailable;
-  const NodArray TitlesBases;
-  const array<string> TitleIdsInstalled;
-  const array<string> TitleIdsPayed;
+  const MwBuffer<CGameManiaTitle*> TitlesAvailable;
+  const MwBuffer<CGameManiaTitle*> TitlesBases;
+  const MwBuffer<string> TitleIdsInstalled;
+  const MwBuffer<string> TitleIdsPayed;
   const uint EmptyStationsCount;
   const ESystemPlatform SystemPlatform;
   const ESystemSkuIdentifier SystemSkuIdentifier;
@@ -4315,7 +4315,7 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
   const wstring CurrentServerName;
   const wstring CurrentServerModeName;
   const string CurrentServerJoinLink;
-  const NodArray CurrentServerPlayers;
+  const MwBuffer<CGamePlayerInfo*> CurrentServerPlayers;
   const uint CurrentAppId;
   bool IsPrivateSession;
   const bool IsKioskMode;
@@ -4329,8 +4329,8 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
   const uint TitleTimeLeft;
   const uint CurConnectionDate;
   const uint PrevConnectionDate;
-  UnknownType MasterSoundVolume;
-  UnknownType MasterMusicVolume;
+  float MasterSoundVolume; // Range: -40 - 0
+  float MasterMusicVolume; // Range: -40 - 0
   const bool TmTurbo_IsDemo;
   const bool TmTurbo_IsPartialInstall;
   const bool TmTurbo_IsBeta;
@@ -4360,7 +4360,7 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
   const bool Dialog_IsFinished;
   const bool Dialog_Success;
   const bool Dialog_Aborted;
-  void CustomMenu_Request(wstring Type, array<wstring>& Data);
+  void CustomMenu_Request(wstring Type, MwBuffer<wstring>& Data);
   void SetLocalUserClubLink(string ClubLink);
   void SetLocalUserNickName(wstring NickName);
   void FlashWindow();
@@ -4372,52 +4372,52 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
   const CGameScriptChatManager* ChatManager;
   const CGameAchievementScriptManager* AchievementsManager;
   const CGameUserManagerScript* UserMgr;
-  void Authentication_GetToken(UnknownType UserId, string AppLogin);
+  void Authentication_GetToken(MwId UserId, string AppLogin);
   const bool Authentication_GetTokenResponseReceived;
   const uint Authentication_ErrorCode;
   const string Authentication_Token;
-  const NodArray MasterServer_MSTaskResults;
-  void MasterServer_ReleaseMSTaskResult(UnknownType TaskId);
+  const MwBuffer<CWebServicesTaskResult*> MasterServer_MSTaskResults;
+  void MasterServer_ReleaseMSTaskResult(MwId TaskId);
   string MasterServer_GetURL(string ShortCutId);
   const CGameMasterServerUserInfo* MasterServer_MainMSUser;
-  const NodArray MasterServer_MSUsers;
-  CGameMasterServerUserInfo* MasterServer_GetMSUserFromId(UnknownType UserId);
-  void MasterServer_Connect(UnknownType UserId);
-  CWebServicesTaskResult_GetDisplayNameScriptResult* MasterServer_GetDisplayName(UnknownType UserId);
-  CWebServicesTaskResult* MasterServer_CheckNetworkAvailability(UnknownType UserId);
-  CWebServicesTaskResult_Session_Get* MasterServer_GetSessionInfo(UnknownType UserId, wstring SessionId);
+  const MwBuffer<CGameMasterServerUserInfo*> MasterServer_MSUsers;
+  CGameMasterServerUserInfo* MasterServer_GetMSUserFromId(MwId UserId);
+  void MasterServer_Connect(MwId UserId);
+  CWebServicesTaskResult_GetDisplayNameScriptResult* MasterServer_GetDisplayName(MwId UserId);
+  CWebServicesTaskResult* MasterServer_CheckNetworkAvailability(MwId UserId);
+  CWebServicesTaskResult_Session_Get* MasterServer_GetSessionInfo(MwId UserId, wstring SessionId);
   void MasterServer_Zone_GetPathAndName(wstring ZoneFullPath, wstring ZonePath, wstring ZoneName);
   CWebServicesTaskResult_ZoneList* MasterServer_Zone_GetChilds(wstring ZoneFullPath);
-  CWebServicesTaskResult* MasterServer_Zone_ChangeZone(UnknownType UserId, wstring ZoneFullPath);
-  CWebServicesTaskResult_LaunchUplayScriptResult* MasterServer_UplayLaunch(UnknownType UserId, EUplayFlow UplayFlow, uint RewardCode);
-  CWebServicesTaskResult_LaunchUplayScriptResult* MasterServer_UplayLaunch_v2(UnknownType UserId, EUplayFlow UplayFlow, string RewardId);
-  CWebServicesTaskResult_LaunchUplayScriptResult* MasterServer_UplayLaunchAndCompleteActions(UnknownType UserId, EUplayFlow UplayFlow, string RewardId);
-  void MasterServer_Tracking_ContextMenuStart(UnknownType UserId, string MenuName);
-  void MasterServer_Tracking_ContextMenuStop(UnknownType UserId, string MenuName);
-  void MasterServer_Tracking_ContextGameModeStart(UnknownType UserId, string GameMode);
-  void MasterServer_Tracking_ContextGameModeStop(UnknownType UserId, string GameMode);
-  void MasterServer_Tracking_ContextMapStart(UnknownType UserId, string MapUid, string Environment);
-  void MasterServer_Tracking_ContextMapStop(UnknownType UserId, string MapUid);
-  void MasterServer_Tracking_ContextPlayStart(UnknownType UserId, string Type);
-  void MasterServer_Tracking_ContextPlayStop(UnknownType UserId, string Type, string Reason, uint NbRespawns);
-  void MasterServer_Tracking_MedalUnlock(UnknownType UserId, uint Medal);
-  void MasterServer_Tracking_MedalUnlock_v2(UnknownType UserId, uint PreviousMedal, uint Medal);
-  void MasterServer_Tracking_NewMapCreated(UnknownType UserId, string Environment, bool IsRandomlyGenerated);
-  void MasterServer_Tracking_NewsImpression(UnknownType UserId, string NewsId);
-  void MasterServer_Tracking_NewsClick(UnknownType UserId, string NewsId);
-  void MasterServer_Tracking_PlayerAchievement(UnknownType UserId, uint AchievementId);
-  void MasterServer_Tracking_PlayerProgressionMap(UnknownType UserId, string Value);
-  void MasterServer_Tracking_PlayerRespawn(UnknownType UserId, uint RaceTime);
-  void MasterServer_Tracking_StatCampaign(UnknownType UserId, uint PlayedMapCount, uint BronzeMedalCount, uint SilverMedalCount, uint GoldMedalCount, uint AuthorMedalCount, uint MaxDifficultyLevel);
-  void MasterServer_Tracking_StatCampaign_v2(UnknownType UserId, uint PlayedMapCount, uint PlayedEnvCount, uint BronzeMedalCount, uint SilverMedalCount, uint GoldMedalCount, uint AuthorMedalCount, uint MaxDifficultyLevel);
-  void MasterServer_Tracking_StatChallenge(UnknownType UserId, uint PendingChallengeCount);
-  void MasterServer_Tracking_StatGlobalRanking(UnknownType UserId, uint GlobalRanking);
-  void MasterServer_Tracking_StatOnline(UnknownType UserId, uint Echelon);
-  void MasterServer_Tracking_StatRecordCenter(UnknownType UserId, uint BestCount, uint EqualCount, uint WorstCount);
-  CWebServicesTaskResult* MasterServer_Beta_RetrieveUserInfo(UnknownType UserId);
-  CWebServicesTaskResult* MasterServer_Beta_AcceptNDA(UnknownType UserId);
-  CWebServicesTaskResult* BuyFullGame(UnknownType UserId);
-  CWebServicesTaskResult* ShowSystemError(UnknownType UserId, uint ErrorCode);
+  CWebServicesTaskResult* MasterServer_Zone_ChangeZone(MwId UserId, wstring ZoneFullPath);
+  CWebServicesTaskResult_LaunchUplayScriptResult* MasterServer_UplayLaunch(MwId UserId, EUplayFlow UplayFlow, uint RewardCode);
+  CWebServicesTaskResult_LaunchUplayScriptResult* MasterServer_UplayLaunch_v2(MwId UserId, EUplayFlow UplayFlow, string RewardId);
+  CWebServicesTaskResult_LaunchUplayScriptResult* MasterServer_UplayLaunchAndCompleteActions(MwId UserId, EUplayFlow UplayFlow, string RewardId);
+  void MasterServer_Tracking_ContextMenuStart(MwId UserId, string MenuName);
+  void MasterServer_Tracking_ContextMenuStop(MwId UserId, string MenuName);
+  void MasterServer_Tracking_ContextGameModeStart(MwId UserId, string GameMode);
+  void MasterServer_Tracking_ContextGameModeStop(MwId UserId, string GameMode);
+  void MasterServer_Tracking_ContextMapStart(MwId UserId, string MapUid, string Environment);
+  void MasterServer_Tracking_ContextMapStop(MwId UserId, string MapUid);
+  void MasterServer_Tracking_ContextPlayStart(MwId UserId, string Type);
+  void MasterServer_Tracking_ContextPlayStop(MwId UserId, string Type, string Reason, uint NbRespawns);
+  void MasterServer_Tracking_MedalUnlock(MwId UserId, uint Medal);
+  void MasterServer_Tracking_MedalUnlock_v2(MwId UserId, uint PreviousMedal, uint Medal);
+  void MasterServer_Tracking_NewMapCreated(MwId UserId, string Environment, bool IsRandomlyGenerated);
+  void MasterServer_Tracking_NewsImpression(MwId UserId, string NewsId);
+  void MasterServer_Tracking_NewsClick(MwId UserId, string NewsId);
+  void MasterServer_Tracking_PlayerAchievement(MwId UserId, uint AchievementId);
+  void MasterServer_Tracking_PlayerProgressionMap(MwId UserId, string Value);
+  void MasterServer_Tracking_PlayerRespawn(MwId UserId, uint RaceTime);
+  void MasterServer_Tracking_StatCampaign(MwId UserId, uint PlayedMapCount, uint BronzeMedalCount, uint SilverMedalCount, uint GoldMedalCount, uint AuthorMedalCount, uint MaxDifficultyLevel);
+  void MasterServer_Tracking_StatCampaign_v2(MwId UserId, uint PlayedMapCount, uint PlayedEnvCount, uint BronzeMedalCount, uint SilverMedalCount, uint GoldMedalCount, uint AuthorMedalCount, uint MaxDifficultyLevel);
+  void MasterServer_Tracking_StatChallenge(MwId UserId, uint PendingChallengeCount);
+  void MasterServer_Tracking_StatGlobalRanking(MwId UserId, uint GlobalRanking);
+  void MasterServer_Tracking_StatOnline(MwId UserId, uint Echelon);
+  void MasterServer_Tracking_StatRecordCenter(MwId UserId, uint BestCount, uint EqualCount, uint WorstCount);
+  CWebServicesTaskResult* MasterServer_Beta_RetrieveUserInfo(MwId UserId);
+  CWebServicesTaskResult* MasterServer_Beta_AcceptNDA(MwId UserId);
+  CWebServicesTaskResult* BuyFullGame(MwId UserId);
+  CWebServicesTaskResult* ShowSystemError(MwId UserId, uint ErrorCode);
   void HMD_Activate(bool Enable);
   const bool HMD_IsActive;
   const vec3 HMD_HeadTranslation;
@@ -4428,8 +4428,8 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
   void HMD_SelectUser();
   const CGameUserScript* HMD_CurrentUser;
   float HMD_WorldScale;
-  UnknownType HMD_MoveScale;
-  UnknownType HMD_HUD_Distance;
+  float HMD_MoveScale; // Range: 1e-05 - 10000
+  float HMD_HUD_Distance; // Range: 0.2 - 100
   const EHmdWearingState HMD_WearingState;
   const EHmdTrackingState HMD_TrackingState;
   const bool HMD_IsUserWarnBySystem_OutOfPlayArea;
@@ -4652,7 +4652,7 @@ struct CGameScriptHandlerPlaygroundInterface : public CGameManialinkScriptHandle
   void CopyServerLinkToClipBoard();
   void JoinTeam1();
   void JoinTeam2();
-  const NodArray Teams;
+  const MwBuffer<CGameTeamProfile*> Teams;
   void RequestSpectatorClient(bool Spectator);
   void SetSpectateTarget(string Player);
   void ShowProfile(string Player);
@@ -4679,7 +4679,7 @@ struct CGameManiaAppStation : public CGameManiaAppMinimal {
   void EnterStation();
   void Maker_EditTitle(string EditedTitleId);
   void Maker_EditNewTitle(wstring EditedTitleName);
-  const NodArray Maker_EditedTitles;
+  const MwBuffer<CGamePackCreator_TitleInfoScript*> Maker_EditedTitles;
 };
 
 struct CGameEditPos3D : public CMwNod {
@@ -4750,7 +4750,7 @@ struct CGameManialinkScriptHandler : public CMwNod {
   const CGameManiaTitle* LoadedTitle;
   const ESystemPlatform SystemPlatform;
   const ESystemSkuIdentifier SystemSkuIdentifier;
-  const NodArray PendingEvents;
+  const MwBuffer<CGameManialinkScriptEvent*> PendingEvents;
   void Dbg_SetProcessed(CGameManialinkScriptEvent* Event);
   bool Dbg_WarnOnDroppedEvents;
   const float MouseX;
@@ -4781,7 +4781,7 @@ struct CGameManialinkScriptHandler : public CMwNod {
   const CGameUserPrivilegesManagerScript* PrivilegeMgr;
   const CGameMasterServerRichPresenceManagerScript* PresenceMgr;
   const CGameManialinkAnimManager* AnimMgr;
-  void SendCustomEvent(wstring Type, array<wstring>& Data);
+  void SendCustomEvent(wstring Type, MwBuffer<wstring>& Data);
   void PreloadImage(string ImageUrl);
   void PreloadAll();
   wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly);
@@ -4792,7 +4792,7 @@ struct CGameControlFrameInventory : public CControlFrame {
   CGameControlFrameInventory();
 
   const CGameControlGridCard* GridCards;
-  const NodArray FreeCards;
+  const MwBuffer<CGameControlCardGeneric*> FreeCards;
   void InitItems();
 };
 
@@ -4857,14 +4857,14 @@ struct CGameCtnArticleNode : public CMwNod {
 
 struct CGameSwitcher : public CMwNod {
   int FocusDialogCount;
-  const NodArray ModuleStack;
+  const MwBuffer<CGameSwitcher*> ModuleStack;
 };
 
 struct CGameManialinkOldTable : public CGameManialinkControl {
 };
 
 struct CGameCtnMenusManiaPlanet : public CGameCtnMenus {
-  const NodArray ChallengeInfosCampaign;
+  const MwBuffer<CGameCtnChallengeInfo*> ChallengeInfosCampaign;
   const CGameCtnCampaign* CurrentCampaign;
   const CGameManialink3dWorld* Manialink3dWorld;
   const CGameManialink3dStyle* Manialink3d_BaseStyle;
@@ -4959,7 +4959,7 @@ struct CGameCtnAnchoredObject : public CMwNod {
     West = 3,
   };
   int3 BlockUnitCoord;
-  UnknownType AnchorTreeId;
+  MwId AnchorTreeId;
   vec3 AbsolutePosition;
   float Yaw;
   float Pitch;
@@ -4971,8 +4971,8 @@ struct CGameCtnAnchoredObject : public CMwNod {
   UnknownType BlockLocation;
   UnknownType LocationInBlock;
   CGameWaypointSpecialProperty* WaypointSpecialProperty;
-  const NodArray NeighbourObjects;
-  const array<uint> NeighbourObjects_ClipIndex;
+  const MwBuffer<CGameCtnAnchoredObject*> NeighbourObjects;
+  const MwBuffer<uint> NeighbourObjects_ClipIndex;
 };
 
 struct CGameSwitcherModule : public CMwNod {
@@ -5090,7 +5090,7 @@ struct CGamePlaygroundUIConfig : public CMwNod {
   uint GaugeClan;
   string Hud3dMarkers;
   string MarkersXML;
-  const NodArray UILayers;
+  const MwBuffer<CGameUILayer*> UILayers;
   bool OverlayHideAll;
   bool OverlayHideNotices;
   bool OverlayHideMapInfo;
@@ -5114,7 +5114,7 @@ struct CGamePlaygroundUIConfig : public CMwNod {
   bool OverlayHideSpectatorControllers;
   bool OverlayHideSpectatorInfos;
   bool OverlayChatHideAvatar;
-  UnknownType OverlayChatLineCount;
+  uint OverlayChatLineCount; // Range: 0 - 40
   vec2 OverlayChatOffset;
   vec2 CountdownCoord;
   bool NoticesFilter_HidePlayerInfo;
@@ -5134,12 +5134,12 @@ struct CGamePlaygroundUIConfig : public CMwNod {
   bool AltMenuNoDefaultScores;
   bool AltMenuNoCustomScores;
   bool OverlayScoreSummary;
-  UnknownType ScoreSummary_Player1;
+  MwId ScoreSummary_Player1;
   int ScoreSummary_Points1;
   int ScoreSummary_RoundPoints1;
   int ScoreSummary_MatchPoints1;
   float ScoreSummary_Gauge1;
-  UnknownType ScoreSummary_Player2;
+  MwId ScoreSummary_Player2;
   int ScoreSummary_Points2;
   int ScoreSummary_RoundPoints2;
   int ScoreSummary_MatchPoints2;
@@ -5152,7 +5152,7 @@ struct CGamePlaygroundUIConfig : public CMwNod {
   ELabelsVisibility AlliesLabelsVisibility;
   EVisibility AlliesLabelsShowGauges;
   EVisibility AlliesLabelsShowNames;
-  UnknownType AlliesLabelsMaxCount;
+  uint AlliesLabelsMaxCount; // Range: 0 - 250
   ELabelsVisibility TeamLabelsVisibility;
   EVisibility TeamLabelsShowGauges;
   EVisibility TeamLabelsShowNames;
@@ -5161,8 +5161,8 @@ struct CGamePlaygroundUIConfig : public CMwNod {
   EVisibility OpposingTeamLabelsShowNames;
   bool ForceSpectator;
   uint SpectatorForceCameraType;
-  UnknownType SpectatorAutoTarget;
-  UnknownType SpectatorForcedTarget;
+  MwId SpectatorAutoTarget;
+  MwId SpectatorForcedTarget;
   int SpectatorForcedClan;
   float SpectatorCamAutoLatitude;
   float SpectatorCamAutoLongitude;
@@ -5184,7 +5184,7 @@ struct CGameManialinkFrame : public CGameManialinkControl {
     Quad = 5,
     Video = 6,
   };
-  const NodArray Controls;
+  const MwBuffer<CGameManialinkControl*> Controls;
   CGameManialinkControl* GetFirstChild(string ControlId);
   bool ClipWindowActive;
   vec2 ClipWindowRelativePosition;
@@ -5200,7 +5200,7 @@ struct CGameManialinkPage : public CMwNod {
   CGameManialinkControl* GetFirstChild(string ControlId);
   bool LinksInhibited;
   void GetClassChildren(string Class, CGameManialinkFrame* Frame, bool Recursive);
-  const NodArray GetClassChildren_Result;
+  const MwBuffer<CGameManialinkControl*> GetClassChildren_Result;
 };
 
 struct CGameManialinkControl : public CMwNod {
@@ -5220,7 +5220,7 @@ struct CGameManialinkControl : public CMwNod {
   const CControlBase* Control;
   const CGameManialinkFrame* Parent;
   const string ControlId;
-  const array<string> ControlClasses;
+  const MwBuffer<string> ControlClasses;
   bool HasClass(string Class);
   vec2 Size;
   AlignHorizontal HorizontalAlign;
@@ -5303,7 +5303,7 @@ struct CGameManiaPlanetMenuStations : public CMwNod {
 struct CGameCtnAnchorPoint : public CMwNod {
   CGameCtnAnchorPoint();
 
-  const UnknownType TreeId;
+  const MwId TreeId;
   UnknownType LocationInBlock;
   const CGameCtnBlock* Block;
 };
@@ -5323,7 +5323,7 @@ struct CGameCtnMacroBlockInfo : public CGameCtnCollector {
   const CGameCtnBlockInfo* GeneratedBlockModel;
   CScriptTraitsMetadata* ScriptMetadata;
   void ClearScriptMetadata();
-  const NodArray TrafficPathSplines;
+  const MwBuffer<CPlugSpline3D*> TrafficPathSplines;
   const wstring Name;
 };
 
@@ -5387,7 +5387,7 @@ struct CGameCtnEditorCommon : public CGameCtnEditor {
   const CGameOutlineBox* CustomSelectionBox;
   const CGameOutlineBox* OffZoneSelectionBox;
   UnknownType GridColor;
-  UnknownType GridColorAlpha;
+  float GridColorAlpha; // Range: 0 - 1
   string BlockEditor2_Text;
   wstring MacroDecalsEditor_Text;
   void ButtonComputeShadowsOnClick();
@@ -5526,7 +5526,7 @@ struct CGameCtnEditorCommon : public CGameCtnEditor {
   wstring ForcedPluginName;
   string ForcedPluginSettings;
   bool MoodIsDynamicTime;
-  UnknownType MoodTimeOfDay01;
+  float MoodTimeOfDay01; // Range: 0 - 1
   string MoodTimeOfDayStr;
   string MoodDayDurationStr;
 };
@@ -5586,7 +5586,7 @@ struct CGameCtnEditorSimple : public CGameCtnEditorPuzzle {
 };
 
 struct CGameCtnArticleNodeDirectory : public CGameCtnArticleNode {
-  const NodArray ChildNodes;
+  const MwBuffer<CGameCtnArticleNode*> ChildNodes;
   void CreateNewDirectory();
 };
 
@@ -5666,7 +5666,7 @@ struct CGameCtnEditorDecals : public CMwNod {
   CPlugDecalModel* DecalModelMacro;
   const uint DecalModelMacroSet;
   bool TestDensity;
-  UnknownType Density;
+  float Density; // Range: 0 - 1
   void BrushSizeInc();
   void BrushSizeDec();
   void BrushRollInc();
@@ -5733,13 +5733,13 @@ struct CGameCtnPrecalcPartParams : public CMwNod {
 struct CGameCtnZoneGenealogy : public CMwNod {
   CGameCtnZoneGenealogy();
 
-  UnknownType CurrentZoneId;
+  MwId CurrentZoneId;
   uint CurrentIndex;
   UnknownType Dir;
-  UnknownType ZoneIds;
+  MwBuffer<MwId> ZoneIds;
   const CGameCtnZone* CurrentZone;
-  const NodArray Zones;
-  const array<int> ZoneHeights;
+  const MwBuffer<CGameCtnZone*> Zones;
+  const MwBuffer<int> ZoneHeights;
   const int BaseHeight;
   const int BottomHeight;
   const int TopHeight;
@@ -5752,21 +5752,21 @@ struct CGameServerPlugin : public CMwNod {
   const CGameManiaTitle* LoadedTitle;
   const CGameCtnChallengeInfo* MapInfo;
   CGameConnectedClient* GetClient(string Login);
-  const NodArray Clients;
-  const NodArray Spectators;
-  const NodArray Players;
-  const NodArray Scores;
-  const NodArray Users;
-  const NodArray Teams;
+  const MwBuffer<CGameConnectedClient*> Clients;
+  const MwBuffer<CGameConnectedClient*> Spectators;
+  const MwBuffer<CGameConnectedClient*> Players;
+  const MwBuffer<CGamePlaygroundScore*> Scores;
+  const MwBuffer<CGamePlayerInfo*> Users;
+  const MwBuffer<CGameTeamProfile*> Teams;
   string NeutralEmblemUrl;
   string ForcedClubLinkUrl1;
   string ForcedClubLinkUrl2;
   void TweakTeamColorsToAvoidHueOverlap();
   const uint Now;
-  const NodArray PendingEvents;
-  void TriggerModeScriptEvent2(wstring Type, array<wstring>& Data);
+  const MwBuffer<CGameServerPluginEvent*> PendingEvents;
+  void TriggerModeScriptEvent2(wstring Type, MwBuffer<wstring>& Data);
   const bool MapLoaded;
-  const NodArray MapList;
+  const MwBuffer<CGameCtnChallengeInfo*> MapList;
   const CGamePlaygroundUIConfigMgrScript* UIManager;
   const CGameScriptServerAdmin* ServerAdmin;
   const CXmlScriptManager* Xml;
@@ -5791,9 +5791,9 @@ struct CGameServerPluginEvent : public CMwNod {
   const CGameConnectedClient* Client;
   const wstring ChatText;
   const wstring ChatCommandType;
-  const array<wstring> ChatCommandData;
+  const MwBuffer<wstring> ChatCommandData;
   const wstring ModeCallbackType;
-  const array<wstring> ModeCallbackData;
+  const MwBuffer<wstring> ModeCallbackData;
 };
 
 struct CGameCtnAutoTerrain : public CMwNod {
@@ -5809,7 +5809,7 @@ struct CGameCtnSolidDecals : public CMwNod {
   CGameCtnSolidDecals();
 
   string Name;
-  UnknownType TypeId;
+  MwId TypeId;
   uint TypeIntensity;
   uint DecalFrequency;
   const uint DecalsCount;
@@ -5825,10 +5825,10 @@ struct CGameCtnBlockInfoMobil : public CMwNod {
   const CPlugSolid* SolidCache;
   CPlugPath* RailPath;
   bool RailIsStation;
-  const NodArray TextureModifiedSolidsCache;
-  const NodArray DynaLinks;
+  const MwBuffer<CPlugSolid*> TextureModifiedSolidsCache;
+  const MwBuffer<CGameCtnBlockInfoMobilLink*> DynaLinks;
   uint SolidFrequency;
-  const NodArray SolidDecals;
+  const MwBuffer<CGameCtnSolidDecals*> SolidDecals;
   uint NoDecalFrequency;
   vec3 GeomTranslation;
   vec3 GeomRotation;
@@ -5949,11 +5949,11 @@ struct CGamePlayerProfileChunk_AccountSettings : public CGamePlayerProfileChunk 
   string LastSessionId;
   const wstring OnlinePath;
   CGameLeague* League;
-  array<wstring> LeagueSteps;
+  MwBuffer<wstring> LeagueSteps;
   wstring AvatarName;
-  const NodArray InboxMessages;
-  const NodArray ReadMessages;
-  const NodArray OutboxMessages;
+  const MwBuffer<CGameNetOnlineMessage*> InboxMessages;
+  const MwBuffer<CGameNetOnlineMessage*> ReadMessages;
+  const MwBuffer<CGameNetOnlineMessage*> OutboxMessages;
   bool UnlockAllCheat;
   bool FriendsCheat;
   uint EulaVersion;
@@ -6043,18 +6043,18 @@ struct CGameCardEventListInfo : public CGameCtnCollector {
 struct CGamePlaygroundUIConfigMgrScript : public CMwNod {
   void ResetAll();
   const CGamePlaygroundUIConfig* UIAll;
-  const NodArray UI;
+  const MwBuffer<CGamePlaygroundUIConfig*> UI;
   CGamePlaygroundUIConfig* GetUI_Player(CGamePlayer* Player);
   CGamePlaygroundUIConfig* GetUI_User(CGamePlayerInfo* User);
   CGamePlaygroundUIConfig* GetUI_ConnectedClient(CGameConnectedClient* Client);
-  const NodArray UILayers;
+  const MwBuffer<CGameUILayer*> UILayers;
   CGameUILayer* UILayerCreate();
   void UILayerDestroy(CGameUILayer* Layer);
   void UILayerDestroyAll();
-  const NodArray UIReplayLayers;
+  const MwBuffer<CGameUILayer*> UIReplayLayers;
   uint UISequenceMaxDuration;
   bool HoldLoadingScreen;
-  const NodArray PendingEvents;
+  const MwBuffer<CGamePlaygroundUIConfigEvent*> PendingEvents;
   const CGamePlaygroundUIConfig* LocalPlayerConfig;
   const CGamePlaygroundUIConfig* LocalPlayerConfig1;
   const CGamePlaygroundUIConfig* LocalPlayerConfig2;
@@ -6119,8 +6119,8 @@ struct CGamePlaygroundScript : public CMwNod {
   const wstring MapName;
   const CGameCtnChallenge* Map;
   const wstring MapPlayerModelName;
-  const NodArray Users;
-  const NodArray Teams;
+  const MwBuffer<CGamePlayerInfo*> Users;
+  const MwBuffer<CGameTeamProfile*> Teams;
   string NeutralEmblemUrl;
   const string ForcedClubLinkUrl1;
   const string ForcedClubLinkUrl2;
@@ -6133,7 +6133,7 @@ struct CGamePlaygroundScript : public CMwNod {
   const bool MapLoaded;
   void RequestLoadMap();
   void RequestUnloadMap();
-  const NodArray MapList;
+  const MwBuffer<CGameCtnChallengeInfo*> MapList;
   uint NextMapIndex;
   const CGamePlaygroundUIConfigMgrScript* UIManager;
   void Hud_Load(wstring ModuleName);
@@ -6176,15 +6176,15 @@ struct CGamePlaygroundScript : public CMwNod {
   uint Users_EdNbFakeUsers;
   void ItemList_Begin();
   bool ItemList_Begin2();
-  UnknownType ItemList_Add(wstring ModelName);
-  UnknownType ItemList_AddWithSkin(wstring ModelName, wstring SkinNameOrUrl);
+  MwId ItemList_Add(wstring ModelName);
+  MwId ItemList_AddWithSkin(wstring ModelName, wstring SkinNameOrUrl);
   void ItemList_End();
   void DemoToken_StartUsingToken();
   void DemoToken_StopUsingToken();
   void DemoToken_GetAndUseToken(CGamePlayerInfo* User);
   void ActionList_Begin();
   bool ActionList_Begin2();
-  UnknownType ActionList_Add(wstring ActionName);
+  MwId ActionList_Add(wstring ActionName);
   void ActionList_End();
   bool UseMinimap;
   bool Replay_AutoStart;
@@ -6235,7 +6235,7 @@ struct CGamePlayerProfileChunk_GameScores : public CGamePlayerProfileChunk {
   CGamePlayerProfileChunk_GameScores();
 
   const uint GlobalSkillPoints;
-  const NodArray ChallengesScoresChunks;
+  const MwBuffer<CGamePlayerProfileChunk_ChallengesScores*> ChallengesScoresChunks;
 };
 
 struct CGamePlayerProfileChunk_GameStats : public CGamePlayerProfileChunk {
@@ -6303,7 +6303,7 @@ struct CGamePlayerProfileChunk_GameStats : public CGamePlayerProfileChunk {
   const wstring MostRaced;
   const wstring MostEdited;
   const wstring MostNetted;
-  const NodArray ChallengesStatsChunks;
+  const MwBuffer<CGamePlayerProfileChunk_ChallengesStats*> ChallengesStatsChunks;
 };
 
 struct CGamePlayerProfileChunk_ChallengesStats : public CGamePlayerProfileChunk {
@@ -6337,7 +6337,7 @@ struct CGameEditorAnimClip : public CMwNod {
   float ParticlesAnglesRoll;
   bool ParticlesOnMesh;
   bool UseCustomColor;
-  UnknownType ParticlesScale;
+  float ParticlesScale; // Range: 0 - 5
   bool CustomKeyLinearHue;
   bool CustomKeyPos;
   bool CustomKeyAngles;
@@ -6346,8 +6346,8 @@ struct CGameEditorAnimClip : public CMwNod {
   bool CustomKeyVolume;
   bool CustomKeyPitch;
   uint SoundVariant;
-  UnknownType SoundVolume;
-  UnknownType Pitch;
+  float SoundVolume; // Range: 0 - 5
+  float Pitch; // Range: 0 - 4
   bool Preview;
   float SoundPosX;
   float SoundPosY;
@@ -6356,7 +6356,7 @@ struct CGameEditorAnimClip : public CMwNod {
   float SpritesPosX;
   float SpritesPosY;
   float SpritesPosZ;
-  UnknownType SpritesSize;
+  float SpritesSize; // Range: 0 - 25
   bool SpritesIsFree;
   bool UseRandomSoundVar;
   const string SoundVarName;
@@ -6380,13 +6380,13 @@ struct CGameCtnZoneTransition : public CGameCtnZone {
   };
   CGameCtnBlockInfoTransition* BlockInfoTransition;
   ZoneTransitionType TransitionType;
-  UnknownType FrontierId_0To1;
-  UnknownType FrontierId_0To2;
-  UnknownType FrontierId_1To2;
-  UnknownType FrontierId_Base;
-  UnknownType FrontierId_Overlap;
-  UnknownType FrontierId_BaseToOverlap;
-  UnknownType ReplacementZoneId;
+  MwId FrontierId_0To1;
+  MwId FrontierId_0To2;
+  MwId FrontierId_1To2;
+  MwId FrontierId_Base;
+  MwId FrontierId_Overlap;
+  MwId FrontierId_BaseToOverlap;
+  MwId ReplacementZoneId;
   UnknownType Border_North;
   const CGameCtnZoneGenealogy* Genealogy_North;
   UnknownType Border_East;
@@ -6411,8 +6411,8 @@ struct CGameEditorTrigger : public CMwNod {
 struct CGameCtnZoneFusionInfo : public CMwNod {
   CGameCtnZoneFusionInfo();
 
-  UnknownType CompatibleZoneId;
-  UnknownType MergedZoneId;
+  MwId CompatibleZoneId;
+  MwId MergedZoneId;
   UnknownType FusionType;
 };
 
@@ -6461,7 +6461,7 @@ struct CGameEditorPluginMapMapType : public CGameEditorPluginMap {
   void RequestLeavePlayground();
   const bool IsSwitchedToPlayground;
   const CGamePlaygroundUIConfigMgrScript* UIManager;
-  const NodArray Users;
+  const MwBuffer<CGamePlayerInfo*> Users;
 };
 
 struct CGameCursorItem : public CMwNod {
@@ -6639,8 +6639,8 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
     Conductor = 2,
     Generator = 3,
   };
-  NodArray BlockUnitInfos;
-  const UnknownType BlockInfoIdForLog;
+  MwArray<CGameCtnBlockUnitInfo*> BlockUnitInfos;
+  const MwId BlockInfoIdForLog;
   string Name;
   const bool IsAllUnderground;
   const bool IsPartUnderground;
@@ -6653,7 +6653,7 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
   CGameTeleporterModel* Teleporter;
   CGameTurbineModel* Turbine;
   CPlugFlockModel* FlockModel;
-  NodArray EntitySpawners;
+  MwBuffer<CPlugEntitySpawner*> EntitySpawners;
   float FlockEmitterRadius;
   float FlockEmitterPower;
   uint FlockEmitterSpawnCount;
@@ -6682,37 +6682,37 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
   bool IsNoPillarBelowVariant;
   MultiDirEnum MultiDir;
   vec3 SpawnTrans;
-  UnknownType SpawnYaw;
-  UnknownType SpawnPitch;
+  float SpawnYaw; // Range: -180 - 180
+  float SpawnPitch; // Range: -90 - 90
   const int2 OffsetBoundingBoxMin;
   const int2 OffsetBoundingBoxMax;
-  NodArray Mobils00;
-  NodArray Mobils01;
-  NodArray Mobils02;
-  NodArray Mobils03;
-  NodArray Mobils04;
-  NodArray Mobils05;
-  NodArray Mobils06;
-  NodArray Mobils07;
-  NodArray Mobils08;
-  NodArray Mobils09;
-  NodArray Mobils10;
-  NodArray Mobils11;
-  NodArray Mobils12;
-  NodArray Mobils13;
-  NodArray Mobils14;
+  MwBuffer<CMwNod*> Mobils00;
+  MwBuffer<CMwNod*> Mobils01;
+  MwBuffer<CMwNod*> Mobils02;
+  MwBuffer<CMwNod*> Mobils03;
+  MwBuffer<CMwNod*> Mobils04;
+  MwBuffer<CMwNod*> Mobils05;
+  MwBuffer<CMwNod*> Mobils06;
+  MwBuffer<CMwNod*> Mobils07;
+  MwBuffer<CMwNod*> Mobils08;
+  MwBuffer<CMwNod*> Mobils09;
+  MwBuffer<CMwNod*> Mobils10;
+  MwBuffer<CMwNod*> Mobils11;
+  MwBuffer<CMwNod*> Mobils12;
+  MwBuffer<CMwNod*> Mobils13;
+  MwBuffer<CMwNod*> Mobils14;
   VariantBaseTypeEnum VariantBaseType;
   void AddNewReplacedPillar();
-  NodArray ReplacedPillarBlockInfo_List;
-  array<int3> ReplacedPillarOffset2D_List;
+  MwBuffer<CGameCtnBlockInfo*> ReplacedPillarBlockInfo_List;
+  MwBuffer<int3> ReplacedPillarOffset2D_List;
   UnknownType ReplacedPillarMultiDir_List;
-  array<bool> ReplacedPillarIsOnFlyingBase_List;
-  const array<bool> IsNewPillarPlacedBelow_List;
+  MwBuffer<bool> ReplacedPillarIsOnFlyingBase_List;
+  const MwBuffer<bool> IsNewPillarPlacedBelow_List;
   void AddNewPlacedPillar();
-  NodArray PlacedPillarBlockInfo_List;
-  array<int3> PlacedPillarOffset_List;
+  MwBuffer<CGameCtnBlockInfo*> PlacedPillarBlockInfo_List;
+  MwBuffer<int3> PlacedPillarOffset_List;
   UnknownType PlacedPillarDir_List;
-  const NodArray BlockUnitModels;
+  const MwArray<CGameCtnBlockUnitInfo*> BlockUnitModels;
 };
 
 struct CGameCtnBlockInfoVariantGround : public CGameCtnBlockInfoVariant {
@@ -6724,7 +6724,7 @@ struct CGameCtnBlockInfoVariantGround : public CGameCtnBlockInfoVariant {
     DoNotPlace = 2,
     DoNotDestroy = 3,
   };
-  const NodArray AutoTerrains;
+  const MwBuffer<CGameCtnAutoTerrain*> AutoTerrains;
   bool AutoTerrainWithFrontiers;
   int AutoTerrainHeightOffset;
   EnumAutoTerrainPlaceType AutoTerrainPlaceType;
@@ -6743,10 +6743,10 @@ struct CGameTeamProfile : public CMwNod {
   string EmblemUrl;
   string PresentationManialinkUrl;
   string ClubLinkUrl;
-  UnknownType ColorLinearHuePrimary;
+  float ColorLinearHuePrimary; // Range: 0 - 1
   const UnknownType ColorPrimaryAsColor;
   vec3 ColorPrimary;
-  UnknownType ColorLinearHueSecondary;
+  float ColorLinearHueSecondary; // Range: 0 - 1
   const UnknownType ColorSecondaryAsColor;
   vec3 ColorSecondary;
   const wstring ColorText;
@@ -6786,9 +6786,9 @@ struct CGameManialinkScriptEvent : public CMwNod {
   const EMenuNavAction MenuNavAction;
   const bool IsActionAutoRepeat;
   const wstring CustomEventType;
-  const array<wstring> CustomEventData;
+  const MwBuffer<wstring> CustomEventData;
   const wstring PluginCustomEventType;
-  const array<wstring> PluginCustomEventData;
+  const MwBuffer<wstring> PluginCustomEventData;
 };
 
 struct CGameEditorPluginMap : public CGameManiaApp {
@@ -6837,7 +6837,7 @@ struct CGameEditorPluginMap : public CGameManiaApp {
     Validable = 1,
     Validated = 2,
   };
-  const NodArray PendingEvents;
+  const MwBuffer<CGameEditorPluginMapScriptEvent*> PendingEvents;
   const CGameCtnChallenge* Map;
   const wstring MapName;
   const bool IsEditorReadyForRequest;
@@ -6854,8 +6854,8 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   void AutoSave();
   void Quit();
   void QuickQuit();
-  void QuitAndSetResult(wstring Type, array<wstring>& Data);
-  void QuickQuitAndSetResult(wstring Type, array<wstring>& Data);
+  void QuitAndSetResult(wstring Type, MwBuffer<wstring>& Data);
+  void QuickQuitAndSetResult(wstring Type, MwBuffer<wstring>& Data);
   void TestMapFromStart();
   void TestMapFromCoord(int2 Coord, CardinalDirections Dir);
   void TestMapWithMode(wstring RulesModeName);
@@ -6944,16 +6944,16 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   CGameCtnBlockInfo* GetBlockModelFromName(wstring BlockModelName);
   wstring GetMapStyle();
   void SetMapStyle(wstring MapStyle);
-  const NodArray Items;
-  const array<wstring> MediatrackIngameClips;
-  const array<wstring> MediatrackIngameIsScriptClips;
+  const MwBuffer<CGameCtnEditorScriptAnchoredObject*> Items;
+  const MwBuffer<wstring> MediatrackIngameClips;
+  const MwBuffer<wstring> MediatrackIngameIsScriptClips;
   uint MediatrackIngameEditedClipIndex;
-  const NodArray Blocks;
-  const NodArray BlockModels;
-  const NodArray TerrainBlockModels;
-  const NodArray MacroblockModels;
-  const NodArray AnchorData;
-  array<int3> CustomSelectionCoords;
+  const MwBuffer<CGameCtnBlock*> Blocks;
+  const MwBuffer<CGameCtnBlockInfo*> BlockModels;
+  const MwBuffer<CGameCtnBlockInfo*> TerrainBlockModels;
+  const MwBuffer<CGameCtnMacroBlockInfo*> MacroblockModels;
+  const MwBuffer<CGameCtnEditorScriptSpecialProperty*> AnchorData;
+  MwBuffer<int3> CustomSelectionCoords;
   vec3 CustomSelectionRGB;
   bool EnableEditorInputsCustomProcessing;
   bool EnableCursorShowingWhenInterfaceIsFocused;
@@ -7095,7 +7095,7 @@ struct CGameEditorPluginMapScriptEvent : public CGameManiaAppScriptEvent {
   };
   const Type Type;
   const EInput Input;
-  const UnknownType EditedAnchorDataId;
+  const MwId EditedAnchorDataId;
   const bool IsFromPad;
   const bool IsFromMouse;
   const bool IsFromKeyboard;
@@ -7140,7 +7140,7 @@ struct CGameEditorPacks : public CMwNod {
   void Contents_OnClear();
   const wstring Title_BaseTitle;
   void Title_ChooseBaseTitle();
-  const UnknownType Title_PlayerModel;
+  const MwId Title_PlayerModel;
   void Title_OnOpenInExplorer();
   void Title_OnButtonPreview();
   const wstring Title_MusicFolder;
@@ -7197,7 +7197,7 @@ struct CGameEditorPacks : public CMwNod {
 struct CGamePodiumInfo : public CMwNod {
   CGamePodiumInfo();
 
-  const NodArray MediaClipFids;
+  const MwBuffer<CGameCtnMediaClip*> MediaClipFids;
 };
 
 struct CGameCtnMediaBlockBulletFx_Deprecated : public CGameCtnMediaBlock {
@@ -7211,9 +7211,9 @@ struct CGameCtnMediaBlockCharVis_Deprecated : public CGameCtnMediaBlock {
 };
 
 struct CGamePlaygroundScriptXmlRpc : public CMwNod {
-  const NodArray PendingEvents;
+  const MwBuffer<CGamePlaygroundScriptXmlRpcEvent*> PendingEvents;
   void SendCallback(wstring Param1, wstring Param2);
-  void SendCallbackArray(wstring Type, array<wstring>& Data);
+  void SendCallbackArray(wstring Type, MwBuffer<wstring>& Data);
   void SendCallback_BeginRound();
   void SendCallback_EndRound();
 };
@@ -7235,16 +7235,16 @@ struct CGameCtnMediaBlockFxCameraBlend : public CGameCtnMediaBlock {
 struct CGameCtnChallengeTrafficElemDesc : public CMwNod {
   CGameCtnChallengeTrafficElemDesc();
 
-  UnknownType ElemId;
-  UnknownType PathId;
+  MwId ElemId;
+  MwId PathId;
   const string Name;
   CPlugTrafficObjectParams* Model;
   uint Faction;
   uint TimeOffset;
   CSystemPackDesc* PackDesc;
-  UnknownType TrafficObjectId;
-  UnknownType TrafficObjectAuthor;
-  UnknownType TrafficObjectCollection;
+  MwId TrafficObjectId;
+  MwId TrafficObjectAuthor;
+  MwId TrafficObjectCollection;
 };
 
 // File extension: 'GameCoverFlow.Gbx'
@@ -7260,7 +7260,7 @@ struct CGameCoverFlowDesc : public CMwNod {
   float SpeedZ;
   float TransitionRotateAngleDegPrev;
   float TransitionRotateAngleDegNext;
-  const NodArray CameraLocs;
+  const MwBuffer<CSceneLocationCamera*> CameraLocs;
   UnknownType BoxesGroup_RelLoc;
   UnknownType StationsGroup_HomeManialinkRelLoc;
   UnknownType StationsGroup_MainRelLoc;
@@ -7394,7 +7394,7 @@ struct CGamePlaygroundScriptXmlRpcEvent : public CMwNod {
   const wstring Param1;
   const wstring Param2;
   const wstring ParamArray1;
-  const array<wstring> ParamArray2;
+  const MwBuffer<wstring> ParamArray2;
 };
 
 struct CGameScriptHandlerBrowser : public CGameManialinkScriptHandler {
@@ -7503,7 +7503,7 @@ struct CGameScriptChatManager : public CMwNod {
     Away = 3,
     ExtendedAway = 4,
   };
-  const NodArray DebugContacts;
+  const MwBuffer<CGameScriptChatContact*> DebugContacts;
   const EConnectionStatus CurrentConnectionStatus;
   EDesiredConnectionStatus DesiredConnectionStatus;
   const bool SteamIsEnabled;
@@ -7533,31 +7533,31 @@ struct CGameScriptChatManager : public CMwNod {
   CGameScriptChatContact* GetContactFromLogin(string Login);
   wstring Filter_SearchText;
   bool Filter_PlayingOnline;
-  const NodArray Contacts;
-  const NodArray Buddies;
-  const NodArray FilteredBuddies;
-  const NodArray OnlineBuddies;
-  const NodArray PlayingOnlineBuddies;
-  const NodArray OfflineBuddies;
-  const NodArray XmppBuddies;
-  const NodArray XmppOnlineBuddies;
-  const NodArray XmppOfflineBuddies;
-  const NodArray SteamBuddies;
-  const NodArray SteamOnlineBuddies;
-  const NodArray SteamOfflineBuddies;
-  const NodArray IncomingBuddyRequests;
-  const NodArray OutgoingBuddyRequests;
-  const NodArray PendingEvents;
+  const MwBuffer<CGameScriptChatContact*> Contacts;
+  const MwBuffer<CGameScriptChatContact*> Buddies;
+  const MwBuffer<CGameScriptChatContact*> FilteredBuddies;
+  const MwBuffer<CGameScriptChatContact*> OnlineBuddies;
+  const MwBuffer<CGameScriptChatContact*> PlayingOnlineBuddies;
+  const MwBuffer<CGameScriptChatContact*> OfflineBuddies;
+  const MwBuffer<CGameScriptChatContact*> XmppBuddies;
+  const MwBuffer<CGameScriptChatContact*> XmppOnlineBuddies;
+  const MwBuffer<CGameScriptChatContact*> XmppOfflineBuddies;
+  const MwBuffer<CGameScriptChatContact*> SteamBuddies;
+  const MwBuffer<CGameScriptChatContact*> SteamOnlineBuddies;
+  const MwBuffer<CGameScriptChatContact*> SteamOfflineBuddies;
+  const MwBuffer<CGameScriptChatContact*> IncomingBuddyRequests;
+  const MwBuffer<CGameScriptChatContact*> OutgoingBuddyRequests;
+  const MwBuffer<CGameScriptChatEvent*> PendingEvents;
   void AddBuddy(string Login);
   void RemoveBuddy(CGameScriptChatContact* Buddy);
   void AcceptBuddy(CGameScriptChatContact* Buddy);
-  const NodArray Histories;
+  const MwBuffer<CGameScriptChatHistory*> Histories;
   CGameScriptChatHistory* History_Create();
   void History_Destroy(CGameScriptChatHistory* History);
   void History_DestroyAll();
-  const NodArray PendingRequestBuddies;
+  const MwBuffer<CGameScriptChatContact*> PendingRequestBuddies;
   void GetContactsVCards();
-  const NodArray Rooms;
+  const MwBuffer<CGameScriptChatRoom*> Rooms;
   void Room_Join(string RoomName);
   void Room_Leave(CGameScriptChatRoom* Room);
   void Room_SendMessage(CGameScriptChatRoom* Room, wstring Body);
@@ -7702,12 +7702,12 @@ struct CGameManialink3dMood : public CMwNod {
   UnknownType LAmbient_LinearRgb;
   UnknownType LDir0_LinearRgb;
   float LDir0_Intens;
-  UnknownType LDir0_DirTheta;
-  UnknownType LDir0_DirPhi;
+  float LDir0_DirTheta; // Range: 0 - 180
+  float LDir0_DirPhi; // Range: -180 - 180
   UnknownType LDir1_LinearRgb;
   float LDir1_Intens;
-  UnknownType LDir1_DirTheta;
-  UnknownType LDir1_DirPhi;
+  float LDir1_DirTheta; // Range: 0 - 180
+  float LDir1_DirPhi; // Range: -180 - 180
   UnknownType LBall_LinearRgb;
   float LBall_Intens;
   float LBall_Radius;
@@ -7733,7 +7733,7 @@ struct CGamePlayerProfileChunk_ManiaPlanetStations : public CGamePlayerProfileCh
 
   bool IsFirstLaunch;
   bool HasSeenWelcomePage;
-  UnknownType LatestTitleIdLoaded;
+  MwId LatestTitleIdLoaded;
   uint StationsCount;
 };
 
@@ -7773,17 +7773,17 @@ struct CGameManiaplanetPlugin : public CGameManiaApp {
     ShowDialog = 1,
     HideDialog = 2,
   };
-  const NodArray PendingEvents;
-  const NodArray TitlesAvailable;
-  const NodArray TitlesBases;
-  const array<string> TitleIdsInstalled;
-  const array<string> TitleIdsPayed;
+  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents;
+  const MwBuffer<CGameManiaTitle*> TitlesAvailable;
+  const MwBuffer<CGameManiaTitle*> TitlesBases;
+  const MwBuffer<string> TitleIdsInstalled;
+  const MwBuffer<string> TitleIdsPayed;
   const uint CurrentAppId;
   const string CurrentServerLogin;
   const wstring CurrentServerName;
   const wstring CurrentServerModeName;
   const string CurrentServerJoinLink;
-  const NodArray CurrentServerPlayers;
+  const MwBuffer<CGamePlayerInfo*> CurrentServerPlayers;
   const CGameCtnChallenge* CurrentMap;
   const EContext ActiveContext;
   const string ActiveContext_MenuFrame;
@@ -7805,7 +7805,7 @@ struct CGameManiaplanetPlugin : public CGameManiaApp {
   bool ToolBarClockVisible;
   bool ToolBarPlanetsVisible;
   bool ToolBarBrowserVisible;
-  UnknownType MusicVolume;
+  float MusicVolume; // Range: 0 - 1
   void HackSetCurMenuControlVisible(string ControlId, bool Visible);
   bool HackIsCurMenuControlVisible(string ControlId);
   bool RequestStartUpFreeze;
@@ -7832,8 +7832,8 @@ struct CGameManiaplanetPlugin : public CGameManiaApp {
   void PlaySound(EUISound Sound, uint SoundVariant);
   const CGameManialinkBrowser* ManialinkBrowser;
   const CGameManiaplanetPluginInterface* Interface;
-  void CustomEvent(wstring Type, array<wstring>& Data);
-  void SendExternalCustomEvent(wstring Type, array<wstring>& Data);
+  void CustomEvent(wstring Type, MwBuffer<wstring>& Data);
+  void SendExternalCustomEvent(wstring Type, MwBuffer<wstring>& Data);
   const CGamePluginInterfacesScript* Plugins;
   void Dialog_ShowEnterGameKeyDialog();
   void Dialog_ShowBuyTitleDialog();
@@ -7850,8 +7850,8 @@ struct CGameManialinkGauge : public CGameManialinkControl {
   string Style;
   void SetRatio(float NewRatio);
   void SetClan(uint NewClan);
-  UnknownType Ratio;
-  UnknownType GradingRatio;
+  float Ratio; // Range: 0 - 1
+  float GradingRatio; // Range: 0 - 1
   uint Clan;
   vec3 Color;
   bool DrawBackground;
@@ -7878,11 +7878,11 @@ struct CGamePlaygroundClientScriptAPI : public CMwNod {
   const bool UseForcedClans;
   const bool IsLoadingScreen;
   void QuitServer(bool Silent);
-  void QuitServerAndSetResult(bool Silent, wstring Type, array<wstring>& Data);
+  void QuitServerAndSetResult(bool Silent, wstring Type, MwBuffer<wstring>& Data);
   const bool IsInGameMenuDisplayed;
   void JoinTeam1();
   void JoinTeam2();
-  const NodArray Teams;
+  const MwBuffer<CGameTeamProfile*> Teams;
   void RequestSpectatorClient(bool Spectator);
   void SetSpectateTarget(string Player);
   void ShowProfile(string Player);
@@ -7902,13 +7902,13 @@ struct CGameMgrObjectVis : public CSceneMgrVis {
 };
 
 struct CGamePlaygroundResources : public CMwNod {
-  const NodArray ItemLibAll;
-  const NodArray ItemLibSkins;
-  const NodArray PickUpPhyLib;
-  const NodArray PickUpVisLib;
-  const NodArray CharLib;
+  const MwBuffer<CGameItemModel*> ItemLibAll;
+  const MwBuffer<CSystemPackDesc*> ItemLibSkins;
+  const MwBuffer<CGameObjectPhyModel*> PickUpPhyLib;
+  const MwBuffer<CGameObjectVisModel*> PickUpVisLib;
+  const MwBuffer<CPlugCharModel*> CharLib;
   const CPlugAnimFile* CinematicLib;
-  const NodArray ActionsModels;
+  const MwBuffer<CGameActionModel*> ActionsModels;
 };
 
 struct CGameMgrObjectPhy : public CMwNod {
@@ -7926,29 +7926,29 @@ struct CGameManialinkGraph : public CGameManialinkControl {
   vec2 CoordsMax;
   CGameManialinkGraphCurve* AddCurve();
   void RemoveCurve(CGameManialinkGraphCurve* Curve);
-  NodArray Curves;
+  MwBuffer<CGameManialinkGraphCurve*> Curves;
 };
 
 struct CGameManialinkGraphCurve : public CMwNod {
-  array<vec2> Points;
+  MwBuffer<vec2> Points;
   vec3 Color;
   void SortPoints();
   string Style;
-  UnknownType Width;
+  float Width; // Range: 0 - 50
 };
 
 struct CGameCtnBlockInfoMobilLink : public CMwNod {
   CGameCtnBlockInfoMobilLink();
 
-  UnknownType SocketId;
+  MwId SocketId;
   CGameObjectPhyModel* PhyModel;
   CGameObjectVisModel* VisModel;
 };
 
 struct CGameManiaplanetPluginInterface : public CMwNod {
   const wstring Name;
-  void CustomEvent(wstring Type, array<wstring>& Data);
-  const NodArray PendingEvents;
+  void CustomEvent(wstring Type, MwBuffer<wstring>& Data);
+  const MwBuffer<CGameManiaplanetPluginInterfaceEvent*> PendingEvents;
 };
 
 struct CGameManiaplanetPluginInterfaceEvent : public CMwNod {
@@ -7957,7 +7957,7 @@ struct CGameManiaplanetPluginInterfaceEvent : public CMwNod {
   };
   const EType Type;
   const wstring EventType;
-  const array<wstring> EventData;
+  const MwBuffer<wstring> EventData;
 };
 
 // File extension: 'GameCtnMediaBlockInterface.gbx'
@@ -7993,12 +7993,12 @@ struct CGameEditorBullet : public CMwNod {
   float SubModelLifeVar;
   float SubModelParticlesCount;
   float SubModelSize;
-  UnknownType SubModelSizeSlider;
+  float SubModelSizeSlider; // Range: 0 - 1
   float SubModelSizeVar;
   float SubModelSizeEndScale;
   float SubModelIntensVar;
   float SubModelIntens;
-  UnknownType SubModelIntensSlider;
+  float SubModelIntensSlider; // Range: 0 - 1
   float SubModelWeight;
   float SubModelPersistence;
   float SubModelEmitterCoef;
@@ -8019,7 +8019,7 @@ struct CGameEditorBullet : public CMwNod {
   string BulletSubModelName;
   float BulletSpeed;
   float BulletMass;
-  UnknownType BulletFluidFriction;
+  float BulletFluidFriction; // Range: 0 - 2
   float BulletHitboxRadius;
   float BulletLifeTime;
   float BulletLifeTimeAfterFirstImpact;
@@ -8058,9 +8058,9 @@ struct CGameEditorBullet : public CMwNod {
   float BulletBlowStrength;
   float BulletBlowVerticalScale;
   float BulletDamageRadius;
-  UnknownType BulletBlowAttenuation;
+  float BulletBlowAttenuation; // Range: 0 - 1
   uint BulletDamage;
-  UnknownType BulletDamageAttenuation;
+  float BulletDamageAttenuation; // Range: 0 - 1
   bool BulletExplosionOnAllPlayers;
   bool BulletIsFlare;
   float BulletFlareAttractionRadius;
@@ -8110,13 +8110,13 @@ struct CGameEditorBullet : public CMwNod {
   float LightningLenMax;
   float LightningFadeTimeScale;
   float LightningFadeTimeOffset;
-  UnknownType SoundParamVolume;
+  float SoundParamVolume; // Range: 0 - 1
   void ParamModePoint();
   void ParamModeSphereFull();
   void ParamModeSphereEmpty();
   void ParamModeDisc();
   void ParamModeCircle();
-  const NodArray BulletModels;
+  const MwBuffer<CPlugBulletModel*> BulletModels;
 };
 
 // File extension: 'GameCtnMediaBlockFog.gbx'
@@ -8202,7 +8202,7 @@ struct CGameEditorItem : public CGameEditorAsset {
   float SpritePosX;
   float SpritePosY;
   float SpritePosZ;
-  UnknownType SpriteSize;
+  float SpriteSize; // Range: 0 - 25
   bool SpriteIsFree;
   float ShapeAABBWidth;
   float ShapeAABBHeight;
@@ -8232,7 +8232,7 @@ struct CGameManialinkMiniMap : public CGameManialinkControl {
   vec3 WorldPosition;
   vec2 MapPosition;
   float MapYaw;
-  UnknownType ZoomFactor;
+  float ZoomFactor; // Range: 0.5 - 10
   bool Underground;
   void Fog_SetAll(float Value);
   void Fog_ClearDisk(vec3 WorldCenter, float Radius, float FadeSize);
@@ -8387,7 +8387,7 @@ struct CGameEditorManialink : public CGameEditorBase {
   bool ButtonSnap;
   wstring Step;
   wstring RotationStep;
-  UnknownType ColorHelperOpacity;
+  float ColorHelperOpacity; // Range: 0 - 1
   const CControlFrame* FrameLayoutEditor;
 };
 
@@ -8495,11 +8495,11 @@ struct CGameManiaApp : public CMwNod {
   bool EnableMenuNavigationInputs;
   const float MouseX;
   const float MouseY;
-  const NodArray UILayers;
+  const MwBuffer<CGameUILayer*> UILayers;
   CGameUILayer* UILayerCreate();
   void UILayerDestroy(CGameUILayer* Layer);
   void UILayerDestroyAll();
-  void LayerCustomEvent(CGameUILayer* Layer, wstring Type, array<wstring>& Data);
+  void LayerCustomEvent(CGameUILayer* Layer, wstring Type, MwBuffer<wstring>& Data);
   void OpenLink(string Url, ELinkType LinkType);
   bool OpenFileInExplorer(wstring FileName);
   void Dialog_Message(wstring Message);
@@ -8540,9 +8540,9 @@ struct CGameManiaAppScriptEvent : public CMwNod {
   const EType Type;
   const CGameUILayer* CustomEventLayer;
   const wstring CustomEventType;
-  const array<wstring> CustomEventData;
+  const MwBuffer<wstring> CustomEventData;
   const wstring ExternalEventType;
-  const array<wstring> ExternalEventData;
+  const MwBuffer<wstring> ExternalEventData;
   const EMenuNavAction MenuNavAction;
   const bool IsActionAutoRepeat;
   const uint KeyCode;
@@ -8550,7 +8550,7 @@ struct CGameManiaAppScriptEvent : public CMwNod {
 };
 
 struct CGameManiaAppPlaygroundCommon : public CGameManiaApp {
-  const NodArray PendingEvents;
+  const MwBuffer<CGameManiaAppPlaygroundScriptEvent*> PendingEvents;
   const CGamePlaygroundClientScriptAPI* Playground;
   const CGameCtnChallenge* Map;
   CGamePlaygroundUIConfig* UI;
@@ -8566,7 +8566,7 @@ struct CGameReplayObjectVisData : public CMwNod {
 };
 
 struct CGameManiaAppTitle : public CGameManiaApp {
-  const NodArray PendingEvents;
+  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents;
   void Menu_Quit();
   void Menu_Home();
   void Menu_Solo();
@@ -8582,12 +8582,12 @@ struct CGameManiaAppTitle : public CGameManiaApp {
   const CGameManiaTitleEditionScriptAPI* TitleEdition;
   const CGameScriptNotificationsConsumer* Notifications;
   const wstring ExternalRequest_Type;
-  const array<wstring> ExternalRequest_Data;
+  const MwBuffer<wstring> ExternalRequest_Data;
   void ExternalRequest_Clear();
   const CGameAchievementScriptManager* AchievementsManager;
   CGameManagerBadgeScript* BadgeManager;
   CGameMatchSettingsManagerScript* MatchSettingsManager;
-  void Authentication_GetToken(UnknownType UserId, string AppLogin);
+  void Authentication_GetToken(MwId UserId, string AppLogin);
   const bool Authentication_GetTokenResponseReceived;
   const uint Authentication_ErrorCode;
   const string Authentication_Token;
@@ -8604,8 +8604,8 @@ struct CGameCtnMediaBlockEditorDecal2d : public CGameCtnMediaBlockEditor {
 
   void ChooseImage();
   const wstring ImgDiffuseA;
-  UnknownType Depth;
-  UnknownType Opacity;
+  float Depth; // Range: 0 - 5
+  float Opacity; // Range: 0 - 1
   bool FlipU;
   bool ForcePreview;
   CPlugDecalModel* DecalModel;
@@ -8613,7 +8613,7 @@ struct CGameCtnMediaBlockEditorDecal2d : public CGameCtnMediaBlockEditor {
 };
 
 struct CGameManiaAppBrowser : public CGameManiaApp {
-  const NodArray PendingEvents;
+  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents;
   void BrowserBack();
   void BrowserQuit();
   void BrowserHome();
@@ -8658,38 +8658,38 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
   const bool IsReady;
   const EResult LatestResult;
   const wstring CustomResultType;
-  const array<wstring> CustomResultData;
+  const MwBuffer<wstring> CustomResultData;
   void PlayMap(wstring Map, wstring Mode, string SettingsXml);
   void PlayCampaign(CGameCtnCampaign* Campaign, CGameCtnChallengeInfo* MapInfo, wstring Mode, string SettingsXml);
-  void PlayMapList(array<wstring>& MapList, wstring Mode, string SettingsXml);
+  void PlayMapList(MwBuffer<wstring>& MapList, wstring Mode, string SettingsXml);
   void PlayPlaylist(wstring Playlist, wstring OverrideMode, string OverrideSettingsXml);
   void PlayMatchSettingsFile(wstring MatchSettingsFilePath, wstring OverrideMode, string OverrideSettingsXml);
   void PlayMatchSettingsObject(CGameMatchSettingsScript* MatchSettings, wstring OverrideMode, string OverrideSettingsXml);
-  void PlaySplitScreen(ESplitScreenLayout LayoutType, array<wstring>& MapList, wstring Mode, string SettingsXml);
-  void PlayMultiOnSameScreen(array<wstring>& MapList, wstring Mode, string SettingsXml);
+  void PlaySplitScreen(ESplitScreenLayout LayoutType, MwBuffer<wstring>& MapList, wstring Mode, string SettingsXml);
+  void PlayMultiOnSameScreen(MwBuffer<wstring>& MapList, wstring Mode, string SettingsXml);
   void PlaySplitScreenObj(ESplitScreenLayout LayoutType, CGameMatchSettingsScript* MatchSettings);
   void PlayMultiOnSameScreenObj(CGameMatchSettingsScript* MatchSettings);
   void ViewReplay(wstring Replay);
   void OpenEditor(wstring EditorName, string MainPluginSettings);
   void OpenEditor2(EEditorType EditorType);
   void EditSkins();
-  void EditReplay(array<wstring>& ReplayList);
+  void EditReplay(MwBuffer<wstring>& ReplayList);
   void EditGhosts(wstring Map);
   void EditAsset(wstring EditorName, string MainPluginSettingsXml, wstring RelativeFileName);
   void EditMap(wstring Map, wstring EditorPluginScript, string EditorPluginArgument);
   void EditNewMap1(string Environment, string Decoration, wstring ModNameOrUrl, wstring PlayerModel, wstring MapType, wstring EditorPluginScript, string EditorPluginArgument);
   void EditNewMap2(string Environment, string Decoration, wstring ModNameOrUrl, wstring PlayerModel, wstring MapType, bool UseSimpleEditor, wstring EditorPluginScript, string EditorPluginArgument);
   void EditBadges();
-  void EditBadgesOld(UnknownType UserId DEPRECATED);
+  void EditBadgesOld(MwId UserId DEPRECATED);
   const bool CanPublishFiles;
   void PublishFile(wstring FileName);
-  const NodArray LocalServers;
-  const NodArray LocalServers_CurrentTitle;
+  const MwBuffer<CGameCtnNetServerInfo*> LocalServers;
+  const MwBuffer<CGameCtnNetServerInfo*> LocalServers_CurrentTitle;
   void DiscoverLocalServers();
-  void CreateServer1(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, array<wstring>& MapList, wstring Mode, string ScriptsSettingsXml);
+  void CreateServer1(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, MwBuffer<wstring>& MapList, wstring Mode, string ScriptsSettingsXml);
   void CreateServer2(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, wstring MatchSettingsFileName);
   void CreateServer2Obj(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, CGameMatchSettingsScript* MatchSettings, string PasswordSpectators);
-  void CreateServer3(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, bool LocalOnly, array<wstring>& MapList, wstring Mode, string ScriptsSettingsXml);
+  void CreateServer3(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, bool LocalOnly, MwBuffer<wstring>& MapList, wstring Mode, string ScriptsSettingsXml);
   void CreateServer4(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, bool LocalOnly, wstring MatchSettingsFileName);
   void CreateServer4Obj(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, CGameMatchSettingsScript* MatchSettings, bool LocalOnly);
   void GetServerInfo(string ServerLogin);
@@ -8745,8 +8745,8 @@ struct CGameScriptNotificationsProducer : public CMwNod {
     Notice = 1,
     Alarm = 2,
   };
-  const NodArray Events;
-  void SendNotification(array<wstring>& CallbackParams, wstring Title, wstring Description, wstring ImageUrl, ENotificationLifeSpan LifeSpan, ENotificationPriority Priority);
+  const MwBuffer<CGameScriptNotificationsProducerEvent*> Events;
+  void SendNotification(MwBuffer<wstring>& CallbackParams, wstring Title, wstring Description, wstring ImageUrl, ENotificationLifeSpan LifeSpan, ENotificationPriority Priority);
 };
 
 struct CGameScriptNotificationsConsumer : public CMwNod {
@@ -8755,9 +8755,9 @@ struct CGameScriptNotificationsConsumer : public CMwNod {
     MoreThanMemo = 1,
     MoreThanNotice = 2,
   };
-  const NodArray Events;
-  const NodArray Notifications;
-  const NodArray FilteredNotifications;
+  const MwBuffer<CGameScriptNotificationsConsumerEvent*> Events;
+  const MwBuffer<CGameScriptNotificationsConsumerNotification*> Notifications;
+  const MwBuffer<CGameScriptNotificationsConsumerNotification*> FilteredNotifications;
   EFilterPriority Filter_Priority;
 };
 
@@ -8809,8 +8809,8 @@ struct CGameManialinkStylesheet : public CMwNod {
 };
 
 struct CGameMasterServerOnlineSignalsManager : public CMwNod {
-  const NodArray UsersOnlineSignals;
-  CGameMasterServerUserOnlineSignals* GetUserOnlineSignals(UnknownType UserId);
+  const MwBuffer<CGameMasterServerUserOnlineSignals*> UsersOnlineSignals;
+  CGameMasterServerUserOnlineSignals* GetUserOnlineSignals(MwId UserId);
 };
 
 struct CGameMasterServerOnlineSignal : public CMwNod {
@@ -8831,17 +8831,17 @@ struct CGameMasterServerOnlineSignal_RecordBeaten : public CGameMasterServerOnli
 };
 
 struct CGameManiaAppMinimal : public CGameManiaApp {
-  const NodArray PendingEvents;
+  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents;
 };
 
 struct CGameVideoScriptManager : public CMwNod {
   CGameVideoScriptVideo* CreateVideo(string Url, bool IsLooping, bool AutoProcessing);
   void DestroyVideo(CGameVideoScriptVideo* Video);
-  const NodArray Videos;
+  const MwBuffer<CGameVideoScriptVideo*> Videos;
 };
 
 struct CGameGhostScript : public CMwNod {
-  const UnknownType Id;
+  const MwId Id;
   const CTmRaceResultNod* Result;
   wstring Nickname;
 };
@@ -8858,7 +8858,7 @@ struct CTmRaceResultNod : public CMwNod {
   int Score;
   int StuntsScore;
   int NbRespawns;
-  array<int> Checkpoints;
+  MwBuffer<int> Checkpoints;
   int Compare(CTmRaceResultNod* Other, ETmRaceResultCriteria Criteria);
 };
 
@@ -8918,7 +8918,7 @@ struct CGameEditorModule : public CGameCtnEditor {
   string EditColumnTextStyle;
   float EditColumnTextSize;
   string EditPageName;
-  array<string> EditedPageButtonsValues;
+  MwBuffer<string> EditedPageButtonsValues;
   void NewModule(EModuleType ModuleType);
   void OpenModule(wstring Url);
   void Save();
@@ -8927,34 +8927,34 @@ struct CGameEditorModule : public CGameCtnEditor {
   void ForceExit();
   const CGameModuleMenuModel* EditedMenu;
   const CGameModuleMenuPageModel* EditedMenuPage;
-  const NodArray PendingEvents;
+  const MwBuffer<CGameEditorPluginModuleScriptEvent*> PendingEvents;
 };
 
 struct CGameMgrItem : public CMwNod {
 };
 
 struct CGameHighScoreList : public CMwNod {
-  const NodArray HighScores;
+  const MwBuffer<CGameHighScore*> HighScores;
   const bool IsReady;
   const bool ErrorOccured;
 };
 
 struct CGameAchievementScriptManager : public CMwNod {
-  const NodArray PendingEvents;
-  const NodArray Achievements;
-  const NodArray Stats;
-  const NodArray AchievementDescriptions;
-  const NodArray StatDescriptions;
-  void SendEvent(UnknownType UserId, string Mnemo, array<int>& Params);
-  CWebServicesTaskResult* MasterServer_UplayCompleteAction(UnknownType UserId, string ActionId);
-  CWebServicesTaskResult* MasterServer_UplayCompleteActions(UnknownType UserId, array<wstring>& ActionIds);
-  CGameAchievementScriptUplayAction* MasterServer_GetUplayAction(UnknownType UserId, string ActionId);
-  bool MasterServer_IsUplayActionCompleted(UnknownType UserId, string ActionId);
-  CWebServicesTaskResult* MasterServer_UplayPurchaseReward(UnknownType UserId, string RewardId);
-  bool MasterServer_IsUplayRewardPurchased(UnknownType UserId, string RewardId);
-  const NodArray MasterServer_MSTaskResults;
-  void MasterServer_ReleaseMSTaskResult(UnknownType TaskId);
-  const NodArray MasterServer_UplayActions;
+  const MwBuffer<CGameAchievementScriptEvent*> PendingEvents;
+  const MwBuffer<CGameAchievementScriptAchievement*> Achievements;
+  const MwBuffer<CGameAchievementScriptStat*> Stats;
+  const MwBuffer<CGameAchievementScriptAchievementDesc*> AchievementDescriptions;
+  const MwBuffer<CGameAchievementScriptStatDesc*> StatDescriptions;
+  void SendEvent(MwId UserId, string Mnemo, MwBuffer<int>& Params);
+  CWebServicesTaskResult* MasterServer_UplayCompleteAction(MwId UserId, string ActionId);
+  CWebServicesTaskResult* MasterServer_UplayCompleteActions(MwId UserId, MwBuffer<wstring>& ActionIds);
+  CGameAchievementScriptUplayAction* MasterServer_GetUplayAction(MwId UserId, string ActionId);
+  bool MasterServer_IsUplayActionCompleted(MwId UserId, string ActionId);
+  CWebServicesTaskResult* MasterServer_UplayPurchaseReward(MwId UserId, string RewardId);
+  bool MasterServer_IsUplayRewardPurchased(MwId UserId, string RewardId);
+  const MwBuffer<CWebServicesTaskResult*> MasterServer_MSTaskResults;
+  void MasterServer_ReleaseMSTaskResult(MwId TaskId);
+  const MwBuffer<CGameAchievementScriptUplayAction*> MasterServer_UplayActions;
 };
 
 struct CGameAchievementScriptEvent : public CMwNod {
@@ -8966,12 +8966,12 @@ struct CGameAchievementScriptEvent : public CMwNod {
 };
 
 struct CGameAchievementScriptAchievement : public CMwNod {
-  const UnknownType UserId;
+  const MwId UserId;
   const CGameAchievementScriptAchievementDesc* AchievementDesc;
 };
 
 struct CGameAchievementScriptStat : public CMwNod {
-  const UnknownType UserId;
+  const MwId UserId;
   const CGameAchievementScriptStatDesc* StatDesc;
   const uint Value;
 };
@@ -8994,7 +8994,7 @@ struct CGameManiaAppPlaygroundScriptEvent : public CGameManiaAppScriptEvent {
     PlaygroundScriptEvent = 4,
   };
   const wstring PlaygroundScriptEventType;
-  const array<wstring> PlaygroundScriptEventData;
+  const MwBuffer<wstring> PlaygroundScriptEventData;
 };
 
 struct CGameBadgeScript : public CMwNod {
@@ -9003,7 +9003,7 @@ struct CGameBadgeScript : public CMwNod {
   wstring StickerSlot_Get(string Slot);
   void StickerSlot_Set(string Slot, wstring Sticker);
   void StickerSlot_Clear();
-  array<wstring> Layers;
+  MwBuffer<wstring> Layers;
 };
 
 struct CGameUserProfile : public CMwNod {
@@ -9031,7 +9031,7 @@ struct CGameControlCameraTrackManiaRace2 : public CGameControlCameraTarget {
 
 struct CGameEditorBadge : public CGameEditorBase {
   const CGameEditorBadgeScript* ScriptAPI;
-  UnknownType DisplayTextureSize_Log2;
+  uint DisplayTextureSize_Log2; // Range: 6 - 12
 };
 
 struct CGameEditorBadgeScript : public CGameManiaAppMinimal {
@@ -9041,19 +9041,19 @@ struct CGameEditorBadgeScript : public CGameManiaAppMinimal {
   vec2 DisplayPosN;
   vec2 DisplaySize;
   float DisplayFoV;
-  UnknownType CameraTransitionDuration;
-  UnknownType MeshRotation_MaxSpeed;
-  UnknownType MeshRotation_Acceleration;
-  UnknownType DisplayCurrentMeshId;
-  const UnknownType MeshIds;
+  float CameraTransitionDuration; // Range: 0.1 - 10
+  float MeshRotation_MaxSpeed; // Range: -10 - 10
+  float MeshRotation_Acceleration; // Range: 0.1 - 10
+  MwId DisplayCurrentMeshId;
+  const MwBuffer<MwId> MeshIds;
   void MeshId_Next();
   void MeshId_Previous();
-  const NodArray Badges;
+  const MwBuffer<CGameBadgeScript*> Badges;
   CGameBadgeScript* BadgeCreate();
   void BadgeDestroy(CGameBadgeScript* Badge);
   void BadgeCopy(CGameBadgeScript* Source, CGameBadgeScript* Destination);
-  void BadgeReadFromProfile(CGameBadgeScript* Badge, UnknownType UserId);
-  void BadgeWriteToProfile(CGameBadgeScript* Badge, UnknownType UserId);
+  void BadgeReadFromProfile(CGameBadgeScript* Badge, MwId UserId);
+  void BadgeWriteToProfile(CGameBadgeScript* Badge, MwId UserId);
 };
 
 struct CGamePlaygroundModuleClientStore : public CGamePlaygroundModuleClient {
@@ -9082,7 +9082,7 @@ struct CGamePlaygroundModuleClient : public CGameManiaAppPlaygroundCommon {
 };
 
 struct CGameManiaAppPlayground : public CGameManiaAppPlaygroundCommon {
-  void SendCustomEvent(wstring Type, array<wstring>& Data);
+  void SendCustomEvent(wstring Type, MwBuffer<wstring>& Data);
 };
 
 struct CGameVideoScriptVideo : public CMwNod {
@@ -9117,10 +9117,10 @@ struct CGameUserScript : public CMwNod {
 };
 
 struct CGameUserManagerScript : public CMwNod {
-  const NodArray TaskResults;
-  void TaskResult_Release(UnknownType TaskId);
+  const MwBuffer<CWebServicesTaskResult*> TaskResults;
+  void TaskResult_Release(MwId TaskId);
   void RequestMainUserChange();
-  const NodArray Users;
+  const MwBuffer<CGameUserScript*> Users;
   const CInputScriptPad* MainUserPad;
   const bool MainUserLogged;
   const CGameUserScript* MainUser;
@@ -9130,13 +9130,13 @@ struct CGameUserManagerScript : public CMwNod {
   void DevSetSkipIntro();
   const bool MainUser_CanUseVoiceChat;
   bool VoiceChat_MuteAll;
-  CWebServicesTaskResult_StringIntList* GetGroups(UnknownType UserId);
-  void ShowProfile(UnknownType UserId, string ProfileLogin);
+  CWebServicesTaskResult_StringIntList* GetGroups(MwId UserId);
+  void ShowProfile(MwId UserId, string ProfileLogin);
 };
 
 struct CWebServicesTaskResult_BuddiesChallengeRecordsComparison : public CWebServicesTaskResult {
   const string Login;
-  const NodArray BuddiesComparison;
+  const MwBuffer<CGameHighScoreComparisonSummary*> BuddiesComparison;
   void SortByPlayerCount();
   void SortByOpponentLogin();
   void SortByOpponentCount();
@@ -9150,8 +9150,8 @@ struct CGameCtnMasterServerTask_GetChallengeRecordsComparisonSummaries : public 
 struct CWebServicesTaskResult_BuddyChallengeRecordsComparison : public CWebServicesTaskResult {
   const string Login;
   const string BuddyLogin;
-  const NodArray PlayerBestRecordsComparison;
-  const NodArray BuddyBestRecordsComparison;
+  const MwBuffer<CGameHighScoreComparison*> PlayerBestRecordsComparison;
+  const MwBuffer<CGameHighScoreComparison*> BuddyBestRecordsComparison;
   void SortByMapName();
   void SortByRecordTime();
   void SortByRecordTimeDiff();
@@ -9226,7 +9226,7 @@ struct CGameModuleMenuBrowser : public CGameModuleMenuComponent {
     MultiSelect = 2,
   };
   const bool HasFinished;
-  const array<wstring> Selection;
+  const MwBuffer<wstring> Selection;
   void SetFileType(EFileType FileType);
   void SetFileAction(EFileAction FileAction);
 };
@@ -9236,7 +9236,7 @@ struct CGameHapticDevice : public CMwNod {
 
 struct CGamePluginInterfacesScript : public CMwNod {
   CGameManiaplanetPluginInterface* GetInterface(wstring Name);
-  const NodArray Interfaces;
+  const MwBuffer<CGameManiaplanetPluginInterface*> Interfaces;
 };
 
 struct CGameModuleMenuComponent : public CMwNod {
@@ -9333,13 +9333,13 @@ struct CGameModuleMenuLadderRankings : public CGameModuleMenuComponent {
 
 struct CGameScriptHandlerPlaygroundModuleStore : public CGameManialinkScriptHandler {
   const uint CurrentMoney;
-  const NodArray StoreContent;
+  const MwBuffer<CGameModuleScriptStoreCategory*> StoreContent;
   void SetCategory(uint CategoryIndex);
   void SelectItem(uint ItemIndex);
   void BuySelectedItem();
   void ClearItemSelection();
   void Quit();
-  const array<wstring> BlockedItemsUrls;
+  const MwBuffer<wstring> BlockedItemsUrls;
 };
 
 struct CGameModuleMenuServerBrowser : public CGameModuleMenuComponent {
@@ -9365,7 +9365,7 @@ struct CWebServicesTaskResult_OnlineSignals : public CWebServicesTaskResult {
 };
 
 struct CGameScriptHandlerTitleModuleMenu : public CGameManiaAppTitleLayerScriptHandler {
-  const NodArray Components;
+  const MwBuffer<CGameModuleMenuComponent*> Components;
   CGameModuleMenuComponent* GetFirstComponent(string Name);
 };
 
@@ -9384,7 +9384,7 @@ struct CGameEditorAnimChar : public CMwNod {
 };
 
 struct CGameScriptHandlerPlaygroundModuleInventory : public CGameManialinkScriptHandler {
-  const NodArray InventoryContent;
+  const MwBuffer<CGameModuleInventoryCategory*> InventoryContent;
   void Quit();
   void DropSelectedSlot();
   void EquipSelectedSlot();
@@ -9398,8 +9398,8 @@ struct CGameModuleInventoryCategory : public CMwNod {
   const string Description;
   const uint ItemClass;
   const wstring IconUrl;
-  const NodArray SlotsItems;
-  const array<uint> SlotsItemsQuantity;
+  const MwBuffer<CGameModuleScriptItem*> SlotsItems;
+  const MwBuffer<uint> SlotsItemsQuantity;
 };
 
 struct CGameModuleScriptItem : public CMwNod {
@@ -9440,7 +9440,7 @@ struct CGamePlaygroundModuleServerStore : public CGamePlaygroundModuleServer {
   string GetPlayerData(CGamePlayer* Player);
   void SetItemCanBeBought(CGamePlayer* Player, wstring ActionUrl, bool CanBeBought);
   bool GetItemCanBeBought(CGamePlayer* Player, wstring ActionUrl);
-  array<wstring>& Hack_GetAllItemsUrls();
+  MwBuffer<wstring>& Hack_GetAllItemsUrls();
 };
 
 struct CGamePlaygroundModuleServerHud : public CMwNod {
@@ -9458,8 +9458,8 @@ struct CGamePlaygroundModuleServerInventory : public CGamePlaygroundModuleServer
   uint RemoveInventoryItem(CGamePlayer* Player, wstring Url, uint Quantity);
   uint GetInventoryItemQuantity(CGamePlayer* Player, wstring Url);
   bool IsInventoryItemStored(CGamePlayer* Player, wstring Url);
-  array<wstring>& GetStoredItemsList(CGamePlayer* Player);
-  array<wstring>& GetStoredActionsList(CGamePlayer* Player);
+  MwBuffer<wstring>& GetStoredItemsList(CGamePlayer* Player);
+  MwBuffer<wstring>& GetStoredActionsList(CGamePlayer* Player);
 };
 
 struct CGamePlaygroundModuleServerScoresTable : public CGamePlaygroundModuleServer {
@@ -9514,7 +9514,7 @@ struct CWebServicesTaskResult_RealLeaderBoardInfoList : public CWebServicesTaskR
 
 struct CGameRealLeaderBoardInfoScript : public CMwNod {
   const uint Rank;
-  const UnknownType UserId;
+  const MwId UserId;
   const string Login;
   const wstring DisplayName;
   const float Score;
@@ -9544,40 +9544,40 @@ struct CGameScoreAndLeaderBoardManagerScript : public CMwNod {
     NotSynchronized = 2,
     Synchronized = 3,
   };
-  const NodArray TaskResults;
-  void TaskResult_Release(UnknownType TaskId);
-  void ReleaseTaskResult(UnknownType TaskId);
-  ELocalScoreStatus ScoreStatus_GetLocalStatus(UnknownType UserId);
-  EMasterServerScoreStatus ScoreStatus_GetMasterServerStatus(UnknownType UserId);
-  void ReleaseGhost(UnknownType GhostId);
+  const MwBuffer<CWebServicesTaskResult*> TaskResults;
+  void TaskResult_Release(MwId TaskId);
+  void ReleaseTaskResult(MwId TaskId);
+  ELocalScoreStatus ScoreStatus_GetLocalStatus(MwId UserId);
+  EMasterServerScoreStatus ScoreStatus_GetMasterServerStatus(MwId UserId);
+  void ReleaseGhost(MwId GhostId);
   CGameGhostScript* Playground_GetPlayerGhost(CGamePlayer* GamePlayer);
-  CWebServicesTaskResult* Map_SetNewRecord(UnknownType UserId, string MapUid, string Context, CGameGhostScript* Ghost);
-  uint Map_GetRecord(UnknownType UserId, string MapUid, string Context);
-  CWebServicesTaskResult_GhostScript* Map_GetRecordGhost(UnknownType UserId, string MapUid, string Context);
-  uint Map_GetMultiAsyncLevel(UnknownType UserId, string MapUid, string Context);
+  CWebServicesTaskResult* Map_SetNewRecord(MwId UserId, string MapUid, string Context, CGameGhostScript* Ghost);
+  uint Map_GetRecord(MwId UserId, string MapUid, string Context);
+  CWebServicesTaskResult_GhostScript* Map_GetRecordGhost(MwId UserId, string MapUid, string Context);
+  uint Map_GetMultiAsyncLevel(MwId UserId, string MapUid, string Context);
   uint Map_GetMultiAsyncLevelRecord(string MapUid, string Context, uint MultiAsyncLevel);
   CWebServicesTaskResult_GhostScript* Map_GetMultiAsyncLevelRecordGhost(string MapUid, string Context, uint MultiAsyncLevel);
-  uint Map_GetSkillPoints(UnknownType UserId, string MapUid, string Context);
-  uint MapLeaderBoard_GetPlayerRanking(UnknownType UserId, string MapUid, string Context, wstring Zone);
+  uint Map_GetSkillPoints(MwId UserId, string MapUid, string Context);
+  uint MapLeaderBoard_GetPlayerRanking(MwId UserId, string MapUid, string Context, wstring Zone);
   uint MapLeaderBoard_GetPlayerCount(string MapUid, string Context, wstring Zone);
-  CWebServicesTaskResult_NaturalLeaderBoardInfoListScript* MapLeaderBoard_GetPlayerList(UnknownType UserId, string MapUid, string Context, wstring Zone, uint FromIndex, uint Count);
-  uint Campaign_GetMultiAsyncLevel(UnknownType UserId, string CampaignId);
-  uint Campaign_GetMultiAsyncLevelCount(UnknownType UserId, string CampaignId, uint MultiAsyncLevel);
-  uint Campaign_GetSkillPoints(UnknownType UserId, string CampaignId);
-  CWebServicesTaskResult_MapRecordListScript* Campaign_GetOpponentRecords(UnknownType UserId, string CampaignId, string OpponentLogin);
-  CWebServicesTaskResult_BuddiesChallengeRecord* Campaign_GetBuddiesMapRecord(UnknownType UserId, string CampaignId, string MapUid);
-  bool Campaign_IsBuddiesMapRecordDirty(UnknownType UserId, string CampaignId, string MapUid);
-  CWebServicesTaskResult_BuddiesChallengeRecordsComparison* Campaign_GetBuddiesMapRecordsComparison(UnknownType UserId, string CampaignId);
-  CWebServicesTaskResult_BuddyChallengeRecordsComparison* Campaign_GetBuddyMapRecordsComparison(UnknownType UserId, string OpponentLogin, string CampaignId);
-  uint CampaignLeaderBoard_GetPlayerRanking(UnknownType UserId, string CampaignId, wstring Zone, bool UseSkillPoints);
+  CWebServicesTaskResult_NaturalLeaderBoardInfoListScript* MapLeaderBoard_GetPlayerList(MwId UserId, string MapUid, string Context, wstring Zone, uint FromIndex, uint Count);
+  uint Campaign_GetMultiAsyncLevel(MwId UserId, string CampaignId);
+  uint Campaign_GetMultiAsyncLevelCount(MwId UserId, string CampaignId, uint MultiAsyncLevel);
+  uint Campaign_GetSkillPoints(MwId UserId, string CampaignId);
+  CWebServicesTaskResult_MapRecordListScript* Campaign_GetOpponentRecords(MwId UserId, string CampaignId, string OpponentLogin);
+  CWebServicesTaskResult_BuddiesChallengeRecord* Campaign_GetBuddiesMapRecord(MwId UserId, string CampaignId, string MapUid);
+  bool Campaign_IsBuddiesMapRecordDirty(MwId UserId, string CampaignId, string MapUid);
+  CWebServicesTaskResult_BuddiesChallengeRecordsComparison* Campaign_GetBuddiesMapRecordsComparison(MwId UserId, string CampaignId);
+  CWebServicesTaskResult_BuddyChallengeRecordsComparison* Campaign_GetBuddyMapRecordsComparison(MwId UserId, string OpponentLogin, string CampaignId);
+  uint CampaignLeaderBoard_GetPlayerRanking(MwId UserId, string CampaignId, wstring Zone, bool UseSkillPoints);
   uint CampaignLeaderBoard_GetPlayerCount(string CampaignId, wstring Zone, bool UseSkillPoints);
-  CWebServicesTaskResult_NaturalLeaderBoardInfoListScript* CampaignLeaderBoard_GetPlayerList(UnknownType UserId, string CampaignId, wstring Zone, bool UseSkillPoints, uint FromIndex, uint Count);
-  void Multiplayer_AddToScore(UnknownType UserId, float ScoreDiff, uint Timestamp);
-  uint MultiplayerLeaderBoard_GetPlayerRanking(UnknownType UserId, wstring Zone);
+  CWebServicesTaskResult_NaturalLeaderBoardInfoListScript* CampaignLeaderBoard_GetPlayerList(MwId UserId, string CampaignId, wstring Zone, bool UseSkillPoints, uint FromIndex, uint Count);
+  void Multiplayer_AddToScore(MwId UserId, float ScoreDiff, uint Timestamp);
+  uint MultiplayerLeaderBoard_GetPlayerRanking(MwId UserId, wstring Zone);
   uint MultiplayerLeaderBoard_GetPlayerCount(wstring Zone);
-  uint GlobalLeaderBoard_GetPlayerRanking(UnknownType UserId, wstring Zone);
+  uint GlobalLeaderBoard_GetPlayerRanking(MwId UserId, wstring Zone);
   uint GlobalLeaderBoard_GetPlayerCount(wstring Zone);
-  CWebServicesTaskResult_RealLeaderBoardInfoListScript* GlobalLeaderBoard_GetPlayerList(UnknownType UserId, wstring Zone, uint FromIndex, uint Count);
+  CWebServicesTaskResult_RealLeaderBoardInfoListScript* GlobalLeaderBoard_GetPlayerList(MwId UserId, wstring Zone, uint FromIndex, uint Count);
 };
 
 struct CGameCtnMasterServerTask_GetDisplayNameScript : public CWebServicesTaskSequence {
@@ -9621,8 +9621,8 @@ struct CGameMasterServerOnlineSignalTask_NotifyBuddiesAboutNewOnlineSignals : pu
 };
 
 struct CGameMasterServerUserOnlineSignals : public CMwNod {
-  const UnknownType Id;
-  const NodArray OnlineSignals;
+  const MwId Id;
+  const MwBuffer<CGameMasterServerOnlineSignal*> OnlineSignals;
   void RemoveOnlineSignal(uint OnlineId);
 };
 
@@ -9664,7 +9664,7 @@ struct CGameEditorParent : public CGameSwitcherModule {
 struct CWebServicesTaskResult_ZoneList : public CWebServicesTaskResult {
   const wstring Path;
   const uint ZoneCount;
-  const NodArray Zones;
+  const MwBuffer<CGameLeagueScript*> Zones;
 };
 
 struct CGameCtnMasterServerTask_ZoneGetChilds : public CWebServicesTaskSequence {
@@ -9704,7 +9704,7 @@ struct CGameCtnMasterServerTask_GetOnlinePresenceForPlayers : public CNetMasterS
 };
 
 struct CGameMasterServerRichPresenceTaskResult_GetOnlinePresenceForPlayersScript : public CGameMasterServerRichPresenceTaskResult_PlayerOnlinePresenceList {
-  const NodArray OnlinePresences;
+  const MwBuffer<CGameMasterServerPlayerOnlinePresence*> OnlinePresences;
   void AddLogin(string Login);
   void StartTask();
 };
@@ -9728,11 +9728,11 @@ struct CGameUserPrivilegesManagerScript : public CMwNod {
     PlayMultiplayerAsync = 8,
     DownloadUserCreatedContent = 9,
   };
-  const NodArray TaskResults;
-  void ReleaseTaskResult(UnknownType TaskId);
-  CWebServicesTaskResult* CheckPrivilege(UnknownType UserId, EPrivilege Privilege);
+  const MwBuffer<CWebServicesTaskResult*> TaskResults;
+  void ReleaseTaskResult(MwId TaskId);
+  CWebServicesTaskResult* CheckPrivilege(MwId UserId, EPrivilege Privilege);
   CWebServicesTaskResult* CheckPrivilegeForAllUsers(EPrivilege Privilege);
-  CWebServicesTaskResult_CheckTargetedPrivilegeResultScript* CheckTargetedPrivilege(UnknownType UserId, EPrivilege Privilege);
+  CWebServicesTaskResult_CheckTargetedPrivilegeResultScript* CheckTargetedPrivilege(MwId UserId, EPrivilege Privilege);
   CWebServicesTaskResult_CheckTargetedPrivilegeResultScript* CheckTargetedPrivilegeForAllUsers(EPrivilege Privilege);
 };
 
@@ -9770,23 +9770,23 @@ struct CGameMasterServerRichPresenceManagerScript : public CMwNod {
     Party = 4,
     Create = 5,
   };
-  const NodArray TaskResults;
-  void ReleaseTaskResult(UnknownType TaskId);
-  void SetPresence(UnknownType UserId, ERichPresence UplayFlow);
-  CGameMasterServerRichPresenceTaskResult_GetOnlinePresenceForPlayersScript* GetOnlinePresenceForPlayers(UnknownType UserId);
+  const MwBuffer<CWebServicesTaskResult*> TaskResults;
+  void ReleaseTaskResult(MwId TaskId);
+  void SetPresence(MwId UserId, ERichPresence UplayFlow);
+  CGameMasterServerRichPresenceTaskResult_GetOnlinePresenceForPlayersScript* GetOnlinePresenceForPlayers(MwId UserId);
 };
 
 struct CGameUserPrivilegeTask_CheckViewUserCreatedContent : public CWebServicesTaskSequence {
 };
 
 struct CGameManagerBadgeScript : public CMwNod {
-  const NodArray Badges;
+  const MwBuffer<CGameBadgeScript*> Badges;
   CGameBadgeScript* BadgeCreate();
   void BadgeDestroy(CGameBadgeScript* Badge);
   void BadgeCopy(CGameBadgeScript* Source, CGameBadgeScript* Destination);
-  void BadgeReadFromProfile(CGameBadgeScript* Badge, UnknownType UserId);
-  void BadgeWriteToProfile(CGameBadgeScript* Badge, UnknownType UserId);
-  bool ProfileIsReady(UnknownType UserId);
+  void BadgeReadFromProfile(CGameBadgeScript* Badge, MwId UserId);
+  void BadgeWriteToProfile(CGameBadgeScript* Badge, MwId UserId);
+  bool ProfileIsReady(MwId UserId);
 };
 
 struct CGameUserPrivilegeTask_CheckPlayMultiplayerSession : public CWebServicesTaskSequence {
@@ -9849,7 +9849,7 @@ struct CGameScoreTask_BuddiesChallengeRecordsForMap : public CWebServicesTaskSeq
 
 struct CWebServicesTaskResult_BuddiesChallengeRecord : public CWebServicesTaskResult {
   const string Login;
-  const NodArray BuddiesChallengeRecord;
+  const MwBuffer<CGameHighScoreComparison*> BuddiesChallengeRecord;
   void SortByOpponentCount();
   void SortByOpponentDisplayName();
   void SortByOpponentLogin();
@@ -9872,12 +9872,12 @@ struct CGameModuleScriptStoreItem : public CGameModuleScriptItem {
   const string StoreName;
   const string StoreDesc;
   const uint CurrentLevel;
-  const array<uint> Prices;
+  const MwBuffer<uint> Prices;
 };
 
 struct CGameModuleScriptStoreCategory : public CMwNod {
   const string Name;
-  const NodArray Items;
+  const MwBuffer<CGameModuleScriptStoreItem*> Items;
 };
 
 struct CWebServicesTaskResult_NaturalLeaderBoardSummaries : public CWebServicesTaskResult {
@@ -9906,12 +9906,12 @@ struct CGameEditorMainPlugin : public CGameEditorPlugin {
   void Help_Open();
   void Help_Close();
   CGameEditorPluginHandle* GetPluginHandle(string Name);
-  void SendPluginEvent(CGameEditorPluginHandle* Handle, wstring Type, array<wstring>& Data);
+  void SendPluginEvent(CGameEditorPluginHandle* Handle, wstring Type, MwBuffer<wstring>& Data);
   void Context_SetActive(wstring ContextName, bool IsActive);
   bool Context_IsActive(wstring ContextName);
   bool Binding_IsActive(wstring BindingName);
   void Plugin_SetClearance_MeshEditor(CGameEditorPluginHandle* Handle, EMeshEditorAPI API, bool IsAllowed);
-  const NodArray Plugins;
+  const MwBuffer<CGameEditorPluginHandle*> Plugins;
 };
 
 struct CGamePlaygroundUIConfigEvent : public CMwNod {
@@ -9940,10 +9940,10 @@ struct CGamePlaygroundUIConfigEvent : public CMwNod {
   const CGamePlaygroundUIConfig* UIConfig;
   const EModuleType ModuleType;
   const wstring Param1;
-  const array<wstring> Param2;
+  const MwBuffer<wstring> Param2;
   const CGameUILayer* CustomEventLayer;
   const wstring CustomEventType;
-  const array<wstring> CustomEventData;
+  const MwBuffer<wstring> CustomEventData;
   const wstring ItemUrl;
   const uint Quantity;
 };
@@ -9953,36 +9953,36 @@ struct CGameMgrShieldPhy : public CSceneMgrPhy {
 
 struct CGameMgrShieldVis : public CSceneMgrVis {
   const CSceneMgrParticle* MgrParticle;
-  const NodArray ShieldModels;
+  const MwBuffer<CPlugShieldModel*> ShieldModels;
 };
 
 struct CGamePackCreatorScript : public CMwNod {
   void RegisterPackForEditedTitle();
   const bool RegisterPack_IsInProgess;
   const CGamePackCreator_PackScript* CurrentPack;
-  UnknownType Build_Begin(CGamePackCreator_PackScript* Pack, CGamePackCreator_TitleInfoScript* TitleInfo);
-  void Build_AddFile(UnknownType BuildId, wstring FileName);
-  void Build_AddFolder(UnknownType BuildId, wstring FolderName);
-  void Build_AddFile_Ex(UnknownType BuildId, wstring FileName, bool IsPublic, bool IsInternal, bool NoAutomaticDeps);
-  void Build_AddFolder_Ex(UnknownType BuildId, wstring FolderName, bool IsPublic, bool IsInternal, bool NoRecursion, bool NoAutomaticDeps);
-  void Build_Generate(UnknownType BuildId, bool Upload);
-  bool Build_IsGenerated(UnknownType BuildId);
-  wstring Build_ErrorMessage(UnknownType BuildId);
-  void Build_End(UnknownType BuildId);
+  MwId Build_Begin(CGamePackCreator_PackScript* Pack, CGamePackCreator_TitleInfoScript* TitleInfo);
+  void Build_AddFile(MwId BuildId, wstring FileName);
+  void Build_AddFolder(MwId BuildId, wstring FolderName);
+  void Build_AddFile_Ex(MwId BuildId, wstring FileName, bool IsPublic, bool IsInternal, bool NoAutomaticDeps);
+  void Build_AddFolder_Ex(MwId BuildId, wstring FolderName, bool IsPublic, bool IsInternal, bool NoRecursion, bool NoAutomaticDeps);
+  void Build_Generate(MwId BuildId, bool Upload);
+  bool Build_IsGenerated(MwId BuildId);
+  wstring Build_ErrorMessage(MwId BuildId);
+  void Build_End(MwId BuildId);
 };
 
 struct CGamePackCreator_PackScript : public CMwNod {
-  const UnknownType PackId;
-  const UnknownType CreatorId;
+  const MwId PackId;
+  const MwId CreatorId;
   const bool IsTitlePack;
   void Recipients_Add(string Login, uint UseCost, uint GetCost);
   void Recipients_Remove(string Login);
-  const NodArray Recipients;
+  const MwBuffer<CGamePackCreator_RecipientScript*> Recipients;
 };
 
 struct CGamePackCreator_TitleInfoScript : public CMwNod {
-  const UnknownType TitleId;
-  const UnknownType MakerTitleId;
+  const MwId TitleId;
+  const MwId MakerTitleId;
   wstring DisplayName;
   wstring Description;
   string InfoUrl;
@@ -10014,13 +10014,13 @@ struct CGameCtnDecorationMaterialModifiers : public CMwNod {
   CGameCtnDecorationMaterialModifiers();
 
   CGameCtnDecorationTerrainModifier* LowHeightMaterialModifier;
-  array<float> Rules_MinHeights;
-  NodArray Rules_MaterialModifiers;
+  MwBuffer<float> Rules_MinHeights;
+  MwBuffer<CGameCtnDecorationTerrainModifier*> Rules_MaterialModifiers;
 };
 
 struct CGameModuleMenuPage : public CMwNod {
   const wstring Name;
-  const NodArray Components;
+  const MwBuffer<CGameModuleMenuComponent*> Components;
 };
 
 struct CGameEditorPlugin : public CGameManiaApp {
@@ -10029,7 +10029,7 @@ struct CGameEditorPlugin : public CGameManiaApp {
     Closed = 1,
     Aborted = 2,
   };
-  const NodArray PendingEvents;
+  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents;
   const CGameEditorModule* ModuleEditor;
   const CGameEditorMesh* MeshEditor;
   const CGameEditorPixel* PixelEditor;
@@ -10093,12 +10093,12 @@ struct CGameEditorEditor : public CGameCtnEditor {
   void Bindings_SetBindingScriptId(wstring BindingScriptId, wstring NewBindingScriptId);
   void Bindings_SetBindingDisplayName(wstring BindingScriptId, wstring BindingDisplayName);
   void Bindings_SetContextName(wstring ContextName, wstring NewContextName);
-  const array<wstring> BindingContexts;
+  const MwBuffer<wstring> BindingContexts;
   void Bindings_GetContextBindings(wstring ContextName);
-  const array<wstring> RequestedContextBindings;
+  const MwBuffer<wstring> RequestedContextBindings;
   wstring Bindings_GetBindingActionName(wstring BindingName);
   wstring Bindings_GetBindingDisplayName(wstring BindingName);
-  const NodArray PendingEvents;
+  const MwBuffer<CGameEditorEvent*> PendingEvents;
 };
 
 struct CGameControlCameraHmdExternal : public CGameControlCameraTarget {
@@ -10112,7 +10112,7 @@ struct CGameCampaignScoreManager_SkillPoint : public CGameCampaignScoreManager {
 
 struct CGameScriptChatRoom : public CMwNod {
   const string RoomId;
-  const NodArray Members;
+  const MwBuffer<CGameScriptChatContact*> Members;
 };
 
 struct CGameItem : public CMwNod {
@@ -10136,7 +10136,7 @@ struct CGameTriggerScreen : public CMwNod {
 struct CGameScriptChatHistory : public CMwNod {
   wstring Filter;
   const bool Filter_IsValid;
-  const NodArray Entries;
+  const MwBuffer<CGameScriptChatHistoryEntry*> Entries;
 };
 
 struct CGameScriptChatHistoryEntry : public CMwNod {
@@ -10154,18 +10154,18 @@ struct CGameScriptChatHistoryEntry : public CMwNod {
 struct CGameEditorCanvas : public CMwNod {
   CGameEditorCanvas();
 
-  UnknownType Layer_Create();
-  void Layer_Destroy(UnknownType Handle);
-  void Layer_Rename(UnknownType Handle, string Name);
-  string Layer_GetName(UnknownType Handle);
-  void Layer_SetSelected(UnknownType Handle);
-  UnknownType Layer_GetSelectedLayer();
-  void Layer_SwapLayersPriorities(UnknownType Handle1, UnknownType Handle2);
-  void Layer_IncreasePriority(UnknownType Handle);
-  void Layer_DecreasePriority(UnknownType Handle);
-  UnknownType Layer_GetLayers();
-  void Layer_SetVisibility(UnknownType Handle, bool Visible);
-  bool Layer_IsVisible(UnknownType Handle);
+  MwId Layer_Create();
+  void Layer_Destroy(MwId Handle);
+  void Layer_Rename(MwId Handle, string Name);
+  string Layer_GetName(MwId Handle);
+  void Layer_SetSelected(MwId Handle);
+  MwId Layer_GetSelectedLayer();
+  void Layer_SwapLayersPriorities(MwId Handle1, MwId Handle2);
+  void Layer_IncreasePriority(MwId Handle);
+  void Layer_DecreasePriority(MwId Handle);
+  MwBuffer<MwId>& Layer_GetLayers();
+  void Layer_SetVisibility(MwId Handle, bool Visible);
+  bool Layer_IsVisible(MwId Handle);
 };
 
 struct CGameEditorPixel : public CGameCtnEditor {
@@ -10199,11 +10199,11 @@ struct CGameEditorPixel : public CGameCtnEditor {
   void Cut();
   void Paste();
   void AddUndoState();
-  void MergeLayers(UnknownType Handle1, UnknownType Handle2);
+  void MergeLayers(MwId Handle1, MwId Handle2);
   void SelectedLayer_Move(UnknownType Offset);
   void SelectedLayer_OffsetPreview(UnknownType Offset);
   const CGameEditorCanvas* Layers;
-  const NodArray PendingEvents;
+  const MwBuffer<CGameEditorPixelEvent*> PendingEvents;
 };
 
 struct CGameEditorPixelEvent : public CGameManiaAppScriptEvent {
@@ -10227,7 +10227,7 @@ struct CGameEditorPixelEvent : public CGameManiaAppScriptEvent {
 };
 
 struct CGameEditorPluginMapManager : public CMwNod {
-  const NodArray ActivePluginsCache;
+  const MwBuffer<CGameEditorPluginMap*> ActivePluginsCache;
 };
 
 struct CGameEditorMesh : public CGameEditorAsset {
@@ -10305,7 +10305,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const uint EdgeCount;
   const uint FaceCount;
   void EditionBox_SetScale(float Scale);
-  void EditionBox_OrientPlane(UnknownType SetHandle);
+  void EditionBox_OrientPlane(MwId SetHandle);
   const bool EditionBox_IsPlaneOriented;
   const float Scale;
   const float Step;
@@ -10320,7 +10320,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   EEdgesDisplay DisplayEdges;
   void EditedMesh_Clear();
   void EditedMesh_Simplify();
-  void UVUnwrap(UnknownType SetHandle, ETexCoordLayer ETexCoordLayer);
+  void UVUnwrap(MwId SetHandle, ETexCoordLayer ETexCoordLayer);
   void Undo();
   void Redo();
   void SwitchPlane();
@@ -10330,109 +10330,109 @@ struct CGameEditorMesh : public CGameEditorAsset {
   vec3 PickInfo_GetPosition();
   float PickInfo_GetEdgeLength();
   vec3 PickInfo_GetNextVertexPosition();
-  UnknownType PickInfo_GetMaterial();
+  MwId PickInfo_GetMaterial();
   wstring PickInfo_GetError();
   void Part_SetAnchorPos(vec3 Position);
   void Part_SetIsJoint(bool IsJoint);
   void Part_ClearAnchor();
   const int MaterialsUpdateId;
-  const NodArray AllBitmaps;
-  const UnknownType MaterialIds;
-  UnknownType Material_GetMaterialIdSelected();
-  void Material_SetMaterialIdSelected(UnknownType MaterialEditorId);
+  const MwBuffer<CPlugBitmap*> AllBitmaps;
+  const MwBuffer<MwId> MaterialIds;
+  MwId Material_GetMaterialIdSelected();
+  void Material_SetMaterialIdSelected(MwId MaterialEditorId);
   uint Material_GetSubTexIndexSelected();
-  void Material_SetDefault(UnknownType MaterialId);
-  UnknownType Material_GetDefault();
-  CPlugBitmap* Material_GetBitmapBase(UnknownType MaterialId);
-  CPlugBitmap* Material_GetBitmap(UnknownType MaterialId);
-  bool Material_MatchesCriterion(UnknownType MaterialId, EMaterialFilterCriterion ResultSetHandle);
+  void Material_SetDefault(MwId MaterialId);
+  MwId Material_GetDefault();
+  CPlugBitmap* Material_GetBitmapBase(MwId MaterialId);
+  CPlugBitmap* Material_GetBitmap(MwId MaterialId);
+  bool Material_MatchesCriterion(MwId MaterialId, EMaterialFilterCriterion ResultSetHandle);
   void Material_SetFilter(EMaterialFilterCriterion Criterion, EFilterKind FilterKind);
   EFilterKind Material_GetFilter(EMaterialFilterCriterion Criterion);
   void Material_ClearFilters();
   void Material_UVEditor_SetIsRotation(bool IsRotation);
   void Material_UVEditor_SetIsScale(bool IsScale);
   void Material_UVEditor_SetIsScale1D(bool IsScale);
-  void Material_UVEditor_Open(UnknownType MaterialId, CGameManialinkQuad* LocationQuad);
+  void Material_UVEditor_Open(MwId MaterialId, CGameManialinkQuad* LocationQuad);
   void Material_UVEditor_Close();
   void Material_UVEditor_SetMode(EUVEditorMode Mode);
   EUVEditorMode Material_UVEditor_GetMode();
   void Material_UVEditor_SetProjectionType(EUVEditorProjectionType ProjectionType);
   void Material_UVEditor_Apply();
-  void Material_PasteMaterial(UnknownType SetHandle);
+  void Material_PasteMaterial(MwId SetHandle);
   const uint Material_Atlas_SelectedSubTexIndex;
   const EInteraction CurrentInteraction;
   void Interaction_Abort();
-  void Interaction_SetPreview(UnknownType SetToPreview);
+  void Interaction_SetPreview(MwId SetToPreview);
   const uint CreationElemsCount;
-  void Interaction_StartCreation(UnknownType CreationSetHandle, EElemType ElemType, UnknownType SetToPickFromHandle);
-  void Interaction_Creation_GetElems(UnknownType ResultSetHandle);
+  void Interaction_StartCreation(MwId CreationSetHandle, EElemType ElemType, MwId SetToPickFromHandle);
+  void Interaction_Creation_GetElems(MwId ResultSetHandle);
   void Interaction_CloseCreation();
   void Interaction_Creation_ClearParams();
   void Interaction_Creation_SetEdgesConstraint(EEdgesConstraint EdgesConstraint);
   void Interaction_Creation_SetAutoMerge(bool AutoMerge);
   void Interaction_StartPaste();
-  void Interaction_StartBlocTransformation(UnknownType TransformationSetHandle);
-  void Interaction_StartCurve2D(UnknownType BordersSetHandle);
+  void Interaction_StartBlocTransformation(MwId TransformationSetHandle);
+  void Interaction_StartCurve2D(MwId BordersSetHandle);
   void Interaction_CloseCurve2D(bool CanDoCurve2D);
-  void Interaction_StartPick(EElemType ElemType, UnknownType SetToPickFrom);
+  void Interaction_StartPick(EElemType ElemType, MwId SetToPickFrom);
   void Interaction_StartPickJoint();
-  void Interaction_StartMerge(UnknownType MergeSetHandle);
-  void Interaction_StartMirror(UnknownType SetHandle);
+  void Interaction_StartMerge(MwId MergeSetHandle);
+  void Interaction_StartMirror(MwId SetHandle);
   void Interaction_Selection_ClearParams();
   void Interaction_Selection_SetUseParts(bool UseParts);
   void Interaction_Selection_SetCanEnterLeaf(bool CanEnterLeaf);
-  void Interaction_StartSelection(UnknownType SelectionSetHandle, EElemType ElemType, UnknownType SelectionSetToPickFrom);
+  void Interaction_StartSelection(MwId SelectionSetHandle, EElemType ElemType, MwId SelectionSetToPickFrom);
   void Interaction_CloseSelection();
-  void Interaction_StartTranslation(UnknownType TranslationSetHandle);
-  void Interaction_StartPickTranslation(UnknownType TranslationSetHandle);
-  void Interaction_StartRotation(UnknownType RotationSetHandle);
-  void Interaction_StartPickRotation(UnknownType RotationSetHandle);
+  void Interaction_StartTranslation(MwId TranslationSetHandle);
+  void Interaction_StartPickTranslation(MwId TranslationSetHandle);
+  void Interaction_StartRotation(MwId RotationSetHandle);
+  void Interaction_StartPickRotation(MwId RotationSetHandle);
   void Interaction_Rotation_SetStep(int RotationStep);
-  void Interaction_StartPickScale(UnknownType ScalingSetHandle);
+  void Interaction_StartPickScale(MwId ScalingSetHandle);
   void Interaction_Scale_SetStep(float ScalingStep);
   void Interaction_StartSplit();
-  void Display_HighlightSet(UnknownType SetHandle);
+  void Display_HighlightSet(MwId SetHandle);
   void Display_ClearHighlighting();
   void Display_AtlasSelectionsSet(bool DisplayAtlasSelection);
   bool Display_AtlasSelectionsGet();
   const bool Display_HideElemsByDistance_IsActive;
   uint Display_HideElemsByDistance_Distance;
   float Display_HideElemsByDistance_Opacity;
-  void Display_HideElemsByDistance_Start(UnknownType SetHandle);
+  void Display_HideElemsByDistance_Start(MwId SetHandle);
   void Display_HideElemsByDistance_Stop();
   void Display_HideMap();
   void Display_ShowMap();
-  void MergeAllSuperposedElements(UnknownType SetHandle);
-  const UnknownType SelectionSet;
+  void MergeAllSuperposedElements(MwId SetHandle);
+  const MwId SelectionSet;
   void Selection_Undo();
   void Selection_Redo();
-  UnknownType SetOfElements_Create();
-  void SetOfElements_CopyFrom(UnknownType DestinationSet, UnknownType SourceSet);
-  void SetOfElements_Append(UnknownType DestinationSet, UnknownType SourceSet);
-  void SetOfElements_Destroy(UnknownType SetHandle);
-  void SetOfElements_Empty(UnknownType SetHandle);
-  void SetOfElements_SetAllElements(UnknownType SetHandle);
-  void SetOfElements_SetAllFaces(UnknownType SetHandle);
-  void SetOfElements_DeleteElements(UnknownType SetHandle);
-  bool SetOfElements_HasHorizontalFaces(UnknownType SetHandle);
-  bool SetOfElements_HasVerticalFaces(UnknownType SetHandle);
-  uint SetOfElements_GetElemsCount(UnknownType SetHandle);
-  uint SetOfElements_GetVerticesCount(UnknownType SetHandle);
-  uint SetOfElements_GetEdgesCount(UnknownType SetHandle);
-  uint SetOfElements_GetFacesCount(UnknownType SetHandle);
-  void ExtendSelectedSet(UnknownType SetHandle);
-  void GetBordersSet(UnknownType SetHandle, UnknownType SetBordersHandle);
-  void GetBordersVertexs(UnknownType SetHandle, UnknownType SetVertexHandle);
+  MwId SetOfElements_Create();
+  void SetOfElements_CopyFrom(MwId DestinationSet, MwId SourceSet);
+  void SetOfElements_Append(MwId DestinationSet, MwId SourceSet);
+  void SetOfElements_Destroy(MwId SetHandle);
+  void SetOfElements_Empty(MwId SetHandle);
+  void SetOfElements_SetAllElements(MwId SetHandle);
+  void SetOfElements_SetAllFaces(MwId SetHandle);
+  void SetOfElements_DeleteElements(MwId SetHandle);
+  bool SetOfElements_HasHorizontalFaces(MwId SetHandle);
+  bool SetOfElements_HasVerticalFaces(MwId SetHandle);
+  uint SetOfElements_GetElemsCount(MwId SetHandle);
+  uint SetOfElements_GetVerticesCount(MwId SetHandle);
+  uint SetOfElements_GetEdgesCount(MwId SetHandle);
+  uint SetOfElements_GetFacesCount(MwId SetHandle);
+  void ExtendSelectedSet(MwId SetHandle);
+  void GetBordersSet(MwId SetHandle, MwId SetBordersHandle);
+  void GetBordersVertexs(MwId SetHandle, MwId SetVertexHandle);
   void SelectionSet_SelectAll();
-  void Curve2DPolygon(UnknownType FourVertexSetHandle, UnknownType Sethandle, uint SubTexIndex);
-  UnknownType AtlasSelection_Create();
-  void AtlasSelection_GetAtlasSelectionHandleFromSet(UnknownType SetHandle);
-  void AtlasSelections_AddAtlasSelectionFromSet(UnknownType SetHandle, UnknownType FourPointsHandle);
-  void AtlasSelections_SubAtlasSelection(UnknownType SetHandle);
-  void AtlasSelections_TextureAtlasSelection(UnknownType SetHandle, uint SubTexIndex);
-  void AtlasSelections_GetAtlasSelectionAfterSelection(UnknownType Sethandle);
+  void Curve2DPolygon(MwId FourVertexSetHandle, MwId Sethandle, uint SubTexIndex);
+  MwId AtlasSelection_Create();
+  void AtlasSelection_GetAtlasSelectionHandleFromSet(MwId SetHandle);
+  void AtlasSelections_AddAtlasSelectionFromSet(MwId SetHandle, MwId FourPointsHandle);
+  void AtlasSelections_SubAtlasSelection(MwId SetHandle);
+  void AtlasSelections_TextureAtlasSelection(MwId SetHandle, uint SubTexIndex);
+  void AtlasSelections_GetAtlasSelectionAfterSelection(MwId Sethandle);
   void Preview_Clear();
-  bool BlocTransformation_Start(UnknownType SetHandle);
+  bool BlocTransformation_Start(MwId SetHandle);
   void BlocTransformation_Translate(vec3 Translation);
   void BlocTransformation_Twist(float Angle);
   void BlocTransformation_Bend(int Axis, float Radius, float Angle, bool Direction);
@@ -10446,35 +10446,35 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void VoxelSpace_SetColor(int3 Pos, vec3 Color);
   void VoxelSpace_Unset(int3 Pos);
   void VoxelSpace_GenerateMesh();
-  void SetOfElements_ProjectOnPlane(UnknownType SetHandle);
-  void SetOfElements_ProjectOnGround(UnknownType SetHandle, float Height);
-  void SetOfElements_SplitEdgeWithVertex(UnknownType SetHandle);
-  void SetOfElements_CollapseEdgeWithVertex(UnknownType SetHandle);
-  void SetOfElements_Subdivide(UnknownType SetHandle);
-  void SetOfElements_Subdivide_Interpolation(UnknownType SetHandle);
-  void SetOfVertices_DrawCircle(UnknownType InputSetHandle, UnknownType ResultSetHandle);
-  void SetOfVertices_DrawDisc(UnknownType InputSetHandle, UnknownType ResultSetHandle);
-  void SetOfVertices_DrawCircle2(UnknownType CenterSetHandle, vec3 PointOnCircle, UnknownType ResultSetHandle);
-  void SetOfVertices_DrawIcosahedron(UnknownType InputSetHandle, UnknownType ResultSetHandle);
-  void SetOfVertices_DrawIcosahedron2(UnknownType CenterSetHandle, vec3 PointOnCircle, UnknownType ResultSetHandle);
-  void SetOfVertices_DrawIcosahedricSphere(UnknownType InputSetHandle, UnknownType ResultSetHandle);
-  void SetOfVertices_DrawPoly(UnknownType InputSetHandle, UnknownType ResultSetHandle, int VerticesCount);
-  void SetOfVertices_DrawPoly2(UnknownType CenterSetHandle, vec3 PointOnPoly, UnknownType ResultSetHandle, int VerticesCount);
-  void SetOfVertices_DrawSpline(UnknownType ControlSetHandle, UnknownType ResultSetHandle);
-  void SetOfVertices_Weld(UnknownType VerticesSetHandle);
-  void SetOfVertices_DrawBox(UnknownType ControlSetHandle, UnknownType ResultSetHandle);
-  void SetOfEdges_Fill(UnknownType SetHandle);
-  void SetOfEdges_Flip(UnknownType SetHandle, UnknownType ResultSetHandle);
-  void SetOfEdges_BorderExpand(UnknownType SetHandle);
-  void SetOfOneEdge_FaceLoopExpand(UnknownType SetHandle);
-  void SetOfOneEdge_EdgeLoopExpand(UnknownType SetHandle);
-  void SetOfOneFace_CutHole(UnknownType FaceSetHandle, UnknownType EdgesSetHandle);
-  void SetOfFaces_Extrude(UnknownType SetHandle, UnknownType ResultSetHandle);
-  void SetOfFaces_QuadsToTriangles(UnknownType SetHandle, UnknownType ResultSetHandle);
-  void SetOfFaces_ApplyMaterial(UnknownType SetHandle, UnknownType MaterialId);
-  void SetOfFaces_PlanarExpand(UnknownType FacesSetHandle);
-  void SetOfFaces_ChangeOrientation(UnknownType FacesSetHandle);
-  const array<wstring> PrefabNames;
+  void SetOfElements_ProjectOnPlane(MwId SetHandle);
+  void SetOfElements_ProjectOnGround(MwId SetHandle, float Height);
+  void SetOfElements_SplitEdgeWithVertex(MwId SetHandle);
+  void SetOfElements_CollapseEdgeWithVertex(MwId SetHandle);
+  void SetOfElements_Subdivide(MwId SetHandle);
+  void SetOfElements_Subdivide_Interpolation(MwId SetHandle);
+  void SetOfVertices_DrawCircle(MwId InputSetHandle, MwId ResultSetHandle);
+  void SetOfVertices_DrawDisc(MwId InputSetHandle, MwId ResultSetHandle);
+  void SetOfVertices_DrawCircle2(MwId CenterSetHandle, vec3 PointOnCircle, MwId ResultSetHandle);
+  void SetOfVertices_DrawIcosahedron(MwId InputSetHandle, MwId ResultSetHandle);
+  void SetOfVertices_DrawIcosahedron2(MwId CenterSetHandle, vec3 PointOnCircle, MwId ResultSetHandle);
+  void SetOfVertices_DrawIcosahedricSphere(MwId InputSetHandle, MwId ResultSetHandle);
+  void SetOfVertices_DrawPoly(MwId InputSetHandle, MwId ResultSetHandle, int VerticesCount);
+  void SetOfVertices_DrawPoly2(MwId CenterSetHandle, vec3 PointOnPoly, MwId ResultSetHandle, int VerticesCount);
+  void SetOfVertices_DrawSpline(MwId ControlSetHandle, MwId ResultSetHandle);
+  void SetOfVertices_Weld(MwId VerticesSetHandle);
+  void SetOfVertices_DrawBox(MwId ControlSetHandle, MwId ResultSetHandle);
+  void SetOfEdges_Fill(MwId SetHandle);
+  void SetOfEdges_Flip(MwId SetHandle, MwId ResultSetHandle);
+  void SetOfEdges_BorderExpand(MwId SetHandle);
+  void SetOfOneEdge_FaceLoopExpand(MwId SetHandle);
+  void SetOfOneEdge_EdgeLoopExpand(MwId SetHandle);
+  void SetOfOneFace_CutHole(MwId FaceSetHandle, MwId EdgesSetHandle);
+  void SetOfFaces_Extrude(MwId SetHandle, MwId ResultSetHandle);
+  void SetOfFaces_QuadsToTriangles(MwId SetHandle, MwId ResultSetHandle);
+  void SetOfFaces_ApplyMaterial(MwId SetHandle, MwId MaterialId);
+  void SetOfFaces_PlanarExpand(MwId FacesSetHandle);
+  void SetOfFaces_ChangeOrientation(MwId FacesSetHandle);
+  const MwBuffer<wstring> PrefabNames;
   const int PrefabNamesUpdateId;
   void Prefab_Export();
   void Prefab_Import(uint PrefabIndex);
@@ -10486,7 +10486,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void SetBaseUndoState();
   void AddUndoState();
   void AutoSave(wstring FileName);
-  const NodArray PendingEvents;
+  const MwBuffer<CGameEditorEvent*> PendingEvents;
   const bool IsExperimental;
 };
 
@@ -10568,8 +10568,8 @@ struct CWebServicesTaskResult_NaturalLeaderBoardInfoList : public CWebServicesTa
 struct CWebServicesTaskResult_MapListScript : public CWebServicesTaskResult_GameFidList {
   const wstring ParentPath;
   const wstring Path;
-  const NodArray MapInfos;
-  const array<wstring> SubFolders;
+  const MwBuffer<CGameCtnChallengeInfo*> MapInfos;
+  const MwBuffer<wstring> SubFolders;
 };
 
 struct CGameDataFileTask_MapGetUserList : public CWebServicesTaskSequence {
@@ -10590,17 +10590,17 @@ struct CGameDataFileManagerScript : public CMwNod {
     Module = 4,
     Skins = 5,
   };
-  const NodArray TaskResults;
-  void TaskResult_Release(UnknownType TaskId);
-  void ReleaseTaskResult(UnknownType TaskId);
-  const NodArray Campaigns;
+  const MwBuffer<CWebServicesTaskResult*> TaskResults;
+  void TaskResult_Release(MwId TaskId);
+  void ReleaseTaskResult(MwId TaskId);
+  const MwBuffer<CGameCtnCampaign*> Campaigns;
   CGameCtnCampaign* Campaign_Get(string CampaignId);
   void Map_RefreshFromDisk();
-  CWebServicesTaskResult_MapListScript* Map_GetUserList(UnknownType UserId);
+  CWebServicesTaskResult_MapListScript* Map_GetUserList(MwId UserId);
   CWebServicesTaskResult_MapListScript* Map_GetGameList(wstring Path, bool Flatten);
   CWebServicesTaskResult_MapListScript* Map_GetFilteredGameList(uint Scope, wstring Path, bool Flatten);
-  const NodArray Ghosts;
-  void Ghost_Release(UnknownType GhostId);
+  const MwBuffer<CGameGhostScript*> Ghosts;
+  void Ghost_Release(MwId GhostId);
   CWebServicesTaskResult_GhostScript* Ghost_Download(wstring FileName, string Url);
   void Replay_RefreshFromDisk();
   CWebServicesTaskResult_ReplayListScript* Replay_GetGameList(wstring Path, bool Flatten);
@@ -10622,8 +10622,8 @@ struct CWebServicesTaskResult_GameFidList : public CWebServicesTaskResult {
 struct CWebServicesTaskResult_ReplayListScript : public CWebServicesTaskResult_GameFidList {
   const wstring ParentPath;
   const wstring Path;
-  const NodArray ReplayInfos;
-  const array<wstring> SubFolders;
+  const MwBuffer<CGameCtnReplayRecordInfo*> ReplayInfos;
+  const MwBuffer<wstring> SubFolders;
 };
 
 struct CWebServicesTaskResult_FileList : public CWebServicesTaskResult {
@@ -10632,8 +10632,8 @@ struct CWebServicesTaskResult_FileList : public CWebServicesTaskResult {
 struct CWebServicesTaskResult_FileListScript : public CWebServicesTaskResult_FileList {
   const wstring ParentPath;
   const wstring Path;
-  const array<wstring> Files;
-  const array<wstring> SubFolders;
+  const MwBuffer<wstring> Files;
+  const MwBuffer<wstring> SubFolders;
 };
 
 struct CGameDataFileTask_FileGetGameList : public CWebServicesTaskSequence {
@@ -10657,9 +10657,9 @@ struct CGameMapScoreManager_SkillPoint : public CGameMapScoreManager {
 
 struct CGameScriptMgrTurret : public CMwNod {
   void MapTurrets_Reset();
-  CGameScriptTurret* Turret_Create(UnknownType ModelId, vec3 Position, vec3 Direction, uint Clan, CGamePlayer* Owner);
+  CGameScriptTurret* Turret_Create(MwId ModelId, vec3 Position, vec3 Direction, uint Clan, CGamePlayer* Owner);
   void Turret_Destroy(CGameScriptTurret* Turret);
-  NodArray Turrets;
+  MwBuffer<CGameScriptTurret*> Turrets;
 };
 
 struct CGameScriptTurret : public CMwNod {
@@ -10672,7 +10672,7 @@ struct CWebServicesTaskResult_GhostList : public CWebServicesTaskResult {
 };
 
 struct CWebServicesTaskResult_GhostListScript : public CWebServicesTaskResult_GhostList {
-  const NodArray Ghosts;
+  const MwBuffer<CGameGhostScript*> Ghosts;
 };
 
 struct CGameMasterServerTask_SetTitlePaid : public CNetMasterServerRequestTask {
@@ -10686,7 +10686,7 @@ struct CGameCtnMasterServerTask_GetNaturalLeaderBoard : public CNetMasterServerR
 
 struct CGameNaturalLeaderBoardInfoScript : public CMwNod {
   const uint Rank;
-  const UnknownType UserId;
+  const MwId UserId;
   const string Login;
   const wstring DisplayName;
   const uint Score;
@@ -10697,13 +10697,13 @@ struct CGameNaturalLeaderBoardInfoScript : public CMwNod {
 struct CWebServicesTaskResult_NaturalLeaderBoardInfoListScript : public CWebServicesTaskResult_NaturalLeaderBoardInfoList {
   const uint FromIndex;
   const uint Count;
-  const NodArray LeaderBoardInfo;
+  const MwBuffer<CGameNaturalLeaderBoardInfoScript*> LeaderBoardInfo;
 };
 
 struct CWebServicesTaskResult_RealLeaderBoardInfoListScript : public CWebServicesTaskResult_RealLeaderBoardInfoList {
   const uint FromIndex;
   const uint Count;
-  const NodArray LeaderBoardInfo;
+  const MwBuffer<CGameRealLeaderBoardInfoScript*> LeaderBoardInfo;
 };
 
 struct CGameMatchSettingsManagerScript : public CMwNod {
@@ -10717,7 +10717,7 @@ struct CGameMatchSettingsManagerScript : public CMwNod {
   CGameMatchSettingsScript* MatchSettings_SaveAs(wstring FilePath, CGameMatchSettingsScript* MatchSettings);
   void MatchSettings_EditScriptSettings(CGameMatchSettingsScript* MatchSettings);
   const bool MatchSettings_EditScriptSettings_Ongoing;
-  const NodArray MatchSettings;
+  const MwBuffer<CGameMatchSettingsScript*> MatchSettings;
 };
 
 struct CGameMatchSettingsScript : public CMwNod {
@@ -10726,7 +10726,7 @@ struct CGameMatchSettingsScript : public CMwNod {
   wstring ScriptModeName;
   bool ScriptModeName_Check(wstring ScriptModeName);
   void ScriptModeName_Set(wstring ScriptModeName);
-  const NodArray Playlist;
+  const MwBuffer<CGameMatchSettingsPlaylistItemScript*> Playlist;
   bool Playlist_FileExists(wstring File);
   bool Playlist_FileMatchesMode(wstring File);
   void Playlist_Add(wstring File);
@@ -10750,7 +10750,7 @@ struct CGameScoreTask_GetCampaignOpponentRecords : public CWebServicesTaskSequen
 };
 
 struct CWebServicesTaskResult_MapRecordListScript : public CWebServicesTaskResult_PlayerMapRecords {
-  const NodArray MapRecordList;
+  const MwBuffer<CGamePlayerMapRecordScript*> MapRecordList;
 };
 
 struct CGamePlayerMapRecordScript : public CMwNod {
@@ -10771,7 +10771,7 @@ struct CGameDataFileTask_GameModeGetGameList : public CWebServicesTaskSequence {
 };
 
 struct CWebServicesTaskResult_GameModeListScript : public CWebServicesTaskResult {
-  const NodArray GameModes;
+  const MwBuffer<CGameGameModeInfoScript*> GameModes;
 };
 
 struct CGameGameModeInfoScript : public CMwNod {
@@ -10779,7 +10779,7 @@ struct CGameGameModeInfoScript : public CMwNod {
   const wstring Path;
   const wstring Description;
   const wstring Version;
-  const array<wstring> CompatibleMapTypes;
+  const MwBuffer<wstring> CompatibleMapTypes;
 };
 
 struct CGameUserProfileWrapper : public CMwNod {
@@ -10830,11 +10830,11 @@ struct GxLight : public CMwNod {
   GxLight();
 
   UnknownType Color;
-  UnknownType Intensity;
-  UnknownType DiffuseIntensity;
+  float Intensity; // Range: 0 - 1
+  float DiffuseIntensity; // Range: 0 - 1
   float SpecularIntens;
   float SpecularPower;
-  UnknownType ShadowIntensity;
+  float ShadowIntensity; // Range: 0 - 1
   UnknownType ShadowRGB;
   bool DoLighting;
   bool LightMapOnly;
@@ -10842,7 +10842,7 @@ struct GxLight : public CMwNod {
   bool IsShadowGen;
   bool DoSpecular;
   bool HasLensFlare;
-  UnknownType FlareIntensity;
+  float FlareIntensity; // Range: 0 - 1
   bool HasSprite;
   bool IgnoreLocalScale;
   bool EnableGroup0;
@@ -10856,23 +10856,23 @@ struct GxLightBall : public GxLightPoint {
   GxLightBall();
 
   UnknownType AmbientRGB;
-  UnknownType Radius;
+  float Radius; // Range: 0.01 - 50
   bool CustomRadiusSpecular;
-  UnknownType RadiusSpecular;
+  float RadiusSpecular; // Range: 0.01 - 50
   bool CustomRadiusIndex;
-  UnknownType RadiusIndex;
+  float RadiusIndex; // Range: 0.01 - 50
   bool CustomRadiusShadow;
-  UnknownType RadiusShadow;
+  float RadiusShadow; // Range: 0.01 - 50
   bool CustomRadiusFlare;
-  UnknownType RadiusFlare;
+  float RadiusFlare; // Range: 0.01 - 50
   float EmittingRadius;
   float EmittingCylinderLenZ;
   UnknownType AttenuationType;
   UnknownType TweakHN2;
-  const UnknownType AttHTnLR;
-  const UnknownType AttHTnLR2;
-  UnknownType AttHyper2DerivAt0;
-  UnknownType AttHyper2Tension;
+  const float AttHTnLR; // Range: 0 - 10
+  const float AttHTnLR2; // Range: 0 - 10
+  float AttHyper2DerivAt0; // Range: -5 - 0
+  float AttHyper2Tension; // Range: 0 - 1
 };
 
 struct GxLightPoint : public GxLightNotAmbient {
@@ -10904,14 +10904,14 @@ struct GxLightDirectional : public GxLightNotAmbient {
 
   UnknownType DblSidedRGB;
   UnknownType ReverseRGB;
-  UnknownType ReverseIntens;
+  float ReverseIntens; // Range: 0 - 1
   float EmittAngularSize;
   float FlareAngularSize;
-  UnknownType FlareIntensPower;
+  float FlareIntensPower; // Range: 0 - 1
   bool UseBoundaryHint;
   vec3 BoundaryHintPos;
   float DazzleAngleMax;
-  UnknownType DazzleIntensity;
+  float DazzleIntensity; // Range: 0 - 1
 };
 
 struct GxFogBlender : public CMwNod {
@@ -10934,7 +10934,7 @@ struct GxLightFrustum : public GxLightBall {
   _EETechnique Technique;
   uint iShadowGroup;
   bool DoFadeZ;
-  UnknownType RatioFadeZ;
+  float RatioFadeZ; // Range: 0 - 1
   bool UseFacePosX;
   bool UseFaceNegX;
   bool UseFacePosY;
@@ -10946,13 +10946,13 @@ struct GxLightFrustum : public GxLightBall {
 struct GxLightSpot : public GxLightBall {
   GxLightSpot();
 
-  UnknownType AngleInner;
-  UnknownType AngleOuter;
+  float AngleInner; // Range: 0 - 179
+  float AngleOuter; // Range: 0 - 179
   bool CustomAngleFlare;
-  UnknownType AngleFlare;
+  float AngleFlare; // Range: 0 - 179
   bool CustomAngleShadow;
-  UnknownType AngleInnerShadow;
-  UnknownType AngleOuterShadow;
+  float AngleInnerShadow; // Range: 0 - 179
+  float AngleOuterShadow; // Range: 0 - 179
 };
 
 } // namespace Graphic
@@ -10961,14 +10961,14 @@ namespace Function {
 
 // File extension: 'FuncKey.Gbx'
 struct CFuncKeys : public CFunc {
-  array<float> Xs;
+  MwArray<float> Xs;
   void Reset();
 };
 
 struct CFuncKeysTrans : public CFuncKeys {
   CFuncKeysTrans();
 
-  array<vec3> Trans;
+  MwArray<vec3> Trans;
 };
 
 // File extension: 'KeysTransQuat.Gbx'
@@ -10983,10 +10983,10 @@ struct CFuncKeysPath : public CFuncKeysTransQuat {
   CFuncKeysPath();
 
   _ECFuncKeysPath__EPathDrawMode DrawMode;
-  UnknownType BSplineTension;
-  UnknownType BSplineBias;
-  UnknownType BetaSplineTension;
-  UnknownType BetaSplineSkew;
+  float BSplineTension; // Range: -2 - 0
+  float BSplineBias; // Range: -1 - 1
+  float BetaSplineTension; // Range: 0 - 100
+  float BetaSplineSkew; // Range: -1 - 1
   bool UseTangentOrientation;
 };
 
@@ -10995,7 +10995,7 @@ struct CFuncPlug : public CFunc {
   float Phase;
   bool AutoCreateMotion;
   bool RandomizePhase;
-  UnknownType InputValId;
+  MwId InputValId;
 };
 
 struct CFuncLightIntensity : public CFuncLight {
@@ -11036,7 +11036,7 @@ struct CFuncKeysVisual : public CFuncKeys {
 struct CFuncShaders : public CFuncShader {
   CFuncShaders();
 
-  NodArray FuncShaders;
+  MwArray<CFuncShader*> FuncShaders;
 };
 
 // File extension: 'FuncShader.Gbx'
@@ -11050,9 +11050,9 @@ struct CFuncShaderLayerUV : public CFuncShader {
   vec2 Amplitude;
   vec2 Offset;
   vec2 Scale;
-  UnknownType Angle;
-  UnknownType AngleStart;
-  UnknownType AngleEnd;
+  float Angle; // Range: 0 - 360
+  float AngleStart; // Range: 0 - 360
+  float AngleEnd; // Range: 0 - 360
   uint NbSubTexture;
   uint NbSubTexturePerLine;
   uint NbSubTexturePerColumn;
@@ -11102,7 +11102,7 @@ struct CFuncKeysReal : public CFuncKeys {
   float ForcedTangentMinX;
   bool ForceTangentMaxX;
   float ForcedTangentMaxX;
-  array<float> Ys;
+  MwArray<float> Ys;
 };
 
 struct CFuncVisual : public CFuncPlug {
@@ -11148,7 +11148,7 @@ struct CFuncPathMesh : public CFunc {
 
   CPlugVisual3D* Visual;
   vec3 OffsetVisualPos;
-  NodArray Locations;
+  MwArray<CFuncPathMeshLocation*> Locations;
 };
 
 struct CFuncPathMeshLocation : public CFunc {
@@ -11172,7 +11172,7 @@ struct CFuncVisualBlendShapeSequence : public CFuncVisual {
 struct CFuncKeysNatural : public CFuncKeys {
   CFuncKeysNatural();
 
-  array<uint> Naturals;
+  MwArray<uint> Naturals;
 };
 
 struct CFuncTreeSubVisualSequence : public CFuncTree {
@@ -11229,14 +11229,14 @@ struct CFuncWeather : public CFunc {
   void SeaTwkResetToShaderDefaults();
   vec2 LDirSpecIntens;
   vec2 LDirSpecPower;
-  UnknownType SeaTwkReflecIntensNight;
-  UnknownType SeaTwkReflecIntensDay;
-  UnknownType SeaTwkReflecIntensMidNight;
-  UnknownType SeaTwkReflecIntensMidDay;
-  UnknownType SeaTwkReflecIntensTMNight;
-  UnknownType SeaTwkReflecIntensTMDay;
-  UnknownType SeaTwkReflecIntensTMmidNight;
-  UnknownType SeaTwkReflecIntensTMmidDay;
+  float SeaTwkReflecIntensNight; // Range: 0 - 1
+  float SeaTwkReflecIntensDay; // Range: 0 - 1
+  float SeaTwkReflecIntensMidNight; // Range: 0 - 1
+  float SeaTwkReflecIntensMidDay; // Range: 0 - 1
+  float SeaTwkReflecIntensTMNight; // Range: 0 - 1
+  float SeaTwkReflecIntensTMDay; // Range: 0 - 1
+  float SeaTwkReflecIntensTMmidNight; // Range: 0 - 1
+  float SeaTwkReflecIntensTMmidDay; // Range: 0 - 1
   UnknownType SeaTwkWaterColor_Night;
   UnknownType SeaTwkWaterColor_Day;
 };
@@ -11246,20 +11246,20 @@ struct CFuncPuffLull : public CFunc {
   CFuncPuffLull();
 
   float TileSizeInWorld;
-  UnknownType PuffWDMax;
-  UnknownType LullWDMax;
+  float PuffWDMax; // Range: 0 - 1
+  float LullWDMax; // Range: 0 - 1
   uint GenCount;
-  UnknownType GenPuffRatio;
+  float GenPuffRatio; // Range: 0 - 1
   vec2 GenSize;
-  UnknownType GenPuffWDMin;
-  UnknownType GenPuffWDMax;
-  UnknownType GenLullWDMin;
-  UnknownType GenLullWDMax;
+  float GenPuffWDMin; // Range: 0 - 1
+  float GenPuffWDMax; // Range: 0 - 1
+  float GenLullWDMin; // Range: 0 - 1
+  float GenLullWDMax; // Range: 0 - 1
   string GenLifeTimeMin;
   string GenLifeTimeMax;
-  UnknownType BlendPuff;
-  UnknownType BlendLull;
-  UnknownType Combine2nd8th;
+  float BlendPuff; // Range: 0 - 1
+  float BlendLull; // Range: 0 - 1
+  float Combine2nd8th; // Range: 0 - 1
   CPlugMaterial* MaterialPuff;
   CPlugMaterial* MaterialLull;
 };
@@ -11323,17 +11323,17 @@ struct CFuncClouds : public CFunc {
 struct CFuncCurvesReal : public CMwNod {
   CFuncCurvesReal();
 
-  UnknownType Id;
-  array<float> Xs;
-  NodArray Curves;
+  MwId Id;
+  MwBuffer<float> Xs;
+  MwBuffer<CFuncKeysReal*> Curves;
 };
 
 struct CFuncCurves2Real : public CMwNod {
   CFuncCurves2Real();
 
-  UnknownType Id;
-  array<float> Xs;
-  NodArray Curves2;
+  MwId Id;
+  MwBuffer<float> Xs;
+  MwBuffer<CFuncCurvesReal*> Curves2;
 };
 
 struct CFuncNoise : public CFunc {
@@ -11363,8 +11363,8 @@ struct CFuncCloudsParam : public CFunc {
   UnknownType HeightCenter;
   vec2 HeightCenterXZ;
   float BottomNearZ;
-  array<float> PointDists;
-  array<float> PointHeights;
+  MwBuffer<float> PointDists;
+  MwBuffer<float> PointHeights;
   float BottomFarZ;
   float SpeedScale;
   UnknownType Lighting;
@@ -11376,7 +11376,7 @@ struct CFuncCloudsSolids : public CFunc {
   CFuncCloudsSolids();
 
   vec2 GridSizeXZ;
-  const NodArray SolidFids;
+  const MwBuffer<CPlugSolid*> SolidFids;
 };
 
 } // namespace Function
@@ -11420,18 +11420,18 @@ struct CHmsCamera : public CHmsPoc {
   float DofLensFocal;
   float DofLensSize;
   float StereoScreenDist;
-  UnknownType Desaturate01;
-  UnknownType FadeToBlack01;
+  float Desaturate01; // Range: 0 - 1
+  float FadeToBlack01; // Range: 0 - 1
   float AsyncPrevDeltaTimeMax;
-  UnknownType AsyncPrevDeltaRotationScale;
+  float AsyncPrevDeltaRotationScale; // Range: 0 - 1
   float AlphaClipFarZ;
   bool ZClipEnable;
   float ZClipValue;
   float ZClipMargin;
-  UnknownType ZClipZBuffer1End;
-  UnknownType ZClipZBuffer2Start;
+  float ZClipZBuffer1End; // Range: 0 - 1
+  float ZClipZBuffer2Start; // Range: 0 - 1
   bool TargetFpsEnable;
-  UnknownType TargetFpsZClipSpeed;
+  float TargetFpsZClipSpeed; // Range: 0.001 - 1
   float TargetFpsZClipMinValue;
 };
 
@@ -11494,7 +11494,7 @@ struct CHmsZone : public CMwNod {
   CHmsZone();
 
   bool IsVisible;
-  UnknownType CorpusCats;
+  MwBufferCat<CHmsCorpus*> CorpusCats;
   bool FogByVertex;
   UnknownType FogRGB;
   _EEGxFogFormula FogFormula;
@@ -11502,12 +11502,12 @@ struct CHmsZone : public CMwNod {
   float FogLinearStart;
   float FogLinearEnd;
   float FogExpDensity;
-  NodArray PrecalcRenders;
-  const UnknownType CorpusLights;
-  const NodArray CorpusLightsDyna;
-  const NodArray DynamicLightArrays;
-  const NodArray DynamicDecalArrays;
-  const NodArray StaticDecalArrays;
+  MwBuffer<CHmsPrecalcRender*> PrecalcRenders;
+  const MwBufferCat<CHmsCorpusLight*> CorpusLights;
+  const MwBuffer<CHmsCorpusLight*> CorpusLightsDyna;
+  const MwBuffer<CHmsLightArray*> DynamicLightArrays;
+  const MwBuffer<CHmsDecalArray*> DynamicDecalArrays;
+  const MwBuffer<CHmsDecalArray*> StaticDecalArrays;
   bool MRMaskWater;
   float MRTileH;
   vec3 MRPoint;
@@ -11604,7 +11604,7 @@ struct CHmsPortal : public CMwNod {
   bool NeedClipping2D;
   bool NeedClipping3D;
   bool CanSeeThrough;
-  UnknownType SeeThroughOpacity;
+  float SeeThroughOpacity; // Range: 0 - 1
   bool IsVisualVisible;
   bool IsPickingPossible;
   bool CanPassThrough;
@@ -11649,7 +11649,7 @@ struct CHmsZoneOverlay : public CHmsZone {
   bool DescIsClearDepthEnable;
   bool DescIsClearStencilEnable;
   UnknownType DescClearColor;
-  NodArray CorpusVisibles;
+  MwBuffer<CHmsCorpus*> CorpusVisibles;
   CHmsCamera* In3d_Camera;
   bool StickToHmd;
 };
@@ -11705,9 +11705,9 @@ struct CHmsViewport : public CMwNod {
   const uint TimeQueryIssueToFinish;
   bool TargetFpsEnable;
   uint TargetFps;
-  UnknownType TargetFpsMinScaleZ;
-  UnknownType TargetFpsMaxScaleZ;
-  UnknownType TargetFpsSpeed;
+  float TargetFpsMinScaleZ; // Range: 0.001 - 1
+  float TargetFpsMaxScaleZ; // Range: 1 - 50
+  float TargetFpsSpeed; // Range: 0.001 - 1
   const float AverageFps;
   float MipScaleZ_SysConfig;
   float MipScaleZ_Production;
@@ -11721,10 +11721,10 @@ struct CHmsViewport : public CMwNod {
   bool RenderZoneVPacker;
   bool EnableTessellation;
   bool IsPureDevice;
-  UnknownType FullScreenBrightness;
-  UnknownType FullScreenContrast;
-  UnknownType FullScreenGamma;
-  const array<wstring> DisplayNames;
+  float FullScreenBrightness; // Range: -1 - 1
+  float FullScreenContrast; // Range: -1 - 1
+  float FullScreenGamma; // Range: -1 - 1
+  const MwBuffer<wstring> DisplayNames;
   const wstring ScreenShotFullName;
   bool ScreenShotForceRes;
   uint ScreenShotWidth;
@@ -11738,9 +11738,9 @@ struct CHmsViewport : public CMwNod {
   void ScreenShotDoCaptureJpg();
   void ScreenShotDoCaptureDDS();
   void ShaderConstantLogBindedValues();
-  NodArray Underlays;
-  NodArray Cameras;
-  NodArray Overlays;
+  MwBuffer<CHmsZoneOverlay*> Underlays;
+  MwBuffer<CHmsCamera*> Cameras;
+  MwBuffer<CHmsZoneOverlay*> Overlays;
   CSystemConfig* SystemConfig;
   const CSystemWindow* SystemWindow;
   const CHmsPicker* Picker;
@@ -11760,8 +11760,8 @@ struct CHmsPrecalcRender : public CMwNod {
   string TreeIdDepthGen;
   const bool IsTreeDepthGenFound;
   float ZoomFactor;
-  UnknownType ScrollPosX;
-  UnknownType ScrollPosY;
+  float ScrollPosX; // Range: -1 - 1
+  float ScrollPosY; // Range: -1 - 1
 };
 
 struct CHmsShadowGroup : public CMwNod {
@@ -11777,7 +11777,7 @@ struct CHmsShadowGroup : public CMwNod {
   bool EnableLightPos;
   bool GameAllowLightDir;
   bool GameAllowLightPos;
-  UnknownType LocalIntensity;
+  float LocalIntensity; // Range: 0 - 1
   bool NeedSelfShadow;
   bool ForceShadowMask;
   bool DepthNeed32b;
@@ -11794,15 +11794,15 @@ struct CHmsShadowGroup : public CMwNod {
   uint DepthBiasConst;
   float DepthBiasSlope;
   float DepthBiasConstShaderExtra;
-  UnknownType ShadeSlope;
-  UnknownType Soft2dSlope;
+  float ShadeSlope; // Range: 0 - 1
+  float Soft2dSlope; // Range: 0 - 2
   vec2 SoftSizeInW;
   float OpacityMipMapLodBias;
   uint MaskBlurTexelCount;
   uint PssmTexelCountX;
   uint PssmTexCount;
   const uint PssmTexCountActive;
-  UnknownType PssmOverlapIn01;
+  float PssmOverlapIn01; // Range: 0 - 1
   float PssmDistNF0;
   float PssmDistNF1;
   float PssmDistNF2;
@@ -11870,13 +11870,13 @@ struct CHmsConfig : public CMwNod {
   bool FreezeViewportRun;
   uint ViewportRunFrameCount;
   const uint ViewportRunFrameRemaining;
-  const NodArray ShadowGroups;
+  const MwArray<CHmsShadowGroup*> ShadowGroups;
 };
 
 struct CHmsItemShadow : public CMwNod {
   CHmsItemShadow();
 
-  UnknownType Intensity;
+  float Intensity; // Range: 0 - 1
   float FallOffStart;
   float FallOffEnd;
   float VolumeMaxZ;
@@ -12047,7 +12047,7 @@ struct CControlBase : public CSceneToy {
 };
 
 struct CControlContainer : public CControlBase {
-  NodArray Childs;
+  MwArray<CControlBase*> Childs;
   bool IsClippingContainer;
   CMwCmdBlockMain* CreateScript;
   bool UseScript;
@@ -12082,7 +12082,7 @@ struct CControlLabel : public CControlText {
   CPlugBitmap* Bitmap;
   CPlugShaderApply* ExternalShader;
   UnknownType ImageColor;
-  UnknownType ImageAlpha;
+  float ImageAlpha; // Range: 0 - 1
   bool DontDrawText;
 };
 
@@ -12128,8 +12128,8 @@ struct CControlSlider : public CControlBase {
 
   _EAxis Axis;
   float Ratio;
-  UnknownType IconIdBar;
-  UnknownType IconIdCursor;
+  MwId IconIdBar;
+  MwId IconIdCursor;
   bool AutoSize;
 };
 
@@ -12189,7 +12189,7 @@ struct CControlUiDockable : public CControlUiElement {
   void Switch();
   bool IsClosed;
   bool IsOpened;
-  const NodArray Screens;
+  const MwBuffer<CControlForm*> Screens;
   void NextScreen();
   void PrevScreen();
   uint CurScreen;
@@ -12230,7 +12230,7 @@ struct CControlEffectMotion : public CControlEffect {
   CControlEffectMotion();
 
   CPlugParticleEmitterModel* ParticleEmitterModel;
-  UnknownType ParticleEmitterId;
+  MwId ParticleEmitterId;
   float Period;
   CFuncEnvelope* Envelope;
   float EnveloppePosStart;
@@ -12260,22 +12260,22 @@ struct CControlOverlay : public CControlBase {
 struct CControlUiRange : public CControlBase {
   CControlUiRange();
 
-  UnknownType BlockOverlapRatio;
-  UnknownType BackgroundMargin;
+  float BlockOverlapRatio; // Range: 0 - 1
+  float BackgroundMargin; // Range: 0 - 1
   bool DrawBackground;
   bool DrawBlockBackground;
-  UnknownType IconId;
+  MwId IconId;
   bool CenteredBar;
   UnknownType Color;
-  UnknownType ColorAlpha;
+  float ColorAlpha; // Range: 0 - 1
   UnknownType Color2;
-  UnknownType Color2Alpha;
-  UnknownType Ratio;
+  float Color2Alpha; // Range: 0 - 1
+  float Ratio; // Range: 0 - 1
   uint UnitMax;
   uint Unit1;
   uint Unit2;
   float GradingRatio;
-  UnknownType Scaling;
+  float Scaling; // Range: 0.1 - 10
   bool LastGradingIsGhostlike;
   void CreateTranslate(vec3 StartPoint, vec3 EndPoint);
   void CreateRotate(vec3 Axis, float MinAngle, float MaxAngle);
@@ -12284,13 +12284,13 @@ struct CControlUiRange : public CControlBase {
 struct CControlGrid : public CControlContainer {
   CControlGrid();
 
-  array<vec2> ChildsSquares;
-  array<string> ChildsSquaresParam;
+  MwArray<vec2> ChildsSquares;
+  MwArray<string> ChildsSquaresParam;
   CControlLayout* MainLayout;
   bool PackEmptyRows;
   float ForceColumnsUniformWidth;
   float ForceRowsUniformHeight;
-  array<float> ForceColumnsWidths;
+  MwBuffer<float> ForceColumnsWidths;
   float HorizontalSkewOffset;
   float VerticalSkewOffset;
   bool PagedGrid_Enable;
@@ -12322,24 +12322,24 @@ struct CControlStyle : public CPlug {
   float FontRatioXY;
   UnknownType LabelColorFromPalette;
   UnknownType LabelColor;
-  UnknownType LabelColorAlpha;
+  float LabelColorAlpha; // Range: 0 - 1
   bool LabelForceEmbossed;
   bool LabelDisableSqueeze;
   wstring LabelCharAttributes;
   UnknownType EditableColorFromPalette;
   UnknownType EditableColor;
-  UnknownType EditableColorAlpha;
+  float EditableColorAlpha; // Range: 0 - 1
   bool EditableForceEmbossed;
   bool EditableDisableSqueeze;
   wstring EditableCharAttributes;
   UnknownType GrayedColorFromPalette;
   UnknownType GrayedColor;
-  UnknownType GrayedColorAlpha;
+  float GrayedColorAlpha; // Range: 0 - 1
   bool GrayedForceEmbossed;
   bool GrayedDisableSqueeze;
   wstring GrayedCharAttributes;
   bool FitTextSize;
-  UnknownType Skew;
+  float Skew; // Range: -1 - 1
   CPlugShader* DefaultShader;
   CMwCmdBlockMain* FocusGainedScript;
   CMwCmdBlockMain* FocusLostScript;
@@ -12347,7 +12347,7 @@ struct CControlStyle : public CPlug {
   CPlugSound* ActionSound;
   CPlugSound* ActionBackSound;
   CFuncEnum* ButtonDefaultIcons;
-  UnknownType ButtonDefaultIconId;
+  MwId ButtonDefaultIconId;
   float ButtonIconWidth;
   float ButtonIconHeight;
   CPlugShader* EnumSound;
@@ -12362,15 +12362,15 @@ struct CControlStyle : public CPlug {
   bool QuadIsFill;
   float QuadZLines;
   UnknownType QuadGradientColor0;
-  UnknownType QuadGradientColor0Alpha;
+  float QuadGradientColor0Alpha; // Range: 0 - 1
   UnknownType QuadGradientColor1;
-  UnknownType QuadGradientColor1Alpha;
+  float QuadGradientColor1Alpha; // Range: 0 - 1
   UnknownType LineGradientColor0;
-  UnknownType LineGradientColor0Alpha;
+  float LineGradientColor0Alpha; // Range: 0 - 1
   UnknownType LineGradientColor1;
-  UnknownType LineGradientColor1Alpha;
+  float LineGradientColor1Alpha; // Range: 0 - 1
   UnknownType QuadLinesColor;
-  UnknownType QuadLinesColorAlpha;
+  float QuadLinesColorAlpha; // Range: 0 - 1
   vec2 Quad_UvTopLeft;
   vec2 Quad_UvBottomRight;
   float SliderBarWidth;
@@ -12400,13 +12400,13 @@ struct CControlField2 : public CControlBase {
   UnknownType ControlMode;
   UnknownType DisplayMode;
   UnknownType RenderMode;
-  UnknownType ArrowRatio;
+  float ArrowRatio; // Range: 0 - 1
   float DisplaySize;
   UnknownType IntensityPaintMode;
   UnknownType DirectionPaintMode;
-  UnknownType BrushSize;
-  UnknownType BrushIntensity;
-  UnknownType BrushDirection;
+  float BrushSize; // Range: 0 - 1
+  float BrushIntensity; // Range: 0 - 1
+  float BrushDirection; // Range: -3.14159 - 3.14159
   vec2 DeltaDebug;
   float RotationModifSpeed;
   float ScaleModifSpeed;
@@ -12440,9 +12440,9 @@ struct CControlQuad : public CControlBase {
   bool IsLines;
   bool IsFill;
   UnknownType GradientDir;
-  UnknownType IconId;
+  MwId IconId;
   UnknownType IconVertexColors;
-  UnknownType IconVertexAlpha;
+  float IconVertexAlpha; // Range: 0 - 1
 };
 
 // File extension: 'ControlEffectMaster.Gbx'
@@ -12471,7 +12471,7 @@ struct CControlColorChooser : public CControlFrame {
   UnknownType StyleType;
   vec2 ColorChooserSize;
   UnknownType Color;
-  const UnknownType Hue;
+  const float Hue; // Range: 0 - 1
   CPlugShader* ColorChooserShader;
 };
 
@@ -12560,12 +12560,12 @@ struct CControlStyleSheet : public CPlug {
 
   CMwRefBuffer* Buffer;
   CControlStyle* MasterStyle;
-  NodArray Overrides;
+  MwBuffer<CMwNod*> Overrides;
   CControlStyle* PagerIconStyle;
   CControlStyle* PagerTextStyle;
   CControlStyle* PagerTextBackgroundStyle;
   UnknownType Colors;
-  array<float> ColorsAlpha;
+  MwArray<float> ColorsAlpha;
 };
 
 struct CControlListMap : public CControlList {
@@ -12638,7 +12638,7 @@ struct CControlGraph : public CControlBase {
   vec2 ValuesMax;
   uint SampleCount;
   bool SampleKeys;
-  NodArray Curves;
+  MwBuffer<CFuncKeysReal*> Curves;
 };
 
 // File extension: 'Pager.Gbx'
@@ -12733,8 +12733,8 @@ struct CControlListCard : public CControlFrame {
   void OnFastNextPage();
   void OnFirstPage();
   void OnLastPage();
-  NodArray CardsModels;
-  const NodArray ListCards;
+  MwBuffer<CControlBase*> CardsModels;
+  const MwBuffer<CControlBase*> ListCards;
 };
 
 struct CControlMiniMap : public CControlBase {
@@ -12759,7 +12759,7 @@ struct CMotionFunc : public CMotionTrack {
 struct CMotions : public CMotion {
   CMotions();
 
-  const NodArray Motions;
+  const MwArray<CMwNod*> Motions;
 };
 
 struct CMotionCmdBase : public CMwCmd {
@@ -12807,7 +12807,7 @@ struct CMotionPlayer : public CMotion {
   CMotionCmdBase* Base;
   float BaseValue;
   _EEPlayState SavePlayState;
-  const NodArray Tracks;
+  const MwArray<CMotionTrack*> Tracks;
   bool IsPhysics;
 };
 
@@ -12877,18 +12877,18 @@ struct CMotionTeamManager : public CMotionTrack {
   CMotionTeamManager();
 
   CFuncPathMesh* FuncPathMesh;
-  const NodArray TeamTrees;
-  const NodArray AnimList;
+  const MwBuffer<CPlugTree*> TeamTrees;
+  const MwBuffer<CFuncTreeSubVisualSequence*> AnimList;
   uint WalkAnimIndex;
   void AddAction();
-  const NodArray Actions;
+  const MwBuffer<CMotionTeamAction*> Actions;
 };
 
 struct CMotionTeamAction : public CMotionTrack {
   CMotionTeamAction();
 
   void AddTeamMate();
-  const NodArray TeamMates;
+  const MwBuffer<CMotionTeamActionInfo*> TeamMates;
 };
 
 // File extension: 'MotionTrackMobilScale.Gbx'
@@ -12979,13 +12979,13 @@ struct CMotionWindBlocker : public CMotionManaged {
 struct CMotionManagerMeteo : public CMotionManager {
   CMotionManagerMeteo();
 
-  NodArray WindBlockers;
-  UnknownType WindGlobalDirection;
+  MwBuffer<CMotionWindBlocker*> WindBlockers;
+  float WindGlobalDirection; // Range: -3.14159 - 3.14159
   float WindGlobalIntensity;
   float StreamGlobalIntensity;
   float BlockerDist;
-  UnknownType TideIn01;
-  const UnknownType TideBlend;
+  float TideIn01; // Range: 0 - 1
+  const float TideBlend; // Range: 0 - 1
   const CMotionManagerMeteoPuffLull* MeteoPuffLull;
   float VariationsAmp;
   float VariationsTimeFactor;
@@ -12997,11 +12997,11 @@ struct CMotionManagerWeathers : public CMotionManager {
   CMotionManagerWeathers();
 
   void SaveInModelFid();
-  UnknownType SiteLatitude;
-  NodArray FuncWeathers;
+  float SiteLatitude; // Range: -90 - 90
+  MwBuffer<CFuncWeather*> FuncWeathers;
   CPlugMoodSetting* MoodSetting;
   CFuncDayTime* FuncDayTime;
-  UnknownType TimeRemapped;
+  float TimeRemapped; // Range: 0 - 1
   CPlugBitmap* BitmapSpecularDir;
   CPlugBitmap* BitmapWaterFog;
   _EEClearMode ClearMode;
@@ -13029,7 +13029,7 @@ struct CMotionTimerLoop : public CMwNod {
 
   void Stop();
   uint RealTimePhase;
-  UnknownType TimeIn01;
+  float TimeIn01; // Range: 0 - 1
 };
 
 struct CMotionManagerMeteoPuffLull : public CMwNod {
@@ -13125,7 +13125,7 @@ struct CPlugBitmapRenderShadow : public CPlugBitmapRender {
 struct CPlugSurface : public CPlug {
   CPlugSurface();
 
-  NodArray Materials;
+  MwBuffer<CPlugMaterial*> Materials;
   CPlugSkel* Skel;
   void UpdateSurfMaterialIdsFromMaterialIndexs();
   UnknownType Surf;
@@ -13382,7 +13382,7 @@ struct CPlugBitmap : public CPlug {
   float DefaultTexCoordTransYm;
   vec2 DefaultTexCoordScale;
   vec2 DefaultTexCoordTrans;
-  UnknownType DefaultTexCoordRotate;
+  float DefaultTexCoordRotate; // Range: 0 - 360
   EVideoTimer DefaultVideoTimer;
   const uint DefaultMaxMipLevel;
   float HeightInMeters;
@@ -13390,7 +13390,7 @@ struct CPlugBitmap : public CPlug {
   bool ForceBorderRGB;
   UnknownType BorderRGB;
   bool ForceBorderAlpha;
-  UnknownType BorderAlpha;
+  float BorderAlpha; // Range: 0 - 1
   EForceBorderSize ForceBorderSize;
   bool BorderLeft;
   bool BorderRight;
@@ -13398,8 +13398,8 @@ struct CPlugBitmap : public CPlug {
   bool BorderBottom;
   bool WantMipMapping;
   bool IsMipMapLowerAlphaEnable;
-  UnknownType MipMapLowerAlpha;
-  array<float> MipMapFadeAlphas;
+  float MipMapLowerAlpha; // Range: 0 - 1
+  MwArray<float> MipMapFadeAlphas;
   EMipMapAlpha01 MipMapAlpha01;
   bool CanBeDeletedFromSystemMemory;
   bool RenderTexelsMustPersist;
@@ -13431,16 +13431,16 @@ struct CPlugBitmap : public CPlug {
   bool RenderExplicitMip;
   bool RenderCreateClear;
   UnknownType DefaultRenderClearRGB;
-  UnknownType DefaultRenderClearAlpha;
+  float DefaultRenderClearAlpha; // Range: 0 - 1
   bool DepthUseStencil;
   bool DepthCanSwap;
   bool UseUAV;
   EPixelUpdate PixelUpdate;
   EDynamic Dynamic;
   UnknownType SpecularRGB;
-  UnknownType SpecularExp;
+  float SpecularExp; // Range: 1 - 50
   UnknownType ClearRGB;
-  UnknownType ClearAlpha;
+  float ClearAlpha; // Range: 0 - 1
   CPlugBitmapRender* Render;
   CPlugBitmapShader* Shader;
   bool ForceShaderBitmapTc;
@@ -13461,8 +13461,8 @@ struct CPlugVisualLines2D : public CPlugVisual2D {
 struct CPlugTreeVisualMip : public CPlugTree {
   CPlugTreeVisualMip();
 
-  array<float> LevelsFarZ;
-  NodArray LevelsTree;
+  MwArray<float> LevelsFarZ;
+  MwArray<CPlugTree*> LevelsTree;
 };
 
 struct CPlugVisualStrip : public CPlugVisual3D {
@@ -13534,35 +13534,35 @@ struct CPlugSound : public CPlugAudio {
   };
   CPlugFileSnd* PlugFile;
   UnknownType Mode;
-  UnknownType VolumedB;
+  float VolumedB; // Range: -60 - 0
   float Priority;
   int MaxDuplicates;
-  UnknownType GroupDuplicate;
+  MwId GroupDuplicate;
   EAudioBalanceGroup BalanceGroup;
   float RefDistance;
   float MaxDistance;
-  UnknownType RolloffFactor;
+  float RolloffFactor; // Range: 0 - 10
   CFuncKeysReal* VolumeFromDistance;
   CFuncKeysReal* PitchFromDistance;
   CFuncKeysReal* VolumeFromSpeedKmh;
-  UnknownType Pitch;
+  float Pitch; // Range: 0.5 - 2
   float DopplerFactor;
   bool EnableDoppler;
   CPlugSound* BackingSound;
   CPlugSound* FocusedSound;
-  UnknownType AirAbsorptionFactor;
+  float AirAbsorptionFactor; // Range: 0 - 10
   EAudioRoomFx RoomFxSend;
-  UnknownType RoomRolloffFactor;
-  UnknownType LfeSenddB;
+  float RoomRolloffFactor; // Range: 1 - 10
+  float LfeSenddB; // Range: -60 - 0
   float FadeStopDuration;
   float FadePlayDuration;
   bool IsLooping;
   UnknownType SoundKind;
-  UnknownType InsideConeAngle;
-  UnknownType OutsideConeAngle;
-  UnknownType ConeOutsideAttenuation;
+  uint InsideConeAngle; // Range: 0 - 360
+  uint OutsideConeAngle; // Range: 0 - 360
+  float ConeOutsideAttenuation; // Range: 0 - 1
   float Radius;
-  UnknownType PanAngleDeg;
+  float PanAngleDeg; // Range: -180 - 180
   EAudioPitchFromDistMode PitchFromDistMode;
   EAudioIgnoreSourceProperties IgnoreSourceProperties;
   bool IsContinuous;
@@ -13576,8 +13576,8 @@ struct CPlugSoundMood : public CPlugSound {
   CPlugSoundMood();
 
   CPlugFileSnd* InsideFileSnd;
-  const NodArray EventSounds;
-  const array<float> EventPeriods;
+  const MwBuffer<CPlugFileSnd*> EventSounds;
+  const MwBuffer<float> EventPeriods;
 };
 
 // File extension: 'Music.Gbx'
@@ -13609,16 +13609,16 @@ struct CPlugBitmapRenderLightFromMap : public CPlugBitmapRender {
   uint ObjectCountPerAxisMin;
   uint ObjectCountPerAxisMax;
   const uint ObjectCountPerAxisVision;
-  UnknownType CameraNearZ_FactorInObject;
+  float CameraNearZ_FactorInObject; // Range: 0 - 1
   float CameraFarZ_ToAdd;
-  UnknownType StartFadeToWhite;
-  UnknownType RemapMin_Night;
-  UnknownType RemapMax_Night;
-  UnknownType RemapMin_DayAmb;
-  UnknownType RemapMax_DayAmb;
-  UnknownType RemapMin_DayDir;
-  UnknownType RemapMax_DayDir;
-  UnknownType CameraDovWorldY_MaxDot;
+  float StartFadeToWhite; // Range: 0 - 1
+  float RemapMin_Night; // Range: -0.5 - 1.5
+  float RemapMax_Night; // Range: -0.5 - 1.5
+  float RemapMin_DayAmb; // Range: -0.5 - 1.5
+  float RemapMax_DayAmb; // Range: -0.5 - 1.5
+  float RemapMin_DayDir; // Range: -0.5 - 1.5
+  float RemapMax_DayDir; // Range: -0.5 - 1.5
+  float CameraDovWorldY_MaxDot; // Range: -1 - 1
   CPlugBitmap* BitmapLightHistory;
   uint RayCastHalfTimeMs;
 };
@@ -13685,8 +13685,8 @@ struct CPlugSoundEngine2 : public CPlugSound {
   CPlugFileSnd* AudioMotors_LimiterLoop_Exhaust;
   CPlugFileSnd* AudioMotors_IdleLoop_Engine;
   CPlugFileSnd* AudioMotors_LimiterLoop_Engine;
-  UnknownType AudioMotors_LPF_CutoffRatio_Exhaust;
-  UnknownType AudioMotors_LPF_CutoffRatio_Engine;
+  float AudioMotors_LPF_CutoffRatio_Exhaust; // Range: 0 - 1
+  float AudioMotors_LPF_CutoffRatio_Engine; // Range: 0 - 1
   const CFuncKeysReal* AudioMotors_PitchRandomize_Rpm;
   const CFuncKeysReal* AudioMotors_PitchRandomize_Throttle;
   float AudioMotors_IdleVolumedB;
@@ -13709,8 +13709,8 @@ struct CPlugSoundEngine2 : public CPlugSound {
   const CFuncKeysReal* VolPersp_Rpm_Interior;
   const CFuncKeysReal* VolPersp_Throttle_Interior;
   float Mix_FrontBackSpread;
-  UnknownType MixFront;
-  UnknownType MixBack;
+  float MixFront; // Range: 0 - 1
+  float MixBack; // Range: 0 - 1
   void UpdateSubEmitters();
   float SubEmitter_Vol_Exhaust;
   float SubEmitter_RelSize_Exhaust;
@@ -13783,15 +13783,15 @@ struct CPlugAudioBalance : public CPlugAudio {
   float ReleaseDuration;
   void SetDefaultValues();
   void ApplySceneVolume();
-  UnknownType SceneVolumedB;
-  UnknownType UiVolumedB;
-  UnknownType SceneLfeSenddB;
-  UnknownType MusicLfeSenddB;
-  UnknownType GlobalLfeSenddB;
+  float SceneVolumedB; // Range: -60 - 6
+  float UiVolumedB; // Range: -60 - 6
+  float SceneLfeSenddB; // Range: -60 - 6
+  float MusicLfeSenddB; // Range: -60 - 6
+  float GlobalLfeSenddB; // Range: -60 - 6
   CFuncKeysReal* RolloffFromMusicVolume;
-  UnknownType RolloffFactor;
-  UnknownType RefDistanceFactor;
-  UnknownType AutoRadiusFactor;
+  float RolloffFactor; // Range: 0 - 4
+  float RefDistanceFactor; // Range: 0 - 4
+  float AutoRadiusFactor; // Range: 0 - 1
   float MaxDistFade_Ratio_Others;
   float MaxDistFade_Rolloff_Others;
   CFuncKeysReal* PitchFromDistance_Player_Others;
@@ -13820,13 +13820,13 @@ struct CPlugBitmapPacker : public CPlug {
   CPlugBitmapPacker();
 
   uint BitmapSizeMax;
-  const NodArray Packs;
+  const MwBuffer<CPlugBitmapPack*> Packs;
   CSystemFidsFolder* FidsBrowseMaterials;
   CSystemFidsFolder* FidsBrowseSolids;
   void FindPackListFromPath();
   void PackBitmaps();
   void AddPackInput();
-  const NodArray PackInputs;
+  const MwBuffer<CPlugBitmapPackInput*> PackInputs;
   void FindTextureTiling();
   void FidParametersPush();
 };
@@ -13838,19 +13838,19 @@ struct CPlugMusicType : public CPlugSound {
 struct CPlugAudioEnvironment : public CPlugAudio {
   CPlugAudioEnvironment();
 
-  UnknownType DopplerFactor;
-  UnknownType RoomFxLowGain;
-  UnknownType RoomFxLowGainHF;
-  UnknownType RoomFxMidGain;
-  UnknownType RoomFxMidGainHF;
-  UnknownType RoomFxHighGain;
-  UnknownType RoomFxHighGainHF;
-  UnknownType RoomFxUIGain;
-  UnknownType RoomFxUIGainHF;
-  UnknownType RoomFxMusicGain;
-  UnknownType RoomFxMusicGainHF;
-  UnknownType LowPassGain;
-  UnknownType LowPassGainHF;
+  float DopplerFactor; // Range: 0 - 10
+  float RoomFxLowGain; // Range: -60 - 0
+  float RoomFxLowGainHF; // Range: -60 - 0
+  float RoomFxMidGain; // Range: -60 - 0
+  float RoomFxMidGainHF; // Range: -60 - 0
+  float RoomFxHighGain; // Range: -60 - 0
+  float RoomFxHighGainHF; // Range: -60 - 0
+  float RoomFxUIGain; // Range: -60 - 0
+  float RoomFxUIGainHF; // Range: -60 - 0
+  float RoomFxMusicGain; // Range: -60 - 0
+  float RoomFxMusicGainHF; // Range: -60 - 0
+  float LowPassGain; // Range: -60 - 0
+  float LowPassGainHF; // Range: -60 - 0
   const float Gain;
   const float ReflectionsGain;
   const float LateReverbGain;
@@ -13887,7 +13887,7 @@ struct CPlugFilePng : public CPlugFileImg {
 struct CPlugBlendShapes : public CPlug {
   CPlugBlendShapes();
 
-  array<float> BlendVals;
+  MwArray<float> BlendVals;
   bool NormalizeNormals;
   bool BlendNormals;
 };
@@ -13936,7 +13936,7 @@ struct CPlugBitmapPack : public CPlug {
   uint NbComp;
   _EEGxTexAddress TexAdrU;
   CPlugBitmap* Bitmap;
-  const NodArray PackElems;
+  const MwBuffer<CPlugBitmapPackElem*> PackElems;
   void LoadBitmap();
 };
 
@@ -13969,7 +13969,7 @@ struct CPlugBitmapPackInput : public CPlug {
   CPlugBitmapPackInput();
 
   uint LayerCount;
-  const NodArray FidBitmaps;
+  const MwBuffer<CPlugBitmap*> FidBitmaps;
 };
 
 // File extension: 'ScanCache.Gbx'
@@ -13999,7 +13999,7 @@ struct CPlugFontBitmap : public CPlugFont {
 
   CPlugFontBitmap* FallbackFont;
   uint NbPages;
-  NodArray PageShaders;
+  MwArray<CMwNod*> PageShaders;
   uint FontHeight;
   uint FontAscent;
   vec2 BBoxCapitalMin;
@@ -14008,14 +14008,14 @@ struct CPlugFontBitmap : public CPlugFont {
   void CreateCharRemap();
   const uint NbCharRemapPages;
   CPlugMaterial* CustomMaterialModel;
-  const NodArray PageTextureFids;
-  array<wstring> PageTextureDataRefs;
+  const MwArray<CMwNod*> PageTextureFids;
+  MwArray<wstring> PageTextureDataRefs;
 };
 
 struct CPlugTree : public CPlug {
   CPlugTree();
 
-  const NodArray Childs;
+  const MwBuffer<CPlugTree*> Childs;
   bool IsVisible;
   bool IsCollidable;
   bool IsRooted;
@@ -14036,7 +14036,7 @@ struct CPlugTree : public CPlug {
   CPlugVisual* Visual;
   uint SubVisualIndex1;
   uint SubVisualIndex2;
-  UnknownType SubVisualIndexB;
+  float SubVisualIndexB; // Range: 0 - 1
   uint SplitVisualIndex;
   uint SplitVisualCount;
   CPlugTreeGenerator* Generator;
@@ -14190,8 +14190,8 @@ struct CPlugSoundSurface : public CPlugSound {
   CPlugSoundSurface();
 
   float EdMaxSpeedKmh;
-  NodArray Texture;
-  NodArray Skid;
+  MwArray<CMwNod*> Texture;
+  MwArray<CMwNod*> Skid;
   const CFuncKeysReal* SkidVolumeFromIntensity;
 };
 
@@ -14234,15 +14234,15 @@ struct CPlugSoundMulti : public CPlugSound {
     Distance = 2,
     Scale = 3,
   };
-  NodArray AdditionalSounds;
+  MwBuffer<CPlugFileSnd*> AdditionalSounds;
   ESoundInputMapping InputMapping;
-  array<vec3> PreferedDistances;
+  MwBuffer<vec3> PreferedDistances;
   CFuncKeysReal* VolumeFromInput;
   bool AvoidDuplicates;
   bool AlternateParity;
-  UnknownType PitchVarianceNeg;
-  UnknownType PitchVariancePos;
-  UnknownType VolumeVariance;
+  float PitchVarianceNeg; // Range: 0 - 1
+  float PitchVariancePos; // Range: 0 - 1
+  float VolumeVariance; // Range: 0 - 1
 };
 
 struct CPlugSoundVideo : public CPlugSound {
@@ -14271,7 +14271,7 @@ struct CPlugShaderPass : public CPlug {
   CPlugFileGPUP* PixelShader;
   CPlugFileGPU* DomainShader;
   CPlugFileGPU* GeometryShader;
-  const NodArray VertexTextures;
+  const MwArray<CPlugBitmapSampler*> VertexTextures;
 };
 
 // File extension: 'Shader.Gbx'
@@ -14311,18 +14311,18 @@ struct CPlugFileSvg : public CPlugFile {
 struct CPlugModelTree : public CMwNod {
   CPlugModelTree();
 
-  const NodArray Childs;
-  const NodArray LodMeshes;
+  const MwBuffer<CPlugModelTree*> Childs;
+  const MwBuffer<CPlugModelLodMesh*> LodMeshes;
   UnknownType LodMeshesLocs;
-  const NodArray Surfaces;
+  const MwBuffer<CPlugModelMesh*> Surfaces;
   const UnknownType SurfaceLocs;
   vec3 RotationPivot;
   vec3 ScalePivot;
   UnknownType Location;
-  const NodArray ChildGens;
+  const MwBuffer<CMwNod*> ChildGens;
   const UnknownType ChildGensLocs;
-  const UnknownType ChildGensIds;
-  const array<bool> ChildGensDisableSurface;
+  const MwBuffer<MwId> ChildGensIds;
+  const MwBuffer<bool> ChildGensDisableSurface;
   bool OptimIsKeepTree;
 };
 
@@ -14352,7 +14352,7 @@ struct CPlugModelMesh : public CMwNod {
   const bool SpriteIsXYRatio;
   const bool SpriteIsTextureAtlas;
   const bool SpriteIsTextureSubId;
-  const NodArray Exts;
+  const MwBuffer<CMwNod*> Exts;
 };
 
 // File extension: 'VHlsl.Txt'
@@ -14377,7 +14377,7 @@ struct CPlugFilePHlsl : public CPlugFileGPUP {
 struct CPlugBitmapDecals : public CPlug {
   CPlugBitmapDecals();
 
-  const NodArray DecalModels;
+  const MwBuffer<CPlugDecalModel*> DecalModels;
   const uint DecalSetCount;
   uint CellSizeX;
   uint CellSizeY;
@@ -14418,7 +14418,7 @@ struct CPlugMaterialFxFur : public CPlugMaterialFx {
 struct CPlugMaterialFxs : public CPlugMaterialFx {
   CPlugMaterialFxs();
 
-  NodArray MaterialFxs;
+  MwArray<CPlugMaterialFx*> MaterialFxs;
 };
 
 struct CPlugBitmapSampler : public CPlug {
@@ -14435,7 +14435,7 @@ struct CPlugBitmapSampler : public CPlug {
   _EEGxTexAddress TexAddressV;
   _EEGxTexAddress TexAddressW;
   UnknownType BorderRGB;
-  UnknownType BorderAlpha;
+  float BorderAlpha; // Range: 0 - 1
   const bool SynchNameWithShader;
   float MipMapLodBias;
   uint MaxMipLevel;
@@ -14471,7 +14471,7 @@ struct CPlugScriptWithSettings : public CMwNod {
   CPlugScriptWithSettings();
 
   CPlugFileTextScript* Script;
-  const NodArray Settings;
+  const MwBuffer<CScriptSetting*> Settings;
   void UpdateSettingsFromScript();
 };
 
@@ -14569,7 +14569,7 @@ struct CPlugBitmapRender : public CPlug {
   bool UseZBuffer;
   _ECPlugBitmapRender__ETrigger TriggerClearRGBA;
   UnknownType ClearRGB;
-  UnknownType ClearAlpha;
+  float ClearAlpha; // Range: 0 - 1
   UnknownType ClearFogColor;
   bool IgnoreClearBitmap;
   bool HideSun;
@@ -14605,7 +14605,7 @@ struct CPlugBitmapRenderWater : public CPlugBitmapRender {
   float FogClampAboveDist;
   float MaxDistPlaneToAlpha;
   bool MirrorGeom;
-  UnknownType MirrorScaleY;
+  float MirrorScaleY; // Range: 0 - 1
   bool UseClipPlane;
   float ClipPlaneHeight;
   bool UseFMargin;
@@ -14630,7 +14630,7 @@ struct CPlugBitmapRenderWater : public CPlugBitmapRender {
   uint DisableRenderSkipOptims;
   float InvisibleRatio;
   uint InvisibleSleepPeriod;
-  const UnknownType TmpWaterVisibilityRatio;
+  const float TmpWaterVisibilityRatio; // Range: 0 - 1
   uint MaxUpdatePeriod;
   float MaxCameraDeltaPos;
   float MinCameraDeltaCos;
@@ -14687,14 +14687,14 @@ struct CPlugMaterialFxGenCV : public CPlugMaterialFx {
 
   float DeltaYMax;
   float DeltaYMin;
-  NodArray MaterialToRayCasts;
+  MwArray<CPlugMaterial*> MaterialToRayCasts;
 };
 
 // File extension: 'SoundEngine.Gbx'
 struct CPlugSoundEngine : public CPlugSound {
   CPlugSoundEngine();
 
-  NodArray Components;
+  MwArray<CPlugSoundComponent*> Components;
   float MaxRpm;
   const CFuncKeysReal* Volume_Speed;
   const CFuncKeysReal* Volume_Distance;
@@ -14731,7 +14731,7 @@ struct CPlugBitmapRenderSolid : public CPlugBitmapRender {
   UnknownType BitmapFilter;
   CPlugBitmap* Bitmap;
   CPlugShader* Shader;
-  const NodArray Solids;
+  const MwBuffer<CPlugSolid*> Solids;
   UnknownType Locations;
 };
 
@@ -14821,9 +14821,9 @@ struct CPlugModelFur : public CMwNod {
   float HelixDeg;
   float HelixVarDeg;
   float Width;
-  UnknownType WidthVar;
+  float WidthVar; // Range: 0 - 1
   float Length;
-  UnknownType LengthVar;
+  float LengthVar; // Range: 0 - 1
   float NormalBendAngleX;
   float NormalBendAngleY;
   bool Debug;
@@ -14865,9 +14865,9 @@ struct CPlugBitmapRenderLightOcc : public CPlugBitmapRender {
   CPlugBitmapRenderLightOcc();
 
   float FovY;
-  UnknownType OpacityLightThrough;
-  UnknownType OpacityLensFlare;
-  UnknownType FlareThreshold;
+  float OpacityLightThrough; // Range: 0 - 1
+  float OpacityLensFlare; // Range: 0 - 1
+  float FlareThreshold; // Range: 0 - 1
   CPlugBitmap* BitmapToModulate;
 };
 
@@ -14887,7 +14887,7 @@ struct CPlugTreeViewDep : public CPlugTree {
 struct CPlugDecoratorTree : public CMwNod {
   CPlugDecoratorTree();
 
-  UnknownType TreeId;
+  MwId TreeId;
   CPlugMaterial* Material;
   CPlugTreeLight* TreeLight;
   _EEBoolCond ExistCond;
@@ -14904,7 +14904,7 @@ struct CPlugDecoratorTree : public CMwNod {
 struct CPlugDecoratorSolid : public CMwNod {
   CPlugDecoratorSolid();
 
-  const NodArray TreeDecorators;
+  const MwBuffer<CPlugDecoratorTree*> TreeDecorators;
 };
 
 // File extension: 'ModelFences.Gbx'
@@ -14947,7 +14947,7 @@ struct CPlugDecalModel : public CPlug {
   bool IsObsolete;
   CPlugBitmap* Icon;
   float TexelByMeter;
-  UnknownType MaxAngleN;
+  float MaxAngleN; // Range: 0 - 90
   bool FadeNormalAndZ;
   CPlugBitmap* DiffuseA;
   CPlugBitmap* Specular;
@@ -14958,10 +14958,10 @@ struct CPlugDecalModel : public CPlug {
   float SvgAlpha;
   CPlugSolid* Solid;
   CPlugBitmap* _3dSpriteBitmap;
-  UnknownType _3dSpriteGroupId;
+  MwId _3dSpriteGroupId;
   bool RandomInstances;
-  UnknownType MaxAngleN3d;
-  UnknownType MinAngleN3d;
+  float MaxAngleN3d; // Range: 0 - 180
+  uint MinAngleN3d; // Range: 0 - 180
 };
 
 struct CPlugBitmapAtlas : public CPlug {
@@ -14990,8 +14990,8 @@ struct CPlugSpriteParam : public CPlug {
   bool SortBackToFront;
   vec3 GlobalDirection;
   vec2 PivotPoint;
-  UnknownType GlobalDirTiltFactor;
-  UnknownType ZBiasFactor;
+  float GlobalDirTiltFactor; // Range: 0 - 1
+  float ZBiasFactor; // Range: 0 - 1
   float TextureHeightInWorld;
   float VisibleMaxDistAtFov90;
   float VisibleMinScreenHeight01;
@@ -15114,7 +15114,7 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   float FluidFrictionBirth;
   float FluidFrictionBirthVariation;
   bool FluidFrictionBirthUseIntensity;
-  UnknownType FluidFrictionBirthIntensityBase;
+  float FluidFrictionBirthIntensityBase; // Range: 0 - 1
   bool RelativeToEmitter;
   bool CollisionEnabled;
   float CollisionBounce;
@@ -15125,7 +15125,7 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   uint PrecalcSampleRate;
   uint SimulatedSmokeLifeSpanMs;
   float SimulatedSmokeInfluenceRadius;
-  UnknownType SimulatedSmokeGravity;
+  float SimulatedSmokeGravity; // Range: 0 - 20
   CFuncKeysReal* SimulatedSmokeParticleSizeOverLife;
   CFuncKeysReal* SimulatedSmokeParticleAlphaOverLife;
   float SimulatedSmokeParticleBaseSize;
@@ -15140,11 +15140,11 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   float SimulatedSmokeFilamentPositionRandomness;
   float EmitStateFromImpactDirNormalCoef;
   float EmitStateFromImpactDirTangentialCoef;
-  UnknownType Length;
-  UnknownType Radius;
+  float Length; // Range: 0.1 - 10
+  float Radius; // Range: 0.01 - 3
   UnknownType ColorCenter;
   UnknownType ColorBorder;
-  UnknownType ColorLerpPow;
+  float ColorLerpPow; // Range: 1 - 10
   float ColorCenterMultiplier;
   float ColorBorderMultiplier;
 };
@@ -15154,8 +15154,8 @@ struct CPlugParticleEmitterModel : public CMwNod {
   CPlugParticleEmitterModel();
 
   bool IsSplashMode;
-  NodArray ParticleEmitterSubModels;
-  NodArray ParticleEmitterSubModelsInLibrary;
+  MwBuffer<CPlugParticleEmitterSubModel*> ParticleEmitterSubModels;
+  MwBuffer<CMwParamStringInt*> ParticleEmitterSubModelsInLibrary;
   float ShadowMapTexelSize;
   bool EnableVortexEmitter;
   uint VortexCountPerCircle;
@@ -15172,7 +15172,7 @@ struct CPlugParticleEmitterModel : public CMwNod {
 struct CPlugBeamEmitterModel : public CMwNod {
   CPlugBeamEmitterModel();
 
-  NodArray SubModels;
+  MwBuffer<CPlugBeamEmitterSubModel*> SubModels;
 };
 
 struct CPlugParticleSplashModel : public CMwNod {
@@ -15282,12 +15282,12 @@ struct CPlugCharPhyMaterial : public CMwNod {
 struct CPlugFxLensDirtGen : public CMwNod {
   CPlugFxLensDirtGen();
 
-  UnknownType AtlasId;
+  MwId AtlasId;
   uint Count;
-  UnknownType ScreenSizeYMin;
-  UnknownType ScreenSizeYMax;
-  UnknownType Intens_Min;
-  UnknownType Intens_Max;
+  float ScreenSizeYMin; // Range: 0 - 1
+  float ScreenSizeYMax; // Range: 0 - 1
+  float Intens_Min; // Range: 0 - 1
+  float Intens_Max; // Range: 0 - 1
 };
 
 struct CPlugShieldEmitterModel : public CMwNod {
@@ -15356,24 +15356,24 @@ struct CPlugBulletModel : public CMwNod {
   float ExplosionOnAllPlayers;
   int ExplosionDamageValue;
   float ExplosionDamageRadius;
-  UnknownType ExplosionDamageRadiusAttenuation;
+  float ExplosionDamageRadiusAttenuation; // Range: 0 - 1
   float ExplosionBlowValue;
   float ExplosionBlowRadius;
-  UnknownType ExplosionBlowRadiusAttenuation;
+  float ExplosionBlowRadiusAttenuation; // Range: 0 - 1
   float ExplosionElectroPulseValue;
   CFuncKeysReal* ExplosionRadiusCoefFromLifeTime;
   float ExplosionBlowVerticalScale;
   UnknownType EndLifeWithoutExplosionOnMaterialId;
   EExplosionOccultationTest ExplosionOccultationTest;
-  UnknownType ExplosionEnergyWhenOccluded;
+  float ExplosionEnergyWhenOccluded; // Range: 0 - 1
   CFuncKeysReal* ExplosionEnergyFromLifeTime;
-  UnknownType HomingDist;
-  UnknownType HomingPeriod;
-  UnknownType HomingMaxAnglularSpeed;
+  float HomingDist; // Range: 1 - 100
+  float HomingPeriod; // Range: 0.1 - 1
+  float HomingMaxAnglularSpeed; // Range: 10 - 320
   uint HomingLockDuration;
-  UnknownType GuidedAngularSpeed;
+  float GuidedAngularSpeed; // Range: 10 - 320
   uint GuidedMinLifeTime;
-  UnknownType GuidedRollAngleMax;
+  float GuidedRollAngleMax; // Range: 0 - 3.14159
   bool IsFlare;
   float FlareAttractionRadius;
   float FlareExplosionRadius;
@@ -15399,19 +15399,19 @@ struct CPlugBulletModel : public CMwNod {
   uint FireBulletCount;
   float FireBulletDispersionAngleDeg;
   float FireBulletCountSpeedCoef;
-  array<vec3> FireBulletSpreads;
+  MwBuffer<vec3> FireBulletSpreads;
   EFireBulletPatternMode FireBulletPattern_Mode;
   bool FireBulletPattern_OnlyVisual;
-  array<vec3> FireBulletPattern_GrowingOffset_Offsets;
-  UnknownType FireBulletPattern_InitialBlendDuration;
-  UnknownType FireBulletPattern_SpiralHatchetNet_BulletCount;
-  UnknownType FireBulletPattern_SpiralHatchetNet_Radius;
-  UnknownType FireBulletPattern_SpiralHatchetNet_SpinPerSecond;
+  MwBuffer<vec3> FireBulletPattern_GrowingOffset_Offsets;
+  float FireBulletPattern_InitialBlendDuration; // Range: 0 - 60
+  uint FireBulletPattern_SpiralHatchetNet_BulletCount; // Range: 1 - 255
+  float FireBulletPattern_SpiralHatchetNet_Radius; // Range: 0 - 100
+  float FireBulletPattern_SpiralHatchetNet_SpinPerSecond; // Range: -1000 - 1000
   bool FireBulletPattern_RotateOddBulletsCounterClockwise;
   bool FireBulletPattern_ApexRegroup;
-  UnknownType FireBulletPattern_ApexRegroup_MinApexTime;
+  float FireBulletPattern_ApexRegroup_MinApexTime; // Range: 0 - 10
   bool FireBulletPattern_ChaosSpiral_Spin;
-  array<float> FireBulletPattern_ChaosSpiral_Offsets;
+  MwBuffer<float> FireBulletPattern_ChaosSpiral_Offsets;
   CPlugSound* SoundFire;
   CPlugSound* SoundAlive;
   CPlugSound* SoundReloading;
@@ -15443,7 +15443,7 @@ struct CPlugBulletModel : public CMwNod {
   float SizeYScreenPercentMax;
   CPlugBitmap* Icon;
   bool ShowImpactPos;
-  UnknownType Sm_SpModelName;
+  MwId Sm_SpModelName;
   uint Sm_SpChargeDuration;
   uint Sm_SpInactivityDelayBeforeCharge;
   bool Sm_FirstPersonCam;
@@ -15468,9 +15468,9 @@ struct CPlugSpline3D : public CMwNod {
 struct CPlugTrafficPathSquares : public CMwNod {
   CPlugTrafficPathSquares();
 
-  UnknownType Id;
+  MwId Id;
   const string Name;
-  array<int3> Squares;
+  MwBuffer<int3> Squares;
 };
 
 // File extension: 'PlugTrafficObjectParams.Gbx'
@@ -15489,9 +15489,9 @@ struct CPlugTrafficObjectParams : public CMwNod {
 struct CPlugTrafficZoneSquares : public CMwNod {
   CPlugTrafficZoneSquares();
 
-  UnknownType Id;
+  MwId Id;
   const string Name;
-  array<int3> Squares;
+  MwBuffer<int3> Squares;
   float MinSpeed;
   float MaxSpeed;
   float MinSpeedDistance;
@@ -15577,8 +15577,8 @@ struct CPlugTrafficFlowDescriptor : public CMwNod {
 struct CPlugTrafficGraph : public CMwNod {
   CPlugTrafficGraph();
 
-  NodArray Splines;
-  NodArray FlowDescriptors;
+  MwBuffer<CPlugSpline3D*> Splines;
+  MwBuffer<CPlugTrafficFlowDescriptor*> FlowDescriptors;
 };
 
 struct CPlugCharPhyRecoilModel : public CMwNod {
@@ -15601,7 +15601,7 @@ struct CPlugFlockModel : public CMwNod {
   CMwNod* AnimFile;
   CPlugSound* SoundLoop;
   CPlugSound* SoundEventTakeOff;
-  UnknownType Volatility;
+  float Volatility; // Range: 0 - 1
   float Range;
   float CosViewAngle;
   float MinSpeed;
@@ -15728,7 +15728,7 @@ struct CPlugCharPhyModelCustom : public CMwNod {
   float ShootRadius;
   float TargetMinDistance;
   float DisengageDistance;
-  UnknownType Accuracy;
+  float Accuracy; // Range: 0 - 1
   uint Reaction;
   uint ShootPeriod;
   uint ArmorMax;
@@ -15739,10 +15739,10 @@ struct CPlugCharPhyModelCustom : public CMwNod {
 struct CPlugMaterialUserInst : public CMwNod {
   CPlugMaterialUserInst();
 
-  UnknownType Name;
-  UnknownType Model;
+  MwId Name;
+  MwId Model;
   wstring BaseTexture;
-  UnknownType Link;
+  MwId Link;
   ETexAddress IsTilingX;
   ETexAddress IsTilingY;
   float TextureHeightInMeters;
@@ -15775,7 +15775,7 @@ struct CPlugBeamEmitterSubModel : public CMwNod {
 
   bool EdVisible;
   CPlugMaterial* Material;
-  const NodArray AdditionalMaterials;
+  const MwBuffer<CPlugMaterial*> AdditionalMaterials;
   _EDisplayType DisplayType;
   float UVScale;
   uint CylinderSideCount;
@@ -15784,9 +15784,9 @@ struct CPlugBeamEmitterSubModel : public CMwNod {
   float USpeed;
   float VSpeed;
   bool BackFace;
-  UnknownType LightningMaxJitterDistPerStep;
-  UnknownType LightningJitterRadius;
-  UnknownType LightningDistStep;
+  float LightningMaxJitterDistPerStep; // Range: 0 - 1
+  float LightningJitterRadius; // Range: 0 - 5
+  float LightningDistStep; // Range: 0 - 10
   float LightningLenMax;
   uint LightningBeamCount;
   float FadeTimeOffset;
@@ -15820,13 +15820,13 @@ struct CPlugBeamEmitterSubModel : public CMwNod {
   float BeamWithSpheres_Speed;
   UnknownType ColorCenter;
   UnknownType ColorBorder;
-  UnknownType ColorLerpPow;
+  float ColorLerpPow; // Range: 1 - 10
   float ColorCenterMultiplier;
   float ColorBorderMultiplier;
   float LaserRadius;
   UnknownType TriColorCenter;
   UnknownType TriColorBorder;
-  UnknownType TriColorLerpPow;
+  float TriColorLerpPow; // Range: 1 - 10
   float TriColorCenterMultiplier;
   float TriColorBorderMultiplier;
   float TriLaserRadius;
@@ -15836,7 +15836,7 @@ struct CPlugBeamEmitterSubModel : public CMwNod {
   float SharpIntensity;
   float SharpFadeEndAtEndLife;
   float SharpStartOffset;
-  UnknownType SharpScale;
+  float SharpScale; // Range: 0.1 - 1
   bool SharpEnabled;
   float SharpEnergy;
   bool SharpFadeOut;
@@ -15844,7 +15844,7 @@ struct CPlugBeamEmitterSubModel : public CMwNod {
   float BloomIntensity;
   float BloomFadeEndAtEndLife;
   float BloomStartOffset;
-  UnknownType BloomScale;
+  float BloomScale; // Range: 0.1 - 1
   bool BloomEnabled;
   float BloomEnergy;
   bool BloomFadeOut;
@@ -15901,8 +15901,8 @@ struct CPlugImportMeshParam : public CMwNod {
   string MeshOnlyPrefix;
   string MeshSkipSuffix;
   string MeshOnlySuffix;
-  NodArray MatUserModels;
-  NodArray LightUserModels;
+  MwBuffer<CPlugMaterialUserInst*> MatUserModels;
+  MwBuffer<CPlugLightUserModel*> LightUserModels;
   string Skel_GenericRootName;
   string Skel_DummyPrefix;
   string Skel_SocketPrefix;
@@ -15944,21 +15944,21 @@ struct CPlugTurret : public CMwNod {
   float LifeDisabledDuration;
   EOnArmorEmtpy LifeOnArmorEmtpy;
   uint FirePeriodMs;
-  UnknownType Joint0Name;
+  MwId Joint0Name;
   vec3 Joint0LocalAxis;
   float Joint0MinAngleDeg;
   float Joint0MaxAngleDeg;
   float Joint0SpeedDegPerS;
   float Joint0NextJointUpdateAngleMaxDeg;
-  UnknownType Joint1Name;
+  MwId Joint1Name;
   vec3 Joint1LocalAxis;
   float Joint1MinAngleDeg;
   float Joint1MaxAngleDeg;
   float Joint1SpeedDegPerS;
   float Joint1NextJointUpdateAngleMaxDeg;
-  UnknownType JointFireName;
+  MwId JointFireName;
   vec3 JointFireLocalAxis;
-  UnknownType JointRadarName;
+  MwId JointRadarName;
   UnknownType Skel;
   UnknownType Shape;
   UnknownType BulletModel;
@@ -16027,7 +16027,7 @@ struct CPlugGpuBuffer : public CMwNod {
 struct CPlugPolyLine3 : public CMwNod {
   CPlugPolyLine3();
 
-  array<vec3> Poss;
+  MwBuffer<vec3> Poss;
 };
 
 struct CPlugPath : public CMwNod {
@@ -16044,7 +16044,7 @@ struct CPlugMoodBlender : public CPlug {
 struct CPlugTrainModel : public CMwNod {
   CPlugTrainModel();
 
-  NodArray Wagons;
+  MwBuffer<CPlugTrainWagonModel*> Wagons;
 };
 
 // File extension: 'Wagon.gbx'
@@ -16115,14 +16115,14 @@ struct CSceneEngine : public CMwEngine {
 };
 
 struct CScene : public CMwNod {
-  NodArray Mobils;
-  NodArray Cameras;
-  NodArray Movers;
-  NodArray Lights;
-  NodArray Sounds;
+  MwBuffer<CSceneMobil*> Mobils;
+  MwBuffer<CSceneCamera*> Cameras;
+  MwBuffer<CSceneMover*> Movers;
+  MwBuffer<CSceneLight*> Lights;
+  MwBuffer<CSceneSoundSource*> Sounds;
   CSceneConfig* SceneConfig;
-  NodArray MotionManagers;
-  const NodArray MotionManagerModels;
+  MwBuffer<CMotionManager*> MotionManagers;
+  const MwBuffer<CMotionManager*> MotionManagerModels;
   const CScenePhy* ScenePhy;
   const CSceneDecalsManager* MgrDecals;
   const CSceneSoundManager* MgrSound;
@@ -16154,15 +16154,15 @@ struct CScene2d : public CScene {
   const CSceneSector* Sector;
   vec2 OverlayMin;
   vec2 OverlayMax;
-  NodArray Lights;
-  NodArray Sounds;
+  MwBuffer<CSceneLight*> Lights;
+  MwBuffer<CSceneSoundSource*> Sounds;
 };
 
 struct CSceneLayout : public CMwNod {
   CSceneLayout();
 
-  NodArray Objects;
-  NodArray MotionManagerModels;
+  MwBuffer<CSceneObject*> Objects;
+  MwBuffer<CMotionManager*> MotionManagerModels;
   float CameraFarZ;
   float EdCamFocusZ;
   float EdCamLensSize;
@@ -16202,7 +16202,7 @@ struct CScenePoc : public CSceneObject {
 struct CSceneCamera : public CScenePoc {
   CSceneCamera();
 
-  NodArray Overlays;
+  MwArray<CScene2d*> Overlays;
   uint iPrecalcRender;
   const uint cPrecalcRender;
   CSceneListener* Listener;
@@ -16243,7 +16243,7 @@ struct CSceneMobil : public CSceneObject {
   void Show();
   void Hide();
   CMwNod* LinkedObject;
-  NodArray Links;
+  MwBuffer<CSceneObjectLink*> Links;
   const CMotion* MotionSolid;
   uint CastedShadows;
   bool SelfShadow;
@@ -16260,18 +16260,18 @@ struct CSceneToy : public CSceneMobil {
 struct CSceneCloudSystem : public CMwNod {
   bool IsVisible;
   bool AutoSizeFarZ;
-  UnknownType ScaleFarZ_Visibility;
+  float ScaleFarZ_Visibility; // Range: 0 - 1
   uint InstCountX;
   uint InstCountZ;
   float WindVortexSpeed;
   bool WindVortexUseHyperbolicSpeed;
   float WindSpeed;
-  UnknownType WindDir;
+  float WindDir; // Range: 0 - 6.28
   bool FadeAlpha;
   bool ForceSize;
   vec2 GridSizeXZ;
   bool MaterialUseT3b;
-  const NodArray Shaders;
+  const MwBuffer<CPlugShader*> Shaders;
   const UnknownType OutputMode;
 };
 
@@ -16287,7 +16287,7 @@ struct CSceneObjectLink : public CMwNod {
   UnknownType RelativeLocation;
   CSceneObject* Object;
   CSceneMobil* Mobil;
-  UnknownType MobilTreeId;
+  MwId MobilTreeId;
   bool IsActive2;
   const bool IsDynamic;
 };
@@ -16308,10 +16308,10 @@ struct CSceneCharVis : public CMwNod {
 struct CScene3d : public CScene {
   CScene3d();
 
-  NodArray Sectors;
-  NodArray Lights;
-  NodArray Locations;
-  NodArray Sounds;
+  MwBuffer<CSceneSector*> Sectors;
+  MwBuffer<CSceneLight*> Lights;
+  MwBuffer<CSceneLocation*> Locations;
+  MwBuffer<CSceneSoundSource*> Sounds;
   float CameraFarZ;
   float EdCamFocusZ;
   float EdCamLensSize;
@@ -16383,34 +16383,34 @@ struct CSceneMgrFlock : public CMwNod {
 struct CSceneFxColors : public CSceneFxCompo {
   CSceneFxColors();
 
-  UnknownType ParamInverseRGB;
-  UnknownType ParamHue;
-  UnknownType ParamSaturation;
-  UnknownType ParamBrightness;
-  UnknownType ParamContrast;
+  float ParamInverseRGB; // Range: 0 - 1
+  float ParamHue; // Range: 0 - 1
+  float ParamSaturation; // Range: -1 - 1
+  float ParamBrightness; // Range: -1 - 1
+  float ParamContrast; // Range: -1 - 1
   UnknownType ParamModulateRGB;
-  UnknownType ParamModulateR;
-  UnknownType ParamModulateG;
-  UnknownType ParamModulateB;
+  float ParamModulateR; // Range: 0 - 1
+  float ParamModulateG; // Range: 0 - 1
+  float ParamModulateB; // Range: 0 - 1
   UnknownType ParamBlendRGB;
-  UnknownType ParamBlendAlpha;
+  float ParamBlendAlpha; // Range: 0 - 1
   bool ParamUserEnable;
-  UnknownType UserIntensity;
-  UnknownType CloudsIntensity;
-  UnknownType ZFarIntensity;
+  float UserIntensity; // Range: 0 - 1
+  float CloudsIntensity; // Range: 0 - 1
+  float ZFarIntensity; // Range: 0 - 1
   float ParamZFar_StartZ;
   float ParamZFar_StopZ;
-  UnknownType ParamZFarInverseRGB;
-  UnknownType ParamZFarHue;
-  UnknownType ParamZFarSaturation;
-  UnknownType ParamZFarBrightness;
-  UnknownType ParamZFarContrast;
+  float ParamZFarInverseRGB; // Range: 0 - 1
+  float ParamZFarHue; // Range: 0 - 1
+  float ParamZFarSaturation; // Range: -1 - 1
+  float ParamZFarBrightness; // Range: -1 - 1
+  float ParamZFarContrast; // Range: -1 - 1
   UnknownType ParamZFarModulateRGB;
-  UnknownType ParamZFarModulateR;
-  UnknownType ParamZFarModulateG;
-  UnknownType ParamZFarModulateB;
+  float ParamZFarModulateR; // Range: 0 - 1
+  float ParamZFarModulateG; // Range: 0 - 1
+  float ParamZFarModulateB; // Range: 0 - 1
   UnknownType ParamZFarBlendRGB;
-  UnknownType ParamZFarBlendAlpha;
+  float ParamZFarBlendAlpha; // Range: 0 - 1
   CPlugMaterial* MaterialColors;
   CPlugShaderApply* ShaderAutoSaturateWithLight;
   CPlugBitmap* BitmapDepth;
@@ -16465,12 +16465,12 @@ struct CSceneFxBloom : public CSceneFxCompo {
   CSceneFxBloom();
 
   uint BlurSize;
-  UnknownType Intensity;
-  UnknownType DataBlend;
+  float Intensity; // Range: 0 - 1
+  float DataBlend; // Range: 0 - 1
   bool DualData;
-  const NodArray Datas;
+  const MwBuffer<CSceneFxBloomData*> Datas;
   UnknownType RadialInput;
-  UnknownType RadialIntens;
+  float RadialIntens; // Range: 0 - 1
   uint m_RadialProjQuality;
   float RadialRadius2d;
   float RadialRadius3d;
@@ -16493,16 +16493,16 @@ struct CBoatSailState : public CMwNod {
   const CPlugVisualIndexedTriangles* SailVisualBase;
   const CPlugVisualIndexedTriangles* SailVisualFlat;
   UnknownType SailState;
-  UnknownType SailStateCoef;
+  float SailStateCoef; // Range: 0 - 1
   bool AutomaticSheetTargetSpeedEnable;
 };
 
 struct CSceneFxBloomData : public CMwNod {
   CSceneFxBloomData();
 
-  UnknownType HighInvExponent;
-  UnknownType FakeHdrExponent;
-  UnknownType FakeHdrMin;
+  float HighInvExponent; // Range: 0 - 1
+  float FakeHdrExponent; // Range: 0 - 1
+  float FakeHdrMin; // Range: 0 - 1
 };
 
 // File extension: 'SceneConfig.Gbx'
@@ -16534,12 +16534,12 @@ struct CSceneFxStereoscopy : public CSceneFxCompo {
   UnknownType Output;
   bool ExternalControl;
   const float EyeSeparation;
-  UnknownType SeparationUserScale;
-  const UnknownType SeparationGameScale;
+  float SeparationUserScale; // Range: 0 - 1
+  const float SeparationGameScale; // Range: 0 - 1
   uint MarginPixelCount;
   UnknownType SplitRatio;
   UnknownType AnaglyphColor;
-  UnknownType AnaglyphColorFactor;
+  float AnaglyphColorFactor; // Range: 0 - 1
   CPlugFilePHlsl* PHlsl_AnaglyphFullColor;
   CPlugFilePHlsl* PHlsl_AnaglyphHalfColor;
   CPlugFilePHlsl* PHlsl_AnaglyphLinear;
@@ -16586,21 +16586,21 @@ struct CSceneMgrAnim : public CMwNod {
   bool EdForceLod;
   uint EdForceLodIndex;
   bool EdForceLowerJaw;
-  UnknownType EdForceLowerJawVal;
+  float EdForceLowerJawVal; // Range: 0 - 1
   bool EdForceLayerWeight;
-  UnknownType EdForceLayerWeightVal;
+  float EdForceLayerWeightVal; // Range: 0 - 1
   EHandIKMode HandIKMode;
-  UnknownType OffsetHand_Pen;
-  UnknownType OffsetElbow_Pen;
-  UnknownType Anticipation_Pen;
-  UnknownType HandIKWallThreshold;
-  UnknownType HandIKDuration;
-  UnknownType HandIKOffsetY;
-  UnknownType HandIKOffsetX;
-  UnknownType WallOffsetTouch;
+  float OffsetHand_Pen; // Range: 0 - 0.3
+  float OffsetElbow_Pen; // Range: 0 - 0.3
+  float Anticipation_Pen; // Range: 0 - 1
+  float HandIKWallThreshold; // Range: 0 - 2
+  float HandIKDuration; // Range: 0 - 1
+  float HandIKOffsetY; // Range: -1 - 1
+  float HandIKOffsetX; // Range: -1 - 1
+  float WallOffsetTouch; // Range: 0 - 0.15
   EAnimPartialMode PartialAnimMode;
   EBlendFunc PartialAnimBlendFunc;
-  const NodArray SkelBinding;
+  const MwBuffer<CMwNod*> SkelBinding;
 };
 
 struct CSceneMgrVehiclePhy : public CSceneMgrPhy {
@@ -16638,7 +16638,7 @@ struct CSceneMobilLeaves : public CSceneMobil {
   float LeafBetaSpeedlMax;
   float RespawnPeriod;
   float FarZ;
-  UnknownType Curvature;
+  float Curvature; // Range: 0 - 1
 };
 
 struct CSceneMgrSolidVis : public CMwNod {
@@ -16690,7 +16690,7 @@ struct CSceneMobilSnow : public CSceneMobil {
   CSceneMobilSnow();
 
   UnknownType Kind;
-  UnknownType Intensity;
+  float Intensity; // Range: 0 - 1
   float FarZ;
   uint LifeSpan;
   float Diam;
@@ -16705,7 +16705,7 @@ struct CSceneMobilSnow : public CSceneMobil {
 
 // File extension: 'SceneFx.Gbx'
 struct CSceneFx : public CMwNod {
-  UnknownType Intensity;
+  float Intensity; // Range: 0 - 1
   bool WantPreLoad;
 };
 
@@ -16752,7 +16752,7 @@ struct CSceneFxCameraBlend : public CSceneFxCompo {
   CSceneFxCameraBlend();
 
   bool CaptureEnable;
-  UnknownType CaptureWeight;
+  float CaptureWeight; // Range: 0 - 1
 };
 
 // File extension: 'SceneFx.Gbx'
@@ -16767,10 +16767,10 @@ struct CSceneFxDistor2d : public CSceneFxCompo {
 struct CSceneFxEdgeBlender : public CSceneFxCompo {
   CSceneFxEdgeBlender();
 
-  UnknownType EdgeDotMax;
+  float EdgeDotMax; // Range: 0 - 1
   float EdgeDepthMax;
   uint GutterPassCount;
-  UnknownType GutterWeight;
+  float GutterWeight; // Range: 0 - 1
   CPlugShaderApply* ShaderEdgeDetect;
   CPlugShaderApply* ShaderEdgeGutter;
 };
@@ -16780,7 +16780,7 @@ struct CSceneFxOccZCmp : public CSceneFxCompo {
   CSceneFxOccZCmp();
 
   bool UsePointsInSphere;
-  UnknownType ImageRadius;
+  float ImageRadius; // Range: 0 - 0.2
   uint BlurTexelCount;
   CPlugShaderApply* Shader;
   CPlugPointsInSphereOpt* PointsInSphere;
@@ -16807,10 +16807,10 @@ struct CSceneFxBloomHdr : public CSceneFxCompo {
   float UpScaleAlpha;
   UnknownType BlurTexAddress;
   bool UseFakedFlares;
-  UnknownType LensDirtIntens;
-  UnknownType StreaksSrcMin;
+  float LensDirtIntens; // Range: 0 - 1
+  float StreaksSrcMin; // Range: 0 - 1
   uint StreaksRotationCount;
-  UnknownType StreaksRotation;
+  float StreaksRotation; // Range: 0 - 360
   uint StreaksPassCount;
   CPlugShaderApply* FidShaderBloomSelectFilterDown2;
   CPlugShaderApply* FidShaderBloomSelectFilterDown4;
@@ -16821,7 +16821,7 @@ struct CSceneFxBloomHdr : public CSceneFxCompo {
   CPlugShaderApply* ShaderHorizonBlur;
   bool DistorEnable;
   uint DistorPeriodTime;
-  UnknownType DistorRedSelectRatio;
+  float DistorRedSelectRatio; // Range: 0 - 2
   bool DistorUseDepth;
   const CPlugFilePHlsl* PHlsl_Final;
   const CPlugFilePHlsl* PHlsl_StreaksSelectSrc;
@@ -16834,7 +16834,7 @@ struct CSceneVehicleCarMarksModel : public CMwNod {
   CSceneVehicleCarMarksModel();
 
   bool Disabled;
-  NodArray Models;
+  MwBuffer<CSceneVehicleCarMarksModelSub*> Models;
 };
 
 // File extension: 'CarMarksModelSub.Gbx'
@@ -16868,7 +16868,7 @@ struct CSceneVehicleCarMarksSamples : public CMwNod {
   string Name;
   const uint ByteSize;
   bool Disabled;
-  array<uint> Stops;
+  MwBuffer<uint> Stops;
 };
 
 // File extension: 'SceneFx.Gbx'
@@ -16930,7 +16930,7 @@ struct CSceneMgrTrafficPhy : public CMwNod {
   vec3 VertiDownMaxHeight;
   CPlugTrafficGraph* TrafficGraph;
   UnknownType VehiclePhyModel;
-  const NodArray ShapedTrajectories;
+  const MwBuffer<CPlugTrafficShapedTrajectory*> ShapedTrajectories;
 };
 
 struct CSceneMgrMapColoring : public CMwNod {
@@ -17038,12 +17038,12 @@ struct CSceneToyBoat : public CSceneToy {
   void RetrieveSounds();
   void EdBoatCreate();
   void ChangeSail();
-  UnknownType TillerTargetAngle;
+  float TillerTargetAngle; // Range: -0.8726 - 0.8726
   CPlugParticleEmitterModel* SplashEmitterModel;
   const bool TeamMatesVisible;
   const bool StemWavesVisible;
   const bool WindIndicatorVisible;
-  NodArray SailStates;
+  MwBuffer<CBoatSail*> SailStates;
   float ContactForceFluidFrictionCoef;
   float ReplacementStepLength;
   float ContactRotationImpulseCoef;
@@ -17107,29 +17107,29 @@ struct CSceneToyStem : public CSceneToy {
 struct CBoatTeamDesc : public CMwNod {
   CBoatTeamDesc();
 
-  UnknownType TeamMateIds;
+  MwBuffer<MwId> TeamMateIds;
   CMwRefBuffer* TeamActionDescs;
   CMwRefBuffer* TeamMateLocationDescs;
   CMwRefBuffer* TeamMateVisualAnims;
-  UnknownType AnimWalkId;
+  MwId AnimWalkId;
   void UpdateCacheData();
 };
 
 struct CBoatTeamActionDesc : public CMwNod {
   CBoatTeamActionDesc();
 
-  UnknownType TeamActionId;
-  NodArray TeamMateActionDescs;
+  MwId TeamActionId;
+  MwBuffer<CBoatTeamMateActionDesc*> TeamMateActionDescs;
 };
 
 struct CBoatTeamMateActionDesc : public CMwNod {
   CBoatTeamMateActionDesc();
 
-  UnknownType TeamMateId;
-  UnknownType DestLocationId;
+  MwId TeamMateId;
+  MwId DestLocationId;
   float WalkSpeed;
-  UnknownType AnimBeforeId;
-  UnknownType AnimAfterId;
+  MwId AnimBeforeId;
+  MwId AnimAfterId;
   bool AnimAfterIsLooping;
   bool AnimAfterIsTimeStop;
 };
@@ -17139,10 +17139,10 @@ struct CManoeuvre : public CMwNod {
 
   float Duration;
   float SlowDownCoef;
-  UnknownType TeamActionId;
-  UnknownType Sound1Id;
+  MwId TeamActionId;
+  MwId Sound1Id;
   float Sound1Time;
-  UnknownType Sound2Id;
+  MwId Sound2Id;
   float Sound2Time;
   uint OldTeamActionIndex;
 };
@@ -17150,7 +17150,7 @@ struct CManoeuvre : public CMwNod {
 struct CBoatTeamMateLocationDesc : public CMwNod {
   CBoatTeamMateLocationDesc();
 
-  UnknownType LocationId;
+  MwId LocationId;
   vec3 Translation;
   float RotationYDeg;
 };
@@ -17165,10 +17165,10 @@ struct CSceneToySeaHoule : public CMwNod {
   float RepresentedZ;
   float Amplitude;
   float Speed;
-  UnknownType AngleWindDeltaInDegree;
-  UnknownType DistorFactorXZ;
-  UnknownType FoamMin;
-  UnknownType FoamScale;
+  float AngleWindDeltaInDegree; // Range: 0 - 360
+  float DistorFactorXZ; // Range: 0 - 2
+  float FoamMin; // Range: 0 - 1
+  float FoamScale; // Range: 0 - 2
 };
 
 struct CBoatSail : public CMwNod {
@@ -17178,7 +17178,7 @@ struct CBoatSail : public CMwNod {
   CFuncCurvesReal* VppCurves;
   CFuncCurves2Real* BSCoefCurves;
   CFuncCurvesReal* OptimalSailAngleCurves;
-  NodArray OptimalSailAngleCurvesArray;
+  MwBuffer<CFuncCurvesReal*> OptimalSailAngleCurvesArray;
   CFuncCurvesReal* HeelAngleCurves;
   CFuncCurves2Real* HeelAngleCoefCurves;
   CFuncCurvesReal* LuffAngleSpeedCurves;
@@ -17199,9 +17199,9 @@ struct CBoatSail : public CMwNod {
   float BulgeIntens;
   float BulgeSpeed;
   float BoomSpeed;
-  UnknownType SailId;
-  UnknownType SailFlatId;
-  UnknownType BoomId;
+  MwId SailId;
+  MwId SailFlatId;
+  MwId BoomId;
   bool IsReefingGear;
   float VisualHaulDelta;
   float VisualShiverAmplitude;
@@ -17222,9 +17222,9 @@ struct CSceneToySeaHouleTable : public CMwNod {
   float SeaBumpScale;
   vec2 SeaBumpScaleUV;
   float FoamExponant;
-  UnknownType FoamScaleWorldXZ;
+  float FoamScaleWorldXZ; // Range: 0 - 1
   void AddHoule();
-  NodArray Houles;
+  MwArray<CSceneToySeaHoule*> Houles;
   bool FieldHouleUncompress;
   float HouleGlobalScale;
 };
@@ -17253,7 +17253,7 @@ struct CBoatParam : public CMwNod {
   float TillerInertia;
   CFuncKeysReal* BSCoefFromHeelCurve;
   bool IsNewSailPhysics;
-  NodArray Sails;
+  MwBuffer<CBoatSail*> Sails;
   CMotionWindBlocker* WindShadow;
   float Surf;
   float Floating;
@@ -17283,9 +17283,9 @@ struct CBoatParam : public CMwNod {
   vec3 CameraInsideE_Amplifior;
   vec3 WindIndicatorDistance;
   CPlugSolid* TeamMateModelFid;
-  UnknownType TeamMateTreeToFollowId;
+  MwId TeamMateTreeToFollowId;
   float m_CollisionSoundBoatSpeedDeltaThreshold;
-  NodArray StemWaves;
+  MwBuffer<CSceneToyStem*> StemWaves;
   CBoatTeamDesc* TeamDesc;
   float OldAccelerationConstant;
   float OldWreckAngle;
@@ -17330,10 +17330,10 @@ struct CSystemKeyboard : public CNodSystem {
 struct CSystemWindow : public CNodSystem {
   CSystemWindow();
 
-  const UnknownType SizeX;
-  const UnknownType SizeY;
-  const UnknownType PosX;
-  const UnknownType PosY;
+  const uint SizeX; // Range: 0 - 64000
+  const uint SizeY; // Range: 0 - 64000
+  const uint PosX; // Range: 0 - 64000
+  const uint PosY; // Range: 0 - 64000
   const float Ratio;
   const bool HasSizeChanged;
   const bool HasPosChanged;
@@ -17396,7 +17396,7 @@ struct CSystemConfig : public CMwNod {
   bool ProfileEnableMulti;
   string ProfileName;
   void SetProfileNameUnassigned();
-  UnknownType PlayerInfoDisplaySize;
+  uint PlayerInfoDisplaySize; // Range: 1 - 5
   _E PlayerInfoDisplayType;
   bool EdDontConnect;
   bool DisableReplayRecording;
@@ -17414,8 +17414,8 @@ struct CSystemConfig : public CMwNod {
   uint TmMaxOpponents;
   UnknownType TmBackgroundQuality;
   bool AudioEnabled;
-  UnknownType AudioSoundVolume;
-  UnknownType AudioMusicVolume;
+  float AudioSoundVolume; // Range: 0 - 1
+  float AudioMusicVolume; // Range: 0 - 1
   bool AudioSoundHdr;
   UnknownType AudioGlobalQuality;
   string AudioDevice_Oal;
@@ -17430,7 +17430,7 @@ struct CSystemConfig : public CMwNod {
   bool InputsFreezeUnusedAxes;
   bool InputsEnableRumble;
   UnknownType Advertising_Enabled;
-  UnknownType Advertising_TunningCoef;
+  float Advertising_TunningCoef; // Range: -1 - 1
   bool Advertising_DisabledByUser;
   bool EnableCrashLogUpload;
   string BlackListUrl;
@@ -17456,8 +17456,8 @@ struct CSystemFid : public CMwNod {
 };
 
 struct CSystemFids : public CMwNod {
-  const NodArray Trees;
-  const NodArray Leaves;
+  const MwBuffer<CSystemFids*> Trees;
+  const MwBuffer<CSystemFidFile*> Leaves;
 };
 
 struct CSystemFidFile : public CSystemFid {
@@ -17524,7 +17524,7 @@ struct CSystemConfigDisplay : public CMwNod {
   bool PostFxEnable;
   UnknownType FxBloomHdr;
   UnknownType FxMotionBlur;
-  UnknownType FxMotionBlurIntens;
+  float FxMotionBlurIntens; // Range: 0 - 1
   UnknownType LightMapSizeMax;
   UnknownType LightMapQuality;
   bool LightMapQualityUltra;
@@ -17545,7 +17545,7 @@ struct CSystemConfigDisplay : public CMwNod {
   bool EnableFullscreenGDI;
   UnknownType LightFromMap;
   bool EnableCheckLags;
-  UnknownType AgpUseFactor;
+  float AgpUseFactor; // Range: 0 - 1
   float ParticleMaxGpuLoadMs;
   bool MultiThreadEnable;
   uint MultiThreadCountMax;
@@ -17584,30 +17584,30 @@ namespace Vision {
 
 struct CVisionViewport : public CHmsViewport {
   bool EmulateCursor;
-  const array<wstring> Display_Win32DeviceNames;
+  const MwBuffer<wstring> Display_Win32DeviceNames;
   void ReGen_TextureGenUVs();
   void GetPerformance();
   bool Alpha01BlendEdges;
   uint Alpha01ClipRef_NoAtoC;
-  UnknownType DissolveAlphaDistFactor;
+  float DissolveAlphaDistFactor; // Range: 0.001 - 1
   const float TimeGpuMs_Total;
   const float TimeGpuMs_Particles;
   bool AsyncRender;
   void FreeTextureMem();
   void RestoreTextureMem();
   bool EnableVolumetricFog;
-  UnknownType FogTexMaxDepth;
-  UnknownType FogSliceDistribCoef;
-  UnknownType ScatteringCoef;
-  UnknownType AbsorptionCoef;
-  UnknownType FogAmbientTweak;
-  UnknownType ExtinctionTweak;
-  UnknownType PhaseAnisotropy;
-  UnknownType HeightDensity0;
-  UnknownType HeightScalingCoef;
+  float FogTexMaxDepth; // Range: 5 - 200
+  float FogSliceDistribCoef; // Range: 0.001 - 8
+  float ScatteringCoef; // Range: 0 - 5
+  float AbsorptionCoef; // Range: 0 - 5
+  float FogAmbientTweak; // Range: 0 - 1
+  float ExtinctionTweak; // Range: 0 - 1
+  float PhaseAnisotropy; // Range: 0 - 1
+  float HeightDensity0; // Range: 0 - 5
+  float HeightScalingCoef; // Range: 0 - 5
   vec3 Albedo;
-  UnknownType NoiseMaxDensity;
-  UnknownType NoiseScalingCoef;
+  float NoiseMaxDensity; // Range: 0 - 2
+  float NoiseScalingCoef; // Range: 0 - 5
 };
 
 // File extension: 'VisionResourceFile.Gbx'
@@ -17855,19 +17855,19 @@ namespace Audio {
 
 struct CAudioPort : public CMwNod {
   bool IsEnabled;
-  UnknownType SoundVolume;
-  UnknownType MusicVolume;
+  float SoundVolume; // Range: -40 - 0
+  float MusicVolume; // Range: -40 - 0
   bool AudioAlwaysOn;
   UnknownType SettingQuality;
-  UnknownType SettingSoundHdrFactor;
+  float SettingSoundHdrFactor; // Range: 0 - 1
   bool SettingDisableDoppler;
-  UnknownType SettingUpdatePeriod;
+  uint SettingUpdatePeriod; // Range: 0 - 1000
   uint SettingSoundsPerUpdate;
   uint SettingMaxSimultaneousSounds;
-  const NodArray Zones;
-  const NodArray Listeners;
-  const NodArray Sources;
-  const NodArray BufferKeepers;
+  const MwBuffer<CAudioZone*> Zones;
+  const MwBuffer<CAudioListener*> Listeners;
+  const MwBuffer<CAudioSource*> Sources;
+  const MwBuffer<CAudioBufferKeeper*> BufferKeepers;
   const uint Manager_AllocatedVoices;
   const uint Manager_AvailableVoices;
   const CPlugAudioBalance* BaseBalanceLoud;
@@ -17881,7 +17881,7 @@ struct CAudioPort : public CMwNod {
   int ForceEnableMusicCount;
   bool MuteSounds_FromLoadScreen;
   uint IsCapturing;
-  const NodArray CapturedFileSnds;
+  const MwBuffer<CPlugFileSnd*> CapturedFileSnds;
   CPlugFileText* ModifierXmlFile;
   void ParseModifierXml();
   void LoadExternalSoundParam();
@@ -17909,7 +17909,7 @@ struct CAudioSoundImplem : public CMwNod {
   const bool IsActuallyPlaying;
   void RefreshStaticProperties();
   float PlayCursor;
-  UnknownType PlayCursorUi;
+  float PlayCursorUi; // Range: 0 - 1
 };
 
 struct CAudioBufferKeeper : public CMwNod {
@@ -17929,8 +17929,8 @@ struct CAudioListener : public CMwNod {
 };
 
 struct CAudioZone : public CMwNod {
-  const NodArray Sources;
-  const NodArray Listeners;
+  const MwBuffer<CAudioZoneSource*> Sources;
+  const MwBuffer<CAudioListener*> Listeners;
 };
 
 struct CAudioScriptManager : public CMwNod {
@@ -17951,7 +17951,7 @@ struct CAudioScriptManager : public CMwNod {
   CAudioScriptSound* CreateSound(string Url);
   CAudioScriptSound* CreateSoundEx(string Url, float VolumedB, bool IsMusic, bool IsLooping, bool IsSpatialized);
   void DestroySound(CAudioScriptSound* Sound);
-  const NodArray Sounds;
+  const MwBuffer<CAudioScriptSound*> Sounds;
   CAudioScriptMusic* CreateMusic(string Url);
   void DestroyMusic(CAudioScriptMusic* Music);
   void PlaySoundEvent(CAudioScriptSound* Sound, float VolumedB);
@@ -17993,10 +17993,10 @@ struct CAudioScriptMusic : public CAudioScriptSound {
     OnNextHalfBar = 2,
     OnNextBeat = 3,
   };
-  array<float> Tracks_Volume;
-  array<float> Tracks_VolumedB;
-  const array<wstring> Tracks_Name;
-  const array<float> Tracks_Length;
+  MwArray<float> Tracks_Volume;
+  MwArray<float> Tracks_VolumedB;
+  const MwArray<wstring> Tracks_Name;
+  const MwArray<float> Tracks_Length;
   const uint Tracks_Count;
   const float BeatsPerMinute;
   const float BeatDuration;
@@ -18005,10 +18005,10 @@ struct CAudioScriptMusic : public CAudioScriptSound {
   bool Dbg_ForceIntensity;
   bool Dbg_ForceSequential;
   bool Dbg_ForceRandom;
-  UnknownType LPF_CutoffRatio;
-  UnknownType LPF_Q;
-  UnknownType HPF_CutoffRatio;
-  UnknownType HPF_Q;
+  float LPF_CutoffRatio; // Range: 0 - 1
+  float LPF_Q; // Range: 0.1 - 20
+  float HPF_CutoffRatio; // Range: 0 - 1
+  float HPF_Q; // Range: 0.1 - 20
   float FadeTracksDuration;
   float FadeFiltersDuration;
   void MuteAllTracks();
@@ -18045,12 +18045,12 @@ struct CAudioZoneSource : public CMwNod {
   uint AudioGroupHandle;
   bool Play;
   bool Stop;
-  UnknownType Volume;
-  UnknownType Pitch;
+  float Volume; // Range: 0 - 2
+  float Pitch; // Range: 0 - 5
   uint Variant;
   uint MaxVariants;
   float RpmOrSpeed;
-  UnknownType Accel;
+  float Accel; // Range: 0 - 1
   uint Gear;
   uint SurfaceId;
   float SkidIntensity;
@@ -18086,11 +18086,11 @@ struct CAudioSource : public CMwNod {
   EAudioBalanceGroup BalanceGroup;
   uint AudioGroupHandle;
   float PlayCursor;
-  UnknownType PlayCursorUi;
-  UnknownType VolumedB;
-  UnknownType LfeSenddB;
-  UnknownType Pitch;
-  UnknownType PanAngleDeg;
+  float PlayCursorUi; // Range: 0 - 1
+  float VolumedB; // Range: -60 - 6
+  float LfeSenddB; // Range: -60 - 6
+  float Pitch; // Range: 0.01 - 5
+  float PanAngleDeg; // Range: -180 - 180
   float Radius;
   vec3 Position;
   UnknownType Loc;
@@ -18099,12 +18099,12 @@ struct CAudioSource : public CMwNod {
 };
 
 struct CAudioSourceMusic : public CAudioSource {
-  array<float> TracksVolume;
-  array<float> TracksVolumedB;
-  UnknownType LPF_CutoffRatio;
-  UnknownType LPF_Q;
-  UnknownType HPF_CutoffRatio;
-  UnknownType HPF_Q;
+  MwArray<float> TracksVolume;
+  MwArray<float> TracksVolumedB;
+  float LPF_CutoffRatio; // Range: 0 - 1
+  float LPF_Q; // Range: 0.1 - 20
+  float HPF_CutoffRatio; // Range: 0 - 1
+  float HPF_Q; // Range: 0.1 - 20
   float FadeTrackDuration;
   float FadeFiltersDuration;
   void MuteAllTracks();
@@ -18112,19 +18112,19 @@ struct CAudioSourceMusic : public CAudioSource {
 };
 
 struct CAudioSourceEngine : public CAudioSource {
-  UnknownType RpmNormalised;
+  float RpmNormalised; // Range: 0 - 1
   float Rpm;
-  UnknownType Accel;
+  float Accel; // Range: 0 - 1
   float VehicleSpeed;
-  UnknownType Alpha;
+  float Alpha; // Range: -1 - 1
   uint Gear;
 };
 
 struct CAudioSourceSurface : public CAudioSource {
   _ESurfId SurfaceId;
-  UnknownType SpeedNormalised;
+  float SpeedNormalised; // Range: 0 - 1
   float SpeedKmh;
-  UnknownType SkidIntensity;
+  float SkidIntensity; // Range: 0 - 1
   float SkidSpeedKmh;
 };
 
@@ -18134,11 +18134,11 @@ struct CAudioSourceMulti : public CAudioSource {
 };
 
 struct CAudioSourceMood : public CAudioSource {
-  UnknownType InsideFactor;
+  float InsideFactor; // Range: 0 - 1
 };
 
 struct CAudioSourceGauge : public CAudioSource {
-  UnknownType Ratio;
+  float Ratio; // Range: 0 - 1
   float FullRatio;
   float GradingRatio;
   float Rate;
@@ -18153,7 +18153,7 @@ struct COalAudioPort : public CAudioPort {
   void EnumerateDevicesNames_WriteToLog();
   void EnumerateDevices();
   void EnumerateDevices_WriteToLog();
-  const NodArray OalDevices;
+  const MwBuffer<COalDevice*> OalDevices;
   const bool EFXEnabled;
   const uint Manager_SpacialVoices;
   const uint Manager_DirectVoices;
@@ -18298,7 +18298,7 @@ struct CNetServer : public CMwNod {
 };
 
 struct CNetClient : public CMwNod {
-  const NodArray Connections;
+  const MwBuffer<CNetConnection*> Connections;
   const uint NbrNewConnections;
   const uint NbrConnections;
   const uint NbrConnectionsInProgress;
@@ -18392,7 +18392,7 @@ struct CNetHttpClient : public CMwNod {
   const string LastError;
   string LanguageHeader;
   string UserAgentHeader;
-  const NodArray Requests;
+  const MwBuffer<CNetHttpResult*> Requests;
 };
 
 struct CNetHttpResult : public CMwNod {
@@ -18411,15 +18411,15 @@ struct CNetMasterServer : public CMwNod {
   const string DummyProxyLogin;
   const string DummyProxyPass;
   string GameVersion;
-  const NodArray MasterServerUserInfos;
-  const NodArray MasterServerHttpClients;
-  const NodArray OtherHttpClients;
-  const NodArray Downloads;
-  const NodArray CurrentDownloads;
-  const NodArray HttpDownloadClients;
-  const NodArray UpToDateChecks;
-  const NodArray CurrentUpToDateChecks;
-  const NodArray HttpCheckUpToDateClients;
+  const MwBuffer<CNetMasterServerUserInfo*> MasterServerUserInfos;
+  const MwBuffer<CNetHttpClient*> MasterServerHttpClients;
+  const MwBuffer<CNetHttpClient*> OtherHttpClients;
+  const MwBuffer<CNetMasterServerDownload*> Downloads;
+  const MwBuffer<CNetMasterServerDownload*> CurrentDownloads;
+  const MwBuffer<CNetHttpClient*> HttpDownloadClients;
+  const MwBuffer<CNetMasterServerUptoDateCheck*> UpToDateChecks;
+  const MwBuffer<CNetMasterServerUptoDateCheck*> CurrentUpToDateChecks;
+  const MwBuffer<CNetHttpClient*> HttpCheckUpToDateClients;
 };
 
 struct CNetMasterHost : public CMwNod {
@@ -18428,10 +18428,10 @@ struct CNetMasterHost : public CMwNod {
 };
 
 struct CNetFileTransfer : public CMwNod {
-  const NodArray IPSources;
-  const NodArray Uploads;
-  const NodArray Downloads;
-  const NodArray TerminatedDownloads;
+  const MwBuffer<CNetIPSource*> IPSources;
+  const MwBuffer<CNetFileTransferUpload*> Uploads;
+  const MwBuffer<CNetFileTransferDownload*> Downloads;
+  const MwBuffer<CNetFileTransferDownload*> TerminatedDownloads;
   const bool DownloadEnabled;
   const bool UploadEnabled;
   const bool WaitForDownload;
@@ -18506,10 +18506,10 @@ struct CNetFileTransferDownload : public CNetFileTransferNod {
   const CSystemPackDesc* PackDesc;
   const uint PriorityLevel;
   const uint PriorityFlags;
-  const NodArray Sources;
+  const MwBuffer<CNetSource*> Sources;
   const uint NbOfEffectiveSources;
   const CNetSource* ActiveSource;
-  const NodArray UrlSources;
+  const MwBuffer<CNetURLSource*> UrlSources;
   const CNetURLSource* ActiveUrlSource;
   const string Url;
   const string LastUrlUsed;
@@ -18632,10 +18632,10 @@ struct CNetIPSource : public CMwNod {
   const bool ThroughServerTested;
   const bool ThroughServerPossible;
   const bool CanBeConnectedBy;
-  const NodArray SourcesUsingConnectionFrom;
-  const NodArray UploadsUsingConnectionFrom;
-  const NodArray SourcesUsingConnectionTo;
-  const NodArray UploadsUsingConnectionTo;
+  const MwBuffer<CNetSource*> SourcesUsingConnectionFrom;
+  const MwBuffer<CNetFileTransferUpload*> UploadsUsingConnectionFrom;
+  const MwBuffer<CNetSource*> SourcesUsingConnectionTo;
+  const MwBuffer<CNetFileTransferUpload*> UploadsUsingConnectionTo;
   bool ForceCancel;
 };
 
@@ -18665,7 +18665,7 @@ struct CNetScriptHttpManager : public CMwNod {
   CNetScriptHttpRequest* CreatePost2(string Url, string Resource, string AdditionalHeaders);
   void Destroy(CNetScriptHttpRequest* Request);
   bool IsValidUrl(string Url);
-  const NodArray Requests;
+  const MwBuffer<CNetScriptHttpRequest*> Requests;
   const uint SlotsAvailable;
   bool AutomaticHeaders_Timezone;
 };
@@ -18773,7 +18773,7 @@ struct CNetMasterServerUserInfo : public CMwNod {
     XboxOne = 10,
     ScoreManager = 11,
   };
-  const UnknownType Id;
+  const MwId Id;
   const int UserId;
   const string Login;
   const wstring DisplayName;
@@ -18786,8 +18786,8 @@ struct CNetMasterServerUserInfo : public CMwNod {
   const wstring LastConnectionErrorDescription;
   const bool HasUplayProfile;
   const bool HasAcceptedNDA;
-  const NodArray UbiServicesSpaceNews;
-  const NodArray UbiServicesProfileNews;
+  const MwBuffer<CNetUbiServicesNews*> UbiServicesSpaceNews;
+  const MwBuffer<CNetUbiServicesNews*> UbiServicesProfileNews;
 };
 
 struct CWebServicesTask : public CMwNod {
@@ -18811,7 +18811,7 @@ struct CWebServicesTaskResult : public CMwNod {
     XboxOne = 10,
     ScoreManager = 11,
   };
-  const UnknownType Id;
+  const MwId Id;
   const bool IsProcessing;
   const bool HasSucceeded;
   const bool HasFailed;
@@ -18928,7 +18928,7 @@ struct CWebServicesTaskResult_PlayerFeatureLimitList : public CWebServicesTaskRe
 };
 
 struct CNetUbiServicesNews : public CMwNod {
-  const UnknownType Id;
+  const MwId Id;
   const string NewsId;
   const string Type;
   const string Placement;
@@ -18966,7 +18966,7 @@ struct CWebServicesTaskResult_OpenSession : public CWebServicesTaskResult {
 };
 
 struct CWebServicesTaskResult_StringIntList : public CWebServicesTaskResult {
-  const array<wstring> Values;
+  const MwBuffer<wstring> Values;
 };
 
 } // namespace Net
@@ -18978,14 +18978,14 @@ struct CInputPort : public CMwNod {
   const string CurrentActionMap;
   bool IsDoingIME;
   UnknownType MouseVisibility;
-  UnknownType RumbleIntensity;
-  UnknownType CenterSpringIntensity;
-  UnknownType ForceFeedbackIntensity;
+  float RumbleIntensity; // Range: 0 - 2
+  float CenterSpringIntensity; // Range: 0 - 1
+  float ForceFeedbackIntensity; // Range: 0 - 1
   bool PollingEnabled;
   const bool DeviceHasBeenHotPlugged;
   const uint DevicePlugEventCount;
   void DeviceHotPlugUpdate();
-  const NodArray ConnectedDevices;
+  const MwBuffer<CInputDevice*> ConnectedDevices;
   uint MaxSampleRate;
   uint MinHistoryLength;
   const uint EventInStoreCount;
@@ -18997,7 +18997,7 @@ struct CInputPort : public CMwNod {
   void InputsReplay_Pause();
   void InputsReplay_Resume();
   const bool IsPadModuleExclusive;
-  const NodArray Script_Pads;
+  const MwBuffer<CInputScriptPad*> Script_Pads;
   uint AutoRepeat_InitialDelay;
   uint AutoRepeat_Period;
   const bool StatsDInputOverflowedLastFrame;
@@ -19069,9 +19069,9 @@ struct CInputBindingsConfig : public CMwNod {
 struct CInputDevice : public CMwNod {
   const uint UserData;
   const wstring InstanceName;
-  const UnknownType InstanceId;
+  const MwId InstanceId;
   const wstring DeviceModelName;
-  const UnknownType DeviceModelId;
+  const MwId DeviceModelId;
   const bool IsDisabled;
   const bool InputNotAvailable;
   const bool IsUnPlugged;
@@ -19132,10 +19132,10 @@ struct CInputScriptManager : public CMwNod {
     R2 = 23,
     None = 24,
   };
-  const NodArray PendingEvents;
+  const MwBuffer<CInputScriptEvent*> PendingEvents;
   const uint Now;
   const uint Period;
-  const NodArray Pads;
+  const MwBuffer<CInputScriptPad*> Pads;
   const vec2 MousePos;
   const bool MouseLeftButton;
   const bool MouseRightButton;
@@ -19185,7 +19185,7 @@ struct CInputScriptPad : public CMwNod {
     Vive = 4,
   };
   const int ControllerId;
-  const UnknownType UserId;
+  const MwId UserId;
   const EPadType Type;
   const wstring ModelName;
   const uint IdleDuration;
@@ -19203,12 +19203,12 @@ struct CInputScriptPad : public CMwNod {
   const uint RightStickBut;
   const uint Menu;
   const uint View;
-  const UnknownType LeftStickX;
-  const UnknownType LeftStickY;
-  const UnknownType RightStickX;
-  const UnknownType RightStickY;
-  const UnknownType L2;
-  const UnknownType R2;
+  const float LeftStickX; // Range: -1 - 1
+  const float LeftStickY; // Range: -1 - 1
+  const float RightStickX; // Range: -1 - 1
+  const float RightStickY; // Range: -1 - 1
+  const float L2; // Range: 0 - 1
+  const float R2; // Range: 0 - 1
   const UnknownType ButtonEvents;
   void ClearRumble();
   void AddRumble(uint Duration, float LargeMotor, float SmallMotor);
@@ -19223,14 +19223,14 @@ struct CXmlScriptManager : public CMwNod {
   CXmlScriptDocument* Create(string Contents);
   CXmlScriptDocument* Create2(string Contents, bool GenerateText, bool GenerateTextRaw, bool GenerateTextResursive);
   void Destroy(CXmlScriptDocument* Document);
-  const NodArray Documents;
+  const MwBuffer<CXmlScriptDocument*> Documents;
   uint DocumentsSlotsLimit;
 };
 
 struct CXmlScriptDocument : public CMwNod {
   const string TextContents;
   const CXmlScriptNode* Root;
-  const NodArray Nodes;
+  const MwBuffer<CXmlScriptNode*> Nodes;
   CXmlScriptNode* GetFirstChild(string Name);
 };
 
@@ -19239,7 +19239,7 @@ struct CXmlScriptNode : public CMwNod {
   const wstring TextContents;
   const string TextRawContents;
   const string TextRecursiveContents;
-  const NodArray Children;
+  const MwBuffer<CXmlScriptNode*> Children;
   wstring GetAttributeText(wstring Name, wstring DefaultValue);
   int GetAttributeInteger(wstring Name, int DefaultValue);
   float GetAttributeReal(wstring Name, float DefaultValue);
@@ -19257,7 +19257,7 @@ struct CTrackMania : public CGameManiaPlanet {
 
   void ScanDiskForChallenges();
   void ScanDiskForReplays();
-  const NodArray MatchSettings;
+  const MwBuffer<CTrackManiaMatchSettings*> MatchSettings;
 };
 
 // File extension: 'TitleCore.Gbx'
@@ -19278,13 +19278,13 @@ struct CTrackManiaRace : public CGameRace {
   float VehicleFadeDistMaxBoxCoef;
   void ResetForParam();
   void OnPlayerPositionSend();
-  NodArray RaceGhosts;
+  MwBuffer<CGameCtnGhost*> RaceGhosts;
   bool IsBestRaceGhostVisible;
   bool ForceDisplayNames;
   CGameCtnReplayRecord* ValidateAReplay;
-  UnknownType ScaleCarValue;
-  UnknownType CatchUpMin;
-  UnknownType CatchUpMax;
+  float ScaleCarValue; // Range: 0.1 - 10
+  float CatchUpMin; // Range: 0.1 - 1
+  float CatchUpMax; // Range: 1 - 10
   float MetersPrediction;
   float AspirationConeH;
   float AspirationConeV;
@@ -19323,12 +19323,12 @@ struct CTrackManiaRace : public CGameRace {
   uint StuntContactHelperTime;
   float StuntBodyOffsetMax;
   float StuntBodyOffsetPow;
-  UnknownType CameraHeight;
-  UnknownType CameraOffset;
+  float CameraHeight; // Range: 0 - 10
+  float CameraOffset; // Range: 0 - 30
   float FovY;
-  UnknownType SpeedCoef;
+  float SpeedCoef; // Range: 0 - 2
   uint AutoAdaptSpeedStrat;
-  UnknownType OutOfScreenTimeLimitSec;
+  float OutOfScreenTimeLimitSec; // Range: 0 - 5
   bool DrawPath;
   uint SampleTimeStepMs;
   uint SampleCount;
@@ -19379,18 +19379,18 @@ struct CTrackManiaRaceRules : public CGamePlaygroundScript {
     Latest = 1,
     FastestRace = 2,
   };
-  const NodArray AllPlayers;
-  const NodArray Spectators;
-  const NodArray Players;
-  const NodArray PlayersRacing;
-  const NodArray PlayersWaiting;
-  const NodArray Scores;
+  const MwBuffer<CTmRaceRulesPlayer*> AllPlayers;
+  const MwBuffer<CTmRaceRulesPlayer*> Spectators;
+  const MwBuffer<CTmRaceRulesPlayer*> Players;
+  const MwBuffer<CTmRaceRulesPlayer*> PlayersRacing;
+  const MwBuffer<CTmRaceRulesPlayer*> PlayersWaiting;
+  const MwBuffer<CTmRaceRulesScore*> Scores;
   uint Clan1Score;
   uint Clan2Score;
-  array<int> ClanScores;
+  MwArray<int> ClanScores;
   const uint ClansNbTotal;
-  const array<uint> ClansNbPlayers;
-  const NodArray PendingEvents;
+  const MwBuffer<uint> ClansNbPlayers;
+  const MwBuffer<CTmRaceRulesEvent*> PendingEvents;
   bool PassOn(CTmRaceRulesEvent* Event);
   void Discard(CTmRaceRulesEvent* Event);
   void SpawnPlayer(CTmRaceRulesPlayer* Player, int ClanNum, int RaceStartTime);
@@ -19434,21 +19434,21 @@ struct CTrackManiaRaceRules : public CGamePlaygroundScript {
   uint StuntModel_InterComboDelay;
   uint StuntModel_InterComboDelayExtendPerPoint;
   float StuntModel_FigureRepeatMalus;
-  UnknownType RaceGhost_Add(CGameGhostScript* Ghost, bool DisplayAsPlayerBest);
-  UnknownType RaceGhost_AddWithOffset(CGameGhostScript* Ghost, uint OffsetMs);
-  UnknownType RaceGhost_AddModel(CGameGhostScript* Ghost, bool DisplayAsPlayerBest, UnknownType ModelId);
-  void RaceGhost_Remove(UnknownType GhostInstId);
+  MwId RaceGhost_Add(CGameGhostScript* Ghost, bool DisplayAsPlayerBest);
+  MwId RaceGhost_AddWithOffset(CGameGhostScript* Ghost, uint OffsetMs);
+  MwId RaceGhost_AddModel(CGameGhostScript* Ghost, bool DisplayAsPlayerBest, MwId ModelId);
+  void RaceGhost_Remove(MwId GhostInstId);
   void RaceGhost_RemoveAll();
-  uint RaceGhost_GetStartTime(UnknownType GhostInstId);
-  uint RaceGhost_GetCurCheckpoint(UnknownType GhostInstId);
-  uint RaceGhost_GetCheckpointTime(UnknownType GhostInstId, uint Checkpoint);
-  bool RaceGhost_IsReplayOver(UnknownType GhostInstId);
+  uint RaceGhost_GetStartTime(MwId GhostInstId);
+  uint RaceGhost_GetCurCheckpoint(MwId GhostInstId);
+  uint RaceGhost_GetCheckpointTime(MwId GhostInstId, uint Checkpoint);
+  bool RaceGhost_IsReplayOver(MwId GhostInstId);
   const vec3 MapStartLinePos;
-  const array<vec3> MapCheckpointPos;
-  const array<vec3> MapFinishLinePos;
+  const MwBuffer<vec3> MapCheckpointPos;
+  const MwBuffer<vec3> MapFinishLinePos;
   const bool MapIsLapRace;
   const uint MapNbLaps;
-  const NodArray ConnectedPlayers;
+  const MwBuffer<CTmRaceRulesPlayer*> ConnectedPlayers;
   void FakePlayers_Add(wstring NickName);
   void FakePlayers_Remove(CGamePlayerInfo* User);
   void FakePlayers_RemoveAll();
@@ -19605,7 +19605,7 @@ struct CTrackManiaMenus : public CGameCtnMenusManiaPlanet {
   void ShowMenus();
   void ShowDialogs();
   const uint CatalogChapterTotalCoppers;
-  const NodArray DialogChallengeInfos;
+  const MwBuffer<CGameCtnChallengeInfo*> DialogChallengeInfos;
   void DialogNextGhostOpponent_OnOk();
   void DialogNextGhostOpponent_OnCancel();
   void DialogNextGhostOpponent_OnKeepTraining();
@@ -19772,8 +19772,8 @@ struct CTrackManiaPlayer : public CGamePlayer {
   const bool StuntEpicLanding;
   const bool StuntIsInFigure;
   const bool StuntCurFigureMasterJump;
-  const UnknownType StuntCurFigureMasterGauge;
-  const UnknownType StuntCurFigureEpicGauge;
+  const float StuntCurFigureMasterGauge; // Range: 0 - 1
+  const float StuntCurFigureEpicGauge; // Range: 0 - 1
   const bool StuntCurComboChainCounter;
   const uint TimeLeftForStuntCombo;
   const uint TimeElapsedSinceLastStunt;
@@ -19932,7 +19932,7 @@ struct CTmRaceRulesPlayer : public CGamePlayer {
   const vec3 AimDirection;
   const vec3 Velocity;
   const float Speed;
-  UnknownType ForceModelId;
+  MwId ForceModelId;
   float AccelCoef;
   float ControlCoef;
   float GravityCoef;
@@ -19972,21 +19972,21 @@ struct CTrackManiaMatchSettings : public CGameFid {
   UnknownType HotSeat_GameMode;
   const uint HotSeat_TimeLimit;
   const uint HotSeat_Rounds;
-  const NodArray ChallengeInfos;
+  const MwBuffer<CGameCtnChallenge*> ChallengeInfos;
 };
 
 struct CTrackManiaRaceMultiLocal : public CTrackManiaRace1P {
   CTrackManiaRaceMultiLocal();
 
-  const NodArray MultiLocalPlayerInfos;
-  const UnknownType PlayerTimeLeft1;
-  const UnknownType PlayerTimeLeft2;
-  const UnknownType PlayerTimeLeft3;
-  const UnknownType PlayerTimeLeft4;
-  const UnknownType PlayerTimeLeft5;
-  const UnknownType PlayerTimeLeft6;
-  const UnknownType PlayerTimeLeft7;
-  const UnknownType PlayerTimeLeft8;
+  const MwBuffer<CTrackManiaPlayerInfo*> MultiLocalPlayerInfos;
+  const float PlayerTimeLeft1; // Range: 0 - 1
+  const float PlayerTimeLeft2; // Range: 0 - 1
+  const float PlayerTimeLeft3; // Range: 0 - 1
+  const float PlayerTimeLeft4; // Range: 0 - 1
+  const float PlayerTimeLeft5; // Range: 0 - 1
+  const float PlayerTimeLeft6; // Range: 0 - 1
+  const float PlayerTimeLeft7; // Range: 0 - 1
+  const float PlayerTimeLeft8; // Range: 0 - 1
   const wstring PlayerName1;
   const wstring PlayerName2;
   const wstring PlayerName3;
@@ -20007,9 +20007,9 @@ struct CTrackManiaRaceMultiLocal : public CTrackManiaRace1P {
 };
 
 struct CTrackManiaRaceNet : public CTrackManiaRace {
-  NodArray GeneralScores;
-  NodArray CurrentScores;
-  NodArray TeamScores;
+  MwBuffer<CTrackManiaScore*> GeneralScores;
+  MwBuffer<CTrackManiaScore*> CurrentScores;
+  MwBuffer<CTrackManiaScore*> TeamScores;
   const CGamePlaygroundSpectating* Spectating;
 };
 
@@ -20081,7 +20081,7 @@ struct CTmRaceRulesEvent : public CMwNod {
   uint LapTime;
   int StuntsScore;
   uint NbRespawns;
-  const UnknownType BlockId;
+  const MwId BlockId;
   float Speed;
   float Distance;
   float Damages;
@@ -20115,18 +20115,18 @@ struct CTrackManiaRaceNetLaps : public CTrackManiaRaceNet {
 struct CTmRaceInterfaceManialinkScripHandler : public CGameScriptHandlerPlaygroundInterface {
   const CTrackManiaPlayer* InputPlayer;
   const CTrackManiaPlayer* GUIPlayer;
-  const NodArray RaceEvents;
+  const MwBuffer<CTmRaceClientEvent*> RaceEvents;
   const uint NbLaps;
   const bool IndependantLaps;
-  const NodArray Players;
-  const NodArray Scores;
-  const array<int> ClanScores;
+  const MwBuffer<CTrackManiaPlayer*> Players;
+  const MwBuffer<CTmRaceRulesScore*> Scores;
+  const MwBuffer<int> ClanScores;
   const uint SplitScreenNum;
   const uint SplitScreenCount;
   uint CurPlayerCamera;
   const vec3 MapStartLinePos;
-  const array<vec3> MapCheckpointPos;
-  const array<vec3> MapFinishLinePos;
+  const MwBuffer<vec3> MapCheckpointPos;
+  const MwBuffer<vec3> MapFinishLinePos;
   const bool MapIsLapRace;
   const uint MapNbLaps;
 };
@@ -20144,8 +20144,8 @@ struct CTrackManiaControlCheckPointList : public CControlFrame {
 struct CTrackManiaRace1PGhosts : public CTrackManiaRace1P {
   CTrackManiaRace1PGhosts();
 
-  NodArray MedalGhosts;
-  const NodArray ChallengeGhostInfos;
+  MwArray<CGameCtnGhost*> MedalGhosts;
+  const MwBuffer<CGameCtnGhostInfo*> ChallengeGhostInfos;
 };
 
 struct CTrackManiaReplayRecord_deprecated : public CGameCtnReplayRecord {
@@ -20330,8 +20330,8 @@ struct CTrackManiaRaceAnalyzer : public CGameAnalyzer {
 struct CTmEditorPluginMapType : public CGameEditorPluginMapMapType {
   const CTrackManiaRaceRules* Mode;
   void TMObjective_SetFromBestRace(CTmRaceRulesScore* Score);
-  const NodArray AllPlayers;
-  const NodArray Players;
+  const MwBuffer<CTmRaceRulesPlayer*> AllPlayers;
+  const MwBuffer<CTmRaceRulesPlayer*> Players;
 };
 
 struct CTmRaceClientEvent : public CMwNod {
@@ -20368,8 +20368,8 @@ struct CGamePlayerProfileChunk_TrackManiaSettings : public CGamePlayerProfileChu
   uint RestartCount;
   bool IsShowPlayerGhost;
   bool NadeoGhostsUnlockMessage;
-  array<bool> IsDisplayRaceHelp;
-  array<bool> RacePlayerInfoIsShow;
+  MwBuffer<bool> IsDisplayRaceHelp;
+  MwArray<bool> RacePlayerInfoIsShow;
 };
 
 // File extension: 'TrackManiaResource.Gbx'
@@ -20421,25 +20421,25 @@ struct CSmArenaInterfaceManialinkScripHandler : public CGameScriptHandlerPlaygro
   const int ArenaNow;
   const CSmPlayer* InputPlayer;
   const CSmPlayer* GUIPlayer;
-  const NodArray Players;
-  const NodArray Scores;
-  const array<int> ClanScores;
-  const NodArray Bases;
-  const NodArray Blocks;
-  const NodArray BlockSpawns;
-  const NodArray BlockPoles;
-  const NodArray BotPaths;
-  const NodArray ObjectAnchors;
+  const MwBuffer<CSmPlayer*> Players;
+  const MwBuffer<CSmArenaScore*> Scores;
+  const MwBuffer<int> ClanScores;
+  const MwBuffer<CSmScriptBase*> Bases;
+  const MwBuffer<CSmScriptBlock*> Blocks;
+  const MwBuffer<CSmScriptBlockSpawn*> BlockSpawns;
+  const MwBuffer<CSmScriptBlockPole*> BlockPoles;
+  const MwBuffer<CSmScriptBotPath*> BotPaths;
+  const MwBuffer<CSmScriptObjectAnchor*> ObjectAnchors;
   bool HideResumePlayingButton;
-  const NodArray MapBases;
-  const NodArray MapLandmarks;
-  const NodArray MapLandmarks_PlayerSpawn;
-  const NodArray MapLandmarks_Gauge;
-  const NodArray MapLandmarks_Sector;
-  const NodArray MapLandmarks_BotPath;
-  const NodArray MapLandmarks_BotSpawn;
-  const NodArray MapLandmarks_ObjectAnchor;
-  const NodArray MapLandmarks_Gate;
+  const MwBuffer<CSmScriptMapBase*> MapBases;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_PlayerSpawn;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Gauge;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Sector;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_BotPath;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_BotSpawn;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_ObjectAnchor;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Gate;
 };
 
 struct CSmArenaClient : public CGamePlaygroundCommon {
@@ -20485,7 +20485,7 @@ struct CSmActionInstance : public CMwNod {
   const CGameActionModel* Model;
   const uint Now;
   const uint Variant;
-  NodArray Players;
+  MwBuffer<CSmPlayer*> Players;
   CSmPlayer* Owner;
   const bool IsActive;
   const bool IsBound;
@@ -20494,10 +20494,10 @@ struct CSmActionInstance : public CMwNod {
   uint EnergyCost;
   bool EnergyReload;
   float AmmoGain;
-  UnknownType State_EntityId1;
+  MwId State_EntityId1;
   int State_Integer1;
   bool State_Boolean1;
-  const NodArray PendingEvents;
+  const MwBuffer<CSmActionInstanceEvent*> PendingEvents;
   bool IsJumping;
   bool IsGliding;
   bool IsAttractor;
@@ -20508,30 +20508,30 @@ struct CSmActionInstance : public CMwNod {
   bool IsSneaking;
   bool IsFreeLooking;
   bool HasNoPlayerCollision;
-  void SendRulesEvent1(wstring Param1, array<wstring>& Param2, CSmPlayer* Shooter, CSmPlayer* Victim);
-  void SendRulesEvent2(wstring Param1, array<wstring>& Param2, CSmPlayer* Shooter, CSmPlayer* Victim, CSmObject* Object);
-  void SendRulesEvent3(wstring Param1, array<wstring>& Param2, CSmPlayer* Shooter, CSmPlayer* Victim, CSmObject* Object, CGameScriptTurret* Turret);
-  UnknownType Anim_GetModelId(wstring ModelName);
-  UnknownType Anim_PlayAtLocation(UnknownType AnimModelId, vec3 Position, vec3 Direction);
-  UnknownType Anim_PlayOnPlayer(UnknownType AnimModelId, CSmPlayer* Player);
-  void Anim_Stop(UnknownType AnimId);
-  UnknownType Projectile_GetModelId(wstring ModelName);
-  UnknownType Projectile_CreateAtLocation(UnknownType ProjectileModelId, CSmPlayer* PlayerToIgnore, vec3 InitialPosition, vec3 InitialDirection, vec3 InitialVelocity);
-  UnknownType Projectile_CreateOnPlayer(UnknownType ProjectileModelId, CSmPlayer* Shooter);
+  void SendRulesEvent1(wstring Param1, MwBuffer<wstring>& Param2, CSmPlayer* Shooter, CSmPlayer* Victim);
+  void SendRulesEvent2(wstring Param1, MwBuffer<wstring>& Param2, CSmPlayer* Shooter, CSmPlayer* Victim, CSmObject* Object);
+  void SendRulesEvent3(wstring Param1, MwBuffer<wstring>& Param2, CSmPlayer* Shooter, CSmPlayer* Victim, CSmObject* Object, CGameScriptTurret* Turret);
+  MwId Anim_GetModelId(wstring ModelName);
+  MwId Anim_PlayAtLocation(MwId AnimModelId, vec3 Position, vec3 Direction);
+  MwId Anim_PlayOnPlayer(MwId AnimModelId, CSmPlayer* Player);
+  void Anim_Stop(MwId AnimId);
+  MwId Projectile_GetModelId(wstring ModelName);
+  MwId Projectile_CreateAtLocation(MwId ProjectileModelId, CSmPlayer* PlayerToIgnore, vec3 InitialPosition, vec3 InitialDirection, vec3 InitialVelocity);
+  MwId Projectile_CreateOnPlayer(MwId ProjectileModelId, CSmPlayer* Shooter);
   uint Cooldown;
   bool Cooldown_IsReady();
   void Cooldown_Start();
-  UnknownType Shield_CreateAtLocation(vec3 Position, vec3 Direction);
-  UnknownType Shield_CreateOnPlayer(CSmPlayer* ShieldOwner);
-  void Shield_Destroy(UnknownType ShieldId);
-  bool Shield_Exists(UnknownType ShieldId);
-  uint Shield_GetArmor(UnknownType ShieldId);
-  void Shield_SetArmor(UnknownType ShieldId, uint ShieldArmor);
-  bool Shield_GetIsActive(UnknownType ShieldId);
-  void Shield_SetIsActive(UnknownType ShieldId, bool ShieldIsActive);
-  uint Shield_GetArmorMax(UnknownType ShieldId);
-  uint Shield_GetTickReload(UnknownType ShieldId);
-  uint Shield_GetCooldown(UnknownType ShieldId);
+  MwId Shield_CreateAtLocation(vec3 Position, vec3 Direction);
+  MwId Shield_CreateOnPlayer(CSmPlayer* ShieldOwner);
+  void Shield_Destroy(MwId ShieldId);
+  bool Shield_Exists(MwId ShieldId);
+  uint Shield_GetArmor(MwId ShieldId);
+  void Shield_SetArmor(MwId ShieldId, uint ShieldArmor);
+  bool Shield_GetIsActive(MwId ShieldId);
+  void Shield_SetIsActive(MwId ShieldId, bool ShieldIsActive);
+  uint Shield_GetArmorMax(MwId ShieldId);
+  uint Shield_GetTickReload(MwId ShieldId);
+  uint Shield_GetCooldown(MwId ShieldId);
   int GetPlayerAmmo(CSmPlayer* Player);
   int GetPlayerAmmoMax(CSmPlayer* Player);
 };
@@ -20549,7 +20549,7 @@ struct CSmPlayer : public CGamePlayer {
   };
   uint EdClan;
   bool Speaking;
-  UnknownType LinearHue;
+  float LinearHue; // Range: 0 - 1
   const UnknownType LinearHueSrgb;
   const int SpawnIndex;
   const uint AFKLatestChangeTime;
@@ -20557,8 +20557,8 @@ struct CSmPlayer : public CGamePlayer {
   const ESpawnStatus SpawnStatus;
   const int StartTime;
   int EndTime;
-  UnknownType AmmoGain;
-  UnknownType AmmoPower;
+  float AmmoGain; // Range: 0 - 10
+  float AmmoPower; // Range: 0.1 - 10
   const bool AutoSwitchWeapon;
   const uint CurWeapon;
   const uint CurAmmo;
@@ -20568,25 +20568,25 @@ struct CSmPlayer : public CGamePlayer {
   uint ArmorMax;
   uint ArmorGain;
   uint ArmorReplenishGain;
-  UnknownType ArmorPower;
+  float ArmorPower; // Range: 0.1 - 10
   uint Stamina;
-  UnknownType StaminaMax;
-  UnknownType StaminaGain;
-  UnknownType StaminaPower;
-  UnknownType SpeedPower;
-  UnknownType JumpPower;
+  float StaminaMax; // Range: 0.1 - 3
+  float StaminaGain; // Range: 0 - 1
+  float StaminaPower; // Range: 0.1 - 1
+  float SpeedPower; // Range: 0.1 - 1
+  float JumpPower; // Range: 0.1 - 1
   bool AllowWallJump;
   bool AllowProgressiveJump;
   bool UseAlternateWeaponVisual;
   bool IsHighlighted;
-  UnknownType EnergyLevel;
+  float EnergyLevel; // Range: 0 - 1
   vec3 ForceColor;
-  const UnknownType GetLinearHue;
+  const float GetLinearHue; // Range: 0 - 1
   float ForceLinearHue;
-  UnknownType ForceModelId;
+  MwId ForceModelId;
   bool HasShield;
   const bool IsInVehicle;
-  UnknownType ThrowSpeed;
+  float ThrowSpeed; // Range: 0 - 500
   const int CurrentClan;
   const uint IdleDuration;
   const vec3 Position;
@@ -20610,7 +20610,7 @@ struct CSmPlayer : public CGamePlayer {
   const bool IsCapturing;
   const CSmScriptBlockPole* BlockPole;
   const CSmScriptMapLandmark* CapturedLandmark;
-  const NodArray Objects;
+  const MwBuffer<CSmObject*> Objects;
   const bool IsFakePlayer;
   const bool IsBot;
   const CSmPlayerDriver* Driver;
@@ -20677,7 +20677,7 @@ struct CSmPlayerDriver : public CMwNod {
   float Saunter_Radius;
   bool Scripted_ForceAimInMoveDir;
   CSmPlayer* ForcedTarget;
-  NodArray TargetsToAvoid;
+  MwBuffer<CSmPlayer*> TargetsToAvoid;
 };
 
 struct CSmActionInstanceEvent : public CMwNod {
@@ -20693,7 +20693,7 @@ struct CSmActionInstanceEvent : public CMwNod {
   const CSmPlayer* Player;
   const CSmObject* Object;
   const uint Damage;
-  const UnknownType ProjectileModelId;
+  const MwId ProjectileModelId;
   const uint ContextId;
   const vec3 Position;
   const vec3 Direction;
@@ -20706,7 +20706,7 @@ struct CSmArenaRules : public CMwNod {
     Default = 0,
     Mp3Beta0 = 1,
   };
-  const NodArray Scores;
+  const MwBuffer<CSmArenaScore*> Scores;
   CSmArenaRulesMode* RulesMode;
   uint RulesStateStartTime;
   uint RulesStateEndTime;
@@ -20740,12 +20740,12 @@ struct CSmArenaRules : public CMwNod {
 
 struct CSmScriptObjectAnchor : public CSmScriptLandmark {
   const wstring ItemName;
-  const UnknownType ItemModelId;
+  const MwId ItemModelId;
 };
 
 struct CSmScriptBotPath : public CSmScriptLandmark {
   const uint Clan;
-  const array<vec3> Path;
+  const MwBuffer<vec3> Path;
   const bool IsFlying;
 };
 
@@ -20757,7 +20757,7 @@ struct CSmChallengeParameters : public CGameCtnChallengeParameters {
 
 struct CSmScriptBotSpawn : public CSmScriptLandmark {
   const wstring ItemName;
-  const UnknownType ItemModelId;
+  const MwId ItemModelId;
 };
 
 struct CSmObject : public CMwNod {
@@ -20768,7 +20768,7 @@ struct CSmObject : public CMwNod {
     Unspawned = 3,
   };
   const EStatus Status;
-  const UnknownType ModelId;
+  const MwId ModelId;
   void SetAnchor(CSmScriptMapObjectAnchor* ObjectAnchor);
   void SetAnchor_Deprecated(CSmScriptObjectAnchor* ObjectAnchor);
   void SetPlayer(CSmPlayer* Player);
@@ -20795,8 +20795,8 @@ struct CSmArenaInterface : public CMwNod {
   const CSmPlayer* GUIPlayer;
   const CSmArenaInterfaceUI* InterfaceUI;
   bool Mouse_SensitivitiesUser_EnableSpecific;
-  UnknownType Mouse_SensitivitiesUser_Default;
-  UnknownType Mouse_SensitivitiesUser_Laser;
+  float Mouse_SensitivitiesUser_Default; // Range: 0.1 - 10
+  float Mouse_SensitivitiesUser_Laser; // Range: 0.1 - 10
   float Mouse_SensitivityCoefY;
   float Mouse_Accel;
   bool Mouse_InvertY;
@@ -20827,26 +20827,26 @@ struct CSmArenaServer : public CMwNod {
 
 struct CSmArena : public CMwNod {
   const CSmArenaPhysics* ArenaPhysics;
-  const NodArray Players;
-  const NodArray Objects;
-  const NodArray Actions;
-  const NodArray Bases;
-  const NodArray Landmark;
-  const NodArray BlockSpawns;
-  const NodArray BlockPoles;
-  const NodArray Sectors;
-  const NodArray Gauges;
-  const NodArray BotPaths;
-  const NodArray ObjectAnchors;
-  const NodArray MapLandmarks;
-  const NodArray MapBases;
-  const NodArray MapGates;
-  const NodArray MapGauges;
-  const NodArray MapSectors;
-  const NodArray MapPlayerSpawns;
-  const NodArray MapBotPaths;
-  const NodArray MapBotSpawns;
-  const NodArray MapObjectAnchors;
+  const MwBuffer<CSmPlayer*> Players;
+  const MwBuffer<CSmObject*> Objects;
+  const MwBuffer<CSmActionInstance*> Actions;
+  const MwBuffer<CSmScriptBase*> Bases;
+  const MwBuffer<CSmScriptLandmark*> Landmark;
+  const MwBuffer<CSmScriptBlockSpawn*> BlockSpawns;
+  const MwBuffer<CSmScriptBlockPole*> BlockPoles;
+  const MwBuffer<CSmScriptSector*> Sectors;
+  const MwBuffer<CSmScriptGauge*> Gauges;
+  const MwBuffer<CSmScriptBotPath*> BotPaths;
+  const MwBuffer<CSmScriptObjectAnchor*> ObjectAnchors;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks;
+  const MwBuffer<CSmScriptMapBase*> MapBases;
+  const MwBuffer<CSmScriptMapGate*> MapGates;
+  const MwBuffer<CSmScriptMapGauge*> MapGauges;
+  const MwBuffer<CSmScriptMapSector*> MapSectors;
+  const MwBuffer<CSmScriptMapPlayerSpawn*> MapPlayerSpawns;
+  const MwBuffer<CSmScriptMapBotPath*> MapBotPaths;
+  const MwBuffer<CSmScriptMapBotSpawn*> MapBotSpawns;
+  const MwBuffer<CSmScriptMapObjectAnchor*> MapObjectAnchors;
   void FakePlayers_AllStatic();
   void FakePlayers_AllPatrol();
   void FakePlayers_AllBackAndForth();
@@ -20913,43 +20913,43 @@ struct CSmArenaRulesMode : public CGamePlaygroundScript {
   bool UseProtectClanmates;
   float OffZoneRadius;
   float OffZoneRadiusSpeed;
-  UnknownType OffZoneCenterBlockId;
-  UnknownType OffZoneCenterLandmarkId;
+  MwId OffZoneCenterBlockId;
+  MwId OffZoneCenterLandmarkId;
   const uint PlayersNbTotal;
   const uint PlayersNbAlive;
   const uint PlayersNbDead;
   const uint ClansNbTotal;
   const uint ClansNbAlive;
   const uint ClansNbDead;
-  const array<uint> ClansNbPlayers;
-  const array<uint> ClansNbPlayersAlive;
-  const NodArray Players;
-  const NodArray BotPlayers;
-  const NodArray Spectators;
-  const NodArray AllPlayers;
-  const NodArray PendingEvents;
-  const NodArray Bases;
-  const NodArray Blocks;
-  const NodArray BlockSpawns;
-  const NodArray BlockPoles;
-  const NodArray BotPaths;
-  const NodArray ObjectAnchors;
+  const MwBuffer<uint> ClansNbPlayers;
+  const MwBuffer<uint> ClansNbPlayersAlive;
+  const MwBuffer<CSmPlayer*> Players;
+  const MwBuffer<CSmPlayer*> BotPlayers;
+  const MwBuffer<CSmPlayer*> Spectators;
+  const MwBuffer<CSmPlayer*> AllPlayers;
+  const MwBuffer<CSmArenaRulesEvent*> PendingEvents;
+  const MwBuffer<CSmScriptBase*> Bases;
+  const MwBuffer<CSmScriptBlock*> Blocks;
+  const MwBuffer<CSmScriptBlockSpawn*> BlockSpawns;
+  const MwBuffer<CSmScriptBlockPole*> BlockPoles;
+  const MwBuffer<CSmScriptBotPath*> BotPaths;
+  const MwBuffer<CSmScriptObjectAnchor*> ObjectAnchors;
   void SpawnPlayer_Deprecated(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptBlockSpawn* PlayerSpawn, int ActivationDate);
   void SpawnBotPlayer_Deprecated(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptLandmark* Landmark, int ActivationDate);
-  CSmPlayer* CreateBotPlayer_Deprecated(UnknownType ModelId, int ClanNum, int Armor, CSmScriptLandmark* Landmark, int ActivationDate);
-  const NodArray MapBases;
-  const NodArray MapLandmarks;
-  const NodArray MapLandmarks_PlayerSpawn;
-  const NodArray MapLandmarks_Gauge;
-  const NodArray MapLandmarks_Sector;
-  const NodArray MapLandmarks_BotPath;
-  const NodArray MapLandmarks_BotSpawn;
-  const NodArray MapLandmarks_ObjectAnchor;
-  const NodArray MapLandmarks_Gate;
-  const NodArray Scores;
+  CSmPlayer* CreateBotPlayer_Deprecated(MwId ModelId, int ClanNum, int Armor, CSmScriptLandmark* Landmark, int ActivationDate);
+  const MwBuffer<CSmScriptMapBase*> MapBases;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_PlayerSpawn;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Gauge;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Sector;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_BotPath;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_BotSpawn;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_ObjectAnchor;
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Gate;
+  const MwBuffer<CSmArenaScore*> Scores;
   uint Clan1Score;
   uint Clan2Score;
-  array<int> ClanScores;
+  MwArray<int> ClanScores;
   void PassOn(CSmArenaRulesEvent* Event);
   void Discard(CSmArenaRulesEvent* Event);
   void SpawnPlayer(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptMapPlayerSpawn* PlayerSpawn, int ActivationDate);
@@ -20974,7 +20974,7 @@ struct CSmArenaRulesMode : public CGamePlaygroundScript {
   bool CanRespawnPlayer(CSmPlayer* Player);
   void RespawnPlayer(CSmPlayer* Player);
   void RespawnPlayerAtCheckpoint(CSmPlayer* Player, CSmScriptMapLandmark* CheckpointLandmark);
-  CSmPlayer* CreateBotPlayer(UnknownType ModelId, int TeamNum);
+  CSmPlayer* CreateBotPlayer(MwId ModelId, int TeamNum);
   void DestroyBotPlayer(CSmPlayer* BotPlayer);
   void DestroyAllBotPlayers();
   void ScriptedBot_Move(CSmPlayer* BotPlayer, vec3 Goal);
@@ -20985,14 +20985,14 @@ struct CSmArenaRulesMode : public CGamePlaygroundScript {
   void ScriptedBot_AimDelta(CSmPlayer* BotPlayer, float DeltaYaw, float DeltaPitch);
   void ScriptedBot_RequestAction(CSmPlayer* BotPlayer);
   void ScriptedBot_RequestGunTrigger(CSmPlayer* BotPlayer);
-  void ActionLoad(CSmPlayer* Player, EActionSlot ActionSlot, UnknownType ModelId);
+  void ActionLoad(CSmPlayer* Player, EActionSlot ActionSlot, MwId ModelId);
   void ActionBind(CSmPlayer* Player, EActionSlot ActionSlot, EActionInput ActionInput);
   void ActionSetVariant(CSmPlayer* Player, EActionSlot ActionSlot, uint ActionVariant);
-  void LoadAction(CSmPlayer* Player, EActionSlot ActionSlot, UnknownType ModelId, uint ActionVariant);
+  void LoadAction(CSmPlayer* Player, EActionSlot ActionSlot, MwId ModelId, uint ActionVariant);
   void BindAction(CSmPlayer* Player, EActionSlot ActionSlot, EActionInput ActionInput);
   void SetNbFakePlayers(int NbClan1, int NbClan2);
-  const NodArray Objects;
-  CSmObject* ObjectCreate(UnknownType ModelId);
+  const MwBuffer<CSmObject*> Objects;
+  CSmObject* ObjectCreate(MwId ModelId);
   void ObjectDestroy(CSmObject* Object);
   void ObjectDestroyAll();
   void RemoveShieldArmor(uint VictimShieldId, uint Damage);
@@ -21089,12 +21089,12 @@ struct CSmArenaRulesEvent : public CMwNod {
   const EActionInput ActionInput;
   const wstring ActionId;
   const wstring Param1;
-  const array<wstring> Param2;
+  const MwBuffer<wstring> Param2;
   const CSmObject* Object;
   const CSmScriptMapSector* Sector;
   const CSmScriptBlockPole* BlockPole;
   const CSmScriptMapLandmark* Landmark;
-  const UnknownType PlayerId;
+  const MwId PlayerId;
   const CGamePlayerInfo* User;
   const bool PlayerWasSpawned;
   const bool PlayerWasInLadderMatch;
@@ -21111,8 +21111,8 @@ struct CSmArenaRulesEvent : public CMwNod {
 
 struct CSmEditorPluginMapType : public CGameEditorPluginMapMapType {
   const CSmArenaRulesMode* Mode;
-  const NodArray AllPlayers;
-  const NodArray Players;
+  const MwBuffer<CSmPlayer*> AllPlayers;
+  const MwBuffer<CSmPlayer*> Players;
 };
 
 // File extension: 'SmArenaResource.Gbx'
@@ -21203,14 +21203,14 @@ struct CSmScriptBase : public CMwNod {
 
 struct CSmScriptGauge : public CMwNod {
   uint Clan;
-  UnknownType ValueReal;
+  float ValueReal; // Range: 0 - 1
   uint Value;
   uint Max;
   int Speed;
 };
 
 struct CSmScriptSector : public CMwNod {
-  const UnknownType PlayersIds;
+  const MwBuffer<MwId> PlayersIds;
 };
 
 struct CSmModuleScoresTable : public CGamePlaygroundModuleClientScoresTable {
@@ -21234,7 +21234,7 @@ struct CSmScriptMapGate : public CMwNod {
 
 struct CSmScriptMapGauge : public CMwNod {
   uint Clan;
-  UnknownType ValueReal;
+  float ValueReal; // Range: 0 - 1
   uint Value;
   uint Max;
   int Speed;
@@ -21256,7 +21256,7 @@ struct CSmScriptMapLandmark : public CMwNod {
 };
 
 struct CSmScriptMapSector : public CMwNod {
-  const UnknownType PlayersIds;
+  const MwBuffer<MwId> PlayersIds;
   const string Tag;
 };
 
@@ -21265,18 +21265,18 @@ struct CSmScriptMapPlayerSpawn : public CMwNod {
 
 struct CSmScriptMapBotPath : public CMwNod {
   const uint Clan;
-  const array<vec3> Path;
+  const MwBuffer<vec3> Path;
   const bool IsFlying;
 };
 
 struct CSmScriptMapObjectAnchor : public CMwNod {
   const wstring ItemName;
-  const UnknownType ItemModelId;
+  const MwId ItemModelId;
 };
 
 struct CSmScriptMapBotSpawn : public CMwNod {
   const bool IsFlying;
-  const UnknownType BotModelId;
+  const MwId BotModelId;
 };
 
 struct CSmModuleManager : public CGamePlaygroundModuleManagerClient {
@@ -21299,7 +21299,7 @@ struct CGameCtnCollector : public CMwNod {
     Release = 3,
   };
   UnknownType CollectionId;
-  UnknownType Author;
+  MwId Author;
   wstring NameE;
   const wstring Name;
   wstring Description;
@@ -21379,7 +21379,7 @@ struct CGameItemModel : public CGameCtnCollector {
     Circular = 7,
   };
   const EnumItemType ItemType;
-  const NodArray Actions;
+  const MwBuffer<CGameActionModel*> Actions;
   CGameItemPlacementParam* DefaultPlacementParam_Head;
   CGameItemPlacementParam* DefaultPlacementParam_Content;
   CGameItemPlacementParam* DefaultPlacementParam_Dbg;
@@ -21398,10 +21398,10 @@ struct CGameItemModel : public CGameCtnCollector {
   string SkinDirNameCustom;
   CPlugFileFidContainer* DefaultSkinFid;
   void InitFromArchetype();
-  const NodArray Cameras;
+  const MwBuffer<CMwNod*> Cameras;
   EnumDefaultCam DefaultCam;
-  UnknownType DefaultWeaponName;
-  NodArray NadeoSkinsFids;
+  MwId DefaultWeaponName;
+  MwArray<CPlugFileZip*> NadeoSkinsFids;
   EnumWaypointType WaypointType;
   CPlugAudioEnvironment* AudioEnvironmentInCar;
   CPlugTrafficObjectParams* TrafficParams;
@@ -21410,11 +21410,11 @@ struct CGameItemModel : public CGameCtnCollector {
   float OrbitalCenterHeightFromGround;
   float OrbitalRadiusBase;
   float OrbitalPreviewAngle;
-  NodArray ItemClips_Models;
-  array<wstring> ItemClips_DataRefs;
+  MwBuffer<CGameItemModel*> ItemClips_Models;
+  MwBuffer<wstring> ItemClips_DataRefs;
   UnknownType ItemClips_Locs;
   EnumItemClipType ItemClipType;
-  array<vec2> ItemClipShapePoints;
+  MwBuffer<vec2> ItemClipShapePoints;
   void AddItemClipShapePoint();
   void RemoveLastItemClipShapePoint();
   void MoveUpItemClipShapePoints();
@@ -21426,7 +21426,7 @@ struct CGameItemModel : public CGameCtnCollector {
   void GeneratePolygonForItemClipShape();
   void ComputeItemClipShapeOptimized();
   const uint ItemClipShapeOptimized_Symmetry;
-  const array<vec2> ItemClipShapeOptimized_PolarCoords;
+  const MwBuffer<vec2> ItemClipShapeOptimized_PolarCoords;
   bool DisableLightmap;
 };
 
@@ -21439,8 +21439,8 @@ struct CGameObjectPhyModel : public CMwNod {
   CPlugDynaPointModel* DynaPointModel;
   uint FirePeriod;
   UnknownType ActionModel;
-  const NodArray Actions;
-  NodArray Triggers;
+  const MwBuffer<CGameActionModel*> Actions;
+  MwBuffer<CPlugTriggerAction*> Triggers;
   _EEGameObjectPhyModelProgam Program;
 };
 
@@ -21481,12 +21481,12 @@ struct CGameActionModel : public CMwNod {
   UnknownType InventoryItemClass;
   CPlugAnimFile* Anim;
   bool IsAnimPartial;
-  NodArray Projectiles;
-  NodArray Beams;
+  MwBuffer<CPlugCustomBulletModel*> Projectiles;
+  MwBuffer<CPlugCustomBeamModel*> Beams;
   UnknownType CrossHair;
   CPlugShieldModel* ShieldModel;
   CPlugScriptWithSettings* Script;
-  NodArray BulletModels;
+  MwBuffer<CPlugBulletModel*> BulletModels;
   const uint ParticleBlockCount;
   void LogParticleBlockModelIds();
   const bool IsCustom;
@@ -21576,8 +21576,8 @@ struct CGameGhostData : public CMwNod {
 
 struct CGameModulePlaygroundModel : public CGameModuleModelCommon {
   UnknownType Icon;
-  UnknownType SizeX;
-  UnknownType SizeY;
+  float SizeX; // Range: 0 - 320
+  float SizeY; // Range: 0 - 180
   CPlugFileText* ManialinkCode;
 };
 
@@ -21591,7 +21591,7 @@ struct CGameModuleMenuModel : public CGameModuleModelCommon {
   CGameModuleMenuModel();
 
   CPlugFileTextScript* ManiaAppScript;
-  NodArray Pages;
+  MwBuffer<CGameModuleMenuPageModel*> Pages;
   CGameModuleMenuPageModel* AddPage(wstring PageUrl);
   void AddLink(CGameModuleMenuPageModel* ParentPage, CGameModuleMenuPageModel* ChildPage);
   string MenuScript;
@@ -21607,14 +21607,14 @@ struct CGameModulePlaygroundInventoryModel : public CGameModulePlaygroundModel {
 
   string Title;
   uint SlotCapacity;
-  NodArray Categories;
+  MwBuffer<CGameModuleNodForPropertyList*> Categories;
 };
 
 // File extension: 'Module.Gbx'
 struct CGameModulePlaygroundScoresTableModel : public CGameModulePlaygroundModel {
   CGameModulePlaygroundScoresTableModel();
 
-  NodArray Columns;
+  MwBuffer<CGameModuleNodForPropertyList*> Columns;
   bool UseTeams;
   bool DisplayTeamScores;
   string Title;
@@ -21625,8 +21625,8 @@ struct CGameModulePlaygroundScoresTableModel : public CGameModulePlaygroundModel
   bool DisplayLocalPlayerInfo;
   bool DisplayServerName;
   bool DisplayColumnLegends;
-  UnknownType ColumnCount;
-  UnknownType LineCount;
+  uint ColumnCount; // Range: 1 - 10
+  uint LineCount; // Range: 1 - 10
   float ColumnMargin;
   UnknownType GameModeIcon;
   UnknownType SmStormBackground;
@@ -21683,8 +21683,8 @@ struct CGameModulePlaygroundStoreModel : public CGameModulePlaygroundModel {
   UnknownType PowerUpImageLvl3;
   UnknownType PowerUpImageLvl4;
   UnknownType PowerUpImageLvl5;
-  NodArray Actions;
-  NodArray Items;
+  MwBuffer<CGameActionModel*> Actions;
+  MwBuffer<CGameItemModel*> Items;
 };
 
 // File extension: 'Module.Gbx'
@@ -21702,7 +21702,7 @@ struct CGameModuleMenuPageModel : public CGameModuleModelCommon {
   CGameModuleMenuPageModel();
 
   CPlugFileText* Manialink;
-  NodArray Components;
+  MwBuffer<CGameModuleNodForPropertyList*> Components;
   string ManialinkText;
 };
 
@@ -21724,13 +21724,13 @@ struct CGameEditorModel : public CMwNod {
   const EEditorType EditorType;
   bool AutoGenerateHelp;
   CPlugFileTextScript* MainPlugin;
-  const NodArray SubPlugins;
+  const MwBuffer<CPlugFileTextScript*> SubPlugins;
 };
 
 struct CGameItemPlacementParam : public CMwNod {
   CGameItemPlacementParam();
 
-  array<vec3> Pivots_Positions;
+  MwBuffer<vec3> Pivots_Positions;
   bool SwitchPivotManually;
   float FlyVStep;
   float FlyVOffset;
@@ -21745,7 +21745,7 @@ struct CGameItemPlacementParam : public CMwNod {
   bool AutoRotation;
   vec3 Cube_Center;
   float Cube_Size;
-  array<int4> PivotRotations;
+  MwBuffer<int4> PivotRotations;
   void AddPivotPosition();
   void AddPivotRotation();
   void RemoveLastPivotPosition();
@@ -21764,12 +21764,12 @@ struct CGamePixelArtModel : public CMwNod {
 struct CGameBlockItem : public CMwNod {
   CGameBlockItem();
 
-  UnknownType ArchetypeBlockInfoId_GameBox;
+  MwId ArchetypeBlockInfoId_GameBox;
   UnknownType ArchetypeBlockInfoCollectionId;
-  NodArray BlockInfoMobilSkins_Crystals;
-  array<uint> BlockInfoMobilSkins_MobilIds;
-  const UnknownType ArchetypeBlockInfoId;
-  const NodArray CustomizedVariants;
+  MwBuffer<CPlugCrystal*> BlockInfoMobilSkins_Crystals;
+  MwBuffer<uint> BlockInfoMobilSkins_MobilIds;
+  const MwId ArchetypeBlockInfoId;
+  const MwBuffer<CPlugCrystal*> CustomizedVariants;
 };
 
 struct CGameCommonItemEntityModelEdition : public CMwNod {
@@ -21806,8 +21806,8 @@ struct CGameCommonItemEntityModelEdition : public CMwNod {
   bool UseMeshAsTriggerShape;
   CPlugCrystal* CustomTriggerShapeCrystal;
   CGameActionModel* PickupActionModel;
-  const NodArray TriggeredActions;
-  NodArray Triggers;
+  const MwBuffer<CGameActionModel*> TriggeredActions;
+  MwBuffer<CPlugTriggerAction*> Triggers;
   wstring InventoryName;
   wstring InventoryDescription;
   EnumInventoryItemClass InventoryItemClass;
@@ -21841,8 +21841,8 @@ struct CGameCustomBlockModel : public CGameCtnCollector {
     DevBuild = 2,
     Release = 3,
   };
-  UnknownType ArchetypeBlockInfoId;
-  NodArray BlockInfoMobilSkins_Crystals;
+  MwId ArchetypeBlockInfoId;
+  MwBuffer<CPlugCrystal*> BlockInfoMobilSkins_Crystals;
 };
 
 } // namespace GameData
