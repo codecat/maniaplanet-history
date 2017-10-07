@@ -28,7 +28,7 @@ struct CMwNod {
   CMwNod();
 
   string IdName;
-  const MwId Id;
+  const MwId Id; // Maniascript
 };
 
 struct CMwEngine : public CMwNod {
@@ -330,16 +330,16 @@ struct CGameEngine : public CMwEngine {
 struct CGameManiaTitle : public CGameNod {
   CGameManiaTitle();
 
-  const string TitleId;
-  const string AuthorLogin;
-  const wstring AuthorName;
-  const wstring Name;
-  const wstring Desc;
-  const string InfoUrl;
-  const string DownloadUrl;
-  const string TitleVersion;
-  const string MakerTitleId;
-  const string BaseTitleId;
+  const string TitleId; // Maniascript
+  const string AuthorLogin; // Maniascript
+  const wstring AuthorName; // Maniascript
+  const wstring Name; // Maniascript
+  const wstring Desc; // Maniascript
+  const string InfoUrl; // Maniascript
+  const string DownloadUrl; // Maniascript
+  const string TitleVersion; // Maniascript
+  const string MakerTitleId; // Maniascript
+  const string BaseTitleId; // Maniascript
   CPlugFileImg* LogosFid;
   string CollectionGroup;
   int SortIndex;
@@ -383,11 +383,11 @@ struct CGameManiaTitle : public CGameNod {
 };
 
 struct CGamePlayer : public CMwNod {
-  const CGamePlayerInfo* User;
-  const string Login;
-  const wstring Name;
-  const int RequestedClan;
-  const bool RequestsSpectate;
+  const CGamePlayerInfo* User; // Maniascript
+  const string Login; // Maniascript
+  const wstring Name; // Maniascript
+  const int RequestedClan; // Maniascript
+  const bool RequestsSpectate; // Maniascript
 };
 
 struct CGameTerminal : public CMwNod {
@@ -551,7 +551,7 @@ struct CGameSystemOverlay : public CMwNod {
 };
 
 struct CGamePlayground : public CGameSwitcherModule {
-  const CGamePlaygroundInterface* Interface;
+  const CGamePlaygroundInterface* Interface; // Maniascript
   const MwBuffer<CGamePlayer*> Players;
   const MwBuffer<CGameTerminal*> GameTerminals;
   const MwBuffer<CGamePlaygroundUIConfig*> UIConfigs;
@@ -702,23 +702,23 @@ struct CGameStation : public CGameNod {
     Gold2 = 8,
     Gold3 = 9,
   };
-  const CGameManiaTitle* Title;
-  const uint AudienceRegisteredUsers;
+  const CGameManiaTitle* Title; // Maniascript
+  const uint AudienceRegisteredUsers; // Maniascript
   const uint AudienceInstalls;
   const uint AudienceOnlineUsers;
-  const uint CampaignMedalsMax;
-  const uint CampaignMedalsCurrent;
-  const uint CampaignMedalsRanking;
-  const float LadderPoints;
-  const uint LadderRank;
-  const EEchelon Echelon;
-  const uint NextEchelonPercent;
-  bool DisableQuickEnter;
-  bool IsLogoVisible;
-  float GhostAlpha;
-  vec3 FocusLightColor;
-  vec3 NormalLightColor;
-  const bool IsEditable;
+  const uint CampaignMedalsMax; // Maniascript
+  const uint CampaignMedalsCurrent; // Maniascript
+  const uint CampaignMedalsRanking; // Maniascript
+  const float LadderPoints; // Maniascript
+  const uint LadderRank; // Maniascript
+  const EEchelon Echelon; // Maniascript
+  const uint NextEchelonPercent; // Maniascript
+  bool DisableQuickEnter; // Maniascript
+  bool IsLogoVisible; // Maniascript
+  float GhostAlpha; // Maniascript
+  vec3 FocusLightColor; // Maniascript
+  vec3 NormalLightColor; // Maniascript
+  const bool IsEditable; // Maniascript
   const string ManiaApp_Url;
   const CGameManialinkPage* ManialinkViewer_Page;
   const CGameManiaApp* ManiaApp;
@@ -731,17 +731,17 @@ struct CGameManialinkEntry : public CGameManialinkControl {
     Password = 2,
     Newpassword = 3,
   };
-  wstring Value;
+  wstring Value; // Maniascript
   wstring HackValueWithEvent;
-  void StartEdition();
-  void SetText(wstring NewText, bool SendSubmitEvent);
-  ETextFormat TextFormat;
-  float Opacity;
-  vec3 TextColor;
-  float TextSizeReal;
-  uint TextSize;
-  int MaxLine;
-  bool AutoNewLine;
+  void StartEdition(); // Maniascript
+  void SetText(wstring NewText, bool SendSubmitEvent); // Maniascript
+  ETextFormat TextFormat; // Maniascript
+  float Opacity; // Maniascript
+  vec3 TextColor; // Maniascript
+  float TextSizeReal; // Maniascript
+  uint TextSize; // Maniascript
+  int MaxLine; // Maniascript
+  bool AutoNewLine; // Maniascript
 };
 
 struct CGameScene : public CScene3d {
@@ -1030,18 +1030,18 @@ struct CGameDialogs : public CMwNod {
     Message = 1,
     WaitMessage = 2,
   };
-  bool EnableCustomSystemDialogs;
-  const EDialog Dialog;
-  const wstring Message_LabelText;
-  const wstring Message_ButtonText;
-  const bool Message_FocusOnButton;
-  void Message_Ok();
-  const wstring WaitMessage_LabelText;
-  const wstring WaitMessage_ButtonText;
-  const float WaitMessage_Progress; // Range: 0 - 1
-  const bool WaitMessage_ShowProgressBar;
-  const bool WaitMessage_ShowAbortButton;
-  void WaitMessage_Ok();
+  bool EnableCustomSystemDialogs; // Maniascript
+  const EDialog Dialog; // Maniascript
+  const wstring Message_LabelText; // Maniascript
+  const wstring Message_ButtonText; // Maniascript
+  const bool Message_FocusOnButton; // Maniascript
+  void Message_Ok(); // Maniascript
+  const wstring WaitMessage_LabelText; // Maniascript
+  const wstring WaitMessage_ButtonText; // Maniascript
+  const float WaitMessage_Progress; // Range: 0 - 1 // Maniascript
+  const bool WaitMessage_ShowProgressBar; // Maniascript
+  const bool WaitMessage_ShowAbortButton; // Maniascript
+  void WaitMessage_Ok(); // Maniascript
   CGameMenu* Dialogs;
   void HideDialogs();
   void DoMessage_Ok();
@@ -1185,15 +1185,15 @@ struct CGameCtnBlockUnitInfo : public CMwNod {
   const uint ReplacedPillarIndex;
   CardinalDirEnum TopClipDir;
   CardinalDirEnum BottomClipDir;
-  const int3 Offset;
-  const int3 RelativeOffset;
-  const MwArray<CGameCtnBlockInfoClip*> Clips;
+  const int3 Offset; // Maniascript
+  const int3 RelativeOffset; // Maniascript
+  const MwArray<CGameCtnBlockInfoClip*> Clips; // Maniascript
 };
 
 struct CGameFid : public CMwNod {
-  const wstring Name;
-  const wstring Path;
-  const wstring FileName;
+  const wstring Name; // Maniascript
+  const wstring Path; // Maniascript
+  const wstring FileName; // Maniascript
   const CSystemFidFile* Fid;
   const CSystemFidsFolder* Fids;
   const bool Selected;
@@ -1390,32 +1390,32 @@ struct CGameCtnChallenge : public CMwNod {
   CGameCtnChallenge();
 
   const string EdChallengeId;
-  const CGameCtnChallengeInfo* MapInfo;
-  wstring MapName;
-  wstring Comments;
-  const string AuthorZoneIconUrl;
-  const string CollectionName;
-  const string DecorationName;
-  const string AuthorLogin;
-  const wstring AuthorNickName;
-  const wstring AuthorZonePath;
-  const wstring MapType;
-  const wstring MapStyle;
+  const CGameCtnChallengeInfo* MapInfo; // Maniascript
+  wstring MapName; // Maniascript
+  wstring Comments; // Maniascript
+  const string AuthorZoneIconUrl; // Maniascript
+  const string CollectionName; // Maniascript
+  const string DecorationName; // Maniascript
+  const string AuthorLogin; // Maniascript
+  const wstring AuthorNickName; // Maniascript
+  const wstring AuthorZonePath; // Maniascript
+  const wstring MapType; // Maniascript
+  const wstring MapStyle; // Maniascript
   const MwId TitleId;
-  uint TMObjective_AuthorTime;
-  uint TMObjective_GoldTime;
-  uint TMObjective_SilverTime;
-  uint TMObjective_BronzeTime;
-  uint TMObjective_NbLaps;
-  bool TMObjective_IsLapRace;
-  wstring ObjectiveTextAuthor;
-  wstring ObjectiveTextGold;
-  wstring ObjectiveTextSilver;
-  wstring ObjectiveTextBronze;
-  const uint CopperPrice;
-  const int3 Size;
-  const bool HasCustomIntro;
-  const bool HasCustomMusic;
+  uint TMObjective_AuthorTime; // Maniascript
+  uint TMObjective_GoldTime; // Maniascript
+  uint TMObjective_SilverTime; // Maniascript
+  uint TMObjective_BronzeTime; // Maniascript
+  uint TMObjective_NbLaps; // Maniascript
+  bool TMObjective_IsLapRace; // Maniascript
+  wstring ObjectiveTextAuthor; // Maniascript
+  wstring ObjectiveTextGold; // Maniascript
+  wstring ObjectiveTextSilver; // Maniascript
+  wstring ObjectiveTextBronze; // Maniascript
+  const uint CopperPrice; // Maniascript
+  const int3 Size; // Maniascript
+  const bool HasCustomIntro; // Maniascript
+  const bool HasCustomMusic; // Maniascript
   CGameCtnChallengeParameters* ChallengeParameters;
   CGameCtnCollectorList* BlockStock;
   const CPlugBitmap* AuthorZoneIcon;
@@ -1468,25 +1468,25 @@ struct CGameCtnChallenge : public CMwNod {
 };
 
 struct CGameCtnChallengeInfo : public CGameFid {
-  const string MapUid;
-  const wstring Comments;
-  const uint CopperPrice;
-  const string CollectionName;
-  const string AuthorLogin;
-  const wstring AuthorNickName;
-  const wstring AuthorZonePath;
-  const wstring AuthorZoneFlagUrl;
-  const wstring AuthorCountryFlagUrl;
-  const wstring MapType;
-  const wstring MapStyle;
-  const bool Unlocked;
-  const bool IsPlayable;
-  const bool CreatedWithSimpleEditor;
-  const uint TMObjective_AuthorTime;
-  const uint TMObjective_GoldTime;
-  const uint TMObjective_SilverTime;
-  const uint TMObjective_BronzeTime;
-  const bool TMObjective_IsLapRace;
+  const string MapUid; // Maniascript
+  const wstring Comments; // Maniascript
+  const uint CopperPrice; // Maniascript
+  const string CollectionName; // Maniascript
+  const string AuthorLogin; // Maniascript
+  const wstring AuthorNickName; // Maniascript
+  const wstring AuthorZonePath; // Maniascript
+  const wstring AuthorZoneFlagUrl; // Maniascript
+  const wstring AuthorCountryFlagUrl; // Maniascript
+  const wstring MapType; // Maniascript
+  const wstring MapStyle; // Maniascript
+  const bool Unlocked; // Maniascript
+  const bool IsPlayable; // Maniascript
+  const bool CreatedWithSimpleEditor; // Maniascript
+  const uint TMObjective_AuthorTime; // Maniascript
+  const uint TMObjective_GoldTime; // Maniascript
+  const uint TMObjective_SilverTime; // Maniascript
+  const uint TMObjective_BronzeTime; // Maniascript
+  const bool TMObjective_IsLapRace; // Maniascript
   const wstring NameForUi;
   const string CopperString;
   const vec2 MapCoordOrigin;
@@ -1535,14 +1535,14 @@ struct CGameHighScore : public CMwNod {
     Gold = 4,
     Author = 5,
   };
-  const wstring Name;
-  const uint Time;
-  const wstring Score;
-  const uint Rank;
-  const uint Count;
-  const string GhostUrl;
-  const EMedal Medal;
-  const string GhostName;
+  const wstring Name; // Maniascript
+  const uint Time; // Maniascript
+  const wstring Score; // Maniascript
+  const uint Rank; // Maniascript
+  const uint Count; // Maniascript
+  const string GhostUrl; // Maniascript
+  const EMedal Medal; // Maniascript
+  const string GhostName; // Maniascript
 };
 
 // File extension: 'PainterSetting.Gbx'
@@ -1662,15 +1662,15 @@ struct CGameCtnBlockInfo : public CGameCtnCollector {
   UnknownType Sound1Loc;
   CPlugSound* Sound2;
   UnknownType Sound2Loc;
-  const wstring Name;
-  const bool IsRoad;
-  const bool IsTerrain;
-  const bool IsPodium;
-  const EWayPointType WaypointType;
-  const EWayPointType WayPointType;
-  const bool NoRespawn;
-  const CGameCtnBlockInfoVariantGround* VariantGround;
-  const CGameCtnBlockInfoVariantAir* VariantAir;
+  const wstring Name; // Maniascript
+  const bool IsRoad; // Maniascript
+  const bool IsTerrain; // Maniascript
+  const bool IsPodium; // Maniascript
+  const EWayPointType WaypointType; // Maniascript
+  const EWayPointType WayPointType; // Maniascript
+  const bool NoRespawn; // Maniascript
+  const CGameCtnBlockInfoVariantGround* VariantGround; // Maniascript
+  const CGameCtnBlockInfoVariantAir* VariantAir; // Maniascript
 };
 
 // File extension: 'EDFlat.Gbx'
@@ -1779,14 +1779,14 @@ struct CGameCtnBlock : public CMwNod {
   const CGameCtnBlockInfo* BlockInfo;
   CPlugCharPhySpecialProperty* CharPhySpecialProperty;
   CGameWaypointSpecialProperty* WaypointSpecialProperty;
-  const uint BlockScriptId;
-  const bool CanHaveAnchor;
-  void UseDefaultAnchor();
-  void UseCustomAnchor();
-  const int3 Coord;
-  const CardinalDirections Direction;
-  const MwArray<CGameCtnBlockUnit*> BlockUnits;
-  const CGameCtnBlockInfo* BlockModel;
+  const uint BlockScriptId; // Maniascript
+  const bool CanHaveAnchor; // Maniascript
+  void UseDefaultAnchor(); // Maniascript
+  void UseCustomAnchor(); // Maniascript
+  const int3 Coord; // Maniascript
+  const CardinalDirections Direction; // Maniascript
+  const MwArray<CGameCtnBlockUnit*> BlockUnits; // Maniascript
+  const CGameCtnBlockInfo* BlockModel; // Maniascript
 };
 
 struct CGameCtnBlockUnit : public CMwNod {
@@ -1794,10 +1794,10 @@ struct CGameCtnBlockUnit : public CMwNod {
 
   uint PlacePylons;
   uint AcceptPylons;
-  const int3 Offset;
-  const int3 AbsoluteOffset;
-  const CGameCtnBlockUnitInfo* BlockUnitModel;
-  const CGameCtnBlock* Block;
+  const int3 Offset; // Maniascript
+  const int3 AbsoluteOffset; // Maniascript
+  const CGameCtnBlockUnitInfo* BlockUnitModel; // Maniascript
+  const CGameCtnBlock* Block; // Maniascript
 };
 
 struct CGameCtnBlockSkin : public CMwNod {
@@ -1923,15 +1923,15 @@ struct CGameManialinkBrowser : public CMwNod {
   const CGameManialinkPage* CurrentPage;
   const CGameManiaApp* CurrentManiaApp;
   bool Manialink_Enabled;
-  bool Manialink_Active;
-  wstring ManialinkBrowser_Link;
-  MwId ManialinkBrowser_Frame3dFocused;
-  void ManialinkBrowser_OnHome();
-  void ManialinkBrowser_OnQuit();
-  void ManialinkBrowser_OnBack();
-  void ManialinkBrowser_OnForward();
-  void GoToHomeAndResetHistory();
-  void GoToCurUrl();
+  bool Manialink_Active; // Maniascript
+  wstring ManialinkBrowser_Link; // Maniascript
+  MwId ManialinkBrowser_Frame3dFocused; // Maniascript
+  void ManialinkBrowser_OnHome(); // Maniascript
+  void ManialinkBrowser_OnQuit(); // Maniascript
+  void ManialinkBrowser_OnBack(); // Maniascript
+  void ManialinkBrowser_OnForward(); // Maniascript
+  void GoToHomeAndResetHistory(); // Maniascript
+  void GoToCurUrl(); // Maniascript
 };
 
 struct CGameNetFormAdmin : public CNetNod {
@@ -2241,44 +2241,44 @@ struct CGamePlayerInfo : public CGameNetPlayerInfo {
     Muted = 1,
     NotMuted = 2,
   };
-  const string Login;
-  const wstring Name;
-  const wstring AvatarUrl;
-  const wstring ZonePath;
-  const wstring ZoneFlagUrl;
-  const wstring CountryFlagUrl;
-  const string Language;
-  const wstring Description;
-  const vec3 Color;
-  const string ClubLink;
-  const string BroadcastTVLogin;
-  const string SteamUserId;
-  const uint FameStars;
-  const EEchelon Echelon;
-  const uint NextEchelonPercent;
-  const bool IsBeginner;
-  const uint LadderRank;
-  const uint LadderTotal;
-  const float LadderPoints;
-  const wstring LadderZoneName;
-  const wstring LadderZoneFlagUrl;
-  const float ReferenceScore;
-  const bool IsFakeUser;
-  const MwBuffer<uint> Tags_Favored_Indices;
-  const MwBuffer<string> Tags_Id;
-  const UnknownType Tags_Type;
-  const MwBuffer<wstring> Tags_Comments;
-  const MwBuffer<wstring> Tags_Deliverer;
-  const EStereoDisplayMode StereoDisplayMode;
-  bool HackCamHmdDisabled;
-  const bool VoiceChat_Supported;
-  EMuteSetting VoiceChat_MuteSetting;
-  const bool VoiceChat_IsSpeaking;
-  const bool VoiceChat_IsMuted;
-  const uint RequestedClan;
-  const bool RequestsSpectate;
-  const bool IsConnectedToMasterServer;
-  const MwBuffer<string> AlliesConnected;
+  const string Login; // Maniascript
+  const wstring Name; // Maniascript
+  const wstring AvatarUrl; // Maniascript
+  const wstring ZonePath; // Maniascript
+  const wstring ZoneFlagUrl; // Maniascript
+  const wstring CountryFlagUrl; // Maniascript
+  const string Language; // Maniascript
+  const wstring Description; // Maniascript
+  const vec3 Color; // Maniascript
+  const string ClubLink; // Maniascript
+  const string BroadcastTVLogin; // Maniascript
+  const string SteamUserId; // Maniascript
+  const uint FameStars; // Maniascript
+  const EEchelon Echelon; // Maniascript
+  const uint NextEchelonPercent; // Maniascript
+  const bool IsBeginner; // Maniascript
+  const uint LadderRank; // Maniascript
+  const uint LadderTotal; // Maniascript
+  const float LadderPoints; // Maniascript
+  const wstring LadderZoneName; // Maniascript
+  const wstring LadderZoneFlagUrl; // Maniascript
+  const float ReferenceScore; // Maniascript
+  const bool IsFakeUser; // Maniascript
+  const MwBuffer<uint> Tags_Favored_Indices; // Maniascript
+  const MwBuffer<string> Tags_Id; // Maniascript
+  const UnknownType Tags_Type; // Maniascript
+  const MwBuffer<wstring> Tags_Comments; // Maniascript
+  const MwBuffer<wstring> Tags_Deliverer; // Maniascript
+  const EStereoDisplayMode StereoDisplayMode; // Maniascript
+  bool HackCamHmdDisabled; // Maniascript
+  const bool VoiceChat_Supported; // Maniascript
+  EMuteSetting VoiceChat_MuteSetting; // Maniascript
+  const bool VoiceChat_IsSpeaking; // Maniascript
+  const bool VoiceChat_IsMuted; // Maniascript
+  const uint RequestedClan; // Maniascript
+  const bool RequestsSpectate; // Maniascript
+  const bool IsConnectedToMasterServer; // Maniascript
+  const MwBuffer<string> AlliesConnected; // Maniascript
   const CPlugBitmap* ZoneBitmap;
   const CGameLeague* ZoneLeague;
   const bool WishSpectator;
@@ -2373,8 +2373,8 @@ struct CGameCtnChallengeGroup : public CMwNod {
   bool Unlocked;
   void CleanChallenges();
   void EmptyChallenges();
-  void IsUnlocked();
-  const MwBuffer<CGameCtnChallengeInfo*> MapInfos;
+  void IsUnlocked(); // Maniascript
+  const MwBuffer<CGameCtnChallengeInfo*> MapInfos; // Maniascript
 };
 
 // File extension: 'GameCtnCampaign.Gbx'
@@ -2411,7 +2411,7 @@ struct CGameCtnCampaign : public CMwNod {
     Gold = 4,
     Author = 5,
   };
-  const string CampaignId;
+  const string CampaignId; // Maniascript
   MwId CollectionId;
   MwId IconId;
   wstring Name;
@@ -2426,14 +2426,14 @@ struct CGameCtnCampaign : public CMwNod {
   uint NbGoldMedals;
   uint NbAuthorMedals;
   const EMedal Medal;
-  MwBuffer<CGameCtnChallengeGroup*> MapGroups;
+  MwBuffer<CGameCtnChallengeGroup*> MapGroups; // Maniascript
   void AddChallengeGroup();
   wstring ModeScriptName;
-  uint GetMapGroupCount();
-  CGameCtnChallengeGroup* GetMapGroup(uint Index);
-  CGameCtnChallengeInfo* GetNextMap(CGameCtnChallengeInfo* CurrentMapInfo);
-  string ScoreContext;
-  bool OfficialRecordEnabled;
+  uint GetMapGroupCount(); // Maniascript
+  CGameCtnChallengeGroup* GetMapGroup(uint Index); // Maniascript
+  CGameCtnChallengeInfo* GetNextMap(CGameCtnChallengeInfo* CurrentMapInfo); // Maniascript
+  string ScoreContext; // Maniascript
+  bool OfficialRecordEnabled; // Maniascript
 };
 
 struct CGameCtnGhostInfo : public CMwNod {
@@ -2455,9 +2455,9 @@ struct CGameCtnGhost : public CGameGhost {
   wstring GhostAvatarName;
   string RecordingContext;
   UnknownType LightTrailColor;
-  const uint RaceTime;
-  const uint NbRespawns;
-  const uint StuntsScore;
+  const uint RaceTime; // Maniascript
+  const uint NbRespawns; // Maniascript
+  const uint StuntsScore; // Maniascript
   const MwId Validate_ChallengeUid;
   const string Validate_ExeVersion;
   const uint Validate_ExeChecksum;
@@ -2482,7 +2482,7 @@ struct CGameCtnReplayRecord : public CMwNod {
 
 struct CGameCtnReplayRecordInfo : public CGameFid {
   const MwId ChallengeId;
-  const string MapUid;
+  const string MapUid; // Maniascript
   const MwId CollectionId;
   const uint BestTime;
   const wstring PlayerNickname;
@@ -3153,32 +3153,32 @@ struct CGameControlGridCard : public CGameControlGrid {
 };
 
 struct CGameCtnNetServerInfo : public CGameNetServerInfo {
-  const wstring ServerName;
-  const string ServerLogin;
-  const string JoinLink;
-  const wstring Comment;
-  const string ServerVersionBuild;
-  const uint PlayerCount;
-  const uint MaxPlayerCount;
-  const uint SpectatorCount;
-  const uint MaxSpectatorCount;
-  const float PlayersLevelMin;
-  const float PlayersLevelAvg;
-  const float PlayersLevelMax;
-  const uint ServerLevel;
-  const wstring ServerLevelText;
-  const wstring ModeName;
-  const float LadderServerLimitMax;
-  const float LadderServerLimitMin;
-  const MwBuffer<wstring> PlayerNames;
-  const MwBuffer<wstring> ChallengeNames;
-  const uint NbChallenges;
-  const bool HasBuddies;
-  const bool IsFavourite;
-  const bool IsLobbyServer;
-  const bool IsPrivate;
-  const bool IsPrivateForSpectator;
-  const string SendToServerAfterMatchUrl;
+  const wstring ServerName; // Maniascript
+  const string ServerLogin; // Maniascript
+  const string JoinLink; // Maniascript
+  const wstring Comment; // Maniascript
+  const string ServerVersionBuild; // Maniascript
+  const uint PlayerCount; // Maniascript
+  const uint MaxPlayerCount; // Maniascript
+  const uint SpectatorCount; // Maniascript
+  const uint MaxSpectatorCount; // Maniascript
+  const float PlayersLevelMin; // Maniascript
+  const float PlayersLevelAvg; // Maniascript
+  const float PlayersLevelMax; // Maniascript
+  const uint ServerLevel; // Maniascript
+  const wstring ServerLevelText; // Maniascript
+  const wstring ModeName; // Maniascript
+  const float LadderServerLimitMax; // Maniascript
+  const float LadderServerLimitMin; // Maniascript
+  const MwBuffer<wstring> PlayerNames; // Maniascript
+  const MwBuffer<wstring> ChallengeNames; // Maniascript
+  const uint NbChallenges; // Maniascript
+  const bool HasBuddies; // Maniascript
+  const bool IsFavourite; // Maniascript
+  const bool IsLobbyServer; // Maniascript
+  const bool IsPrivate; // Maniascript
+  const bool IsPrivateForSpectator; // Maniascript
+  const string SendToServerAfterMatchUrl; // Maniascript
   wstring ServerName_Menu;
   wstring Comment_Menu;
   const string PlayerCountOverMax;
@@ -4131,11 +4131,11 @@ struct CGameMgrActionFxPhy : public CMwNod {
 };
 
 struct CGameScriptHandlerStation : public CGameManialinkScriptHandler {
-  const CGameManiaPlanetScriptAPI* ManiaPlanet;
-  const CGameManiaAppStation* ParentApp;
-  const CGameStation* Station;
-  void EnterStation();
-  void BrowserReload();
+  const CGameManiaPlanetScriptAPI* ManiaPlanet; // Maniascript
+  const CGameManiaAppStation* ParentApp; // Maniascript
+  const CGameStation* Station; // Maniascript
+  void EnterStation(); // Maniascript
+  void BrowserReload(); // Maniascript
 };
 
 struct CGameCtnMasterServer : public CGameMasterServer {
@@ -4285,155 +4285,155 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
     NotTracking = 2,
     Tracking = 3,
   };
-  const int Now;
-  const string CurrentLocalDateText;
-  const wstring CurrentTimezone;
-  const CGamePlayerInfo* LocalUser;
-  const CGameManiaTitle* LoadedTitle;
-  const MwBuffer<CGameManiaTitle*> TitlesAvailable;
-  const MwBuffer<CGameManiaTitle*> TitlesBases;
-  const MwBuffer<string> TitleIdsInstalled;
-  const MwBuffer<string> TitleIdsPayed;
-  const uint EmptyStationsCount;
-  const ESystemPlatform SystemPlatform;
-  const ESystemSkuIdentifier SystemSkuIdentifier;
-  const string ExeVersion;
-  const CGameCtnChallenge* CurrentMap;
-  const EContext ActiveContext;
-  const string ActiveContext_MenuFrame;
-  const string ActiveContext_InGameDialogFrame;
-  const string ActiveContext_DialogFrame;
-  const string ActiveContext_SystemDialogFrame;
-  const bool ActiveContext_ClassicDialogDisplayed;
-  const uint ActiveContext_GameWill;
-  const bool ActiveContext_ManialinkBrowserDisplayed;
-  const bool ActiveContext_MenuStationsDisplayed;
-  const bool ActiveContext_InGameMenuDisplayed;
-  const EMenuStationsPage ActiveContext_MenuStationsPage;
-  const EMenuStationsPage ActiveContext_MenuStationsClickedPage;
-  const string CurrentServerLogin;
-  const wstring CurrentServerName;
-  const wstring CurrentServerModeName;
-  const string CurrentServerJoinLink;
-  const MwBuffer<CGamePlayerInfo*> CurrentServerPlayers;
-  const uint CurrentAppId;
-  bool IsPrivateSession;
-  const bool IsKioskMode;
-  const bool ParentalLock_IsLocked;
-  const uint TotalTimePlay;
-  const uint Messenger_MessagesCount;
-  const uint AccountPlanets;
-  const bool IsTitleTimeLimited;
-  const bool IsTitleTimeLimitActivated;
-  const bool CanUnlockTitleTimeLimitOnStore;
-  const uint TitleTimeLeft;
-  const uint CurConnectionDate;
-  const uint PrevConnectionDate;
-  float MasterSoundVolume; // Range: -40 - 0
-  float MasterMusicVolume; // Range: -40 - 0
-  const bool TmTurbo_IsDemo;
-  const bool TmTurbo_IsPartialInstall;
-  const bool TmTurbo_IsBeta;
-  const bool TmTurbo_IsBetaDeactivated;
-  const bool TmTurbo_IsOpenBeta;
-  const bool TmTurbo_IsSlowInstall;
-  bool Settings_StationsManualLayout;
-  void ClipboardSet(wstring ClipboardText);
-  void OpenLink(string Url, ELinkType LinkType);
-  void QuitGameAndOpenLink(string Url);
-  void InstallTitle(string TitleId);
-  void InstallTitleFromUrl(string Url, wstring DisplayName);
-  void InstallTitleFromUrlEx1(string Url, wstring DisplayName, bool EnterAfterInstall);
-  void InstallTitleFromUrlEx2(string Url, wstring DisplayName, wstring OpenLinkAfterInstall);
-  void ShowTitle(string TitleId, bool ShowStation);
-  void SelectTitle(string TitleId);
-  void EnterTitle(string TitleId);
-  void ShowCurMapCard();
-  void SetMenuStationsActive(bool Activate);
-  void Dialog_Message(wstring Message);
-  void Dialog_EnterGameKey();
-  void Dialog_BuyTitleDialog(string TitleId, string OverrideBuyUrl, int OverrideActionAfterBuy);
-  void Dialog_BuyTitleEx(string TitleId, EBuyTitleMode Mode, string OverrideBuyUrl, int OverrideActionAfterBuy);
-  void Dialog_GenerateGameKeys(string TitleId, uint FeaturesLevel, uint NbToGenerate, bool AddBuddyOnRegistration);
-  void Dialog_BuyStations();
-  void Dialog_SetServerFavourite(string ServerLogin, bool Favorite, bool Silent);
-  const bool Dialog_IsFinished;
-  const bool Dialog_Success;
-  const bool Dialog_Aborted;
-  void CustomMenu_Request(wstring Type, MwBuffer<wstring>& Data);
-  void SetLocalUserClubLink(string ClubLink);
-  void SetLocalUserNickName(wstring NickName);
-  void FlashWindow();
-  void CreateShortcut(string ShortcutName, string Url);
-  void HideSystemLoadingScreen();
-  bool IsLiveStreamingEnabled;
-  bool IsRemotePlayEnabled;
-  void TmTurbo_LoadingOpportunity();
-  const CGameScriptChatManager* ChatManager;
-  const CGameAchievementScriptManager* AchievementsManager;
-  const CGameUserManagerScript* UserMgr;
-  void Authentication_GetToken(MwId UserId, string AppLogin);
-  const bool Authentication_GetTokenResponseReceived;
-  const uint Authentication_ErrorCode;
-  const string Authentication_Token;
-  const MwBuffer<CWebServicesTaskResult*> MasterServer_MSTaskResults;
-  void MasterServer_ReleaseMSTaskResult(MwId TaskId);
-  string MasterServer_GetURL(string ShortCutId);
-  const CGameMasterServerUserInfo* MasterServer_MainMSUser;
-  const MwBuffer<CGameMasterServerUserInfo*> MasterServer_MSUsers;
-  CGameMasterServerUserInfo* MasterServer_GetMSUserFromId(MwId UserId);
-  void MasterServer_Connect(MwId UserId);
-  CWebServicesTaskResult_GetDisplayNameScriptResult* MasterServer_GetDisplayName(MwId UserId);
-  CWebServicesTaskResult* MasterServer_CheckNetworkAvailability(MwId UserId);
-  CWebServicesTaskResult_Session_Get* MasterServer_GetSessionInfo(MwId UserId, wstring SessionId);
-  void MasterServer_Zone_GetPathAndName(wstring ZoneFullPath, wstring ZonePath, wstring ZoneName);
-  CWebServicesTaskResult_ZoneList* MasterServer_Zone_GetChilds(wstring ZoneFullPath);
-  CWebServicesTaskResult* MasterServer_Zone_ChangeZone(MwId UserId, wstring ZoneFullPath);
-  CWebServicesTaskResult_LaunchUplayScriptResult* MasterServer_UplayLaunch(MwId UserId, EUplayFlow UplayFlow, uint RewardCode);
-  CWebServicesTaskResult_LaunchUplayScriptResult* MasterServer_UplayLaunch_v2(MwId UserId, EUplayFlow UplayFlow, string RewardId);
-  CWebServicesTaskResult_LaunchUplayScriptResult* MasterServer_UplayLaunchAndCompleteActions(MwId UserId, EUplayFlow UplayFlow, string RewardId);
-  void MasterServer_Tracking_ContextMenuStart(MwId UserId, string MenuName);
-  void MasterServer_Tracking_ContextMenuStop(MwId UserId, string MenuName);
-  void MasterServer_Tracking_ContextGameModeStart(MwId UserId, string GameMode);
-  void MasterServer_Tracking_ContextGameModeStop(MwId UserId, string GameMode);
-  void MasterServer_Tracking_ContextMapStart(MwId UserId, string MapUid, string Environment);
-  void MasterServer_Tracking_ContextMapStop(MwId UserId, string MapUid);
-  void MasterServer_Tracking_ContextPlayStart(MwId UserId, string Type);
-  void MasterServer_Tracking_ContextPlayStop(MwId UserId, string Type, string Reason, uint NbRespawns);
-  void MasterServer_Tracking_MedalUnlock(MwId UserId, uint Medal);
-  void MasterServer_Tracking_MedalUnlock_v2(MwId UserId, uint PreviousMedal, uint Medal);
-  void MasterServer_Tracking_NewMapCreated(MwId UserId, string Environment, bool IsRandomlyGenerated);
-  void MasterServer_Tracking_NewsImpression(MwId UserId, string NewsId);
-  void MasterServer_Tracking_NewsClick(MwId UserId, string NewsId);
-  void MasterServer_Tracking_PlayerAchievement(MwId UserId, uint AchievementId);
-  void MasterServer_Tracking_PlayerProgressionMap(MwId UserId, string Value);
-  void MasterServer_Tracking_PlayerRespawn(MwId UserId, uint RaceTime);
-  void MasterServer_Tracking_StatCampaign(MwId UserId, uint PlayedMapCount, uint BronzeMedalCount, uint SilverMedalCount, uint GoldMedalCount, uint AuthorMedalCount, uint MaxDifficultyLevel);
-  void MasterServer_Tracking_StatCampaign_v2(MwId UserId, uint PlayedMapCount, uint PlayedEnvCount, uint BronzeMedalCount, uint SilverMedalCount, uint GoldMedalCount, uint AuthorMedalCount, uint MaxDifficultyLevel);
-  void MasterServer_Tracking_StatChallenge(MwId UserId, uint PendingChallengeCount);
-  void MasterServer_Tracking_StatGlobalRanking(MwId UserId, uint GlobalRanking);
-  void MasterServer_Tracking_StatOnline(MwId UserId, uint Echelon);
-  void MasterServer_Tracking_StatRecordCenter(MwId UserId, uint BestCount, uint EqualCount, uint WorstCount);
-  CWebServicesTaskResult* MasterServer_Beta_RetrieveUserInfo(MwId UserId);
-  CWebServicesTaskResult* MasterServer_Beta_AcceptNDA(MwId UserId);
-  CWebServicesTaskResult* BuyFullGame(MwId UserId);
-  CWebServicesTaskResult* ShowSystemError(MwId UserId, uint ErrorCode);
-  void HMD_Activate(bool Enable);
-  const bool HMD_IsActive;
-  const vec3 HMD_HeadTranslation;
-  const float HMD_HeadYaw;
-  const float HMD_HeadPitch;
-  const float HMD_HeadRoll;
-  void HMD_ResetTracking();
-  void HMD_SelectUser();
-  const CGameUserScript* HMD_CurrentUser;
-  float HMD_WorldScale;
-  float HMD_MoveScale; // Range: 1e-05 - 10000
-  float HMD_HUD_Distance; // Range: 0.2 - 100
-  const EHmdWearingState HMD_WearingState;
-  const EHmdTrackingState HMD_TrackingState;
-  const bool HMD_IsUserWarnBySystem_OutOfPlayArea;
-  bool Cameras_BlackOut;
+  const int Now; // Maniascript
+  const string CurrentLocalDateText; // Maniascript
+  const wstring CurrentTimezone; // Maniascript
+  const CGamePlayerInfo* LocalUser; // Maniascript
+  const CGameManiaTitle* LoadedTitle; // Maniascript
+  const MwBuffer<CGameManiaTitle*> TitlesAvailable; // Maniascript
+  const MwBuffer<CGameManiaTitle*> TitlesBases; // Maniascript
+  const MwBuffer<string> TitleIdsInstalled; // Maniascript
+  const MwBuffer<string> TitleIdsPayed; // Maniascript
+  const uint EmptyStationsCount; // Maniascript
+  const ESystemPlatform SystemPlatform; // Maniascript
+  const ESystemSkuIdentifier SystemSkuIdentifier; // Maniascript
+  const string ExeVersion; // Maniascript
+  const CGameCtnChallenge* CurrentMap; // Maniascript
+  const EContext ActiveContext; // Maniascript
+  const string ActiveContext_MenuFrame; // Maniascript
+  const string ActiveContext_InGameDialogFrame; // Maniascript
+  const string ActiveContext_DialogFrame; // Maniascript
+  const string ActiveContext_SystemDialogFrame; // Maniascript
+  const bool ActiveContext_ClassicDialogDisplayed; // Maniascript
+  const uint ActiveContext_GameWill; // Maniascript
+  const bool ActiveContext_ManialinkBrowserDisplayed; // Maniascript
+  const bool ActiveContext_MenuStationsDisplayed; // Maniascript
+  const bool ActiveContext_InGameMenuDisplayed; // Maniascript
+  const EMenuStationsPage ActiveContext_MenuStationsPage; // Maniascript
+  const EMenuStationsPage ActiveContext_MenuStationsClickedPage; // Maniascript
+  const string CurrentServerLogin; // Maniascript
+  const wstring CurrentServerName; // Maniascript
+  const wstring CurrentServerModeName; // Maniascript
+  const string CurrentServerJoinLink; // Maniascript
+  const MwBuffer<CGamePlayerInfo*> CurrentServerPlayers; // Maniascript
+  const uint CurrentAppId; // Maniascript
+  bool IsPrivateSession; // Maniascript
+  const bool IsKioskMode; // Maniascript
+  const bool ParentalLock_IsLocked; // Maniascript
+  const uint TotalTimePlay; // Maniascript
+  const uint Messenger_MessagesCount; // Maniascript
+  const uint AccountPlanets; // Maniascript
+  const bool IsTitleTimeLimited; // Maniascript
+  const bool IsTitleTimeLimitActivated; // Maniascript
+  const bool CanUnlockTitleTimeLimitOnStore; // Maniascript
+  const uint TitleTimeLeft; // Maniascript
+  const uint CurConnectionDate; // Maniascript
+  const uint PrevConnectionDate; // Maniascript
+  float MasterSoundVolume; // Range: -40 - 0 // Maniascript
+  float MasterMusicVolume; // Range: -40 - 0 // Maniascript
+  const bool TmTurbo_IsDemo; // Maniascript
+  const bool TmTurbo_IsPartialInstall; // Maniascript
+  const bool TmTurbo_IsBeta; // Maniascript
+  const bool TmTurbo_IsBetaDeactivated; // Maniascript
+  const bool TmTurbo_IsOpenBeta; // Maniascript
+  const bool TmTurbo_IsSlowInstall; // Maniascript
+  bool Settings_StationsManualLayout; // Maniascript
+  void ClipboardSet(wstring ClipboardText); // Maniascript
+  void OpenLink(string Url, ELinkType LinkType); // Maniascript
+  void QuitGameAndOpenLink(string Url); // Maniascript
+  void InstallTitle(string TitleId); // Maniascript
+  void InstallTitleFromUrl(string Url, wstring DisplayName); // Maniascript
+  void InstallTitleFromUrlEx1(string Url, wstring DisplayName, bool EnterAfterInstall); // Maniascript
+  void InstallTitleFromUrlEx2(string Url, wstring DisplayName, wstring OpenLinkAfterInstall); // Maniascript
+  void ShowTitle(string TitleId, bool ShowStation); // Maniascript
+  void SelectTitle(string TitleId); // Maniascript
+  void EnterTitle(string TitleId); // Maniascript
+  void ShowCurMapCard(); // Maniascript
+  void SetMenuStationsActive(bool Activate); // Maniascript
+  void Dialog_Message(wstring Message); // Maniascript
+  void Dialog_EnterGameKey(); // Maniascript
+  void Dialog_BuyTitleDialog(string TitleId, string OverrideBuyUrl, int OverrideActionAfterBuy); // Maniascript
+  void Dialog_BuyTitleEx(string TitleId, EBuyTitleMode Mode, string OverrideBuyUrl, int OverrideActionAfterBuy); // Maniascript
+  void Dialog_GenerateGameKeys(string TitleId, uint FeaturesLevel, uint NbToGenerate, bool AddBuddyOnRegistration); // Maniascript
+  void Dialog_BuyStations(); // Maniascript
+  void Dialog_SetServerFavourite(string ServerLogin, bool Favorite, bool Silent); // Maniascript
+  const bool Dialog_IsFinished; // Maniascript
+  const bool Dialog_Success; // Maniascript
+  const bool Dialog_Aborted; // Maniascript
+  void CustomMenu_Request(wstring Type, MwBuffer<wstring>& Data); // Maniascript
+  void SetLocalUserClubLink(string ClubLink); // Maniascript
+  void SetLocalUserNickName(wstring NickName); // Maniascript
+  void FlashWindow(); // Maniascript
+  void CreateShortcut(string ShortcutName, string Url); // Maniascript
+  void HideSystemLoadingScreen(); // Maniascript
+  bool IsLiveStreamingEnabled; // Maniascript
+  bool IsRemotePlayEnabled; // Maniascript
+  void TmTurbo_LoadingOpportunity(); // Maniascript
+  const CGameScriptChatManager* ChatManager; // Maniascript
+  const CGameAchievementScriptManager* AchievementsManager; // Maniascript
+  const CGameUserManagerScript* UserMgr; // Maniascript
+  void Authentication_GetToken(MwId UserId, string AppLogin); // Maniascript
+  const bool Authentication_GetTokenResponseReceived; // Maniascript
+  const uint Authentication_ErrorCode; // Maniascript
+  const string Authentication_Token; // Maniascript
+  const MwBuffer<CWebServicesTaskResult*> MasterServer_MSTaskResults; // Maniascript
+  void MasterServer_ReleaseMSTaskResult(MwId TaskId); // Maniascript
+  string MasterServer_GetURL(string ShortCutId); // Maniascript
+  const CGameMasterServerUserInfo* MasterServer_MainMSUser; // Maniascript
+  const MwBuffer<CGameMasterServerUserInfo*> MasterServer_MSUsers; // Maniascript
+  CGameMasterServerUserInfo* MasterServer_GetMSUserFromId(MwId UserId); // Maniascript
+  void MasterServer_Connect(MwId UserId); // Maniascript
+  CWebServicesTaskResult_GetDisplayNameScriptResult* MasterServer_GetDisplayName(MwId UserId); // Maniascript
+  CWebServicesTaskResult* MasterServer_CheckNetworkAvailability(MwId UserId); // Maniascript
+  CWebServicesTaskResult_Session_Get* MasterServer_GetSessionInfo(MwId UserId, wstring SessionId); // Maniascript
+  void MasterServer_Zone_GetPathAndName(wstring ZoneFullPath, wstring ZonePath, wstring ZoneName); // Maniascript
+  CWebServicesTaskResult_ZoneList* MasterServer_Zone_GetChilds(wstring ZoneFullPath); // Maniascript
+  CWebServicesTaskResult* MasterServer_Zone_ChangeZone(MwId UserId, wstring ZoneFullPath); // Maniascript
+  CWebServicesTaskResult_LaunchUplayScriptResult* MasterServer_UplayLaunch(MwId UserId, EUplayFlow UplayFlow, uint RewardCode); // Maniascript
+  CWebServicesTaskResult_LaunchUplayScriptResult* MasterServer_UplayLaunch_v2(MwId UserId, EUplayFlow UplayFlow, string RewardId); // Maniascript
+  CWebServicesTaskResult_LaunchUplayScriptResult* MasterServer_UplayLaunchAndCompleteActions(MwId UserId, EUplayFlow UplayFlow, string RewardId); // Maniascript
+  void MasterServer_Tracking_ContextMenuStart(MwId UserId, string MenuName); // Maniascript
+  void MasterServer_Tracking_ContextMenuStop(MwId UserId, string MenuName); // Maniascript
+  void MasterServer_Tracking_ContextGameModeStart(MwId UserId, string GameMode); // Maniascript
+  void MasterServer_Tracking_ContextGameModeStop(MwId UserId, string GameMode); // Maniascript
+  void MasterServer_Tracking_ContextMapStart(MwId UserId, string MapUid, string Environment); // Maniascript
+  void MasterServer_Tracking_ContextMapStop(MwId UserId, string MapUid); // Maniascript
+  void MasterServer_Tracking_ContextPlayStart(MwId UserId, string Type); // Maniascript
+  void MasterServer_Tracking_ContextPlayStop(MwId UserId, string Type, string Reason, uint NbRespawns); // Maniascript
+  void MasterServer_Tracking_MedalUnlock(MwId UserId, uint Medal); // Maniascript
+  void MasterServer_Tracking_MedalUnlock_v2(MwId UserId, uint PreviousMedal, uint Medal); // Maniascript
+  void MasterServer_Tracking_NewMapCreated(MwId UserId, string Environment, bool IsRandomlyGenerated); // Maniascript
+  void MasterServer_Tracking_NewsImpression(MwId UserId, string NewsId); // Maniascript
+  void MasterServer_Tracking_NewsClick(MwId UserId, string NewsId); // Maniascript
+  void MasterServer_Tracking_PlayerAchievement(MwId UserId, uint AchievementId); // Maniascript
+  void MasterServer_Tracking_PlayerProgressionMap(MwId UserId, string Value); // Maniascript
+  void MasterServer_Tracking_PlayerRespawn(MwId UserId, uint RaceTime); // Maniascript
+  void MasterServer_Tracking_StatCampaign(MwId UserId, uint PlayedMapCount, uint BronzeMedalCount, uint SilverMedalCount, uint GoldMedalCount, uint AuthorMedalCount, uint MaxDifficultyLevel); // Maniascript
+  void MasterServer_Tracking_StatCampaign_v2(MwId UserId, uint PlayedMapCount, uint PlayedEnvCount, uint BronzeMedalCount, uint SilverMedalCount, uint GoldMedalCount, uint AuthorMedalCount, uint MaxDifficultyLevel); // Maniascript
+  void MasterServer_Tracking_StatChallenge(MwId UserId, uint PendingChallengeCount); // Maniascript
+  void MasterServer_Tracking_StatGlobalRanking(MwId UserId, uint GlobalRanking); // Maniascript
+  void MasterServer_Tracking_StatOnline(MwId UserId, uint Echelon); // Maniascript
+  void MasterServer_Tracking_StatRecordCenter(MwId UserId, uint BestCount, uint EqualCount, uint WorstCount); // Maniascript
+  CWebServicesTaskResult* MasterServer_Beta_RetrieveUserInfo(MwId UserId); // Maniascript
+  CWebServicesTaskResult* MasterServer_Beta_AcceptNDA(MwId UserId); // Maniascript
+  CWebServicesTaskResult* BuyFullGame(MwId UserId); // Maniascript
+  CWebServicesTaskResult* ShowSystemError(MwId UserId, uint ErrorCode); // Maniascript
+  void HMD_Activate(bool Enable); // Maniascript
+  const bool HMD_IsActive; // Maniascript
+  const vec3 HMD_HeadTranslation; // Maniascript
+  const float HMD_HeadYaw; // Maniascript
+  const float HMD_HeadPitch; // Maniascript
+  const float HMD_HeadRoll; // Maniascript
+  void HMD_ResetTracking(); // Maniascript
+  void HMD_SelectUser(); // Maniascript
+  const CGameUserScript* HMD_CurrentUser; // Maniascript
+  float HMD_WorldScale; // Maniascript
+  float HMD_MoveScale; // Range: 1e-05 - 10000 // Maniascript
+  float HMD_HUD_Distance; // Range: 0.2 - 100 // Maniascript
+  const EHmdWearingState HMD_WearingState; // Maniascript
+  const EHmdTrackingState HMD_TrackingState; // Maniascript
+  const bool HMD_IsUserWarnBySystem_OutOfPlayArea; // Maniascript
+  bool Cameras_BlackOut; // Maniascript
 };
 
 // File extension: 'Frame.Gbx'
@@ -4571,7 +4571,7 @@ struct CGameDialogShootParams : public CMwNod {
 
 struct CGameManialinkFileEntry : public CGameManialinkEntry {
   void OnFileChoosen();
-  const wstring FullFileName;
+  const wstring FullFileName; // Maniascript
 };
 
 struct CGameNetDataDownload : public CMwNod {
@@ -4637,49 +4637,49 @@ struct CGameScriptHandlerPlaygroundInterface : public CGameManialinkScriptHandle
     AdvancedMenu = 3,
     ServerSettings = 4,
   };
-  const int GameTime;
-  const CGamePlaygroundClientScriptAPI* Playground;
-  CGamePlaygroundUIConfig* UI;
-  CGamePlaygroundUIConfig* ClientUI;
-  const bool IsSpectator;
-  const bool IsSpectatorClient;
-  const bool UseClans;
-  const bool UseForcedClans;
-  const CGameManiaAppPlaygroundCommon* ParentApp;
-  const CGameCtnChallenge* Map;
-  void ShowCurChallengeCard();
-  void ShowModeHelp();
-  void CopyServerLinkToClipBoard();
-  void JoinTeam1();
-  void JoinTeam2();
-  const MwBuffer<CGameTeamProfile*> Teams;
-  void RequestSpectatorClient(bool Spectator);
-  void SetSpectateTarget(string Player);
-  void ShowProfile(string Player);
-  void ShowInGameMenu();
-  void CloseInGameMenu(EInGameMenuResult Result);
-  void CloseScoresTable();
-  const bool IsInGameMenuDisplayed;
-  const string CurrentServerLogin;
-  const wstring CurrentServerName;
-  const wstring CurrentServerDesc;
-  const string CurrentServerJoinLink;
-  const wstring CurrentServerModeName;
-  void PlayUiSound(EUISound Sound, int SoundVariant, float Volume);
-  void Spectate(string Player);
-  const bool IsTeamMode;
-  const bool IsForcedTeams;
-  bool IsSpectatorMode;
-  const CGamePlayerInfo* LocalPlayerInfo;
-  const CGameAchievementScriptManager* AchievementsManager;
+  const int GameTime; // Maniascript
+  const CGamePlaygroundClientScriptAPI* Playground; // Maniascript
+  CGamePlaygroundUIConfig* UI; // Maniascript
+  CGamePlaygroundUIConfig* ClientUI; // Maniascript
+  const bool IsSpectator; // Maniascript
+  const bool IsSpectatorClient; // Maniascript
+  const bool UseClans; // Maniascript
+  const bool UseForcedClans; // Maniascript
+  const CGameManiaAppPlaygroundCommon* ParentApp; // Maniascript
+  const CGameCtnChallenge* Map; // Maniascript
+  void ShowCurChallengeCard(); // Maniascript
+  void ShowModeHelp(); // Maniascript
+  void CopyServerLinkToClipBoard(); // Maniascript
+  void JoinTeam1(); // Maniascript
+  void JoinTeam2(); // Maniascript
+  const MwBuffer<CGameTeamProfile*> Teams; // Maniascript
+  void RequestSpectatorClient(bool Spectator); // Maniascript
+  void SetSpectateTarget(string Player); // Maniascript
+  void ShowProfile(string Player); // Maniascript
+  void ShowInGameMenu(); // Maniascript
+  void CloseInGameMenu(EInGameMenuResult Result); // Maniascript
+  void CloseScoresTable(); // Maniascript
+  const bool IsInGameMenuDisplayed; // Maniascript
+  const string CurrentServerLogin; // Maniascript
+  const wstring CurrentServerName; // Maniascript
+  const wstring CurrentServerDesc; // Maniascript
+  const string CurrentServerJoinLink; // Maniascript
+  const wstring CurrentServerModeName; // Maniascript
+  void PlayUiSound(EUISound Sound, int SoundVariant, float Volume); // Maniascript
+  void Spectate(string Player); // Maniascript
+  const bool IsTeamMode; // Maniascript
+  const bool IsForcedTeams; // Maniascript
+  bool IsSpectatorMode; // Maniascript
+  const CGamePlayerInfo* LocalPlayerInfo; // Maniascript
+  const CGameAchievementScriptManager* AchievementsManager; // Maniascript
 };
 
 struct CGameManiaAppStation : public CGameManiaAppMinimal {
-  const CGameStation* Station;
-  void EnterStation();
-  void Maker_EditTitle(string EditedTitleId);
-  void Maker_EditNewTitle(wstring EditedTitleName);
-  const MwBuffer<CGamePackCreator_TitleInfoScript*> Maker_EditedTitles;
+  const CGameStation* Station; // Maniascript
+  void EnterStation(); // Maniascript
+  void Maker_EditTitle(string EditedTitleId); // Maniascript
+  void Maker_EditNewTitle(wstring EditedTitleName); // Maniascript
+  const MwBuffer<CGamePackCreator_TitleInfoScript*> Maker_EditedTitles; // Maniascript
 };
 
 struct CGameEditPos3D : public CMwNod {
@@ -4738,53 +4738,53 @@ struct CGameManialinkScriptHandler : public CMwNod {
     US = 2,
     JP = 3,
   };
-  const CGameManialinkPage* Page;
-  const bool PageIsVisible;
-  const uint Now;
-  const uint Period;
-  const uint CurrentTime;
-  const string CurrentTimeText;
-  const string CurrentLocalDateText;
-  const wstring CurrentTimezone;
-  const CGamePlayerInfo* LocalUser;
-  const CGameManiaTitle* LoadedTitle;
-  const ESystemPlatform SystemPlatform;
-  const ESystemSkuIdentifier SystemSkuIdentifier;
-  const MwBuffer<CGameManialinkScriptEvent*> PendingEvents;
-  void Dbg_SetProcessed(CGameManialinkScriptEvent* Event);
-  bool Dbg_WarnOnDroppedEvents;
-  const float MouseX;
-  const float MouseY;
-  const bool MouseLeftButton;
-  const bool MouseRightButton;
-  const bool MouseMiddleButton;
-  const bool KeyUp;
-  const bool KeyDown;
-  const bool KeyLeft;
-  const bool KeyRight;
-  const bool KeyReturn;
-  const bool KeySpace;
-  const bool KeyDelete;
-  bool IsKeyPressed(int KeyCode);
-  bool EnableMenuNavigationInputs;
-  void EnableMenuNavigation(bool EnableInputs, bool WithAutoFocus, CGameManialinkControl* AutoBackControl, int InputPriority);
-  const bool IsMenuNavigationForeground;
-  void OpenLink(string Url, LinkType LinkType);
-  void TriggerPageAction(string ActionString);
-  const CXmlScriptManager* Xml;
-  const CNetScriptHttpManager* Http;
-  const CGameVideoScriptManager* Video;
-  const CAudioScriptManager* Audio;
-  const CInputScriptManager* Input;
-  const CGameDataFileManagerScript* DataFileMgr;
-  const CGameScoreAndLeaderBoardManagerScript* ScoreMgr;
-  const CGameUserPrivilegesManagerScript* PrivilegeMgr;
-  const CGameMasterServerRichPresenceManagerScript* PresenceMgr;
-  const CGameManialinkAnimManager* AnimMgr;
-  void SendCustomEvent(wstring Type, MwBuffer<wstring>& Data);
-  void PreloadImage(string ImageUrl);
-  void PreloadAll();
-  wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly);
+  const CGameManialinkPage* Page; // Maniascript
+  const bool PageIsVisible; // Maniascript
+  const uint Now; // Maniascript
+  const uint Period; // Maniascript
+  const uint CurrentTime; // Maniascript
+  const string CurrentTimeText; // Maniascript
+  const string CurrentLocalDateText; // Maniascript
+  const wstring CurrentTimezone; // Maniascript
+  const CGamePlayerInfo* LocalUser; // Maniascript
+  const CGameManiaTitle* LoadedTitle; // Maniascript
+  const ESystemPlatform SystemPlatform; // Maniascript
+  const ESystemSkuIdentifier SystemSkuIdentifier; // Maniascript
+  const MwBuffer<CGameManialinkScriptEvent*> PendingEvents; // Maniascript
+  void Dbg_SetProcessed(CGameManialinkScriptEvent* Event); // Maniascript
+  bool Dbg_WarnOnDroppedEvents; // Maniascript
+  const float MouseX; // Maniascript
+  const float MouseY; // Maniascript
+  const bool MouseLeftButton; // Maniascript
+  const bool MouseRightButton; // Maniascript
+  const bool MouseMiddleButton; // Maniascript
+  const bool KeyUp; // Maniascript
+  const bool KeyDown; // Maniascript
+  const bool KeyLeft; // Maniascript
+  const bool KeyRight; // Maniascript
+  const bool KeyReturn; // Maniascript
+  const bool KeySpace; // Maniascript
+  const bool KeyDelete; // Maniascript
+  bool IsKeyPressed(int KeyCode); // Maniascript
+  bool EnableMenuNavigationInputs; // Maniascript
+  void EnableMenuNavigation(bool EnableInputs, bool WithAutoFocus, CGameManialinkControl* AutoBackControl, int InputPriority); // Maniascript
+  const bool IsMenuNavigationForeground; // Maniascript
+  void OpenLink(string Url, LinkType LinkType); // Maniascript
+  void TriggerPageAction(string ActionString); // Maniascript
+  const CXmlScriptManager* Xml; // Maniascript
+  const CNetScriptHttpManager* Http; // Maniascript
+  const CGameVideoScriptManager* Video; // Maniascript
+  const CAudioScriptManager* Audio; // Maniascript
+  const CInputScriptManager* Input; // Maniascript
+  const CGameDataFileManagerScript* DataFileMgr; // Maniascript
+  const CGameScoreAndLeaderBoardManagerScript* ScoreMgr; // Maniascript
+  const CGameUserPrivilegesManagerScript* PrivilegeMgr; // Maniascript
+  const CGameMasterServerRichPresenceManagerScript* PresenceMgr; // Maniascript
+  const CGameManialinkAnimManager* AnimMgr; // Maniascript
+  void SendCustomEvent(wstring Type, MwBuffer<wstring>& Data); // Maniascript
+  void PreloadImage(string ImageUrl); // Maniascript
+  void PreloadAll(); // Maniascript
+  wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly); // Maniascript
 };
 
 // File extension: 'Frame.Gbx'
@@ -4836,14 +4836,14 @@ struct CGamePlaygroundControlScores : public CControlFrame {
 };
 
 struct CGameManialinkMediaPlayer : public CGameManialinkControl {
-  bool IsInitPlay;
-  bool Music;
-  bool IsLooping;
-  float Volume;
-  string Url;
-  void Play();
-  void Stop();
-  void StopAndRewind();
+  bool IsInitPlay; // Maniascript
+  bool Music; // Maniascript
+  bool IsLooping; // Maniascript
+  float Volume; // Maniascript
+  string Url; // Maniascript
+  void Play(); // Maniascript
+  void Stop(); // Maniascript
+  void StopAndRewind(); // Maniascript
 };
 
 struct CGameNetFormPlayground : public CGameNetForm {
@@ -4881,24 +4881,24 @@ struct CGameManialinkLabel : public CGameManialinkControl {
     Default = 0,
     Add = 1,
   };
-  string Style;
-  string Substyle;
-  wstring TextFont;
-  void SetText(wstring NewText);
-  wstring Value;
-  const uint ValueLineCount;
-  int MaxLine;
-  float LineSpacing;
-  bool AppendEllipsis;
-  bool AutoNewLine;
-  float Opacity;
-  vec3 TextColor;
-  float TextSizeReal;
-  uint TextSize;
-  EBlendMode Blend;
-  float ComputeWidth(wstring Text);
-  float ComputeWidth2(wstring Text, bool Translated);
-  float ComputeHeight(wstring Text);
+  string Style; // Maniascript
+  string Substyle; // Maniascript
+  wstring TextFont; // Maniascript
+  void SetText(wstring NewText); // Maniascript
+  wstring Value; // Maniascript
+  const uint ValueLineCount; // Maniascript
+  int MaxLine; // Maniascript
+  float LineSpacing; // Maniascript
+  bool AppendEllipsis; // Maniascript
+  bool AutoNewLine; // Maniascript
+  float Opacity; // Maniascript
+  vec3 TextColor; // Maniascript
+  float TextSizeReal; // Maniascript
+  uint TextSize; // Maniascript
+  EBlendMode Blend; // Maniascript
+  float ComputeWidth(wstring Text); // Maniascript
+  float ComputeWidth2(wstring Text, bool Translated); // Maniascript
+  float ComputeHeight(wstring Text); // Maniascript
 };
 
 struct CGameYoutube : public CMwNod {
@@ -4933,17 +4933,17 @@ struct CGameUILayer : public CMwNod {
     UpFast = 9,
     UpSlow = 10,
   };
-  bool IsVisible;
-  const bool AnimInProgress;
-  EUILayerType Type;
-  EUILayerAnimation InAnimation;
-  EUILayerAnimation OutAnimation;
-  EUILayerAnimation InOutAnimation;
-  string AttachId;
-  wstring ManialinkPage;
+  bool IsVisible; // Maniascript
+  const bool AnimInProgress; // Maniascript
+  EUILayerType Type; // Maniascript
+  EUILayerAnimation InAnimation; // Maniascript
+  EUILayerAnimation OutAnimation; // Maniascript
+  EUILayerAnimation InOutAnimation; // Maniascript
+  string AttachId; // Maniascript
+  wstring ManialinkPage; // Maniascript
   string ManialinkPageUtf8;
-  const CGameManialinkPage* LocalPage;
-  const bool IsLocalPageScriptRunning;
+  const CGameManialinkPage* LocalPage; // Maniascript
+  const bool IsLocalPageScriptRunning; // Maniascript
 };
 
 struct CGamePlaygroundCommon : public CGameCtnPlayground {
@@ -5071,107 +5071,107 @@ struct CGamePlaygroundUIConfig : public CMwNod {
     MarkersOnly = 2,
     Default = 3,
   };
-  EUISequence UISequence;
-  const bool UISequenceIsCompleted;
-  wstring UISequence_CustomMTClip;
-  uint UISequence_CustomMTRefTime;
-  bool UISequence_CanSkipIntroMT;
-  string UISequence_PodiumPlayersWin;
-  string UISequence_PodiumPlayersLose;
-  wstring ManialinkPage;
-  wstring BigMessage;
-  string BigMessageAvatarLogin;
-  EAvatarVariant BigMessageAvatarVariant;
-  EUISound BigMessageSound;
-  uint BigMessageSoundVariant;
-  wstring StatusMessage;
-  wstring GaugeMessage;
-  float GaugeRatio;
-  uint GaugeClan;
-  string Hud3dMarkers;
-  string MarkersXML;
-  const MwBuffer<CGameUILayer*> UILayers;
-  bool OverlayHideAll;
-  bool OverlayHideNotices;
-  bool OverlayHideMapInfo;
-  bool OverlayHideOpponentsInfo;
-  bool OverlayHideChat;
-  bool OverlayHideCheckPointList;
-  bool OverlayHideRoundScores;
-  bool OverlayHideCountdown;
-  bool OverlayHideCrosshair;
-  bool OverlayHideGauges;
-  bool OverlayHideConsumables;
-  bool OverlayHide321Go;
-  bool OverlayHideBackground;
-  bool OverlayHideChrono;
-  bool OverlayHideSpeedAndDist;
-  bool OverlayHidePersonnalBestAndRank;
-  bool OverlayHidePosition;
-  bool OverlayHideCheckPointTime;
-  bool OverlayHideEndMapLadderRecap;
-  bool OverlayHideMultilapInfos;
-  bool OverlayHideSpectatorControllers;
-  bool OverlayHideSpectatorInfos;
-  bool OverlayChatHideAvatar;
-  uint OverlayChatLineCount; // Range: 0 - 40
-  vec2 OverlayChatOffset;
-  vec2 CountdownCoord;
-  bool NoticesFilter_HidePlayerInfo;
-  bool NoticesFilter_HidePlayerWarning;
-  bool NoticesFilter_HidePlayerInfoIfNotMe;
-  bool NoticesFilter_HidePlayerWarningIfNotMe;
-  bool NoticesFilter_HideMapInfo;
-  bool NoticesFilter_HideMapWarning;
-  bool NoticesFilter_HideMatchInfo;
-  bool NoticesFilter_HideMatchWarning;
-  ENoticeLevel NoticesFilter_LevelToShowAsBigMessage;
-  string ScoreTable;
-  EVisibility ScoreTableVisibility;
-  string SmallScoreTable;
-  EVisibility SmallScoreTableVisibility;
-  bool ScoreTableOnlyManialink;
-  bool AltMenuNoDefaultScores;
-  bool AltMenuNoCustomScores;
-  bool OverlayScoreSummary;
-  MwId ScoreSummary_Player1;
-  int ScoreSummary_Points1;
-  int ScoreSummary_RoundPoints1;
-  int ScoreSummary_MatchPoints1;
-  float ScoreSummary_Gauge1;
-  MwId ScoreSummary_Player2;
-  int ScoreSummary_Points2;
-  int ScoreSummary_RoundPoints2;
-  int ScoreSummary_MatchPoints2;
-  float ScoreSummary_Gauge2;
-  bool ScreenIn3dHideScoreSummary;
-  bool ScreenIn3dHideVersus;
-  int CountdownEndTime;
-  EUIStatus UIStatus;
-  EHudVisibility LabelsVisibility;
-  ELabelsVisibility AlliesLabelsVisibility;
-  EVisibility AlliesLabelsShowGauges;
-  EVisibility AlliesLabelsShowNames;
-  uint AlliesLabelsMaxCount; // Range: 0 - 250
-  ELabelsVisibility TeamLabelsVisibility;
-  EVisibility TeamLabelsShowGauges;
-  EVisibility TeamLabelsShowNames;
-  ELabelsVisibility OpposingTeamLabelsVisibility;
-  EVisibility OpposingTeamLabelsShowGauges;
-  EVisibility OpposingTeamLabelsShowNames;
-  bool ForceSpectator;
-  uint SpectatorForceCameraType;
-  MwId SpectatorAutoTarget;
-  MwId SpectatorForcedTarget;
-  int SpectatorForcedClan;
-  float SpectatorCamAutoLatitude;
-  float SpectatorCamAutoLongitude;
-  float SpectatorCamAutoRadius;
-  EObserverMode SpectatorObserverMode;
-  void SendChat(wstring Text);
-  void SendNotice(wstring Text, ENoticeLevel Level, CGamePlayerInfo* Avatar, EAvatarVariant AvatarVariant, EUISound Sound, int SoundVariant);
-  wstring GetLayerManialinkAction(CGameUILayer* Layer);
-  void ClearLayerManialinkAction(CGameUILayer* Layer);
+  EUISequence UISequence; // Maniascript
+  const bool UISequenceIsCompleted; // Maniascript
+  wstring UISequence_CustomMTClip; // Maniascript
+  uint UISequence_CustomMTRefTime; // Maniascript
+  bool UISequence_CanSkipIntroMT; // Maniascript
+  string UISequence_PodiumPlayersWin; // Maniascript
+  string UISequence_PodiumPlayersLose; // Maniascript
+  wstring ManialinkPage; // Maniascript
+  wstring BigMessage; // Maniascript
+  string BigMessageAvatarLogin; // Maniascript
+  EAvatarVariant BigMessageAvatarVariant; // Maniascript
+  EUISound BigMessageSound; // Maniascript
+  uint BigMessageSoundVariant; // Maniascript
+  wstring StatusMessage; // Maniascript
+  wstring GaugeMessage; // Maniascript
+  float GaugeRatio; // Maniascript
+  uint GaugeClan; // Maniascript
+  string Hud3dMarkers; // Maniascript
+  string MarkersXML; // Maniascript
+  const MwBuffer<CGameUILayer*> UILayers; // Maniascript
+  bool OverlayHideAll; // Maniascript
+  bool OverlayHideNotices; // Maniascript
+  bool OverlayHideMapInfo; // Maniascript
+  bool OverlayHideOpponentsInfo; // Maniascript
+  bool OverlayHideChat; // Maniascript
+  bool OverlayHideCheckPointList; // Maniascript
+  bool OverlayHideRoundScores; // Maniascript
+  bool OverlayHideCountdown; // Maniascript
+  bool OverlayHideCrosshair; // Maniascript
+  bool OverlayHideGauges; // Maniascript
+  bool OverlayHideConsumables; // Maniascript
+  bool OverlayHide321Go; // Maniascript
+  bool OverlayHideBackground; // Maniascript
+  bool OverlayHideChrono; // Maniascript
+  bool OverlayHideSpeedAndDist; // Maniascript
+  bool OverlayHidePersonnalBestAndRank; // Maniascript
+  bool OverlayHidePosition; // Maniascript
+  bool OverlayHideCheckPointTime; // Maniascript
+  bool OverlayHideEndMapLadderRecap; // Maniascript
+  bool OverlayHideMultilapInfos; // Maniascript
+  bool OverlayHideSpectatorControllers; // Maniascript
+  bool OverlayHideSpectatorInfos; // Maniascript
+  bool OverlayChatHideAvatar; // Maniascript
+  uint OverlayChatLineCount; // Range: 0 - 40 // Maniascript
+  vec2 OverlayChatOffset; // Maniascript
+  vec2 CountdownCoord; // Maniascript
+  bool NoticesFilter_HidePlayerInfo; // Maniascript
+  bool NoticesFilter_HidePlayerWarning; // Maniascript
+  bool NoticesFilter_HidePlayerInfoIfNotMe; // Maniascript
+  bool NoticesFilter_HidePlayerWarningIfNotMe; // Maniascript
+  bool NoticesFilter_HideMapInfo; // Maniascript
+  bool NoticesFilter_HideMapWarning; // Maniascript
+  bool NoticesFilter_HideMatchInfo; // Maniascript
+  bool NoticesFilter_HideMatchWarning; // Maniascript
+  ENoticeLevel NoticesFilter_LevelToShowAsBigMessage; // Maniascript
+  string ScoreTable; // Maniascript
+  EVisibility ScoreTableVisibility; // Maniascript
+  string SmallScoreTable; // Maniascript
+  EVisibility SmallScoreTableVisibility; // Maniascript
+  bool ScoreTableOnlyManialink; // Maniascript
+  bool AltMenuNoDefaultScores; // Maniascript
+  bool AltMenuNoCustomScores; // Maniascript
+  bool OverlayScoreSummary; // Maniascript
+  MwId ScoreSummary_Player1; // Maniascript
+  int ScoreSummary_Points1; // Maniascript
+  int ScoreSummary_RoundPoints1; // Maniascript
+  int ScoreSummary_MatchPoints1; // Maniascript
+  float ScoreSummary_Gauge1; // Maniascript
+  MwId ScoreSummary_Player2; // Maniascript
+  int ScoreSummary_Points2; // Maniascript
+  int ScoreSummary_RoundPoints2; // Maniascript
+  int ScoreSummary_MatchPoints2; // Maniascript
+  float ScoreSummary_Gauge2; // Maniascript
+  bool ScreenIn3dHideScoreSummary; // Maniascript
+  bool ScreenIn3dHideVersus; // Maniascript
+  int CountdownEndTime; // Maniascript
+  EUIStatus UIStatus; // Maniascript
+  EHudVisibility LabelsVisibility; // Maniascript
+  ELabelsVisibility AlliesLabelsVisibility; // Maniascript
+  EVisibility AlliesLabelsShowGauges; // Maniascript
+  EVisibility AlliesLabelsShowNames; // Maniascript
+  uint AlliesLabelsMaxCount; // Range: 0 - 250 // Maniascript
+  ELabelsVisibility TeamLabelsVisibility; // Maniascript
+  EVisibility TeamLabelsShowGauges; // Maniascript
+  EVisibility TeamLabelsShowNames; // Maniascript
+  ELabelsVisibility OpposingTeamLabelsVisibility; // Maniascript
+  EVisibility OpposingTeamLabelsShowGauges; // Maniascript
+  EVisibility OpposingTeamLabelsShowNames; // Maniascript
+  bool ForceSpectator; // Maniascript
+  uint SpectatorForceCameraType; // Maniascript
+  MwId SpectatorAutoTarget; // Maniascript
+  MwId SpectatorForcedTarget; // Maniascript
+  int SpectatorForcedClan; // Maniascript
+  float SpectatorCamAutoLatitude; // Maniascript
+  float SpectatorCamAutoLongitude; // Maniascript
+  float SpectatorCamAutoRadius; // Maniascript
+  EObserverMode SpectatorObserverMode; // Maniascript
+  void SendChat(wstring Text); // Maniascript
+  void SendNotice(wstring Text, ENoticeLevel Level, CGamePlayerInfo* Avatar, EAvatarVariant AvatarVariant, EUISound Sound, int SoundVariant); // Maniascript
+  wstring GetLayerManialinkAction(CGameUILayer* Layer); // Maniascript
+  void ClearLayerManialinkAction(CGameUILayer* Layer); // Maniascript
 };
 
 struct CGameManialinkFrame : public CGameManialinkControl {
@@ -5184,23 +5184,23 @@ struct CGameManialinkFrame : public CGameManialinkControl {
     Quad = 5,
     Video = 6,
   };
-  const MwBuffer<CGameManialinkControl*> Controls;
-  CGameManialinkControl* GetFirstChild(string ControlId);
-  bool ClipWindowActive;
-  vec2 ClipWindowRelativePosition;
-  vec2 ClipWindowSize;
-  bool DisablePreload;
+  const MwBuffer<CGameManialinkControl*> Controls; // Maniascript
+  CGameManialinkControl* GetFirstChild(string ControlId); // Maniascript
+  bool ClipWindowActive; // Maniascript
+  vec2 ClipWindowRelativePosition; // Maniascript
+  vec2 ClipWindowSize; // Maniascript
+  bool DisablePreload; // Maniascript
 };
 
 struct CGameManialinkPage : public CMwNod {
   const string Url;
   const CGameManialinkScriptHandler* ScriptHandler;
   const string ScriptText;
-  const CGameManialinkFrame* MainFrame;
-  CGameManialinkControl* GetFirstChild(string ControlId);
-  bool LinksInhibited;
-  void GetClassChildren(string Class, CGameManialinkFrame* Frame, bool Recursive);
-  const MwBuffer<CGameManialinkControl*> GetClassChildren_Result;
+  const CGameManialinkFrame* MainFrame; // Maniascript
+  CGameManialinkControl* GetFirstChild(string ControlId); // Maniascript
+  bool LinksInhibited; // Maniascript
+  void GetClassChildren(string Class, CGameManialinkFrame* Frame, bool Recursive); // Maniascript
+  const MwBuffer<CGameManialinkControl*> GetClassChildren_Result; // Maniascript
 };
 
 struct CGameManialinkControl : public CMwNod {
@@ -5218,36 +5218,36 @@ struct CGameManialinkControl : public CMwNod {
     VCenter2 = 4,
   };
   const CControlBase* Control;
-  const CGameManialinkFrame* Parent;
-  const string ControlId;
-  const MwBuffer<string> ControlClasses;
-  bool HasClass(string Class);
-  vec2 Size;
-  AlignHorizontal HorizontalAlign;
-  AlignVertical VerticalAlign;
-  bool Visible;
-  vec2 RelativePosition_V3;
-  float ZIndex;
-  float RelativeScale;
-  float RelativeRotation;
-  const vec2 AbsolutePosition_V3;
-  const vec3 AbsolutePosition;
-  const float AbsoluteScale;
-  const float AbsoluteRotation;
-  bool DataAttributeExists(string DataName);
-  string DataAttributeGet(string DataName);
-  void DataAttributeSet(string DataName, string DataValue);
-  wstring ToolTip;
-  void Show();
-  void Hide();
-  void Unload();
-  void Focus();
-  const bool IsFocused;
-  vec3 RelativePosition;
-  float PosnX;
-  float PosnY;
-  float PosnZ;
-  float Scale;
+  const CGameManialinkFrame* Parent; // Maniascript
+  const string ControlId; // Maniascript
+  const MwBuffer<string> ControlClasses; // Maniascript
+  bool HasClass(string Class); // Maniascript
+  vec2 Size; // Maniascript
+  AlignHorizontal HorizontalAlign; // Maniascript
+  AlignVertical VerticalAlign; // Maniascript
+  bool Visible; // Maniascript
+  vec2 RelativePosition_V3; // Maniascript
+  float ZIndex; // Maniascript
+  float RelativeScale; // Maniascript
+  float RelativeRotation; // Maniascript
+  const vec2 AbsolutePosition_V3; // Maniascript
+  const vec3 AbsolutePosition; // Maniascript
+  const float AbsoluteScale; // Maniascript
+  const float AbsoluteRotation; // Maniascript
+  bool DataAttributeExists(string DataName); // Maniascript
+  string DataAttributeGet(string DataName); // Maniascript
+  void DataAttributeSet(string DataName, string DataValue); // Maniascript
+  wstring ToolTip; // Maniascript
+  void Show(); // Maniascript
+  void Hide(); // Maniascript
+  void Unload(); // Maniascript
+  void Focus(); // Maniascript
+  const bool IsFocused; // Maniascript
+  vec3 RelativePosition; // Maniascript
+  float PosnX; // Maniascript
+  float PosnY; // Maniascript
+  float PosnZ; // Maniascript
+  float Scale; // Maniascript
 };
 
 // File extension: 'GameCardEventInfo.Gbx'
@@ -5267,24 +5267,24 @@ struct CGameManialinkQuad : public CGameManialinkControl {
     Default = 0,
     Add = 1,
   };
-  void ChangeImageUrl(string fieldName);
-  CPlugBitmap* Image;
-  string ImageUrl;
-  string ImageUrlFocus;
-  string Style;
-  string Substyle;
-  bool StyleSelected;
-  const bool DownloadInProgress;
-  vec3 Colorize;
-  vec3 ModulateColor;
-  vec3 BgColor;
-  vec3 BgColorFocus;
-  float Opacity;
-  EKeepRatioMode KeepRatio;
-  EBlendMode Blend;
-  bool Video_IsPlaying;
-  bool Video_IsLooping;
-  void Video_Rewind();
+  void ChangeImageUrl(string fieldName); // Maniascript
+  CPlugBitmap* Image; // Maniascript
+  string ImageUrl; // Maniascript
+  string ImageUrlFocus; // Maniascript
+  string Style; // Maniascript
+  string Substyle; // Maniascript
+  bool StyleSelected; // Maniascript
+  const bool DownloadInProgress; // Maniascript
+  vec3 Colorize; // Maniascript
+  vec3 ModulateColor; // Maniascript
+  vec3 BgColor; // Maniascript
+  vec3 BgColorFocus; // Maniascript
+  float Opacity; // Maniascript
+  EKeepRatioMode KeepRatio; // Maniascript
+  EBlendMode Blend; // Maniascript
+  bool Video_IsPlaying; // Maniascript
+  bool Video_IsLooping; // Maniascript
+  void Video_Rewind(); // Maniascript
 };
 
 struct CGameManiaPlanetMenuStations : public CMwNod {
@@ -5315,16 +5315,16 @@ struct CGameCtnMacroBlockInfo : public CGameCtnCollector {
   bool Connected;
   bool Initialized;
   const CGameCtnBlockInfo* GeneratedBlockInfo;
-  const bool IsGround;
-  const bool HasStart;
-  const bool HasFinish;
-  const bool HasCheckpoint;
-  const bool HasMultilap;
-  const CGameCtnBlockInfo* GeneratedBlockModel;
+  const bool IsGround; // Maniascript
+  const bool HasStart; // Maniascript
+  const bool HasFinish; // Maniascript
+  const bool HasCheckpoint; // Maniascript
+  const bool HasMultilap; // Maniascript
+  const CGameCtnBlockInfo* GeneratedBlockModel; // Maniascript
   CScriptTraitsMetadata* ScriptMetadata;
-  void ClearScriptMetadata();
+  void ClearScriptMetadata(); // Maniascript
   const MwBuffer<CPlugSpline3D*> TrafficPathSplines;
-  const wstring Name;
+  const wstring Name; // Maniascript
 };
 
 struct CGameCtnEditorCommon : public CGameCtnEditor {
@@ -5538,12 +5538,12 @@ struct CGameCtnEditorPuzzle : public CGameCtnEditorFree {
 };
 
 struct CGamePlaygroundScore : public CMwNod {
-  const CGamePlayerInfo* User;
-  const bool IsRegisteredForLadderMatch;
-  const float LadderScore;
-  int LadderRankSortValue;
-  float LadderMatchScoreValue;
-  uint LadderClan;
+  const CGamePlayerInfo* User; // Maniascript
+  const bool IsRegisteredForLadderMatch; // Maniascript
+  const float LadderScore; // Maniascript
+  int LadderRankSortValue; // Maniascript
+  float LadderMatchScoreValue; // Maniascript
+  uint LadderClan; // Maniascript
 };
 
 struct CGameCtnEditorCommonInterface : public CMwNod {
@@ -5749,29 +5749,29 @@ struct CGameCtnZoneGenealogy : public CMwNod {
 
 struct CGameServerPlugin : public CMwNod {
   CPlugFileTextScript* Script;
-  const CGameManiaTitle* LoadedTitle;
-  const CGameCtnChallengeInfo* MapInfo;
-  CGameConnectedClient* GetClient(string Login);
-  const MwBuffer<CGameConnectedClient*> Clients;
-  const MwBuffer<CGameConnectedClient*> Spectators;
-  const MwBuffer<CGameConnectedClient*> Players;
-  const MwBuffer<CGamePlaygroundScore*> Scores;
-  const MwBuffer<CGamePlayerInfo*> Users;
-  const MwBuffer<CGameTeamProfile*> Teams;
-  string NeutralEmblemUrl;
-  string ForcedClubLinkUrl1;
-  string ForcedClubLinkUrl2;
-  void TweakTeamColorsToAvoidHueOverlap();
-  const uint Now;
-  const MwBuffer<CGameServerPluginEvent*> PendingEvents;
-  void TriggerModeScriptEvent2(wstring Type, MwBuffer<wstring>& Data);
-  const bool MapLoaded;
-  const MwBuffer<CGameCtnChallengeInfo*> MapList;
-  const CGamePlaygroundUIConfigMgrScript* UIManager;
-  const CGameScriptServerAdmin* ServerAdmin;
-  const CXmlScriptManager* Xml;
-  const CNetScriptHttpManager* Http;
-  wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly);
+  const CGameManiaTitle* LoadedTitle; // Maniascript
+  const CGameCtnChallengeInfo* MapInfo; // Maniascript
+  CGameConnectedClient* GetClient(string Login); // Maniascript
+  const MwBuffer<CGameConnectedClient*> Clients; // Maniascript
+  const MwBuffer<CGameConnectedClient*> Spectators; // Maniascript
+  const MwBuffer<CGameConnectedClient*> Players; // Maniascript
+  const MwBuffer<CGamePlaygroundScore*> Scores; // Maniascript
+  const MwBuffer<CGamePlayerInfo*> Users; // Maniascript
+  const MwBuffer<CGameTeamProfile*> Teams; // Maniascript
+  string NeutralEmblemUrl; // Maniascript
+  string ForcedClubLinkUrl1; // Maniascript
+  string ForcedClubLinkUrl2; // Maniascript
+  void TweakTeamColorsToAvoidHueOverlap(); // Maniascript
+  const uint Now; // Maniascript
+  const MwBuffer<CGameServerPluginEvent*> PendingEvents; // Maniascript
+  void TriggerModeScriptEvent2(wstring Type, MwBuffer<wstring>& Data); // Maniascript
+  const bool MapLoaded; // Maniascript
+  const MwBuffer<CGameCtnChallengeInfo*> MapList; // Maniascript
+  const CGamePlaygroundUIConfigMgrScript* UIManager; // Maniascript
+  const CGameScriptServerAdmin* ServerAdmin; // Maniascript
+  const CXmlScriptManager* Xml; // Maniascript
+  const CNetScriptHttpManager* Http; // Maniascript
+  wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly); // Maniascript
 };
 
 struct CGameServerPluginEvent : public CMwNod {
@@ -5787,13 +5787,13 @@ struct CGameServerPluginEvent : public CMwNod {
     ChatMessage = 8,
     ModeCallback = 9,
   };
-  const EType Type;
-  const CGameConnectedClient* Client;
-  const wstring ChatText;
-  const wstring ChatCommandType;
-  const MwBuffer<wstring> ChatCommandData;
-  const wstring ModeCallbackType;
-  const MwBuffer<wstring> ModeCallbackData;
+  const EType Type; // Maniascript
+  const CGameConnectedClient* Client; // Maniascript
+  const wstring ChatText; // Maniascript
+  const wstring ChatCommandType; // Maniascript
+  const MwBuffer<wstring> ChatCommandData; // Maniascript
+  const wstring ModeCallbackType; // Maniascript
+  const MwBuffer<wstring> ModeCallbackData; // Maniascript
 };
 
 struct CGameCtnAutoTerrain : public CMwNod {
@@ -5835,12 +5835,12 @@ struct CGameCtnBlockInfoMobil : public CMwNod {
 };
 
 struct CGameConnectedClient : public CMwNod {
-  const CGamePlayerInfo* User;
-  const CGamePlaygroundUIConfig* UI;
-  const bool IsConnectedToMasterServer;
-  const string ClientVersion;
-  const string ClientTitleVersion;
-  const bool IsSpectator;
+  const CGamePlayerInfo* User; // Maniascript
+  const CGamePlaygroundUIConfig* UI; // Maniascript
+  const bool IsConnectedToMasterServer; // Maniascript
+  const string ClientVersion; // Maniascript
+  const string ClientTitleVersion; // Maniascript
+  const bool IsSpectator; // Maniascript
 };
 
 struct CGameControlCameraEditorOrbital : public CGameControlCamera {
@@ -6041,20 +6041,20 @@ struct CGameCardEventListInfo : public CGameCtnCollector {
 };
 
 struct CGamePlaygroundUIConfigMgrScript : public CMwNod {
-  void ResetAll();
-  const CGamePlaygroundUIConfig* UIAll;
-  const MwBuffer<CGamePlaygroundUIConfig*> UI;
-  CGamePlaygroundUIConfig* GetUI_Player(CGamePlayer* Player);
-  CGamePlaygroundUIConfig* GetUI_User(CGamePlayerInfo* User);
-  CGamePlaygroundUIConfig* GetUI_ConnectedClient(CGameConnectedClient* Client);
-  const MwBuffer<CGameUILayer*> UILayers;
-  CGameUILayer* UILayerCreate();
-  void UILayerDestroy(CGameUILayer* Layer);
-  void UILayerDestroyAll();
-  const MwBuffer<CGameUILayer*> UIReplayLayers;
-  uint UISequenceMaxDuration;
-  bool HoldLoadingScreen;
-  const MwBuffer<CGamePlaygroundUIConfigEvent*> PendingEvents;
+  void ResetAll(); // Maniascript
+  const CGamePlaygroundUIConfig* UIAll; // Maniascript
+  const MwBuffer<CGamePlaygroundUIConfig*> UI; // Maniascript
+  CGamePlaygroundUIConfig* GetUI_Player(CGamePlayer* Player); // Maniascript
+  CGamePlaygroundUIConfig* GetUI_User(CGamePlayerInfo* User); // Maniascript
+  CGamePlaygroundUIConfig* GetUI_ConnectedClient(CGameConnectedClient* Client); // Maniascript
+  const MwBuffer<CGameUILayer*> UILayers; // Maniascript
+  CGameUILayer* UILayerCreate(); // Maniascript
+  void UILayerDestroy(CGameUILayer* Layer); // Maniascript
+  void UILayerDestroyAll(); // Maniascript
+  const MwBuffer<CGameUILayer*> UIReplayLayers; // Maniascript
+  uint UISequenceMaxDuration; // Maniascript
+  bool HoldLoadingScreen; // Maniascript
+  const MwBuffer<CGamePlaygroundUIConfigEvent*> PendingEvents; // Maniascript
   const CGamePlaygroundUIConfig* LocalPlayerConfig;
   const CGamePlaygroundUIConfig* LocalPlayerConfig1;
   const CGamePlaygroundUIConfig* LocalPlayerConfig2;
@@ -6111,88 +6111,88 @@ struct CGamePlaygroundScript : public CMwNod {
     JP = 3,
   };
   CPlugFileTextScript* Script;
-  wstring ModeStatusMessage;
-  const CGameManiaTitle* LoadedTitle;
-  const string ServerLogin;
-  const wstring ServerName;
-  const wstring ServerModeName;
-  const wstring MapName;
-  const CGameCtnChallenge* Map;
-  const wstring MapPlayerModelName;
-  const MwBuffer<CGamePlayerInfo*> Users;
-  const MwBuffer<CGameTeamProfile*> Teams;
-  string NeutralEmblemUrl;
-  const string ForcedClubLinkUrl1;
-  const string ForcedClubLinkUrl2;
-  void TweakTeamColorsToAvoidHueOverlap();
-  string ClientManiaAppUrl;
-  const uint Now;
-  const uint Period;
-  bool MatchEndRequested;
-  const bool ServerShutdownRequested;
-  const bool MapLoaded;
-  void RequestLoadMap();
-  void RequestUnloadMap();
-  const MwBuffer<CGameCtnChallengeInfo*> MapList;
-  uint NextMapIndex;
-  const CGamePlaygroundUIConfigMgrScript* UIManager;
-  void Hud_Load(wstring ModuleName);
-  const CGamePlaygroundModuleServerHud* Hud;
-  void PassOnModuleEvent(CGamePlaygroundUIConfigEvent* EventToPassOn);
-  void DiscardModuleEvent(CGamePlaygroundUIConfigEvent* EventToDiscard);
-  void Ladder_OpenMatch_Request();
-  void Ladder_AddPlayer(CGamePlaygroundScore* PlayerScore);
-  void Ladder_OpenMatch_BeginRequest();
-  void Ladder_OpenMatch_AddPlayer(CGamePlaygroundScore* PlayerScore);
-  void Ladder_OpenMatch_EndRequest();
-  void Ladder_CloseMatchRequest();
-  void Ladder_CancelMatchRequest();
-  const bool Ladder_RequestInProgress;
-  void Ladder_SetResultsVersion(uint Version);
-  void Ladder_SetMatchMakingMatchId(uint MatchId);
-  void Ladder_EnableChallengeMode(bool Enable);
-  bool Admin_KickUser(CGamePlayerInfo* User, wstring Reason);
-  void Admin_SetLobbyInfo(bool IsLobby, int LobbyPlayerCount, int LobbyMaxPlayerCount, float LobbyPlayersLevel);
-  const CGameScriptServerAdmin* ServerAdmin;
-  void AutoTeamBalance();
-  void Solo_SetNewRecord(CGamePlaygroundScore* PlayerScore, EMedal PlayerScore);
-  const bool Solo_NewRecordSequenceInProgress;
-  const CGamePlaygroundScriptXmlRpc* XmlRpc;
-  const CXmlScriptManager* Xml;
-  const CNetScriptHttpManager* Http;
-  const CInputScriptManager* Input;
-  const CGameDataFileManagerScript* DataFileMgr;
-  const CGameScoreAndLeaderBoardManagerScript* ScoreMgr;
-  const ESystemPlatform SystemPlatform;
-  const ESystemSkuIdentifier SystemSkuIdentifier;
-  int Synchro_AddBarrier();
-  bool Synchro_BarrierReached(int Barrier);
-  bool Users_AreAllies(CGamePlayerInfo* User1, CGamePlayerInfo* User2);
-  void Users_RequestSwitchToSpectator(CGamePlayerInfo* User);
-  CGamePlayerInfo* Users_CreateFake(wstring NickName, int RequestedTeam);
-  void Users_DestroyFake(CGamePlayerInfo* User);
-  void Users_SetNbFakeUsers(int NbTeam1, int NbTeam2);
-  void Users_DestroyAllFakes();
+  wstring ModeStatusMessage; // Maniascript
+  const CGameManiaTitle* LoadedTitle; // Maniascript
+  const string ServerLogin; // Maniascript
+  const wstring ServerName; // Maniascript
+  const wstring ServerModeName; // Maniascript
+  const wstring MapName; // Maniascript
+  const CGameCtnChallenge* Map; // Maniascript
+  const wstring MapPlayerModelName; // Maniascript
+  const MwBuffer<CGamePlayerInfo*> Users; // Maniascript
+  const MwBuffer<CGameTeamProfile*> Teams; // Maniascript
+  string NeutralEmblemUrl; // Maniascript
+  const string ForcedClubLinkUrl1; // Maniascript
+  const string ForcedClubLinkUrl2; // Maniascript
+  void TweakTeamColorsToAvoidHueOverlap(); // Maniascript
+  string ClientManiaAppUrl; // Maniascript
+  const uint Now; // Maniascript
+  const uint Period; // Maniascript
+  bool MatchEndRequested; // Maniascript
+  const bool ServerShutdownRequested; // Maniascript
+  const bool MapLoaded; // Maniascript
+  void RequestLoadMap(); // Maniascript
+  void RequestUnloadMap(); // Maniascript
+  const MwBuffer<CGameCtnChallengeInfo*> MapList; // Maniascript
+  uint NextMapIndex; // Maniascript
+  const CGamePlaygroundUIConfigMgrScript* UIManager; // Maniascript
+  void Hud_Load(wstring ModuleName); // Maniascript
+  const CGamePlaygroundModuleServerHud* Hud; // Maniascript
+  void PassOnModuleEvent(CGamePlaygroundUIConfigEvent* EventToPassOn); // Maniascript
+  void DiscardModuleEvent(CGamePlaygroundUIConfigEvent* EventToDiscard); // Maniascript
+  void Ladder_OpenMatch_Request(); // Maniascript
+  void Ladder_AddPlayer(CGamePlaygroundScore* PlayerScore); // Maniascript
+  void Ladder_OpenMatch_BeginRequest(); // Maniascript
+  void Ladder_OpenMatch_AddPlayer(CGamePlaygroundScore* PlayerScore); // Maniascript
+  void Ladder_OpenMatch_EndRequest(); // Maniascript
+  void Ladder_CloseMatchRequest(); // Maniascript
+  void Ladder_CancelMatchRequest(); // Maniascript
+  const bool Ladder_RequestInProgress; // Maniascript
+  void Ladder_SetResultsVersion(uint Version); // Maniascript
+  void Ladder_SetMatchMakingMatchId(uint MatchId); // Maniascript
+  void Ladder_EnableChallengeMode(bool Enable); // Maniascript
+  bool Admin_KickUser(CGamePlayerInfo* User, wstring Reason); // Maniascript
+  void Admin_SetLobbyInfo(bool IsLobby, int LobbyPlayerCount, int LobbyMaxPlayerCount, float LobbyPlayersLevel); // Maniascript
+  const CGameScriptServerAdmin* ServerAdmin; // Maniascript
+  void AutoTeamBalance(); // Maniascript
+  void Solo_SetNewRecord(CGamePlaygroundScore* PlayerScore, EMedal PlayerScore); // Maniascript
+  const bool Solo_NewRecordSequenceInProgress; // Maniascript
+  const CGamePlaygroundScriptXmlRpc* XmlRpc; // Maniascript
+  const CXmlScriptManager* Xml; // Maniascript
+  const CNetScriptHttpManager* Http; // Maniascript
+  const CInputScriptManager* Input; // Maniascript
+  const CGameDataFileManagerScript* DataFileMgr; // Maniascript
+  const CGameScoreAndLeaderBoardManagerScript* ScoreMgr; // Maniascript
+  const ESystemPlatform SystemPlatform; // Maniascript
+  const ESystemSkuIdentifier SystemSkuIdentifier; // Maniascript
+  int Synchro_AddBarrier(); // Maniascript
+  bool Synchro_BarrierReached(int Barrier); // Maniascript
+  bool Users_AreAllies(CGamePlayerInfo* User1, CGamePlayerInfo* User2); // Maniascript
+  void Users_RequestSwitchToSpectator(CGamePlayerInfo* User); // Maniascript
+  CGamePlayerInfo* Users_CreateFake(wstring NickName, int RequestedTeam); // Maniascript
+  void Users_DestroyFake(CGamePlayerInfo* User); // Maniascript
+  void Users_SetNbFakeUsers(int NbTeam1, int NbTeam2); // Maniascript
+  void Users_DestroyAllFakes(); // Maniascript
   uint Users_EdNbFakeUsers;
-  void ItemList_Begin();
-  bool ItemList_Begin2();
-  MwId ItemList_Add(wstring ModelName);
-  MwId ItemList_AddWithSkin(wstring ModelName, wstring SkinNameOrUrl);
-  void ItemList_End();
-  void DemoToken_StartUsingToken();
-  void DemoToken_StopUsingToken();
-  void DemoToken_GetAndUseToken(CGamePlayerInfo* User);
-  void ActionList_Begin();
-  bool ActionList_Begin2();
-  MwId ActionList_Add(wstring ActionName);
-  void ActionList_End();
-  bool UseMinimap;
-  bool Replay_AutoStart;
-  void Replay_Start();
-  void Replay_Stop();
-  const CGameAchievementScriptManager* AchievementsManager;
-  const CGameScriptMgrTurret* TurretsManager;
-  wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly);
+  void ItemList_Begin(); // Maniascript
+  bool ItemList_Begin2(); // Maniascript
+  MwId ItemList_Add(wstring ModelName); // Maniascript
+  MwId ItemList_AddWithSkin(wstring ModelName, wstring SkinNameOrUrl); // Maniascript
+  void ItemList_End(); // Maniascript
+  void DemoToken_StartUsingToken(); // Maniascript
+  void DemoToken_StopUsingToken(); // Maniascript
+  void DemoToken_GetAndUseToken(CGamePlayerInfo* User); // Maniascript
+  void ActionList_Begin(); // Maniascript
+  bool ActionList_Begin2(); // Maniascript
+  MwId ActionList_Add(wstring ActionName); // Maniascript
+  void ActionList_End(); // Maniascript
+  bool UseMinimap; // Maniascript
+  bool Replay_AutoStart; // Maniascript
+  void Replay_Start(); // Maniascript
+  void Replay_Stop(); // Maniascript
+  const CGameAchievementScriptManager* AchievementsManager; // Maniascript
+  const CGameScriptMgrTurret* TurretsManager; // Maniascript
+  wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly); // Maniascript
 };
 
 // File extension: 'GameCtnMediaBlockFxCameraMap.gbx'
@@ -6215,9 +6215,9 @@ struct CGamePlaygroundBasic : public CGamePlayground {
 };
 
 struct CGameScriptHandlerManiaPlanetPlugin : public CGameManialinkScriptHandler {
-  const CGameManiaPlanetScriptAPI* ManiaPlanet;
-  const CGameManiaplanetPlugin* ParentApp;
-  const CGamePluginInterfacesScript* Plugins;
+  const CGameManiaPlanetScriptAPI* ManiaPlanet; // Maniascript
+  const CGameManiaplanetPlugin* ParentApp; // Maniascript
+  const CGamePluginInterfacesScript* Plugins; // Maniascript
 };
 
 struct CGamePlayerProfileChunk_PackagesInfos : public CGamePlayerProfileChunk {
@@ -6451,17 +6451,17 @@ struct CGameEditorPluginMapMapType : public CGameEditorPluginMap {
     Validable = 1,
     Validated = 2,
   };
-  bool CustomEditAnchorData;
-  void ClearMapMetadata();
-  ValidationStatus ValidationStatus;
-  wstring ValidabilityRequirementsMessage;
-  bool ValidationEndRequested;
-  bool ValidationEndNoConfirm;
-  void RequestEnterPlayground();
-  void RequestLeavePlayground();
-  const bool IsSwitchedToPlayground;
-  const CGamePlaygroundUIConfigMgrScript* UIManager;
-  const MwBuffer<CGamePlayerInfo*> Users;
+  bool CustomEditAnchorData; // Maniascript
+  void ClearMapMetadata(); // Maniascript
+  ValidationStatus ValidationStatus; // Maniascript
+  wstring ValidabilityRequirementsMessage; // Maniascript
+  bool ValidationEndRequested; // Maniascript
+  bool ValidationEndNoConfirm; // Maniascript
+  void RequestEnterPlayground(); // Maniascript
+  void RequestLeavePlayground(); // Maniascript
+  const bool IsSwitchedToPlayground; // Maniascript
+  const CGamePlaygroundUIConfigMgrScript* UIManager; // Maniascript
+  const MwBuffer<CGamePlayerInfo*> Users; // Maniascript
 };
 
 struct CGameCursorItem : public CMwNod {
@@ -6605,16 +6605,16 @@ struct CGameCtnEditorScriptAnchoredObject : public CMwNod {
     South = 2,
     West = 3,
   };
-  const vec3 Position;
+  const vec3 Position; // Maniascript
 };
 
 struct CGameCtnEditorScriptSpecialProperty : public CMwNod {
-  const string DefaultTag;
-  const uint DefaultOrder;
-  string Tag;
-  uint Order;
-  const CGameCtnBlock* Block;
-  const CGameCtnEditorScriptAnchoredObject* Item;
+  const string DefaultTag; // Maniascript
+  const uint DefaultOrder; // Maniascript
+  string Tag; // Maniascript
+  uint Order; // Maniascript
+  const CGameCtnBlock* Block; // Maniascript
+  const CGameCtnEditorScriptAnchoredObject* Item; // Maniascript
 };
 
 struct CGameCtnBlockInfoVariant : public CMwNod {
@@ -6641,10 +6641,10 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
   };
   MwArray<CGameCtnBlockUnitInfo*> BlockUnitInfos;
   const MwId BlockInfoIdForLog;
-  string Name;
-  const bool IsAllUnderground;
-  const bool IsPartUnderground;
-  const int3 Size;
+  string Name; // Maniascript
+  const bool IsAllUnderground; // Maniascript
+  const bool IsPartUnderground; // Maniascript
+  const int3 Size; // Maniascript
   CPlugSolid* HelperSolidFid;
   CPlugSolid* FacultativeHelperSolidFid;
   CMwNod* WayPointTriggerSolid;
@@ -6684,8 +6684,8 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
   vec3 SpawnTrans;
   float SpawnYaw; // Range: -180 - 180
   float SpawnPitch; // Range: -90 - 90
-  const int2 OffsetBoundingBoxMin;
-  const int2 OffsetBoundingBoxMax;
+  const int2 OffsetBoundingBoxMin; // Maniascript
+  const int2 OffsetBoundingBoxMax; // Maniascript
   MwBuffer<CMwNod*> Mobils00;
   MwBuffer<CMwNod*> Mobils01;
   MwBuffer<CMwNod*> Mobils02;
@@ -6712,7 +6712,7 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
   MwBuffer<CGameCtnBlockInfo*> PlacedPillarBlockInfo_List;
   MwBuffer<int3> PlacedPillarOffset_List;
   UnknownType PlacedPillarDir_List;
-  const MwArray<CGameCtnBlockUnitInfo*> BlockUnitModels;
+  const MwArray<CGameCtnBlockUnitInfo*> BlockUnitModels; // Maniascript
 };
 
 struct CGameCtnBlockInfoVariantGround : public CGameCtnBlockInfoVariant {
@@ -6737,20 +6737,20 @@ struct CGameCtnBlockInfoVariantAir : public CGameCtnBlockInfoVariant {
 };
 
 struct CGameTeamProfile : public CMwNod {
-  wstring Name;
-  wstring ZonePath;
-  wstring City;
-  string EmblemUrl;
-  string PresentationManialinkUrl;
-  string ClubLinkUrl;
+  wstring Name; // Maniascript
+  wstring ZonePath; // Maniascript
+  wstring City; // Maniascript
+  string EmblemUrl; // Maniascript
+  string PresentationManialinkUrl; // Maniascript
+  string ClubLinkUrl; // Maniascript
   float ColorLinearHuePrimary; // Range: 0 - 1
   const UnknownType ColorPrimaryAsColor;
-  vec3 ColorPrimary;
+  vec3 ColorPrimary; // Maniascript
   float ColorLinearHueSecondary; // Range: 0 - 1
   const UnknownType ColorSecondaryAsColor;
-  vec3 ColorSecondary;
-  const wstring ColorText;
-  const wstring ColorizedName;
+  vec3 ColorSecondary; // Maniascript
+  const wstring ColorText; // Maniascript
+  const wstring ColorizedName; // Maniascript
   void UpdateCache();
 };
 
@@ -6777,18 +6777,18 @@ struct CGameManialinkScriptEvent : public CMwNod {
     Action1 = 9,
     Action2 = 10,
   };
-  const Type Type;
-  const uint KeyCode;
-  const string KeyName;
-  const string CharPressed;
-  const string ControlId;
-  const CGameManialinkControl* Control;
-  const EMenuNavAction MenuNavAction;
-  const bool IsActionAutoRepeat;
-  const wstring CustomEventType;
-  const MwBuffer<wstring> CustomEventData;
-  const wstring PluginCustomEventType;
-  const MwBuffer<wstring> PluginCustomEventData;
+  const Type Type; // Maniascript
+  const uint KeyCode; // Maniascript
+  const string KeyName; // Maniascript
+  const string CharPressed; // Maniascript
+  const string ControlId; // Maniascript
+  const CGameManialinkControl* Control; // Maniascript
+  const EMenuNavAction MenuNavAction; // Maniascript
+  const bool IsActionAutoRepeat; // Maniascript
+  const wstring CustomEventType; // Maniascript
+  const MwBuffer<wstring> CustomEventData; // Maniascript
+  const wstring PluginCustomEventType; // Maniascript
+  const MwBuffer<wstring> PluginCustomEventData; // Maniascript
 };
 
 struct CGameEditorPluginMap : public CGameManiaApp {
@@ -6837,200 +6837,200 @@ struct CGameEditorPluginMap : public CGameManiaApp {
     Validable = 1,
     Validated = 2,
   };
-  const MwBuffer<CGameEditorPluginMapScriptEvent*> PendingEvents;
-  const CGameCtnChallenge* Map;
-  const wstring MapName;
-  const bool IsEditorReadyForRequest;
-  bool HoldLoadingScreen;
-  void ComputeShadows();
-  void ComputeShadows1(ShadowsQuality ShadowsQuality);
-  const ShadowsQuality CurrentShadowsQuality;
-  const bool IsUltraShadowsQualityAvailable;
-  void DisplayDefaultSetObjectivesDialog();
-  void Undo();
-  void Redo();
-  void Help();
-  void Validate();
-  void AutoSave();
-  void Quit();
-  void QuickQuit();
-  void QuitAndSetResult(wstring Type, MwBuffer<wstring>& Data);
-  void QuickQuitAndSetResult(wstring Type, MwBuffer<wstring>& Data);
-  void TestMapFromStart();
-  void TestMapFromCoord(int2 Coord, CardinalDirections Dir);
-  void TestMapWithMode(wstring RulesModeName);
-  void StartTestMapWithMode(wstring RulesModeName);
-  void SaveMap(wstring FileName);
-  void SaveMapCompat(wstring FileName, wstring Path);
-  PlaceMode PlaceMode;
-  EditMode EditMode;
-  bool UndergroundMode;
-  bool BlockStockMode;
-  int3 CursorCoord;
-  CardinalDirections CursorDir;
-  CGameCtnBlockInfo* CursorBlockModel;
-  CGameCtnBlockInfo* CursorTerrainBlockModel;
-  CGameCtnMacroBlockInfo* CursorMacroblockModel;
-  float CameraVAngle;
-  float CameraHAngle;
-  float CameraToTargetDistance;
-  vec3 CameraTargetPosition;
-  const vec3 CameraPosition;
-  vec3 TargetedPosition;
-  float ThumbnailCameraVAngle;
-  float ThumbnailCameraHAngle;
-  float ThumbnailCameraRoll;
-  float ThumbnailCameraFovY;
-  vec3 ThumbnailCameraPosition;
-  bool GetRaceCamera(vec3 Position, float Yaw, float Pitch, float Roll, float FovY);
-  bool EnableAirMapping;
-  bool EnableMixMapping;
-  void RemoveAllBlocks();
-  void RemoveAllTerrain();
-  void RemoveAllOffZone();
-  void RemoveAllObjects();
-  void RemoveAll();
-  void RemoveAllBlocksAndTerrain();
-  void ShowCustomSelection();
-  void HideCustomSelection();
-  void CopyPaste_Copy();
-  void CopyPaste_Cut();
-  void CopyPaste_Remove();
-  void CopyPaste_SelectAll();
-  void CopyPaste_ResetSelection();
-  void OpenToolsMenu();
-  void EditMediatrackIngame();
-  void PreloadAllBlocks();
-  void PreloadAllItems();
-  bool CanPlaceBlock(CGameCtnBlockInfo* BlockModel, int2 Coord, CardinalDirections Dir, bool OnGround, uint VariantIndex);
-  bool PlaceBlock(CGameCtnBlockInfo* BlockModel, int2 Coord, CardinalDirections Dir);
-  bool CanPlaceBlock_NoDestruction(CGameCtnBlockInfo* BlockModel, int2 Coord, CardinalDirections Dir, bool OnGround, uint VariantIndex);
-  bool PlaceBlock_NoDestruction(CGameCtnBlockInfo* BlockModel, int2 Coord, CardinalDirections Dir);
-  bool CanPlaceRoadBlocks(CGameCtnBlockInfo* BlockModel, int2 StartCoord, int2 EndCoord);
-  bool PlaceRoadBlocks(CGameCtnBlockInfo* BlockModel, int2 StartCoord, int2 EndCoord);
-  bool CanPlaceTerrainBlocks(CGameCtnBlockInfo* BlockModel, int2 StartCoord, int2 EndCoord);
-  bool PlaceTerrainBlocks(CGameCtnBlockInfo* BlockModel, int2 StartCoord, int2 EndCoord);
-  bool PlaceTerrainBlocks_NoDestruction(CGameCtnBlockInfo* BlockModel, int2 StartCoord, int2 EndCoord);
-  bool CanPlaceMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir);
-  bool PlaceMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir);
-  bool CanPlaceMacroblock_NoDestruction(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir);
-  bool PlaceMacroblock_NoDestruction(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir);
-  bool CanPlaceMacroblock_NoTerrain(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir);
-  bool PlaceMacroblock_NoTerrain(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir);
-  bool RemoveMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir);
-  bool RemoveMacroblock_NoTerrain(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir);
-  CGameCtnBlock* GetBlock(int2 Coord);
-  bool IsBlockModelSkinnable(CGameCtnBlockInfo* BlockModel);
-  uint GetNbBlockModelSkins(CGameCtnBlockInfo* BlockModel);
-  wstring GetBlockModelSkin(CGameCtnBlockInfo* BlockModel, uint SkinIndex);
-  wstring GetSkinDisplayName(wstring SkinFileName);
-  wstring GetBlockSkin(CGameCtnBlock* Block);
-  void SetBlockSkin(CGameCtnBlock* Block, wstring SkinFileName);
-  bool OpenBlockSkinDialog(CGameCtnBlock* Block);
-  bool RemoveBlock(int2 Coord);
-  bool RemoveTerrainBlocks(int2 StartCoord, int2 EndCoord);
-  uint GetBlockGroundHeight(CGameCtnBlockInfo* BlockModel, int CoordX, int CoordZ, CardinalDirections Dir);
-  uint GetGroundHeight(int CoordX, int CoordZ);
-  int2 GetMouseCoordOnGround();
-  int2 GetMouseCoordAtHeight(uint CoordY);
-  CGameCtnBlock* GetStartLineBlock();
-  bool RemoveItem(CGameCtnEditorScriptSpecialProperty* Item);
-  void CopyPaste_AddOrSubSelection(int2 StartCoord, int2 EndCoord);
-  bool CopyPaste_Symmetrize();
-  void SaveMacroblock(CGameCtnMacroBlockInfo* MacroblockModel);
-  CGameCtnMacroBlockInfo* GetMacroblockModelFromName(wstring MacroblockModelName);
-  CGameCtnMacroBlockInfo* GetMacroblockModelFromFilePath(wstring MacroblockModelFilePath);
-  CGameCtnBlockInfo* GetTerrainBlockModelFromName(wstring TerrainBlockModelName);
-  CGameCtnBlockInfo* GetBlockModelFromName(wstring BlockModelName);
-  wstring GetMapStyle();
-  void SetMapStyle(wstring MapStyle);
-  const MwBuffer<CGameCtnEditorScriptAnchoredObject*> Items;
-  const MwBuffer<wstring> MediatrackIngameClips;
-  const MwBuffer<wstring> MediatrackIngameIsScriptClips;
-  uint MediatrackIngameEditedClipIndex;
-  const MwBuffer<CGameCtnBlock*> Blocks;
-  const MwBuffer<CGameCtnBlockInfo*> BlockModels;
-  const MwBuffer<CGameCtnBlockInfo*> TerrainBlockModels;
-  const MwBuffer<CGameCtnMacroBlockInfo*> MacroblockModels;
-  const MwBuffer<CGameCtnEditorScriptSpecialProperty*> AnchorData;
-  MwBuffer<int3> CustomSelectionCoords;
-  vec3 CustomSelectionRGB;
-  bool EnableEditorInputsCustomProcessing;
-  bool EnableCursorShowingWhenInterfaceIsFocused;
-  bool HideEditorInterface;
-  bool HideBlockHelpers;
-  bool ShowPlacementGrid;
-  float CursorBrightnessFactor;
-  const bool EditorInputIsDown_Menu;
-  const bool EditorInputIsDown_SwitchToRace;
-  const bool EditorInputIsDown_Undo;
-  const bool EditorInputIsDown_Redo;
-  const bool EditorInputIsDown_CursorUp;
-  const bool EditorInputIsDown_CursorRight;
-  const bool EditorInputIsDown_CursorDown;
-  const bool EditorInputIsDown_CursorLeft;
-  const bool EditorInputIsDown_CursorRaise;
-  const bool EditorInputIsDown_CursorLower;
-  const bool EditorInputIsDown_CursorTurn;
-  const bool EditorInputIsDown_CursorPick;
-  const bool EditorInputIsDown_CursorPlace;
-  const bool EditorInputIsDown_CursorDelete;
-  const bool EditorInputIsDown_CameraUp;
-  const bool EditorInputIsDown_CameraRight;
-  const bool EditorInputIsDown_CameraDown;
-  const bool EditorInputIsDown_CameraLeft;
-  const bool EditorInputIsDown_CameraZoomNext;
-  const bool EditorInputIsDown_Camera0;
-  const bool EditorInputIsDown_Camera1;
-  const bool EditorInputIsDown_Camera3;
-  const bool EditorInputIsDown_Camera7;
-  const bool EditorInputIsDown_Camera9;
-  const bool EditorInputIsDown_PivotChange;
-  const bool EditorInputIsDown_CursorTurnSlightly;
-  const bool EditorInputIsDown_CursorTurnSlightlyAntiClockwise;
-  const bool EditorInputIsDown_IconUp;
-  const bool EditorInputIsDown_IconRight;
-  const bool EditorInputIsDown_IconDown;
-  const bool EditorInputIsDown_IconLeft;
-  const bool EditorInputIsDown_RemoveAll;
-  const bool EditorInputIsDown_Save;
-  const bool EditorInputIsDown_SaveAs;
-  const bool EditorInputIsDown_MapStyle;
-  const bool EditorInputIsDown_ClassicMapEditor;
-  const float CollectionSquareSize;
-  const float CollectionSquareHeight;
-  const uint CollectionGroundY;
-  const ValidationStatus ValidationStatus;
-  string ManialinkText;
-  const CGameManialinkPage* ManialinkPage;
-  uint GetInterfaceNumber(CGameCtnCollector* Collector);
-  void SetInterfaceNumber(CGameCtnCollector* Collector, uint NewValue);
+  const MwBuffer<CGameEditorPluginMapScriptEvent*> PendingEvents; // Maniascript
+  const CGameCtnChallenge* Map; // Maniascript
+  const wstring MapName; // Maniascript
+  const bool IsEditorReadyForRequest; // Maniascript
+  bool HoldLoadingScreen; // Maniascript
+  void ComputeShadows(); // Maniascript
+  void ComputeShadows1(ShadowsQuality ShadowsQuality); // Maniascript
+  const ShadowsQuality CurrentShadowsQuality; // Maniascript
+  const bool IsUltraShadowsQualityAvailable; // Maniascript
+  void DisplayDefaultSetObjectivesDialog(); // Maniascript
+  void Undo(); // Maniascript
+  void Redo(); // Maniascript
+  void Help(); // Maniascript
+  void Validate(); // Maniascript
+  void AutoSave(); // Maniascript
+  void Quit(); // Maniascript
+  void QuickQuit(); // Maniascript
+  void QuitAndSetResult(wstring Type, MwBuffer<wstring>& Data); // Maniascript
+  void QuickQuitAndSetResult(wstring Type, MwBuffer<wstring>& Data); // Maniascript
+  void TestMapFromStart(); // Maniascript
+  void TestMapFromCoord(int2 Coord, CardinalDirections Dir); // Maniascript
+  void TestMapWithMode(wstring RulesModeName); // Maniascript
+  void StartTestMapWithMode(wstring RulesModeName); // Maniascript
+  void SaveMap(wstring FileName); // Maniascript
+  void SaveMapCompat(wstring FileName, wstring Path); // Maniascript
+  PlaceMode PlaceMode; // Maniascript
+  EditMode EditMode; // Maniascript
+  bool UndergroundMode; // Maniascript
+  bool BlockStockMode; // Maniascript
+  int3 CursorCoord; // Maniascript
+  CardinalDirections CursorDir; // Maniascript
+  CGameCtnBlockInfo* CursorBlockModel; // Maniascript
+  CGameCtnBlockInfo* CursorTerrainBlockModel; // Maniascript
+  CGameCtnMacroBlockInfo* CursorMacroblockModel; // Maniascript
+  float CameraVAngle; // Maniascript
+  float CameraHAngle; // Maniascript
+  float CameraToTargetDistance; // Maniascript
+  vec3 CameraTargetPosition; // Maniascript
+  const vec3 CameraPosition; // Maniascript
+  vec3 TargetedPosition; // Maniascript
+  float ThumbnailCameraVAngle; // Maniascript
+  float ThumbnailCameraHAngle; // Maniascript
+  float ThumbnailCameraRoll; // Maniascript
+  float ThumbnailCameraFovY; // Maniascript
+  vec3 ThumbnailCameraPosition; // Maniascript
+  bool GetRaceCamera(vec3 Position, float Yaw, float Pitch, float Roll, float FovY); // Maniascript
+  bool EnableAirMapping; // Maniascript
+  bool EnableMixMapping; // Maniascript
+  void RemoveAllBlocks(); // Maniascript
+  void RemoveAllTerrain(); // Maniascript
+  void RemoveAllOffZone(); // Maniascript
+  void RemoveAllObjects(); // Maniascript
+  void RemoveAll(); // Maniascript
+  void RemoveAllBlocksAndTerrain(); // Maniascript
+  void ShowCustomSelection(); // Maniascript
+  void HideCustomSelection(); // Maniascript
+  void CopyPaste_Copy(); // Maniascript
+  void CopyPaste_Cut(); // Maniascript
+  void CopyPaste_Remove(); // Maniascript
+  void CopyPaste_SelectAll(); // Maniascript
+  void CopyPaste_ResetSelection(); // Maniascript
+  void OpenToolsMenu(); // Maniascript
+  void EditMediatrackIngame(); // Maniascript
+  void PreloadAllBlocks(); // Maniascript
+  void PreloadAllItems(); // Maniascript
+  bool CanPlaceBlock(CGameCtnBlockInfo* BlockModel, int2 Coord, CardinalDirections Dir, bool OnGround, uint VariantIndex); // Maniascript
+  bool PlaceBlock(CGameCtnBlockInfo* BlockModel, int2 Coord, CardinalDirections Dir); // Maniascript
+  bool CanPlaceBlock_NoDestruction(CGameCtnBlockInfo* BlockModel, int2 Coord, CardinalDirections Dir, bool OnGround, uint VariantIndex); // Maniascript
+  bool PlaceBlock_NoDestruction(CGameCtnBlockInfo* BlockModel, int2 Coord, CardinalDirections Dir); // Maniascript
+  bool CanPlaceRoadBlocks(CGameCtnBlockInfo* BlockModel, int2 StartCoord, int2 EndCoord); // Maniascript
+  bool PlaceRoadBlocks(CGameCtnBlockInfo* BlockModel, int2 StartCoord, int2 EndCoord); // Maniascript
+  bool CanPlaceTerrainBlocks(CGameCtnBlockInfo* BlockModel, int2 StartCoord, int2 EndCoord); // Maniascript
+  bool PlaceTerrainBlocks(CGameCtnBlockInfo* BlockModel, int2 StartCoord, int2 EndCoord); // Maniascript
+  bool PlaceTerrainBlocks_NoDestruction(CGameCtnBlockInfo* BlockModel, int2 StartCoord, int2 EndCoord); // Maniascript
+  bool CanPlaceMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir); // Maniascript
+  bool PlaceMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir); // Maniascript
+  bool CanPlaceMacroblock_NoDestruction(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir); // Maniascript
+  bool PlaceMacroblock_NoDestruction(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir); // Maniascript
+  bool CanPlaceMacroblock_NoTerrain(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir); // Maniascript
+  bool PlaceMacroblock_NoTerrain(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir); // Maniascript
+  bool RemoveMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir); // Maniascript
+  bool RemoveMacroblock_NoTerrain(CGameCtnMacroBlockInfo* MacroblockModel, int2 Coord, CardinalDirections Dir); // Maniascript
+  CGameCtnBlock* GetBlock(int2 Coord); // Maniascript
+  bool IsBlockModelSkinnable(CGameCtnBlockInfo* BlockModel); // Maniascript
+  uint GetNbBlockModelSkins(CGameCtnBlockInfo* BlockModel); // Maniascript
+  wstring GetBlockModelSkin(CGameCtnBlockInfo* BlockModel, uint SkinIndex); // Maniascript
+  wstring GetSkinDisplayName(wstring SkinFileName); // Maniascript
+  wstring GetBlockSkin(CGameCtnBlock* Block); // Maniascript
+  void SetBlockSkin(CGameCtnBlock* Block, wstring SkinFileName); // Maniascript
+  bool OpenBlockSkinDialog(CGameCtnBlock* Block); // Maniascript
+  bool RemoveBlock(int2 Coord); // Maniascript
+  bool RemoveTerrainBlocks(int2 StartCoord, int2 EndCoord); // Maniascript
+  uint GetBlockGroundHeight(CGameCtnBlockInfo* BlockModel, int CoordX, int CoordZ, CardinalDirections Dir); // Maniascript
+  uint GetGroundHeight(int CoordX, int CoordZ); // Maniascript
+  int2 GetMouseCoordOnGround(); // Maniascript
+  int2 GetMouseCoordAtHeight(uint CoordY); // Maniascript
+  CGameCtnBlock* GetStartLineBlock(); // Maniascript
+  bool RemoveItem(CGameCtnEditorScriptSpecialProperty* Item); // Maniascript
+  void CopyPaste_AddOrSubSelection(int2 StartCoord, int2 EndCoord); // Maniascript
+  bool CopyPaste_Symmetrize(); // Maniascript
+  void SaveMacroblock(CGameCtnMacroBlockInfo* MacroblockModel); // Maniascript
+  CGameCtnMacroBlockInfo* GetMacroblockModelFromName(wstring MacroblockModelName); // Maniascript
+  CGameCtnMacroBlockInfo* GetMacroblockModelFromFilePath(wstring MacroblockModelFilePath); // Maniascript
+  CGameCtnBlockInfo* GetTerrainBlockModelFromName(wstring TerrainBlockModelName); // Maniascript
+  CGameCtnBlockInfo* GetBlockModelFromName(wstring BlockModelName); // Maniascript
+  wstring GetMapStyle(); // Maniascript
+  void SetMapStyle(wstring MapStyle); // Maniascript
+  const MwBuffer<CGameCtnEditorScriptAnchoredObject*> Items; // Maniascript
+  const MwBuffer<wstring> MediatrackIngameClips; // Maniascript
+  const MwBuffer<wstring> MediatrackIngameIsScriptClips; // Maniascript
+  uint MediatrackIngameEditedClipIndex; // Maniascript
+  const MwBuffer<CGameCtnBlock*> Blocks; // Maniascript
+  const MwBuffer<CGameCtnBlockInfo*> BlockModels; // Maniascript
+  const MwBuffer<CGameCtnBlockInfo*> TerrainBlockModels; // Maniascript
+  const MwBuffer<CGameCtnMacroBlockInfo*> MacroblockModels; // Maniascript
+  const MwBuffer<CGameCtnEditorScriptSpecialProperty*> AnchorData; // Maniascript
+  MwBuffer<int3> CustomSelectionCoords; // Maniascript
+  vec3 CustomSelectionRGB; // Maniascript
+  bool EnableEditorInputsCustomProcessing; // Maniascript
+  bool EnableCursorShowingWhenInterfaceIsFocused; // Maniascript
+  bool HideEditorInterface; // Maniascript
+  bool HideBlockHelpers; // Maniascript
+  bool ShowPlacementGrid; // Maniascript
+  float CursorBrightnessFactor; // Maniascript
+  const bool EditorInputIsDown_Menu; // Maniascript
+  const bool EditorInputIsDown_SwitchToRace; // Maniascript
+  const bool EditorInputIsDown_Undo; // Maniascript
+  const bool EditorInputIsDown_Redo; // Maniascript
+  const bool EditorInputIsDown_CursorUp; // Maniascript
+  const bool EditorInputIsDown_CursorRight; // Maniascript
+  const bool EditorInputIsDown_CursorDown; // Maniascript
+  const bool EditorInputIsDown_CursorLeft; // Maniascript
+  const bool EditorInputIsDown_CursorRaise; // Maniascript
+  const bool EditorInputIsDown_CursorLower; // Maniascript
+  const bool EditorInputIsDown_CursorTurn; // Maniascript
+  const bool EditorInputIsDown_CursorPick; // Maniascript
+  const bool EditorInputIsDown_CursorPlace; // Maniascript
+  const bool EditorInputIsDown_CursorDelete; // Maniascript
+  const bool EditorInputIsDown_CameraUp; // Maniascript
+  const bool EditorInputIsDown_CameraRight; // Maniascript
+  const bool EditorInputIsDown_CameraDown; // Maniascript
+  const bool EditorInputIsDown_CameraLeft; // Maniascript
+  const bool EditorInputIsDown_CameraZoomNext; // Maniascript
+  const bool EditorInputIsDown_Camera0; // Maniascript
+  const bool EditorInputIsDown_Camera1; // Maniascript
+  const bool EditorInputIsDown_Camera3; // Maniascript
+  const bool EditorInputIsDown_Camera7; // Maniascript
+  const bool EditorInputIsDown_Camera9; // Maniascript
+  const bool EditorInputIsDown_PivotChange; // Maniascript
+  const bool EditorInputIsDown_CursorTurnSlightly; // Maniascript
+  const bool EditorInputIsDown_CursorTurnSlightlyAntiClockwise; // Maniascript
+  const bool EditorInputIsDown_IconUp; // Maniascript
+  const bool EditorInputIsDown_IconRight; // Maniascript
+  const bool EditorInputIsDown_IconDown; // Maniascript
+  const bool EditorInputIsDown_IconLeft; // Maniascript
+  const bool EditorInputIsDown_RemoveAll; // Maniascript
+  const bool EditorInputIsDown_Save; // Maniascript
+  const bool EditorInputIsDown_SaveAs; // Maniascript
+  const bool EditorInputIsDown_MapStyle; // Maniascript
+  const bool EditorInputIsDown_ClassicMapEditor; // Maniascript
+  const float CollectionSquareSize; // Maniascript
+  const float CollectionSquareHeight; // Maniascript
+  const uint CollectionGroundY; // Maniascript
+  const ValidationStatus ValidationStatus; // Maniascript
+  string ManialinkText; // Maniascript
+  const CGameManialinkPage* ManialinkPage; // Maniascript
+  uint GetInterfaceNumber(CGameCtnCollector* Collector); // Maniascript
+  void SetInterfaceNumber(CGameCtnCollector* Collector, uint NewValue); // Maniascript
 };
 
 struct CGameCtnMediaBlockCameraEffectScript : public CGameCtnMediaBlockCameraEffect {
   CGameCtnMediaBlockCameraEffectScript();
 
-  const float Now;
-  const float A;
-  const float B;
-  const float C;
-  vec3 OffsetPos;
-  vec3 OffsetRot;
+  const float Now; // Maniascript
+  const float A; // Maniascript
+  const float B; // Maniascript
+  const float C; // Maniascript
+  vec3 OffsetPos; // Maniascript
+  vec3 OffsetRot; // Maniascript
 };
 
 struct CGameScriptServerAdmin : public CMwNod {
-  const CGameCtnNetServerInfo* ServerInfo;
-  void AutoTeamBalance();
-  bool Kick1(CGamePlayerInfo* User, wstring Reason);
-  bool Kick2(CGameConnectedClient* Client, wstring Reason);
-  bool KickUser(CGamePlayerInfo* User, wstring Reason);
-  bool Ban1(CGamePlayerInfo* User, wstring Reason);
-  bool Ban2(CGameConnectedClient* Client, wstring Reason);
-  bool RequestSwitchToSpectator1(CGamePlayerInfo* User);
-  bool RequestSwitchToSpectator2(CGameConnectedClient* Client);
-  void SetLobbyInfo(bool IsLobby, int LobbyPlayerCount, int LobbyMaxPlayerCount, float LobbyPlayersLevel);
-  void SendToServerAfterMatch(string ServerUrl);
-  void CustomizeQuitDialog(string ManialinkPage, string SendToServerUrl, bool ProposeAddToFavorites, uint ForceDelay);
+  const CGameCtnNetServerInfo* ServerInfo; // Maniascript
+  void AutoTeamBalance(); // Maniascript
+  bool Kick1(CGamePlayerInfo* User, wstring Reason); // Maniascript
+  bool Kick2(CGameConnectedClient* Client, wstring Reason); // Maniascript
+  bool KickUser(CGamePlayerInfo* User, wstring Reason); // Maniascript
+  bool Ban1(CGamePlayerInfo* User, wstring Reason); // Maniascript
+  bool Ban2(CGameConnectedClient* Client, wstring Reason); // Maniascript
+  bool RequestSwitchToSpectator1(CGamePlayerInfo* User); // Maniascript
+  bool RequestSwitchToSpectator2(CGameConnectedClient* Client); // Maniascript
+  void SetLobbyInfo(bool IsLobby, int LobbyPlayerCount, int LobbyMaxPlayerCount, float LobbyPlayersLevel); // Maniascript
+  void SendToServerAfterMatch(string ServerUrl); // Maniascript
+  void CustomizeQuitDialog(string ManialinkPage, string SendToServerUrl, bool ProposeAddToFavorites, uint ForceDelay); // Maniascript
 };
 
 struct CGamePlayerProfileChunk_EditorSettings : public CGamePlayerProfileChunk {
@@ -7093,13 +7093,13 @@ struct CGameEditorPluginMapScriptEvent : public CGameManiaAppScriptEvent {
     MapStyle = 35,
     ClassicMapEditor = 36,
   };
-  const Type Type;
-  const EInput Input;
-  const MwId EditedAnchorDataId;
-  const bool IsFromPad;
-  const bool IsFromMouse;
-  const bool IsFromKeyboard;
-  const bool OnlyScriptMetadataModified;
+  const Type Type; // Maniascript
+  const EInput Input; // Maniascript
+  const MwId EditedAnchorDataId; // Maniascript
+  const bool IsFromPad; // Maniascript
+  const bool IsFromMouse; // Maniascript
+  const bool IsFromKeyboard; // Maniascript
+  const bool OnlyScriptMetadataModified; // Maniascript
 };
 
 // File extension: 'GameCtnMediaBlockDirtyLens.gbx'
@@ -7211,11 +7211,11 @@ struct CGameCtnMediaBlockCharVis_Deprecated : public CGameCtnMediaBlock {
 };
 
 struct CGamePlaygroundScriptXmlRpc : public CMwNod {
-  const MwBuffer<CGamePlaygroundScriptXmlRpcEvent*> PendingEvents;
-  void SendCallback(wstring Param1, wstring Param2);
-  void SendCallbackArray(wstring Type, MwBuffer<wstring>& Data);
-  void SendCallback_BeginRound();
-  void SendCallback_EndRound();
+  const MwBuffer<CGamePlaygroundScriptXmlRpcEvent*> PendingEvents; // Maniascript
+  void SendCallback(wstring Param1, wstring Param2); // Maniascript
+  void SendCallbackArray(wstring Type, MwBuffer<wstring>& Data); // Maniascript
+  void SendCallback_BeginRound(); // Maniascript
+  void SendCallback_EndRound(); // Maniascript
 };
 
 // File extension: 'GameCtnMediaBlockColoringCapturable.gbx'
@@ -7381,7 +7381,7 @@ struct CGameCtnMediaBlockColoringBase : public CGameCtnMediaBlock {
 };
 
 struct CGameCtnMediaClipConfigScriptContext : public CMwNod {
-  float SmShieldSizeScale;
+  float SmShieldSizeScale; // Maniascript
 };
 
 struct CGamePlaygroundScriptXmlRpcEvent : public CMwNod {
@@ -7390,11 +7390,11 @@ struct CGamePlaygroundScriptXmlRpcEvent : public CMwNod {
     Callback = 1,
     CallbackArray = 2,
   };
-  const EType Type;
-  const wstring Param1;
-  const wstring Param2;
-  const wstring ParamArray1;
-  const MwBuffer<wstring> ParamArray2;
+  const EType Type; // Maniascript
+  const wstring Param1; // Maniascript
+  const wstring Param2; // Maniascript
+  const wstring ParamArray1; // Maniascript
+  const MwBuffer<wstring> ParamArray2; // Maniascript
 };
 
 struct CGameScriptHandlerBrowser : public CGameManialinkScriptHandler {
@@ -7408,20 +7408,20 @@ struct CGameScriptHandlerBrowser : public CGameManialinkScriptHandler {
     Error = 1,
     NotFinished = 2,
   };
-  const CGameManiaPlanetScriptAPI* ManiaPlanet;
-  const CGameManiaAppBrowser* ParentApp;
-  const CGameCtnChallenge* CurMap;
-  void ShowCurMapCard();
-  void BuddyDo(EBuddyAction Action, string BuddyLogin, bool IsSilent);
-  const EBuddyResult BuddyDoResult;
-  const wstring BuddyDoErrorMessage;
-  const bool IsInBrowser;
-  void BrowserBack();
-  void BrowserQuit();
-  void BrowserHome();
-  void BrowserReload();
-  wstring BrowserFocusedFrameId;
-  void SetLocalUserClubLink(string ClubLink);
+  const CGameManiaPlanetScriptAPI* ManiaPlanet; // Maniascript
+  const CGameManiaAppBrowser* ParentApp; // Maniascript
+  const CGameCtnChallenge* CurMap; // Maniascript
+  void ShowCurMapCard(); // Maniascript
+  void BuddyDo(EBuddyAction Action, string BuddyLogin, bool IsSilent); // Maniascript
+  const EBuddyResult BuddyDoResult; // Maniascript
+  const wstring BuddyDoErrorMessage; // Maniascript
+  const bool IsInBrowser; // Maniascript
+  void BrowserBack(); // Maniascript
+  void BrowserQuit(); // Maniascript
+  void BrowserHome(); // Maniascript
+  void BrowserReload(); // Maniascript
+  wstring BrowserFocusedFrameId; // Maniascript
+  void SetLocalUserClubLink(string ClubLink); // Maniascript
 };
 
 struct CGameCtnEditorBody : public CMwNod {
@@ -7504,63 +7504,63 @@ struct CGameScriptChatManager : public CMwNod {
     ExtendedAway = 4,
   };
   const MwBuffer<CGameScriptChatContact*> DebugContacts;
-  const EConnectionStatus CurrentConnectionStatus;
-  EDesiredConnectionStatus DesiredConnectionStatus;
-  const bool SteamIsEnabled;
-  void SendMessage(CGameScriptChatContact* Buddy, wstring Body);
-  void SendMessage_Deprecated(CGameScriptChatContact* Buddy, wstring Type, wstring Body);
-  void OpenSteamChat(CGameScriptChatContact* Buddy);
-  void ChangePresence(EPresenceShow Show, wstring Status);
-  void PresenceSet(EPresenceShow Show, wstring Status);
-  const wstring Presence;
-  const string CurrentServerLogin;
-  const wstring CurrentServerName;
-  const string CurrentServerJoinLink;
-  const wstring CurrentServerModeName;
-  const wstring CurrentServerModeStatus;
-  const uint CurrentServerPlayerCount;
-  const uint CurrentServerPlayerCountMax;
-  const bool CurrentServer_IsFull;
-  const bool CurrentServer_IsFullSpec;
-  const bool CurrentServer_IsPrivate;
-  const bool CurrentServer_IsPrivateSpec;
-  const bool CurrentServer_IsHidden;
-  const bool CurrentServer_IsLobby;
-  const bool CurrentServer_IsRelay;
-  const bool CurrentServer_IsFavourite;
-  const bool CurrentServer_IsWarmUp;
-  CGameScriptChatContact* GetBuddyFromLogin(string Login);
-  CGameScriptChatContact* GetContactFromLogin(string Login);
-  wstring Filter_SearchText;
-  bool Filter_PlayingOnline;
-  const MwBuffer<CGameScriptChatContact*> Contacts;
-  const MwBuffer<CGameScriptChatContact*> Buddies;
-  const MwBuffer<CGameScriptChatContact*> FilteredBuddies;
-  const MwBuffer<CGameScriptChatContact*> OnlineBuddies;
-  const MwBuffer<CGameScriptChatContact*> PlayingOnlineBuddies;
-  const MwBuffer<CGameScriptChatContact*> OfflineBuddies;
-  const MwBuffer<CGameScriptChatContact*> XmppBuddies;
-  const MwBuffer<CGameScriptChatContact*> XmppOnlineBuddies;
-  const MwBuffer<CGameScriptChatContact*> XmppOfflineBuddies;
-  const MwBuffer<CGameScriptChatContact*> SteamBuddies;
-  const MwBuffer<CGameScriptChatContact*> SteamOnlineBuddies;
-  const MwBuffer<CGameScriptChatContact*> SteamOfflineBuddies;
-  const MwBuffer<CGameScriptChatContact*> IncomingBuddyRequests;
-  const MwBuffer<CGameScriptChatContact*> OutgoingBuddyRequests;
-  const MwBuffer<CGameScriptChatEvent*> PendingEvents;
-  void AddBuddy(string Login);
-  void RemoveBuddy(CGameScriptChatContact* Buddy);
-  void AcceptBuddy(CGameScriptChatContact* Buddy);
-  const MwBuffer<CGameScriptChatHistory*> Histories;
-  CGameScriptChatHistory* History_Create();
-  void History_Destroy(CGameScriptChatHistory* History);
-  void History_DestroyAll();
-  const MwBuffer<CGameScriptChatContact*> PendingRequestBuddies;
+  const EConnectionStatus CurrentConnectionStatus; // Maniascript
+  EDesiredConnectionStatus DesiredConnectionStatus; // Maniascript
+  const bool SteamIsEnabled; // Maniascript
+  void SendMessage(CGameScriptChatContact* Buddy, wstring Body); // Maniascript
+  void SendMessage_Deprecated(CGameScriptChatContact* Buddy, wstring Type, wstring Body); // Maniascript
+  void OpenSteamChat(CGameScriptChatContact* Buddy); // Maniascript
+  void ChangePresence(EPresenceShow Show, wstring Status); // Maniascript
+  void PresenceSet(EPresenceShow Show, wstring Status); // Maniascript
+  const wstring Presence; // Maniascript
+  const string CurrentServerLogin; // Maniascript
+  const wstring CurrentServerName; // Maniascript
+  const string CurrentServerJoinLink; // Maniascript
+  const wstring CurrentServerModeName; // Maniascript
+  const wstring CurrentServerModeStatus; // Maniascript
+  const uint CurrentServerPlayerCount; // Maniascript
+  const uint CurrentServerPlayerCountMax; // Maniascript
+  const bool CurrentServer_IsFull; // Maniascript
+  const bool CurrentServer_IsFullSpec; // Maniascript
+  const bool CurrentServer_IsPrivate; // Maniascript
+  const bool CurrentServer_IsPrivateSpec; // Maniascript
+  const bool CurrentServer_IsHidden; // Maniascript
+  const bool CurrentServer_IsLobby; // Maniascript
+  const bool CurrentServer_IsRelay; // Maniascript
+  const bool CurrentServer_IsFavourite; // Maniascript
+  const bool CurrentServer_IsWarmUp; // Maniascript
+  CGameScriptChatContact* GetBuddyFromLogin(string Login); // Maniascript
+  CGameScriptChatContact* GetContactFromLogin(string Login); // Maniascript
+  wstring Filter_SearchText; // Maniascript
+  bool Filter_PlayingOnline; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> Contacts; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> Buddies; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> FilteredBuddies; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> OnlineBuddies; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> PlayingOnlineBuddies; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> OfflineBuddies; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> XmppBuddies; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> XmppOnlineBuddies; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> XmppOfflineBuddies; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> SteamBuddies; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> SteamOnlineBuddies; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> SteamOfflineBuddies; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> IncomingBuddyRequests; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> OutgoingBuddyRequests; // Maniascript
+  const MwBuffer<CGameScriptChatEvent*> PendingEvents; // Maniascript
+  void AddBuddy(string Login); // Maniascript
+  void RemoveBuddy(CGameScriptChatContact* Buddy); // Maniascript
+  void AcceptBuddy(CGameScriptChatContact* Buddy); // Maniascript
+  const MwBuffer<CGameScriptChatHistory*> Histories; // Maniascript
+  CGameScriptChatHistory* History_Create(); // Maniascript
+  void History_Destroy(CGameScriptChatHistory* History); // Maniascript
+  void History_DestroyAll(); // Maniascript
+  const MwBuffer<CGameScriptChatContact*> PendingRequestBuddies; // Maniascript
   void GetContactsVCards();
-  const MwBuffer<CGameScriptChatRoom*> Rooms;
-  void Room_Join(string RoomName);
-  void Room_Leave(CGameScriptChatRoom* Room);
-  void Room_SendMessage(CGameScriptChatRoom* Room, wstring Body);
+  const MwBuffer<CGameScriptChatRoom*> Rooms; // Maniascript
+  void Room_Join(string RoomName); // Maniascript
+  void Room_Leave(CGameScriptChatRoom* Room); // Maniascript
+  void Room_SendMessage(CGameScriptChatRoom* Room, wstring Body); // Maniascript
 };
 
 struct CGameScriptChatContact : public CMwNod {
@@ -7583,43 +7583,43 @@ struct CGameScriptChatContact : public CMwNod {
     Away = 4,
     ExtendedAway = 5,
   };
-  const string BuddyId;
-  const string ContactId;
-  const string Login;
-  const wstring Name;
-  const wstring Description;
-  const wstring ZonePath;
-  const EPresenceShow PresenceShow;
-  const wstring PresenceStatus;
-  const ESubscriptionStatus SubscriptionStatus;
-  const ESubscription Subscription_From;
-  const ESubscription Subscription_To;
-  const bool IsXmpp;
-  const bool IsSteam;
-  const bool IsLegacy;
-  const bool IsOnline;
-  const bool IsOnlineInLegacy;
-  const bool IsOnlineInXmpp;
-  const bool IsOnlineInSteam;
-  const bool IsBuddyInManiaPlanet;
-  bool IsAlly;
-  const string CurrentServerLogin;
-  const wstring CurrentServerName;
-  const string CurrentServerJoinLink;
-  const wstring CurrentServerModeName;
-  const wstring CurrentServerModeStatus;
-  const uint CurrentServerPlayerCount;
-  const uint CurrentServerPlayerCountMax;
-  const bool CurrentServer_IsFull;
-  const bool CurrentServer_IsFullSpec;
-  const bool CurrentServer_IsPrivate;
-  const bool CurrentServer_IsPrivateSpec;
-  const bool CurrentServer_IsHidden;
-  const bool CurrentServer_IsLobby;
-  const bool CurrentServer_IsRelay;
-  const bool CurrentServer_IsFavourite;
-  const bool CurrentServer_IsWarmUp;
-  void NotifyInteraction();
+  const string BuddyId; // Maniascript
+  const string ContactId; // Maniascript
+  const string Login; // Maniascript
+  const wstring Name; // Maniascript
+  const wstring Description; // Maniascript
+  const wstring ZonePath; // Maniascript
+  const EPresenceShow PresenceShow; // Maniascript
+  const wstring PresenceStatus; // Maniascript
+  const ESubscriptionStatus SubscriptionStatus; // Maniascript
+  const ESubscription Subscription_From; // Maniascript
+  const ESubscription Subscription_To; // Maniascript
+  const bool IsXmpp; // Maniascript
+  const bool IsSteam; // Maniascript
+  const bool IsLegacy; // Maniascript
+  const bool IsOnline; // Maniascript
+  const bool IsOnlineInLegacy; // Maniascript
+  const bool IsOnlineInXmpp; // Maniascript
+  const bool IsOnlineInSteam; // Maniascript
+  const bool IsBuddyInManiaPlanet; // Maniascript
+  bool IsAlly; // Maniascript
+  const string CurrentServerLogin; // Maniascript
+  const wstring CurrentServerName; // Maniascript
+  const string CurrentServerJoinLink; // Maniascript
+  const wstring CurrentServerModeName; // Maniascript
+  const wstring CurrentServerModeStatus; // Maniascript
+  const uint CurrentServerPlayerCount; // Maniascript
+  const uint CurrentServerPlayerCountMax; // Maniascript
+  const bool CurrentServer_IsFull; // Maniascript
+  const bool CurrentServer_IsFullSpec; // Maniascript
+  const bool CurrentServer_IsPrivate; // Maniascript
+  const bool CurrentServer_IsPrivateSpec; // Maniascript
+  const bool CurrentServer_IsHidden; // Maniascript
+  const bool CurrentServer_IsLobby; // Maniascript
+  const bool CurrentServer_IsRelay; // Maniascript
+  const bool CurrentServer_IsFavourite; // Maniascript
+  const bool CurrentServer_IsWarmUp; // Maniascript
+  void NotifyInteraction(); // Maniascript
 };
 
 struct CGameScriptChatEvent : public CMwNod {
@@ -7654,46 +7654,46 @@ struct CGameScriptChatEvent : public CMwNod {
     Away = 4,
     ExtendedAway = 5,
   };
-  const EType Type;
-  const CGameScriptChatContact* Sender;
-  const string SenderResource;
-  const wstring MessageBody;
-  const CGameScriptChatRoom* ChatRoom;
-  const wstring SenderNickname;
-  const CGameScriptChatContact* Buddy;
-  const bool PreviousIsOnline;
-  const EPresenceShow PreviousShow;
-  const wstring PreviousStatus;
-  const string PreviousServerLogin;
-  const wstring PreviousServerName;
-  const string PreviousServerJoinLink;
-  const wstring PreviousServerModeName;
-  const wstring PreviousServerModeStatus;
-  const uint PreviousServerPlayerCount;
-  const uint PreviousServerPlayerCountMax;
-  const ESubscriptionStatus PreviousSubscriptionStatus;
-  const ESubscription PreviousSubscription_From;
-  const ESubscription PreviousSubscription_To;
-  const wstring PreviousNickname;
-  const wstring PreviousDescription;
-  const bool ContactList;
-  const bool ContactListBuddies;
-  const bool ContactListPlayingOnlineBuddies;
-  const bool ContactListOnlineBuddies;
-  const bool ContactListOfflineBuddies;
-  const bool ContactListXmppBuddies;
-  const bool ContactListXmppOnlineBuddies;
-  const bool ContactListXmppOfflineBuddies;
-  const bool ContactListSteamBuddies;
-  const bool ContactListSteamOnlineBuddies;
-  const bool ContactListSteamOfflineBuddies;
-  const bool ContactListIncomingBuddyRequest;
-  const bool ContactListOutgoingBuddyRequest;
-  const string BuddyLogin;
-  const string RoomName;
-  const bool Success;
-  const wstring ErrorMessage;
-  const CGameScriptChatHistory* History;
+  const EType Type; // Maniascript
+  const CGameScriptChatContact* Sender; // Maniascript
+  const string SenderResource; // Maniascript
+  const wstring MessageBody; // Maniascript
+  const CGameScriptChatRoom* ChatRoom; // Maniascript
+  const wstring SenderNickname; // Maniascript
+  const CGameScriptChatContact* Buddy; // Maniascript
+  const bool PreviousIsOnline; // Maniascript
+  const EPresenceShow PreviousShow; // Maniascript
+  const wstring PreviousStatus; // Maniascript
+  const string PreviousServerLogin; // Maniascript
+  const wstring PreviousServerName; // Maniascript
+  const string PreviousServerJoinLink; // Maniascript
+  const wstring PreviousServerModeName; // Maniascript
+  const wstring PreviousServerModeStatus; // Maniascript
+  const uint PreviousServerPlayerCount; // Maniascript
+  const uint PreviousServerPlayerCountMax; // Maniascript
+  const ESubscriptionStatus PreviousSubscriptionStatus; // Maniascript
+  const ESubscription PreviousSubscription_From; // Maniascript
+  const ESubscription PreviousSubscription_To; // Maniascript
+  const wstring PreviousNickname; // Maniascript
+  const wstring PreviousDescription; // Maniascript
+  const bool ContactList; // Maniascript
+  const bool ContactListBuddies; // Maniascript
+  const bool ContactListPlayingOnlineBuddies; // Maniascript
+  const bool ContactListOnlineBuddies; // Maniascript
+  const bool ContactListOfflineBuddies; // Maniascript
+  const bool ContactListXmppBuddies; // Maniascript
+  const bool ContactListXmppOnlineBuddies; // Maniascript
+  const bool ContactListXmppOfflineBuddies; // Maniascript
+  const bool ContactListSteamBuddies; // Maniascript
+  const bool ContactListSteamOnlineBuddies; // Maniascript
+  const bool ContactListSteamOfflineBuddies; // Maniascript
+  const bool ContactListIncomingBuddyRequest; // Maniascript
+  const bool ContactListOutgoingBuddyRequest; // Maniascript
+  const string BuddyLogin; // Maniascript
+  const string RoomName; // Maniascript
+  const bool Success; // Maniascript
+  const wstring ErrorMessage; // Maniascript
+  const CGameScriptChatHistory* History; // Maniascript
 };
 
 struct CGameManialink3dMood : public CMwNod {
@@ -7773,68 +7773,68 @@ struct CGameManiaplanetPlugin : public CGameManiaApp {
     ShowDialog = 1,
     HideDialog = 2,
   };
-  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents;
-  const MwBuffer<CGameManiaTitle*> TitlesAvailable;
-  const MwBuffer<CGameManiaTitle*> TitlesBases;
-  const MwBuffer<string> TitleIdsInstalled;
-  const MwBuffer<string> TitleIdsPayed;
-  const uint CurrentAppId;
-  const string CurrentServerLogin;
-  const wstring CurrentServerName;
-  const wstring CurrentServerModeName;
-  const string CurrentServerJoinLink;
-  const MwBuffer<CGamePlayerInfo*> CurrentServerPlayers;
-  const CGameCtnChallenge* CurrentMap;
-  const EContext ActiveContext;
-  const string ActiveContext_MenuFrame;
-  const string ActiveContext_DialogFrame;
-  const string ActiveContext_SystemDialogFrame;
-  const bool ActiveContext_ClassicDialogDisplayed;
-  const uint ActiveContext_GameWill;
-  const bool ActiveContext_ManialinkBrowserDisplayed;
-  bool PrivateSession;
-  const CGameScriptChatManager* ChatManager;
-  const CGameScriptChatManager* BuddiesManager;
-  const CGamePlaygroundClientScriptAPI* Playground;
-  const CGameAchievementScriptManager* AchievementsManager;
-  const CGameScriptNotificationsProducer* NotificationsProducer;
-  const CGameScriptNotificationsConsumer* Notifications;
-  const CGameMasterServerOnlineSignalsManager* OnlineSignalsManager;
-  bool ToolBarForceShow;
-  const bool ToolBarIsActive;
-  bool ToolBarClockVisible;
-  bool ToolBarPlanetsVisible;
-  bool ToolBarBrowserVisible;
-  float MusicVolume; // Range: 0 - 1
-  void HackSetCurMenuControlVisible(string ControlId, bool Visible);
-  bool HackIsCurMenuControlVisible(string ControlId);
-  bool RequestStartUpFreeze;
-  void ClipboardSet(wstring ClipboardText);
-  void QuitGameAndOpenLink(string Url);
-  void ShowTitle(string TitleId, bool ShowStation);
-  void EnterTitle(string TitleId);
-  void ShowCurMapCard();
-  const CGameDialogs* SystemDialogs;
-  void Dialog_EnterGameKey();
-  void Dialog_BuyTitleDialog(string TitleId, string OverrideBuyUrl, int OverrideActionAfterBuy);
-  void Dialog_BuyTitleEx(string TitleId, EBuyTitleMode Mode, string OverrideBuyUrl, int OverrideActionAfterBuy);
-  void Dialog_GenerateGameKeys(string TitleId, uint FeaturesLevel, uint NbToGenerate, bool AddBuddyOnRegistration);
-  const bool Dialog_IsFinished;
-  const bool Dialog_Success;
-  const bool Dialog_Aborted;
-  const bool UseAllies;
-  const uint TotalTimePlay;
-  bool LoadingScreenRequireKeyPressed;
-  void SetLocalUserClubLink(string ClubLink);
-  void SetLocalUserNickName(wstring NickName);
-  void FlashWindow();
-  const uint Messenger_MessagesCount;
-  void PlaySound(EUISound Sound, uint SoundVariant);
-  const CGameManialinkBrowser* ManialinkBrowser;
+  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents; // Maniascript
+  const MwBuffer<CGameManiaTitle*> TitlesAvailable; // Maniascript
+  const MwBuffer<CGameManiaTitle*> TitlesBases; // Maniascript
+  const MwBuffer<string> TitleIdsInstalled; // Maniascript
+  const MwBuffer<string> TitleIdsPayed; // Maniascript
+  const uint CurrentAppId; // Maniascript
+  const string CurrentServerLogin; // Maniascript
+  const wstring CurrentServerName; // Maniascript
+  const wstring CurrentServerModeName; // Maniascript
+  const string CurrentServerJoinLink; // Maniascript
+  const MwBuffer<CGamePlayerInfo*> CurrentServerPlayers; // Maniascript
+  const CGameCtnChallenge* CurrentMap; // Maniascript
+  const EContext ActiveContext; // Maniascript
+  const string ActiveContext_MenuFrame; // Maniascript
+  const string ActiveContext_DialogFrame; // Maniascript
+  const string ActiveContext_SystemDialogFrame; // Maniascript
+  const bool ActiveContext_ClassicDialogDisplayed; // Maniascript
+  const uint ActiveContext_GameWill; // Maniascript
+  const bool ActiveContext_ManialinkBrowserDisplayed; // Maniascript
+  bool PrivateSession; // Maniascript
+  const CGameScriptChatManager* ChatManager; // Maniascript
+  const CGameScriptChatManager* BuddiesManager; // Maniascript
+  const CGamePlaygroundClientScriptAPI* Playground; // Maniascript
+  const CGameAchievementScriptManager* AchievementsManager; // Maniascript
+  const CGameScriptNotificationsProducer* NotificationsProducer; // Maniascript
+  const CGameScriptNotificationsConsumer* Notifications; // Maniascript
+  const CGameMasterServerOnlineSignalsManager* OnlineSignalsManager; // Maniascript
+  bool ToolBarForceShow; // Maniascript
+  const bool ToolBarIsActive; // Maniascript
+  bool ToolBarClockVisible; // Maniascript
+  bool ToolBarPlanetsVisible; // Maniascript
+  bool ToolBarBrowserVisible; // Maniascript
+  float MusicVolume; // Range: 0 - 1 // Maniascript
+  void HackSetCurMenuControlVisible(string ControlId, bool Visible); // Maniascript
+  bool HackIsCurMenuControlVisible(string ControlId); // Maniascript
+  bool RequestStartUpFreeze; // Maniascript
+  void ClipboardSet(wstring ClipboardText); // Maniascript
+  void QuitGameAndOpenLink(string Url); // Maniascript
+  void ShowTitle(string TitleId, bool ShowStation); // Maniascript
+  void EnterTitle(string TitleId); // Maniascript
+  void ShowCurMapCard(); // Maniascript
+  const CGameDialogs* SystemDialogs; // Maniascript
+  void Dialog_EnterGameKey(); // Maniascript
+  void Dialog_BuyTitleDialog(string TitleId, string OverrideBuyUrl, int OverrideActionAfterBuy); // Maniascript
+  void Dialog_BuyTitleEx(string TitleId, EBuyTitleMode Mode, string OverrideBuyUrl, int OverrideActionAfterBuy); // Maniascript
+  void Dialog_GenerateGameKeys(string TitleId, uint FeaturesLevel, uint NbToGenerate, bool AddBuddyOnRegistration); // Maniascript
+  const bool Dialog_IsFinished; // Maniascript
+  const bool Dialog_Success; // Maniascript
+  const bool Dialog_Aborted; // Maniascript
+  const bool UseAllies; // Maniascript
+  const uint TotalTimePlay; // Maniascript
+  bool LoadingScreenRequireKeyPressed; // Maniascript
+  void SetLocalUserClubLink(string ClubLink); // Maniascript
+  void SetLocalUserNickName(wstring NickName); // Maniascript
+  void FlashWindow(); // Maniascript
+  const uint Messenger_MessagesCount; // Maniascript
+  void PlaySound(EUISound Sound, uint SoundVariant); // Maniascript
+  const CGameManialinkBrowser* ManialinkBrowser; // Maniascript
   const CGameManiaplanetPluginInterface* Interface;
-  void CustomEvent(wstring Type, MwBuffer<wstring>& Data);
-  void SendExternalCustomEvent(wstring Type, MwBuffer<wstring>& Data);
-  const CGamePluginInterfacesScript* Plugins;
+  void CustomEvent(wstring Type, MwBuffer<wstring>& Data); // Maniascript
+  void SendExternalCustomEvent(wstring Type, MwBuffer<wstring>& Data); // Maniascript
+  const CGamePluginInterfacesScript* Plugins; // Maniascript
   void Dialog_ShowEnterGameKeyDialog();
   void Dialog_ShowBuyTitleDialog();
   void Dialog_ShowGenerateGameKeysDialog();
@@ -7847,16 +7847,16 @@ struct CGameCtnInterfaceViewer : public CMwNod {
 };
 
 struct CGameManialinkGauge : public CGameManialinkControl {
-  string Style;
-  void SetRatio(float NewRatio);
-  void SetClan(uint NewClan);
-  float Ratio; // Range: 0 - 1
-  float GradingRatio; // Range: 0 - 1
-  uint Clan;
-  vec3 Color;
-  bool DrawBackground;
-  bool DrawBlockBackground;
-  bool CenteredBar;
+  string Style; // Maniascript
+  void SetRatio(float NewRatio); // Maniascript
+  void SetClan(uint NewClan); // Maniascript
+  float Ratio; // Range: 0 - 1 // Maniascript
+  float GradingRatio; // Range: 0 - 1 // Maniascript
+  uint Clan; // Maniascript
+  vec3 Color; // Maniascript
+  bool DrawBackground; // Maniascript
+  bool DrawBlockBackground; // Maniascript
+  bool CenteredBar; // Maniascript
 };
 
 // File extension: 'GameCtnMediaBlockColorGrading.gbx'
@@ -7867,26 +7867,26 @@ struct CGameCtnMediaBlockColorGrading : public CGameCtnMediaBlock {
 };
 
 struct CGamePlaygroundClientScriptAPI : public CMwNod {
-  const CGameCtnChallenge* Map;
-  const int GameTime;
-  const CGamePlayerInfo* LocalUser;
-  const CGamePlaygroundUIConfig* UI;
-  const CGameCtnNetServerInfo* ServerInfo;
-  const bool IsSpectator;
-  const bool IsSpectatorClient;
-  const bool UseClans;
-  const bool UseForcedClans;
-  const bool IsLoadingScreen;
-  void QuitServer(bool Silent);
-  void QuitServerAndSetResult(bool Silent, wstring Type, MwBuffer<wstring>& Data);
-  const bool IsInGameMenuDisplayed;
-  void JoinTeam1();
-  void JoinTeam2();
-  const MwBuffer<CGameTeamProfile*> Teams;
-  void RequestSpectatorClient(bool Spectator);
-  void SetSpectateTarget(string Player);
-  void ShowProfile(string Player);
-  bool DisablePlayingStateTracking;
+  const CGameCtnChallenge* Map; // Maniascript
+  const int GameTime; // Maniascript
+  const CGamePlayerInfo* LocalUser; // Maniascript
+  const CGamePlaygroundUIConfig* UI; // Maniascript
+  const CGameCtnNetServerInfo* ServerInfo; // Maniascript
+  const bool IsSpectator; // Maniascript
+  const bool IsSpectatorClient; // Maniascript
+  const bool UseClans; // Maniascript
+  const bool UseForcedClans; // Maniascript
+  const bool IsLoadingScreen; // Maniascript
+  void QuitServer(bool Silent); // Maniascript
+  void QuitServerAndSetResult(bool Silent, wstring Type, MwBuffer<wstring>& Data); // Maniascript
+  const bool IsInGameMenuDisplayed; // Maniascript
+  void JoinTeam1(); // Maniascript
+  void JoinTeam2(); // Maniascript
+  const MwBuffer<CGameTeamProfile*> Teams; // Maniascript
+  void RequestSpectatorClient(bool Spectator); // Maniascript
+  void SetSpectateTarget(string Player); // Maniascript
+  void ShowProfile(string Player); // Maniascript
+  bool DisablePlayingStateTracking; // Maniascript
 };
 
 struct CGameCtnMediaBlockScenery : public CGameCtnMediaBlock {
@@ -7922,19 +7922,19 @@ struct CGameEditorAsset : public CGameCtnEditor {
 };
 
 struct CGameManialinkGraph : public CGameManialinkControl {
-  vec2 CoordsMin;
-  vec2 CoordsMax;
-  CGameManialinkGraphCurve* AddCurve();
-  void RemoveCurve(CGameManialinkGraphCurve* Curve);
-  MwBuffer<CGameManialinkGraphCurve*> Curves;
+  vec2 CoordsMin; // Maniascript
+  vec2 CoordsMax; // Maniascript
+  CGameManialinkGraphCurve* AddCurve(); // Maniascript
+  void RemoveCurve(CGameManialinkGraphCurve* Curve); // Maniascript
+  MwBuffer<CGameManialinkGraphCurve*> Curves; // Maniascript
 };
 
 struct CGameManialinkGraphCurve : public CMwNod {
-  MwBuffer<vec2> Points;
-  vec3 Color;
-  void SortPoints();
-  string Style;
-  float Width; // Range: 0 - 50
+  MwBuffer<vec2> Points; // Maniascript
+  vec3 Color; // Maniascript
+  void SortPoints(); // Maniascript
+  string Style; // Maniascript
+  float Width; // Range: 0 - 50 // Maniascript
 };
 
 struct CGameCtnBlockInfoMobilLink : public CMwNod {
@@ -7946,18 +7946,18 @@ struct CGameCtnBlockInfoMobilLink : public CMwNod {
 };
 
 struct CGameManiaplanetPluginInterface : public CMwNod {
-  const wstring Name;
-  void CustomEvent(wstring Type, MwBuffer<wstring>& Data);
-  const MwBuffer<CGameManiaplanetPluginInterfaceEvent*> PendingEvents;
+  const wstring Name; // Maniascript
+  void CustomEvent(wstring Type, MwBuffer<wstring>& Data); // Maniascript
+  const MwBuffer<CGameManiaplanetPluginInterfaceEvent*> PendingEvents; // Maniascript
 };
 
 struct CGameManiaplanetPluginInterfaceEvent : public CMwNod {
   enum EType {
     PluginCustomEvent = 0,
   };
-  const EType Type;
-  const wstring EventType;
-  const MwBuffer<wstring> EventData;
+  const EType Type; // Maniascript
+  const wstring EventType; // Maniascript
+  const MwBuffer<wstring> EventData; // Maniascript
 };
 
 // File extension: 'GameCtnMediaBlockInterface.gbx'
@@ -8229,13 +8229,13 @@ struct CGameEditorItem : public CGameEditorAsset {
 };
 
 struct CGameManialinkMiniMap : public CGameManialinkControl {
-  vec3 WorldPosition;
-  vec2 MapPosition;
-  float MapYaw;
-  float ZoomFactor; // Range: 0.5 - 10
-  bool Underground;
-  void Fog_SetAll(float Value);
-  void Fog_ClearDisk(vec3 WorldCenter, float Radius, float FadeSize);
+  vec3 WorldPosition; // Maniascript
+  vec2 MapPosition; // Maniascript
+  float MapYaw; // Maniascript
+  float ZoomFactor; // Range: 0.5 - 10 // Maniascript
+  bool Underground; // Maniascript
+  void Fog_SetAll(float Value); // Maniascript
+  void Fog_ClearDisk(vec3 WorldCenter, float Radius, float FadeSize); // Maniascript
 };
 
 struct CGameMgrGatePhy : public CSceneMgrPhy {
@@ -8397,24 +8397,24 @@ struct CGameManiaTitleEditionScriptAPI : public CMwNod {
     Title = 1,
     User = 2,
   };
-  const CGameManiaTitle* TitleMaker;
-  const CGamePackCreatorScript* PackCreator;
-  const string EditedTitleId;
-  const CGamePackCreator_TitleInfoScript* EditedTitleInfo;
-  void File_ImportFromUser(wstring FileName);
-  void File_Move(wstring OrigName, wstring DestNameOrFolder, bool KeepOriginalCopy);
-  bool File_Exists(wstring FileName, EDrive InDrive);
-  void File_Delete(wstring Name);
-  void File_WriteText(wstring FileName, wstring Text);
-  wstring File_ReadText(wstring FileName);
-  void Dialog_ImportFiles();
-  const bool Dialog_IsFinished;
-  const bool Dialog_Success;
-  const bool Dialog_Aborted;
-  void OpenTitleFolderInExplorer();
-  void ReloadTitleDesc();
-  void SaveTitleDesc();
-  void SetTitleCampaign(uint CampaignNum, string ScoreContext, wstring MapsFolderNameOrPlayListName, bool OfficialRecordEnabled);
+  const CGameManiaTitle* TitleMaker; // Maniascript
+  const CGamePackCreatorScript* PackCreator; // Maniascript
+  const string EditedTitleId; // Maniascript
+  const CGamePackCreator_TitleInfoScript* EditedTitleInfo; // Maniascript
+  void File_ImportFromUser(wstring FileName); // Maniascript
+  void File_Move(wstring OrigName, wstring DestNameOrFolder, bool KeepOriginalCopy); // Maniascript
+  bool File_Exists(wstring FileName, EDrive InDrive); // Maniascript
+  void File_Delete(wstring Name); // Maniascript
+  void File_WriteText(wstring FileName, wstring Text); // Maniascript
+  wstring File_ReadText(wstring FileName); // Maniascript
+  void Dialog_ImportFiles(); // Maniascript
+  const bool Dialog_IsFinished; // Maniascript
+  const bool Dialog_Success; // Maniascript
+  const bool Dialog_Aborted; // Maniascript
+  void OpenTitleFolderInExplorer(); // Maniascript
+  void ReloadTitleDesc(); // Maniascript
+  void SaveTitleDesc(); // Maniascript
+  void SetTitleCampaign(uint CampaignNum, string ScoreContext, wstring MapsFolderNameOrPlayListName, bool OfficialRecordEnabled); // Maniascript
 };
 
 struct CGameEditorBase : public CMwNod {
@@ -8480,41 +8480,41 @@ struct CGameManiaApp : public CMwNod {
     US = 2,
     JP = 3,
   };
-  const string ManiaAppUrl;
-  const string ManiaAppBaseUrl;
-  const int Now;
-  const bool IsVisible;
-  const uint CurrentDate;
-  const string CurrentLocalDateText;
-  const wstring CurrentTimezone;
-  uint LayersDefaultManialinkVersion;
-  const CGamePlayerInfo* LocalUser;
-  const CGameManiaTitle* LoadedTitle;
-  const ESystemPlatform SystemPlatform;
-  const ESystemSkuIdentifier SystemSkuIdentifier;
-  bool EnableMenuNavigationInputs;
-  const float MouseX;
-  const float MouseY;
-  const MwBuffer<CGameUILayer*> UILayers;
-  CGameUILayer* UILayerCreate();
-  void UILayerDestroy(CGameUILayer* Layer);
-  void UILayerDestroyAll();
-  void LayerCustomEvent(CGameUILayer* Layer, wstring Type, MwBuffer<wstring>& Data);
-  void OpenLink(string Url, ELinkType LinkType);
-  bool OpenFileInExplorer(wstring FileName);
-  void Dialog_Message(wstring Message);
-  const CXmlScriptManager* Xml;
-  const CNetScriptHttpManager* Http;
-  const CGameVideoScriptManager* Video;
-  const CAudioScriptManager* Audio;
-  const CInputScriptManager* Input;
-  const CGameDataFileManagerScript* DataFileMgr;
-  const CGameScoreAndLeaderBoardManagerScript* ScoreMgr;
-  const CGameUserPrivilegesManagerScript* PrivilegeMgr;
-  const CGameMasterServerRichPresenceManagerScript* PresenceMgr;
-  const CGameUserManagerScript* UserMgr;
-  const CGameManiaPlanetScriptAPI* ManiaPlanet;
-  wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly);
+  const string ManiaAppUrl; // Maniascript
+  const string ManiaAppBaseUrl; // Maniascript
+  const int Now; // Maniascript
+  const bool IsVisible; // Maniascript
+  const uint CurrentDate; // Maniascript
+  const string CurrentLocalDateText; // Maniascript
+  const wstring CurrentTimezone; // Maniascript
+  uint LayersDefaultManialinkVersion; // Maniascript
+  const CGamePlayerInfo* LocalUser; // Maniascript
+  const CGameManiaTitle* LoadedTitle; // Maniascript
+  const ESystemPlatform SystemPlatform; // Maniascript
+  const ESystemSkuIdentifier SystemSkuIdentifier; // Maniascript
+  bool EnableMenuNavigationInputs; // Maniascript
+  const float MouseX; // Maniascript
+  const float MouseY; // Maniascript
+  const MwBuffer<CGameUILayer*> UILayers; // Maniascript
+  CGameUILayer* UILayerCreate(); // Maniascript
+  void UILayerDestroy(CGameUILayer* Layer); // Maniascript
+  void UILayerDestroyAll(); // Maniascript
+  void LayerCustomEvent(CGameUILayer* Layer, wstring Type, MwBuffer<wstring>& Data); // Maniascript
+  void OpenLink(string Url, ELinkType LinkType); // Maniascript
+  bool OpenFileInExplorer(wstring FileName); // Maniascript
+  void Dialog_Message(wstring Message); // Maniascript
+  const CXmlScriptManager* Xml; // Maniascript
+  const CNetScriptHttpManager* Http; // Maniascript
+  const CGameVideoScriptManager* Video; // Maniascript
+  const CAudioScriptManager* Audio; // Maniascript
+  const CInputScriptManager* Input; // Maniascript
+  const CGameDataFileManagerScript* DataFileMgr; // Maniascript
+  const CGameScoreAndLeaderBoardManagerScript* ScoreMgr; // Maniascript
+  const CGameUserPrivilegesManagerScript* PrivilegeMgr; // Maniascript
+  const CGameMasterServerRichPresenceManagerScript* PresenceMgr; // Maniascript
+  const CGameUserManagerScript* UserMgr; // Maniascript
+  const CGameManiaPlanetScriptAPI* ManiaPlanet; // Maniascript
+  wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly); // Maniascript
 };
 
 struct CGameManiaAppScriptEvent : public CMwNod {
@@ -8537,24 +8537,24 @@ struct CGameManiaAppScriptEvent : public CMwNod {
     Action1 = 9,
     Action2 = 10,
   };
-  const EType Type;
-  const CGameUILayer* CustomEventLayer;
-  const wstring CustomEventType;
-  const MwBuffer<wstring> CustomEventData;
-  const wstring ExternalEventType;
-  const MwBuffer<wstring> ExternalEventData;
-  const EMenuNavAction MenuNavAction;
-  const bool IsActionAutoRepeat;
-  const uint KeyCode;
-  const string KeyName;
+  const EType Type; // Maniascript
+  const CGameUILayer* CustomEventLayer; // Maniascript
+  const wstring CustomEventType; // Maniascript
+  const MwBuffer<wstring> CustomEventData; // Maniascript
+  const wstring ExternalEventType; // Maniascript
+  const MwBuffer<wstring> ExternalEventData; // Maniascript
+  const EMenuNavAction MenuNavAction; // Maniascript
+  const bool IsActionAutoRepeat; // Maniascript
+  const uint KeyCode; // Maniascript
+  const string KeyName; // Maniascript
 };
 
 struct CGameManiaAppPlaygroundCommon : public CGameManiaApp {
-  const MwBuffer<CGameManiaAppPlaygroundScriptEvent*> PendingEvents;
-  const CGamePlaygroundClientScriptAPI* Playground;
-  const CGameCtnChallenge* Map;
-  CGamePlaygroundUIConfig* UI;
-  CGamePlaygroundUIConfig* ClientUI;
+  const MwBuffer<CGameManiaAppPlaygroundScriptEvent*> PendingEvents; // Maniascript
+  const CGamePlaygroundClientScriptAPI* Playground; // Maniascript
+  const CGameCtnChallenge* Map; // Maniascript
+  CGamePlaygroundUIConfig* UI; // Maniascript
+  CGamePlaygroundUIConfig* ClientUI; // Maniascript
 };
 
 struct CGameManialinkCamera : public CGameManialinkControl {
@@ -8566,31 +8566,31 @@ struct CGameReplayObjectVisData : public CMwNod {
 };
 
 struct CGameManiaAppTitle : public CGameManiaApp {
-  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents;
-  void Menu_Quit();
-  void Menu_Home();
-  void Menu_Solo();
-  void Menu_Local();
-  void Menu_Internet();
-  void Menu_Editor();
-  void Menu_Profile();
-  void PlayMap(wstring Map);
-  bool LoadingScreenRequireKeyPressed;
-  bool DontScaleMainMenuForHMD;
-  const CGameManiaTitleControlScriptAPI* TitleFlow;
-  const CGameManiaTitleControlScriptAPI* TitleControl;
-  const CGameManiaTitleEditionScriptAPI* TitleEdition;
-  const CGameScriptNotificationsConsumer* Notifications;
-  const wstring ExternalRequest_Type;
-  const MwBuffer<wstring> ExternalRequest_Data;
-  void ExternalRequest_Clear();
-  const CGameAchievementScriptManager* AchievementsManager;
-  CGameManagerBadgeScript* BadgeManager;
-  CGameMatchSettingsManagerScript* MatchSettingsManager;
-  void Authentication_GetToken(MwId UserId, string AppLogin);
-  const bool Authentication_GetTokenResponseReceived;
-  const uint Authentication_ErrorCode;
-  const string Authentication_Token;
+  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents; // Maniascript
+  void Menu_Quit(); // Maniascript
+  void Menu_Home(); // Maniascript
+  void Menu_Solo(); // Maniascript
+  void Menu_Local(); // Maniascript
+  void Menu_Internet(); // Maniascript
+  void Menu_Editor(); // Maniascript
+  void Menu_Profile(); // Maniascript
+  void PlayMap(wstring Map); // Maniascript
+  bool LoadingScreenRequireKeyPressed; // Maniascript
+  bool DontScaleMainMenuForHMD; // Maniascript
+  const CGameManiaTitleControlScriptAPI* TitleFlow; // Maniascript
+  const CGameManiaTitleControlScriptAPI* TitleControl; // Maniascript
+  const CGameManiaTitleEditionScriptAPI* TitleEdition; // Maniascript
+  const CGameScriptNotificationsConsumer* Notifications; // Maniascript
+  const wstring ExternalRequest_Type; // Maniascript
+  const MwBuffer<wstring> ExternalRequest_Data; // Maniascript
+  void ExternalRequest_Clear(); // Maniascript
+  const CGameAchievementScriptManager* AchievementsManager; // Maniascript
+  CGameManagerBadgeScript* BadgeManager; // Maniascript
+  CGameMatchSettingsManagerScript* MatchSettingsManager; // Maniascript
+  void Authentication_GetToken(MwId UserId, string AppLogin); // Maniascript
+  const bool Authentication_GetTokenResponseReceived; // Maniascript
+  const uint Authentication_ErrorCode; // Maniascript
+  const string Authentication_Token; // Maniascript
 };
 
 // File extension: 'GameCtnMediaBlockDecal2d.gbx'
@@ -8613,12 +8613,12 @@ struct CGameCtnMediaBlockEditorDecal2d : public CGameCtnMediaBlockEditor {
 };
 
 struct CGameManiaAppBrowser : public CGameManiaApp {
-  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents;
-  void BrowserBack();
-  void BrowserQuit();
-  void BrowserHome();
-  void BrowserReload();
-  wstring BrowserFocusedFrameId;
+  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents; // Maniascript
+  void BrowserBack(); // Maniascript
+  void BrowserQuit(); // Maniascript
+  void BrowserHome(); // Maniascript
+  void BrowserReload(); // Maniascript
+  wstring BrowserFocusedFrameId; // Maniascript
 };
 
 struct CGameManiaTitleControlScriptAPI : public CMwNod {
@@ -8655,67 +8655,67 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
   void Dbg_PlayMatchSettingsObject();
   void Dbg_PlaySplitScreenObj();
   void Dbg_PlayMultiOnSameScreenObj();
-  const bool IsReady;
-  const EResult LatestResult;
-  const wstring CustomResultType;
-  const MwBuffer<wstring> CustomResultData;
-  void PlayMap(wstring Map, wstring Mode, string SettingsXml);
-  void PlayCampaign(CGameCtnCampaign* Campaign, CGameCtnChallengeInfo* MapInfo, wstring Mode, string SettingsXml);
-  void PlayMapList(MwBuffer<wstring>& MapList, wstring Mode, string SettingsXml);
-  void PlayPlaylist(wstring Playlist, wstring OverrideMode, string OverrideSettingsXml);
-  void PlayMatchSettingsFile(wstring MatchSettingsFilePath, wstring OverrideMode, string OverrideSettingsXml);
-  void PlayMatchSettingsObject(CGameMatchSettingsScript* MatchSettings, wstring OverrideMode, string OverrideSettingsXml);
-  void PlaySplitScreen(ESplitScreenLayout LayoutType, MwBuffer<wstring>& MapList, wstring Mode, string SettingsXml);
-  void PlayMultiOnSameScreen(MwBuffer<wstring>& MapList, wstring Mode, string SettingsXml);
-  void PlaySplitScreenObj(ESplitScreenLayout LayoutType, CGameMatchSettingsScript* MatchSettings);
-  void PlayMultiOnSameScreenObj(CGameMatchSettingsScript* MatchSettings);
-  void ViewReplay(wstring Replay);
-  void OpenEditor(wstring EditorName, string MainPluginSettings);
-  void OpenEditor2(EEditorType EditorType);
-  void EditSkins();
-  void EditReplay(MwBuffer<wstring>& ReplayList);
-  void EditGhosts(wstring Map);
-  void EditAsset(wstring EditorName, string MainPluginSettingsXml, wstring RelativeFileName);
-  void EditMap(wstring Map, wstring EditorPluginScript, string EditorPluginArgument);
-  void EditNewMap1(string Environment, string Decoration, wstring ModNameOrUrl, wstring PlayerModel, wstring MapType, wstring EditorPluginScript, string EditorPluginArgument);
-  void EditNewMap2(string Environment, string Decoration, wstring ModNameOrUrl, wstring PlayerModel, wstring MapType, bool UseSimpleEditor, wstring EditorPluginScript, string EditorPluginArgument);
-  void EditBadges();
-  void EditBadgesOld(MwId UserId DEPRECATED);
-  const bool CanPublishFiles;
-  void PublishFile(wstring FileName);
-  const MwBuffer<CGameCtnNetServerInfo*> LocalServers;
-  const MwBuffer<CGameCtnNetServerInfo*> LocalServers_CurrentTitle;
-  void DiscoverLocalServers();
-  void CreateServer1(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, MwBuffer<wstring>& MapList, wstring Mode, string ScriptsSettingsXml);
-  void CreateServer2(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, wstring MatchSettingsFileName);
-  void CreateServer2Obj(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, CGameMatchSettingsScript* MatchSettings, string PasswordSpectators);
-  void CreateServer3(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, bool LocalOnly, MwBuffer<wstring>& MapList, wstring Mode, string ScriptsSettingsXml);
-  void CreateServer4(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, bool LocalOnly, wstring MatchSettingsFileName);
-  void CreateServer4Obj(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, CGameMatchSettingsScript* MatchSettings, bool LocalOnly);
-  void GetServerInfo(string ServerLogin);
-  void GetServerInfoObj(CGameCtnNetServerInfo* LocalServer);
-  void GetServerInfo_Abort();
-  const CGameCtnNetServerInfo* GetServerInfo_Result;
-  void Join_GetServerInfo_Result(bool AsSpectator, string Password);
-  void JoinServer(string ServerLogin, bool AsSpectator, string Password);
-  void JoinServer_Abort();
-  const CGameCtnNetServerInfo* JoinServer_ServerInfo;
-  void JoinServer_GetInfo(string ServerLogin);
-  void JoinServer_GetInfoPwd(string ServerLogin, string ServerPassword);
-  void JoinServer_GetInfoObj(CGameCtnNetServerInfo* Server);
-  void JoinServer_GetInfoObjPwd(CGameCtnNetServerInfo* Server, string ServerPassword);
-  void JoinServer_Join(bool AsSpectator);
-  void Quit();
+  const bool IsReady; // Maniascript
+  const EResult LatestResult; // Maniascript
+  const wstring CustomResultType; // Maniascript
+  const MwBuffer<wstring> CustomResultData; // Maniascript
+  void PlayMap(wstring Map, wstring Mode, string SettingsXml); // Maniascript
+  void PlayCampaign(CGameCtnCampaign* Campaign, CGameCtnChallengeInfo* MapInfo, wstring Mode, string SettingsXml); // Maniascript
+  void PlayMapList(MwBuffer<wstring>& MapList, wstring Mode, string SettingsXml); // Maniascript
+  void PlayPlaylist(wstring Playlist, wstring OverrideMode, string OverrideSettingsXml); // Maniascript
+  void PlayMatchSettingsFile(wstring MatchSettingsFilePath, wstring OverrideMode, string OverrideSettingsXml); // Maniascript
+  void PlayMatchSettingsObject(CGameMatchSettingsScript* MatchSettings, wstring OverrideMode, string OverrideSettingsXml); // Maniascript
+  void PlaySplitScreen(ESplitScreenLayout LayoutType, MwBuffer<wstring>& MapList, wstring Mode, string SettingsXml); // Maniascript
+  void PlayMultiOnSameScreen(MwBuffer<wstring>& MapList, wstring Mode, string SettingsXml); // Maniascript
+  void PlaySplitScreenObj(ESplitScreenLayout LayoutType, CGameMatchSettingsScript* MatchSettings); // Maniascript
+  void PlayMultiOnSameScreenObj(CGameMatchSettingsScript* MatchSettings); // Maniascript
+  void ViewReplay(wstring Replay); // Maniascript
+  void OpenEditor(wstring EditorName, string MainPluginSettings); // Maniascript
+  void OpenEditor2(EEditorType EditorType); // Maniascript
+  void EditSkins(); // Maniascript
+  void EditReplay(MwBuffer<wstring>& ReplayList); // Maniascript
+  void EditGhosts(wstring Map); // Maniascript
+  void EditAsset(wstring EditorName, string MainPluginSettingsXml, wstring RelativeFileName); // Maniascript
+  void EditMap(wstring Map, wstring EditorPluginScript, string EditorPluginArgument); // Maniascript
+  void EditNewMap1(string Environment, string Decoration, wstring ModNameOrUrl, wstring PlayerModel, wstring MapType, wstring EditorPluginScript, string EditorPluginArgument); // Maniascript
+  void EditNewMap2(string Environment, string Decoration, wstring ModNameOrUrl, wstring PlayerModel, wstring MapType, bool UseSimpleEditor, wstring EditorPluginScript, string EditorPluginArgument); // Maniascript
+  void EditBadges(); // Maniascript
+  void EditBadgesOld(MwId UserId DEPRECATED); // Maniascript
+  const bool CanPublishFiles; // Maniascript
+  void PublishFile(wstring FileName); // Maniascript
+  const MwBuffer<CGameCtnNetServerInfo*> LocalServers; // Maniascript
+  const MwBuffer<CGameCtnNetServerInfo*> LocalServers_CurrentTitle; // Maniascript
+  void DiscoverLocalServers(); // Maniascript
+  void CreateServer1(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, MwBuffer<wstring>& MapList, wstring Mode, string ScriptsSettingsXml); // Maniascript
+  void CreateServer2(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, wstring MatchSettingsFileName); // Maniascript
+  void CreateServer2Obj(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, CGameMatchSettingsScript* MatchSettings, string PasswordSpectators); // Maniascript
+  void CreateServer3(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, bool LocalOnly, MwBuffer<wstring>& MapList, wstring Mode, string ScriptsSettingsXml); // Maniascript
+  void CreateServer4(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, bool LocalOnly, wstring MatchSettingsFileName); // Maniascript
+  void CreateServer4Obj(wstring ServerName, wstring ServerComment, uint MaxPlayerCount, string Password, string PasswordSpectators, CGameMatchSettingsScript* MatchSettings, bool LocalOnly); // Maniascript
+  void GetServerInfo(string ServerLogin); // Maniascript
+  void GetServerInfoObj(CGameCtnNetServerInfo* LocalServer); // Maniascript
+  void GetServerInfo_Abort(); // Maniascript
+  const CGameCtnNetServerInfo* GetServerInfo_Result; // Maniascript
+  void Join_GetServerInfo_Result(bool AsSpectator, string Password); // Maniascript
+  void JoinServer(string ServerLogin, bool AsSpectator, string Password); // Maniascript
+  void JoinServer_Abort(); // Maniascript
+  const CGameCtnNetServerInfo* JoinServer_ServerInfo; // Maniascript
+  void JoinServer_GetInfo(string ServerLogin); // Maniascript
+  void JoinServer_GetInfoPwd(string ServerLogin, string ServerPassword); // Maniascript
+  void JoinServer_GetInfoObj(CGameCtnNetServerInfo* Server); // Maniascript
+  void JoinServer_GetInfoObjPwd(CGameCtnNetServerInfo* Server, string ServerPassword); // Maniascript
+  void JoinServer_Join(bool AsSpectator); // Maniascript
+  void Quit(); // Maniascript
 };
 
 struct CGameManiaAppTitleLayerScriptHandler : public CGameManialinkScriptHandler {
-  const CGameManiaAppTitle* ParentApp;
-  const CGameManiaTitleControlScriptAPI* TitleControl;
-  const CGameManiaTitleControlScriptAPI* TitleFlow;
+  const CGameManiaAppTitle* ParentApp; // Maniascript
+  const CGameManiaTitleControlScriptAPI* TitleControl; // Maniascript
+  const CGameManiaTitleControlScriptAPI* TitleFlow; // Maniascript
 };
 
 struct CGameEditorPluginMapLayerScriptHandler : public CGameManialinkScriptHandler {
-  const CGameEditorPluginMap* Editor;
+  const CGameEditorPluginMap* Editor; // Maniascript
 };
 
 struct CGameScriptNotificationsConsumerNotification : public CMwNod {
@@ -8724,14 +8724,14 @@ struct CGameScriptNotificationsConsumerNotification : public CMwNod {
     Notice = 1,
     Alarm = 2,
   };
-  const wstring Title;
-  const wstring Description;
-  const wstring ImageUrl;
-  const ENotificationPriority Priority;
-  const bool HasBeenRead;
-  const bool HasBeenActivated;
-  void SetRead();
-  void SetActivated();
+  const wstring Title; // Maniascript
+  const wstring Description; // Maniascript
+  const wstring ImageUrl; // Maniascript
+  const ENotificationPriority Priority; // Maniascript
+  const bool HasBeenRead; // Maniascript
+  const bool HasBeenActivated; // Maniascript
+  void SetRead(); // Maniascript
+  void SetActivated(); // Maniascript
 };
 
 struct CGameScriptNotificationsProducer : public CMwNod {
@@ -8745,8 +8745,8 @@ struct CGameScriptNotificationsProducer : public CMwNod {
     Notice = 1,
     Alarm = 2,
   };
-  const MwBuffer<CGameScriptNotificationsProducerEvent*> Events;
-  void SendNotification(MwBuffer<wstring>& CallbackParams, wstring Title, wstring Description, wstring ImageUrl, ENotificationLifeSpan LifeSpan, ENotificationPriority Priority);
+  const MwBuffer<CGameScriptNotificationsProducerEvent*> Events; // Maniascript
+  void SendNotification(MwBuffer<wstring>& CallbackParams, wstring Title, wstring Description, wstring ImageUrl, ENotificationLifeSpan LifeSpan, ENotificationPriority Priority); // Maniascript
 };
 
 struct CGameScriptNotificationsConsumer : public CMwNod {
@@ -8755,17 +8755,17 @@ struct CGameScriptNotificationsConsumer : public CMwNod {
     MoreThanMemo = 1,
     MoreThanNotice = 2,
   };
-  const MwBuffer<CGameScriptNotificationsConsumerEvent*> Events;
-  const MwBuffer<CGameScriptNotificationsConsumerNotification*> Notifications;
-  const MwBuffer<CGameScriptNotificationsConsumerNotification*> FilteredNotifications;
-  EFilterPriority Filter_Priority;
+  const MwBuffer<CGameScriptNotificationsConsumerEvent*> Events; // Maniascript
+  const MwBuffer<CGameScriptNotificationsConsumerNotification*> Notifications; // Maniascript
+  const MwBuffer<CGameScriptNotificationsConsumerNotification*> FilteredNotifications; // Maniascript
+  EFilterPriority Filter_Priority; // Maniascript
 };
 
 struct CGameScriptNotificationsProducerEvent : public CMwNod {
   enum EType {
     NotificationHasBeenActivated = 0,
   };
-  const EType Type;
+  const EType Type; // Maniascript
 };
 
 struct CGameScriptNotificationsConsumerEvent : public CMwNod {
@@ -8773,8 +8773,8 @@ struct CGameScriptNotificationsConsumerEvent : public CMwNod {
     NewNotification = 0,
     NotificationChanged = 1,
   };
-  const EType Type;
-  const CGameScriptNotificationsConsumerNotification* Notification;
+  const EType Type; // Maniascript
+  const CGameScriptNotificationsConsumerNotification* Notification; // Maniascript
 };
 
 struct CGameManialinkTextEdit : public CGameManialinkControl {
@@ -8784,18 +8784,18 @@ struct CGameManialinkTextEdit : public CGameManialinkControl {
     Password = 2,
     Newpassword = 3,
   };
-  wstring Value;
-  void StartEdition();
-  int MaxLine;
-  bool AutoNewLine;
-  bool ShowLineNumbers;
-  float LineSpacing;
-  const uint ValueLineCount;
-  float Opacity;
-  vec3 TextColor;
-  float TextSizeReal;
-  uint TextSize;
-  EControlScriptEditorTextFormat TextFormat;
+  wstring Value; // Maniascript
+  void StartEdition(); // Maniascript
+  int MaxLine; // Maniascript
+  bool AutoNewLine; // Maniascript
+  bool ShowLineNumbers; // Maniascript
+  float LineSpacing; // Maniascript
+  const uint ValueLineCount; // Maniascript
+  float Opacity; // Maniascript
+  vec3 TextColor; // Maniascript
+  float TextSizeReal; // Maniascript
+  uint TextSize; // Maniascript
+  EControlScriptEditorTextFormat TextFormat; // Maniascript
 };
 
 struct CGameUserFileList : public CMwNod {
@@ -8809,41 +8809,41 @@ struct CGameManialinkStylesheet : public CMwNod {
 };
 
 struct CGameMasterServerOnlineSignalsManager : public CMwNod {
-  const MwBuffer<CGameMasterServerUserOnlineSignals*> UsersOnlineSignals;
-  CGameMasterServerUserOnlineSignals* GetUserOnlineSignals(MwId UserId);
+  const MwBuffer<CGameMasterServerUserOnlineSignals*> UsersOnlineSignals; // Maniascript
+  CGameMasterServerUserOnlineSignals* GetUserOnlineSignals(MwId UserId); // Maniascript
 };
 
 struct CGameMasterServerOnlineSignal : public CMwNod {
-  const uint OnlineSignalId;
-  const string SenderLogin;
-  const string SenderDisplayName;
-  const uint TimeStamp;
+  const uint OnlineSignalId; // Maniascript
+  const string SenderLogin; // Maniascript
+  const string SenderDisplayName; // Maniascript
+  const uint TimeStamp; // Maniascript
 };
 
 struct CGameMasterServerOnlineSignal_RecordBeaten : public CGameMasterServerOnlineSignal {
-  const string BeatenLogin;
-  const wstring BeatenDisplayName;
-  const string Context;
-  const string ChallengeUid;
-  const wstring ChallengeName;
-  const uint RecordScore;
-  const uint RecordScoreBeaten;
+  const string BeatenLogin; // Maniascript
+  const wstring BeatenDisplayName; // Maniascript
+  const string Context; // Maniascript
+  const string ChallengeUid; // Maniascript
+  const wstring ChallengeName; // Maniascript
+  const uint RecordScore; // Maniascript
+  const uint RecordScoreBeaten; // Maniascript
 };
 
 struct CGameManiaAppMinimal : public CGameManiaApp {
-  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents;
+  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents; // Maniascript
 };
 
 struct CGameVideoScriptManager : public CMwNod {
-  CGameVideoScriptVideo* CreateVideo(string Url, bool IsLooping, bool AutoProcessing);
-  void DestroyVideo(CGameVideoScriptVideo* Video);
-  const MwBuffer<CGameVideoScriptVideo*> Videos;
+  CGameVideoScriptVideo* CreateVideo(string Url, bool IsLooping, bool AutoProcessing); // Maniascript
+  void DestroyVideo(CGameVideoScriptVideo* Video); // Maniascript
+  const MwBuffer<CGameVideoScriptVideo*> Videos; // Maniascript
 };
 
 struct CGameGhostScript : public CMwNod {
-  const MwId Id;
-  const CTmRaceResultNod* Result;
-  wstring Nickname;
+  const MwId Id; // Maniascript
+  const CTmRaceResultNod* Result; // Maniascript
+  wstring Nickname; // Maniascript
 };
 
 struct CTmRaceResultNod : public CMwNod {
@@ -8854,12 +8854,12 @@ struct CTmRaceResultNod : public CMwNod {
     CheckpointsProgress = 3,
     None = 4,
   };
-  int Time;
-  int Score;
-  int StuntsScore;
-  int NbRespawns;
-  MwBuffer<int> Checkpoints;
-  int Compare(CTmRaceResultNod* Other, ETmRaceResultCriteria Criteria);
+  int Time; // Maniascript
+  int Score; // Maniascript
+  int StuntsScore; // Maniascript
+  int NbRespawns; // Maniascript
+  MwBuffer<int> Checkpoints; // Maniascript
+  int Compare(CTmRaceResultNod* Other, ETmRaceResultCriteria Criteria); // Maniascript
 };
 
 struct CGameEditorModule : public CGameCtnEditor {
@@ -8919,65 +8919,65 @@ struct CGameEditorModule : public CGameCtnEditor {
   float EditColumnTextSize;
   string EditPageName;
   MwBuffer<string> EditedPageButtonsValues;
-  void NewModule(EModuleType ModuleType);
-  void OpenModule(wstring Url);
-  void Save();
-  void SaveAs(wstring Url);
-  void SaveCopyAs(wstring Url);
-  void ForceExit();
-  const CGameModuleMenuModel* EditedMenu;
-  const CGameModuleMenuPageModel* EditedMenuPage;
-  const MwBuffer<CGameEditorPluginModuleScriptEvent*> PendingEvents;
+  void NewModule(EModuleType ModuleType); // Maniascript
+  void OpenModule(wstring Url); // Maniascript
+  void Save(); // Maniascript
+  void SaveAs(wstring Url); // Maniascript
+  void SaveCopyAs(wstring Url); // Maniascript
+  void ForceExit(); // Maniascript
+  const CGameModuleMenuModel* EditedMenu; // Maniascript
+  const CGameModuleMenuPageModel* EditedMenuPage; // Maniascript
+  const MwBuffer<CGameEditorPluginModuleScriptEvent*> PendingEvents; // Maniascript
 };
 
 struct CGameMgrItem : public CMwNod {
 };
 
 struct CGameHighScoreList : public CMwNod {
-  const MwBuffer<CGameHighScore*> HighScores;
-  const bool IsReady;
-  const bool ErrorOccured;
+  const MwBuffer<CGameHighScore*> HighScores; // Maniascript
+  const bool IsReady; // Maniascript
+  const bool ErrorOccured; // Maniascript
 };
 
 struct CGameAchievementScriptManager : public CMwNod {
-  const MwBuffer<CGameAchievementScriptEvent*> PendingEvents;
-  const MwBuffer<CGameAchievementScriptAchievement*> Achievements;
-  const MwBuffer<CGameAchievementScriptStat*> Stats;
-  const MwBuffer<CGameAchievementScriptAchievementDesc*> AchievementDescriptions;
-  const MwBuffer<CGameAchievementScriptStatDesc*> StatDescriptions;
-  void SendEvent(MwId UserId, string Mnemo, MwBuffer<int>& Params);
-  CWebServicesTaskResult* MasterServer_UplayCompleteAction(MwId UserId, string ActionId);
-  CWebServicesTaskResult* MasterServer_UplayCompleteActions(MwId UserId, MwBuffer<wstring>& ActionIds);
-  CGameAchievementScriptUplayAction* MasterServer_GetUplayAction(MwId UserId, string ActionId);
-  bool MasterServer_IsUplayActionCompleted(MwId UserId, string ActionId);
-  CWebServicesTaskResult* MasterServer_UplayPurchaseReward(MwId UserId, string RewardId);
-  bool MasterServer_IsUplayRewardPurchased(MwId UserId, string RewardId);
-  const MwBuffer<CWebServicesTaskResult*> MasterServer_MSTaskResults;
-  void MasterServer_ReleaseMSTaskResult(MwId TaskId);
-  const MwBuffer<CGameAchievementScriptUplayAction*> MasterServer_UplayActions;
+  const MwBuffer<CGameAchievementScriptEvent*> PendingEvents; // Maniascript
+  const MwBuffer<CGameAchievementScriptAchievement*> Achievements; // Maniascript
+  const MwBuffer<CGameAchievementScriptStat*> Stats; // Maniascript
+  const MwBuffer<CGameAchievementScriptAchievementDesc*> AchievementDescriptions; // Maniascript
+  const MwBuffer<CGameAchievementScriptStatDesc*> StatDescriptions; // Maniascript
+  void SendEvent(MwId UserId, string Mnemo, MwBuffer<int>& Params); // Maniascript
+  CWebServicesTaskResult* MasterServer_UplayCompleteAction(MwId UserId, string ActionId); // Maniascript
+  CWebServicesTaskResult* MasterServer_UplayCompleteActions(MwId UserId, MwBuffer<wstring>& ActionIds); // Maniascript
+  CGameAchievementScriptUplayAction* MasterServer_GetUplayAction(MwId UserId, string ActionId); // Maniascript
+  bool MasterServer_IsUplayActionCompleted(MwId UserId, string ActionId); // Maniascript
+  CWebServicesTaskResult* MasterServer_UplayPurchaseReward(MwId UserId, string RewardId); // Maniascript
+  bool MasterServer_IsUplayRewardPurchased(MwId UserId, string RewardId); // Maniascript
+  const MwBuffer<CWebServicesTaskResult*> MasterServer_MSTaskResults; // Maniascript
+  void MasterServer_ReleaseMSTaskResult(MwId TaskId); // Maniascript
+  const MwBuffer<CGameAchievementScriptUplayAction*> MasterServer_UplayActions; // Maniascript
 };
 
 struct CGameAchievementScriptEvent : public CMwNod {
   enum EType {
     NewAchievement = 0,
   };
-  const EType Type;
-  const CGameAchievementScriptAchievement* Achievement;
+  const EType Type; // Maniascript
+  const CGameAchievementScriptAchievement* Achievement; // Maniascript
 };
 
 struct CGameAchievementScriptAchievement : public CMwNod {
-  const MwId UserId;
-  const CGameAchievementScriptAchievementDesc* AchievementDesc;
+  const MwId UserId; // Maniascript
+  const CGameAchievementScriptAchievementDesc* AchievementDesc; // Maniascript
 };
 
 struct CGameAchievementScriptStat : public CMwNod {
-  const MwId UserId;
-  const CGameAchievementScriptStatDesc* StatDesc;
-  const uint Value;
+  const MwId UserId; // Maniascript
+  const CGameAchievementScriptStatDesc* StatDesc; // Maniascript
+  const uint Value; // Maniascript
 };
 
 struct CGamePlaygroundModuleClientInventory : public CGamePlaygroundModuleClient {
-  const CGameUILayer* InventoryLayer;
+  const CGameUILayer* InventoryLayer; // Maniascript
 };
 
 struct CGamePlaygroundModuleClientScoresTable : public CGamePlaygroundModuleClient {
@@ -8993,17 +8993,17 @@ struct CGameManiaAppPlaygroundScriptEvent : public CGameManiaAppScriptEvent {
     MenuNavigation = 3,
     PlaygroundScriptEvent = 4,
   };
-  const wstring PlaygroundScriptEventType;
-  const MwBuffer<wstring> PlaygroundScriptEventData;
+  const wstring PlaygroundScriptEventType; // Maniascript
+  const MwBuffer<wstring> PlaygroundScriptEventData; // Maniascript
 };
 
 struct CGameBadgeScript : public CMwNod {
-  vec3 PrimaryColor;
-  wstring SkinName;
-  wstring StickerSlot_Get(string Slot);
-  void StickerSlot_Set(string Slot, wstring Sticker);
-  void StickerSlot_Clear();
-  MwBuffer<wstring> Layers;
+  vec3 PrimaryColor; // Maniascript
+  wstring SkinName; // Maniascript
+  wstring StickerSlot_Get(string Slot); // Maniascript
+  void StickerSlot_Set(string Slot, wstring Sticker); // Maniascript
+  void StickerSlot_Clear(); // Maniascript
+  MwBuffer<wstring> Layers; // Maniascript
 };
 
 struct CGameUserProfile : public CMwNod {
@@ -9036,39 +9036,39 @@ struct CGameEditorBadge : public CGameEditorBase {
 
 struct CGameEditorBadgeScript : public CGameManiaAppMinimal {
   const CGameEditorBadge* Game;
-  void Leave();
-  CGameBadgeScript* DisplayCurrentBadge;
-  vec2 DisplayPosN;
-  vec2 DisplaySize;
-  float DisplayFoV;
-  float CameraTransitionDuration; // Range: 0.1 - 10
-  float MeshRotation_MaxSpeed; // Range: -10 - 10
-  float MeshRotation_Acceleration; // Range: 0.1 - 10
-  MwId DisplayCurrentMeshId;
-  const MwBuffer<MwId> MeshIds;
-  void MeshId_Next();
-  void MeshId_Previous();
-  const MwBuffer<CGameBadgeScript*> Badges;
-  CGameBadgeScript* BadgeCreate();
-  void BadgeDestroy(CGameBadgeScript* Badge);
-  void BadgeCopy(CGameBadgeScript* Source, CGameBadgeScript* Destination);
-  void BadgeReadFromProfile(CGameBadgeScript* Badge, MwId UserId);
-  void BadgeWriteToProfile(CGameBadgeScript* Badge, MwId UserId);
+  void Leave(); // Maniascript
+  CGameBadgeScript* DisplayCurrentBadge; // Maniascript
+  vec2 DisplayPosN; // Maniascript
+  vec2 DisplaySize; // Maniascript
+  float DisplayFoV; // Maniascript
+  float CameraTransitionDuration; // Range: 0.1 - 10 // Maniascript
+  float MeshRotation_MaxSpeed; // Range: -10 - 10 // Maniascript
+  float MeshRotation_Acceleration; // Range: 0.1 - 10 // Maniascript
+  MwId DisplayCurrentMeshId; // Maniascript
+  const MwBuffer<MwId> MeshIds; // Maniascript
+  void MeshId_Next(); // Maniascript
+  void MeshId_Previous(); // Maniascript
+  const MwBuffer<CGameBadgeScript*> Badges; // Maniascript
+  CGameBadgeScript* BadgeCreate(); // Maniascript
+  void BadgeDestroy(CGameBadgeScript* Badge); // Maniascript
+  void BadgeCopy(CGameBadgeScript* Source, CGameBadgeScript* Destination); // Maniascript
+  void BadgeReadFromProfile(CGameBadgeScript* Badge, MwId UserId); // Maniascript
+  void BadgeWriteToProfile(CGameBadgeScript* Badge, MwId UserId); // Maniascript
 };
 
 struct CGamePlaygroundModuleClientStore : public CGamePlaygroundModuleClient {
-  const CGameUILayer* StoreLayer;
+  const CGameUILayer* StoreLayer; // Maniascript
 };
 
 struct CGamePlaygroundModuleConfig : public CMwNod {
 };
 
 struct CGameMasterServerUserInfo : public CNetMasterServerUserInfo {
-  const bool NeedToChangeZone;
-  const uint ZoneLevelCount;
-  wstring GetZone(uint ZoneLevel);
-  void SetSubscriptionZone(wstring Zone);
-  const uint MultiInternetPlayTimeLeft;
+  const bool NeedToChangeZone; // Maniascript
+  const uint ZoneLevelCount; // Maniascript
+  wstring GetZone(uint ZoneLevel); // Maniascript
+  void SetSubscriptionZone(wstring Zone); // Maniascript
+  const uint MultiInternetPlayTimeLeft; // Maniascript
 };
 
 // File extension: 'StickerSlots.Gbx'
@@ -9082,7 +9082,7 @@ struct CGamePlaygroundModuleClient : public CGameManiaAppPlaygroundCommon {
 };
 
 struct CGameManiaAppPlayground : public CGameManiaAppPlaygroundCommon {
-  void SendCustomEvent(wstring Type, MwBuffer<wstring>& Data);
+  void SendCustomEvent(wstring Type, MwBuffer<wstring>& Data); // Maniascript
 };
 
 struct CGameVideoScriptVideo : public CMwNod {
@@ -9090,119 +9090,119 @@ struct CGameVideoScriptVideo : public CMwNod {
     Default = 0,
     Point = 1,
   };
-  const CPlugBitmap* Image;
-  bool IsLooping;
-  const bool DownloadInProgress;
-  const float PlayLength;
-  void BeginProcessing();
-  void EndProcessing();
-  const bool IsProcessing;
-  bool AutoProcessing;
-  void Play();
-  void Pause();
-  void Stop();
-  const bool IsPlaying;
-  float PlayCursor;
-  ETextureFilter TextureFilter;
+  const CPlugBitmap* Image; // Maniascript
+  bool IsLooping; // Maniascript
+  const bool DownloadInProgress; // Maniascript
+  const float PlayLength; // Maniascript
+  void BeginProcessing(); // Maniascript
+  void EndProcessing(); // Maniascript
+  const bool IsProcessing; // Maniascript
+  bool AutoProcessing; // Maniascript
+  void Play(); // Maniascript
+  void Pause(); // Maniascript
+  void Stop(); // Maniascript
+  const bool IsPlaying; // Maniascript
+  float PlayCursor; // Maniascript
+  ETextureFilter TextureFilter; // Maniascript
 };
 
 struct CGameUserScript : public CMwNod {
-  const string SystemName;
-  const wstring DisplayName;
-  const vec3 Color;
-  const bool PersistentIsReady;
-  void PersistentSave();
-  void SavePersistent();
-  const CGameUserProfileWrapper* Config;
+  const string SystemName; // Maniascript
+  const wstring DisplayName; // Maniascript
+  const vec3 Color; // Maniascript
+  const bool PersistentIsReady; // Maniascript
+  void PersistentSave(); // Maniascript
+  void SavePersistent(); // Maniascript
+  const CGameUserProfileWrapper* Config; // Maniascript
 };
 
 struct CGameUserManagerScript : public CMwNod {
-  const MwBuffer<CWebServicesTaskResult*> TaskResults;
-  void TaskResult_Release(MwId TaskId);
-  void RequestMainUserChange();
-  const MwBuffer<CGameUserScript*> Users;
-  const CInputScriptPad* MainUserPad;
-  const bool MainUserLogged;
-  const CGameUserScript* MainUser;
-  const bool Intro;
-  bool CanSkipIntro;
-  void SetSkipIntro();
-  void DevSetSkipIntro();
-  const bool MainUser_CanUseVoiceChat;
-  bool VoiceChat_MuteAll;
-  CWebServicesTaskResult_StringIntList* GetGroups(MwId UserId);
-  void ShowProfile(MwId UserId, string ProfileLogin);
+  const MwBuffer<CWebServicesTaskResult*> TaskResults; // Maniascript
+  void TaskResult_Release(MwId TaskId); // Maniascript
+  void RequestMainUserChange(); // Maniascript
+  const MwBuffer<CGameUserScript*> Users; // Maniascript
+  const CInputScriptPad* MainUserPad; // Maniascript
+  const bool MainUserLogged; // Maniascript
+  const CGameUserScript* MainUser; // Maniascript
+  const bool Intro; // Maniascript
+  bool CanSkipIntro; // Maniascript
+  void SetSkipIntro(); // Maniascript
+  void DevSetSkipIntro(); // Maniascript
+  const bool MainUser_CanUseVoiceChat; // Maniascript
+  bool VoiceChat_MuteAll; // Maniascript
+  CWebServicesTaskResult_StringIntList* GetGroups(MwId UserId); // Maniascript
+  void ShowProfile(MwId UserId, string ProfileLogin); // Maniascript
 };
 
 struct CWebServicesTaskResult_BuddiesChallengeRecordsComparison : public CWebServicesTaskResult {
-  const string Login;
-  const MwBuffer<CGameHighScoreComparisonSummary*> BuddiesComparison;
-  void SortByPlayerCount();
-  void SortByOpponentLogin();
-  void SortByOpponentCount();
-  void SortByOpponentDate();
-  void SortByOpponentDisplayName();
+  const string Login; // Maniascript
+  const MwBuffer<CGameHighScoreComparisonSummary*> BuddiesComparison; // Maniascript
+  void SortByPlayerCount(); // Maniascript
+  void SortByOpponentLogin(); // Maniascript
+  void SortByOpponentCount(); // Maniascript
+  void SortByOpponentDate(); // Maniascript
+  void SortByOpponentDisplayName(); // Maniascript
 };
 
 struct CGameCtnMasterServerTask_GetChallengeRecordsComparisonSummaries : public CNetMasterServerRequestTask {
 };
 
 struct CWebServicesTaskResult_BuddyChallengeRecordsComparison : public CWebServicesTaskResult {
-  const string Login;
-  const string BuddyLogin;
-  const MwBuffer<CGameHighScoreComparison*> PlayerBestRecordsComparison;
-  const MwBuffer<CGameHighScoreComparison*> BuddyBestRecordsComparison;
-  void SortByMapName();
-  void SortByRecordTime();
-  void SortByRecordTimeDiff();
-  void SortByRecordDate();
+  const string Login; // Maniascript
+  const string BuddyLogin; // Maniascript
+  const MwBuffer<CGameHighScoreComparison*> PlayerBestRecordsComparison; // Maniascript
+  const MwBuffer<CGameHighScoreComparison*> BuddyBestRecordsComparison; // Maniascript
+  void SortByMapName(); // Maniascript
+  void SortByRecordTime(); // Maniascript
+  void SortByRecordTimeDiff(); // Maniascript
+  void SortByRecordDate(); // Maniascript
 };
 
 struct CGameCtnMasterServerTask_ChallengeRecords_GetBuddyRecordComparison : public CNetMasterServerRequestTask {
 };
 
 struct CGameHighScoreComparison : public CMwNod {
-  const CGameCtnChallengeInfo* MapInfo;
-  const string Login;
-  const uint RecordScore;
-  const uint RecordTime;
-  const uint RecordRespawnCount;
-  const uint RecordDate;
-  const string RecordDateString;
-  const uint RecordElapsedTime;
-  const uint RecordCount;
-  const string OpponentLogin;
-  const wstring OpponentDisplayName;
-  const string OpponentRecordUrl;
-  const uint OpponentRecordScore;
-  const uint OpponentRecordTime;
-  const uint OpponentRecordRespawnCount;
-  const uint OpponentRecordDate;
-  const string OpponentRecordDateString;
-  const uint OpponentRecordElapsedTime;
-  const uint OpponentRecordCount;
+  const CGameCtnChallengeInfo* MapInfo; // Maniascript
+  const string Login; // Maniascript
+  const uint RecordScore; // Maniascript
+  const uint RecordTime; // Maniascript
+  const uint RecordRespawnCount; // Maniascript
+  const uint RecordDate; // Maniascript
+  const string RecordDateString; // Maniascript
+  const uint RecordElapsedTime; // Maniascript
+  const uint RecordCount; // Maniascript
+  const string OpponentLogin; // Maniascript
+  const wstring OpponentDisplayName; // Maniascript
+  const string OpponentRecordUrl; // Maniascript
+  const uint OpponentRecordScore; // Maniascript
+  const uint OpponentRecordTime; // Maniascript
+  const uint OpponentRecordRespawnCount; // Maniascript
+  const uint OpponentRecordDate; // Maniascript
+  const string OpponentRecordDateString; // Maniascript
+  const uint OpponentRecordElapsedTime; // Maniascript
+  const uint OpponentRecordCount; // Maniascript
 };
 
 struct CGameHighScoreComparisonSummary : public CMwNod {
-  const string Login;
-  const uint BestRecordCount;
-  const uint BestRecordLastDate;
-  const string BestRecordLastDateString;
-  const uint BestRecordElapsedTime;
-  const string OpponentLogin;
-  const wstring OpponentDisplayName;
-  const uint OpponentBestRecordCount;
-  const uint OpponentBestRecordLastDate;
-  const string OpponentBestRecordLastDateString;
-  const uint OpponentBestRecordElapsedTime;
+  const string Login; // Maniascript
+  const uint BestRecordCount; // Maniascript
+  const uint BestRecordLastDate; // Maniascript
+  const string BestRecordLastDateString; // Maniascript
+  const uint BestRecordElapsedTime; // Maniascript
+  const string OpponentLogin; // Maniascript
+  const wstring OpponentDisplayName; // Maniascript
+  const uint OpponentBestRecordCount; // Maniascript
+  const uint OpponentBestRecordLastDate; // Maniascript
+  const string OpponentBestRecordLastDateString; // Maniascript
+  const uint OpponentBestRecordElapsedTime; // Maniascript
 };
 
 struct CGameModuleMenuBase : public CGameManiaAppTitle {
-  CGameModuleMenuPage* GetFirstPage(wstring PageId);
-  void Menu_Goto(wstring PageId);
-  void Menu_Back();
-  void Menu_Previous();
-  void Menu_Quit();
+  CGameModuleMenuPage* GetFirstPage(wstring PageId); // Maniascript
+  void Menu_Goto(wstring PageId); // Maniascript
+  void Menu_Back(); // Maniascript
+  void Menu_Previous(); // Maniascript
+  void Menu_Quit(); // Maniascript
 };
 
 struct CGameModuleMenuBrowser : public CGameModuleMenuComponent {
@@ -9225,24 +9225,24 @@ struct CGameModuleMenuBrowser : public CGameModuleMenuComponent {
     Save = 1,
     MultiSelect = 2,
   };
-  const bool HasFinished;
-  const MwBuffer<wstring> Selection;
-  void SetFileType(EFileType FileType);
-  void SetFileAction(EFileAction FileAction);
+  const bool HasFinished; // Maniascript
+  const MwBuffer<wstring> Selection; // Maniascript
+  void SetFileType(EFileType FileType); // Maniascript
+  void SetFileAction(EFileAction FileAction); // Maniascript
 };
 
 struct CGameHapticDevice : public CMwNod {
 };
 
 struct CGamePluginInterfacesScript : public CMwNod {
-  CGameManiaplanetPluginInterface* GetInterface(wstring Name);
-  const MwBuffer<CGameManiaplanetPluginInterface*> Interfaces;
+  CGameManiaplanetPluginInterface* GetInterface(wstring Name); // Maniascript
+  const MwBuffer<CGameManiaplanetPluginInterface*> Interfaces; // Maniascript
 };
 
 struct CGameModuleMenuComponent : public CMwNod {
-  const CGameUILayer* ComponentLayer;
-  void Hide();
-  void Show();
+  const CGameUILayer* ComponentLayer; // Maniascript
+  void Hide(); // Maniascript
+  void Show(); // Maniascript
 };
 
 struct CGameScoreAndLeaderBoardManager : public CMwNod {
@@ -9318,8 +9318,8 @@ struct CGameEditorPluginModuleScriptEvent : public CGameManiaAppScriptEvent {
     FileSave = 7,
     FileSaveAs = 8,
   };
-  const Type Type;
-  void Eat();
+  const Type Type; // Maniascript
+  void Eat(); // Maniascript
 };
 
 struct CWebServicesTaskResult_PlayerMapRecords : public CWebServicesTaskResult {
@@ -9332,30 +9332,30 @@ struct CGameModuleMenuLadderRankings : public CGameModuleMenuComponent {
 };
 
 struct CGameScriptHandlerPlaygroundModuleStore : public CGameManialinkScriptHandler {
-  const uint CurrentMoney;
-  const MwBuffer<CGameModuleScriptStoreCategory*> StoreContent;
-  void SetCategory(uint CategoryIndex);
-  void SelectItem(uint ItemIndex);
-  void BuySelectedItem();
-  void ClearItemSelection();
-  void Quit();
-  const MwBuffer<wstring> BlockedItemsUrls;
+  const uint CurrentMoney; // Maniascript
+  const MwBuffer<CGameModuleScriptStoreCategory*> StoreContent; // Maniascript
+  void SetCategory(uint CategoryIndex); // Maniascript
+  void SelectItem(uint ItemIndex); // Maniascript
+  void BuySelectedItem(); // Maniascript
+  void ClearItemSelection(); // Maniascript
+  void Quit(); // Maniascript
+  const MwBuffer<wstring> BlockedItemsUrls; // Maniascript
 };
 
 struct CGameModuleMenuServerBrowser : public CGameModuleMenuComponent {
 };
 
 struct CGamePlaygroundModuleClientHud : public CGameManiaAppPlaygroundCommon {
-  void ToggleStore();
-  void ToggleInventory();
+  void ToggleStore(); // Maniascript
+  void ToggleInventory(); // Maniascript
 };
 
 struct CGamePlaygroundModuleServer : public CMwNod {
-  void Hide();
-  void Hide2(CGamePlaygroundUIConfig* UIConfig);
-  void Show();
-  void Show2(CGamePlaygroundUIConfig* UIConfig);
-  bool IsVisible(CGamePlaygroundUIConfig* UIConfig);
+  void Hide(); // Maniascript
+  void Hide2(CGamePlaygroundUIConfig* UIConfig); // Maniascript
+  void Show(); // Maniascript
+  void Show2(CGamePlaygroundUIConfig* UIConfig); // Maniascript
+  bool IsVisible(CGamePlaygroundUIConfig* UIConfig); // Maniascript
 };
 
 struct CGameMasterServerOnlineSignalTask_GetPlayerOnlineSignals : public CNetMasterServerRequestTask {
@@ -9365,8 +9365,8 @@ struct CWebServicesTaskResult_OnlineSignals : public CWebServicesTaskResult {
 };
 
 struct CGameScriptHandlerTitleModuleMenu : public CGameManiaAppTitleLayerScriptHandler {
-  const MwBuffer<CGameModuleMenuComponent*> Components;
-  CGameModuleMenuComponent* GetFirstComponent(string Name);
+  const MwBuffer<CGameModuleMenuComponent*> Components; // Maniascript
+  CGameModuleMenuComponent* GetFirstComponent(string Name); // Maniascript
 };
 
 struct CGameEditorAnimChar : public CMwNod {
@@ -9384,32 +9384,32 @@ struct CGameEditorAnimChar : public CMwNod {
 };
 
 struct CGameScriptHandlerPlaygroundModuleInventory : public CGameManialinkScriptHandler {
-  const MwBuffer<CGameModuleInventoryCategory*> InventoryContent;
-  void Quit();
-  void DropSelectedSlot();
-  void EquipSelectedSlot();
-  void ClearSlotSelection();
-  void SetCategory(uint CategoryIndex);
-  void SelectSlot(uint SlotIndex);
+  const MwBuffer<CGameModuleInventoryCategory*> InventoryContent; // Maniascript
+  void Quit(); // Maniascript
+  void DropSelectedSlot(); // Maniascript
+  void EquipSelectedSlot(); // Maniascript
+  void ClearSlotSelection(); // Maniascript
+  void SetCategory(uint CategoryIndex); // Maniascript
+  void SelectSlot(uint SlotIndex); // Maniascript
 };
 
 struct CGameModuleInventoryCategory : public CMwNod {
-  const string Name;
-  const string Description;
-  const uint ItemClass;
-  const wstring IconUrl;
-  const MwBuffer<CGameModuleScriptItem*> SlotsItems;
-  const MwBuffer<uint> SlotsItemsQuantity;
+  const string Name; // Maniascript
+  const string Description; // Maniascript
+  const uint ItemClass; // Maniascript
+  const wstring IconUrl; // Maniascript
+  const MwBuffer<CGameModuleScriptItem*> SlotsItems; // Maniascript
+  const MwBuffer<uint> SlotsItemsQuantity; // Maniascript
 };
 
 struct CGameModuleScriptItem : public CMwNod {
-  const wstring Url;
-  const string IconUrl;
-  const string Name;
-  const string Description;
-  const uint Occupation;
-  void IsItem();
-  void HasAction();
+  const wstring Url; // Maniascript
+  const string IconUrl; // Maniascript
+  const string Name; // Maniascript
+  const string Description; // Maniascript
+  const uint Occupation; // Maniascript
+  void IsItem(); // Maniascript
+  void HasAction(); // Maniascript
 };
 
 struct CGameMasterServerTask_SetBuddies : public CNetMasterServerRequestTask {
@@ -9428,38 +9428,38 @@ struct CWebServicesTaskResult_Timestamp : public CWebServicesTaskResult {
 };
 
 struct CGamePlaygroundModuleServerStore : public CGamePlaygroundModuleServer {
-  void Reset();
-  void Reset2(CGamePlayer* Player);
-  void SetMoney(CGamePlayer* Player, uint Amount);
-  uint GetMoney(CGamePlayer* Player);
-  bool AddMoney(CGamePlayer* Player, uint Amount);
-  bool SubMoney(CGamePlayer* Player, uint Amount);
-  void SetActionLevel(CGamePlayer* Player, wstring ActionUrl, uint ActionLevel);
-  uint GetActionLevel(CGamePlayer* Player, wstring ActionUrl);
-  bool SetPlayerData(CGamePlayer* Player, string Data);
-  string GetPlayerData(CGamePlayer* Player);
-  void SetItemCanBeBought(CGamePlayer* Player, wstring ActionUrl, bool CanBeBought);
-  bool GetItemCanBeBought(CGamePlayer* Player, wstring ActionUrl);
-  MwBuffer<wstring>& Hack_GetAllItemsUrls();
+  void Reset(); // Maniascript
+  void Reset2(CGamePlayer* Player); // Maniascript
+  void SetMoney(CGamePlayer* Player, uint Amount); // Maniascript
+  uint GetMoney(CGamePlayer* Player); // Maniascript
+  bool AddMoney(CGamePlayer* Player, uint Amount); // Maniascript
+  bool SubMoney(CGamePlayer* Player, uint Amount); // Maniascript
+  void SetActionLevel(CGamePlayer* Player, wstring ActionUrl, uint ActionLevel); // Maniascript
+  uint GetActionLevel(CGamePlayer* Player, wstring ActionUrl); // Maniascript
+  bool SetPlayerData(CGamePlayer* Player, string Data); // Maniascript
+  string GetPlayerData(CGamePlayer* Player); // Maniascript
+  void SetItemCanBeBought(CGamePlayer* Player, wstring ActionUrl, bool CanBeBought); // Maniascript
+  bool GetItemCanBeBought(CGamePlayer* Player, wstring ActionUrl); // Maniascript
+  MwBuffer<wstring>& Hack_GetAllItemsUrls(); // Maniascript
 };
 
 struct CGamePlaygroundModuleServerHud : public CMwNod {
-  CGamePlaygroundModuleServerInventory* Inventory;
-  CGamePlaygroundModuleServerStore* Store;
-  CGamePlaygroundModuleServerScoresTable* ScoresTable;
+  CGamePlaygroundModuleServerInventory* Inventory; // Maniascript
+  CGamePlaygroundModuleServerStore* Store; // Maniascript
+  CGamePlaygroundModuleServerScoresTable* ScoresTable; // Maniascript
 };
 
 struct CGamePlaygroundModuleManagerServer : public CMwNod {
 };
 
 struct CGamePlaygroundModuleServerInventory : public CGamePlaygroundModuleServer {
-  uint AddItem(CGamePlayer* Player, wstring Url, uint Quantity);
-  bool AddAction(CGamePlayer* Player, wstring Url);
-  uint RemoveInventoryItem(CGamePlayer* Player, wstring Url, uint Quantity);
-  uint GetInventoryItemQuantity(CGamePlayer* Player, wstring Url);
-  bool IsInventoryItemStored(CGamePlayer* Player, wstring Url);
-  MwBuffer<wstring>& GetStoredItemsList(CGamePlayer* Player);
-  MwBuffer<wstring>& GetStoredActionsList(CGamePlayer* Player);
+  uint AddItem(CGamePlayer* Player, wstring Url, uint Quantity); // Maniascript
+  bool AddAction(CGamePlayer* Player, wstring Url); // Maniascript
+  uint RemoveInventoryItem(CGamePlayer* Player, wstring Url, uint Quantity); // Maniascript
+  uint GetInventoryItemQuantity(CGamePlayer* Player, wstring Url); // Maniascript
+  bool IsInventoryItemStored(CGamePlayer* Player, wstring Url); // Maniascript
+  MwBuffer<wstring>& GetStoredItemsList(CGamePlayer* Player); // Maniascript
+  MwBuffer<wstring>& GetStoredActionsList(CGamePlayer* Player); // Maniascript
 };
 
 struct CGamePlaygroundModuleServerScoresTable : public CGamePlaygroundModuleServer {
@@ -9498,28 +9498,28 @@ struct CGamePlaygroundModuleServerScoresTable : public CGamePlaygroundModuleServ
     SMPoints = 9,
     SMRoundPoints = 10,
   };
-  void SetFooterText(wstring FooterText);
-  void ResetTargetCustomColumns(CGamePlaygroundScore* Score);
-  void ResetCustomColumns();
-  void Scores_Sort(EScoreSortOrder SortOrder);
-  void SetColumnValueString(CGamePlaygroundScore* Score, string ColumnId, string ColumnValue);
-  void SetColumnValueInteger(CGamePlaygroundScore* Score, string ColumnId, int ColumnValue);
-  void SetColumnValueReal(CGamePlaygroundScore* Score, string ColumnId, float ColumnValue);
-  void SetColumnVisibility(EColumnType Type, bool Visibility);
-  void SetCustomColumnVisibility(string ColumnId, bool Visibility);
+  void SetFooterText(wstring FooterText); // Maniascript
+  void ResetTargetCustomColumns(CGamePlaygroundScore* Score); // Maniascript
+  void ResetCustomColumns(); // Maniascript
+  void Scores_Sort(EScoreSortOrder SortOrder); // Maniascript
+  void SetColumnValueString(CGamePlaygroundScore* Score, string ColumnId, string ColumnValue); // Maniascript
+  void SetColumnValueInteger(CGamePlaygroundScore* Score, string ColumnId, int ColumnValue); // Maniascript
+  void SetColumnValueReal(CGamePlaygroundScore* Score, string ColumnId, float ColumnValue); // Maniascript
+  void SetColumnVisibility(EColumnType Type, bool Visibility); // Maniascript
+  void SetCustomColumnVisibility(string ColumnId, bool Visibility); // Maniascript
 };
 
 struct CWebServicesTaskResult_RealLeaderBoardInfoList : public CWebServicesTaskResult {
 };
 
 struct CGameRealLeaderBoardInfoScript : public CMwNod {
-  const uint Rank;
-  const MwId UserId;
-  const string Login;
-  const wstring DisplayName;
-  const float Score;
-  const wstring FileName;
-  const string ReplayUrl;
+  const uint Rank; // Maniascript
+  const MwId UserId; // Maniascript
+  const string Login; // Maniascript
+  const wstring DisplayName; // Maniascript
+  const float Score; // Maniascript
+  const wstring FileName; // Maniascript
+  const string ReplayUrl; // Maniascript
 };
 
 struct CGameScoreTask_GetRealLeaderBoardPlayerList : public CWebServicesTaskSequence {
@@ -9544,49 +9544,49 @@ struct CGameScoreAndLeaderBoardManagerScript : public CMwNod {
     NotSynchronized = 2,
     Synchronized = 3,
   };
-  const MwBuffer<CWebServicesTaskResult*> TaskResults;
-  void TaskResult_Release(MwId TaskId);
-  void ReleaseTaskResult(MwId TaskId);
-  ELocalScoreStatus ScoreStatus_GetLocalStatus(MwId UserId);
-  EMasterServerScoreStatus ScoreStatus_GetMasterServerStatus(MwId UserId);
-  void ReleaseGhost(MwId GhostId);
-  CGameGhostScript* Playground_GetPlayerGhost(CGamePlayer* GamePlayer);
-  CWebServicesTaskResult* Map_SetNewRecord(MwId UserId, string MapUid, string Context, CGameGhostScript* Ghost);
-  uint Map_GetRecord(MwId UserId, string MapUid, string Context);
-  CWebServicesTaskResult_GhostScript* Map_GetRecordGhost(MwId UserId, string MapUid, string Context);
-  uint Map_GetMultiAsyncLevel(MwId UserId, string MapUid, string Context);
-  uint Map_GetMultiAsyncLevelRecord(string MapUid, string Context, uint MultiAsyncLevel);
-  CWebServicesTaskResult_GhostScript* Map_GetMultiAsyncLevelRecordGhost(string MapUid, string Context, uint MultiAsyncLevel);
-  uint Map_GetSkillPoints(MwId UserId, string MapUid, string Context);
-  uint MapLeaderBoard_GetPlayerRanking(MwId UserId, string MapUid, string Context, wstring Zone);
-  uint MapLeaderBoard_GetPlayerCount(string MapUid, string Context, wstring Zone);
-  CWebServicesTaskResult_NaturalLeaderBoardInfoListScript* MapLeaderBoard_GetPlayerList(MwId UserId, string MapUid, string Context, wstring Zone, uint FromIndex, uint Count);
-  uint Campaign_GetMultiAsyncLevel(MwId UserId, string CampaignId);
-  uint Campaign_GetMultiAsyncLevelCount(MwId UserId, string CampaignId, uint MultiAsyncLevel);
-  uint Campaign_GetSkillPoints(MwId UserId, string CampaignId);
-  CWebServicesTaskResult_MapRecordListScript* Campaign_GetOpponentRecords(MwId UserId, string CampaignId, string OpponentLogin);
-  CWebServicesTaskResult_BuddiesChallengeRecord* Campaign_GetBuddiesMapRecord(MwId UserId, string CampaignId, string MapUid);
-  bool Campaign_IsBuddiesMapRecordDirty(MwId UserId, string CampaignId, string MapUid);
-  CWebServicesTaskResult_BuddiesChallengeRecordsComparison* Campaign_GetBuddiesMapRecordsComparison(MwId UserId, string CampaignId);
-  CWebServicesTaskResult_BuddyChallengeRecordsComparison* Campaign_GetBuddyMapRecordsComparison(MwId UserId, string OpponentLogin, string CampaignId);
-  uint CampaignLeaderBoard_GetPlayerRanking(MwId UserId, string CampaignId, wstring Zone, bool UseSkillPoints);
-  uint CampaignLeaderBoard_GetPlayerCount(string CampaignId, wstring Zone, bool UseSkillPoints);
-  CWebServicesTaskResult_NaturalLeaderBoardInfoListScript* CampaignLeaderBoard_GetPlayerList(MwId UserId, string CampaignId, wstring Zone, bool UseSkillPoints, uint FromIndex, uint Count);
-  void Multiplayer_AddToScore(MwId UserId, float ScoreDiff, uint Timestamp);
-  uint MultiplayerLeaderBoard_GetPlayerRanking(MwId UserId, wstring Zone);
-  uint MultiplayerLeaderBoard_GetPlayerCount(wstring Zone);
-  uint GlobalLeaderBoard_GetPlayerRanking(MwId UserId, wstring Zone);
-  uint GlobalLeaderBoard_GetPlayerCount(wstring Zone);
-  CWebServicesTaskResult_RealLeaderBoardInfoListScript* GlobalLeaderBoard_GetPlayerList(MwId UserId, wstring Zone, uint FromIndex, uint Count);
+  const MwBuffer<CWebServicesTaskResult*> TaskResults; // Maniascript
+  void TaskResult_Release(MwId TaskId); // Maniascript
+  void ReleaseTaskResult(MwId TaskId); // Maniascript
+  ELocalScoreStatus ScoreStatus_GetLocalStatus(MwId UserId); // Maniascript
+  EMasterServerScoreStatus ScoreStatus_GetMasterServerStatus(MwId UserId); // Maniascript
+  void ReleaseGhost(MwId GhostId); // Maniascript
+  CGameGhostScript* Playground_GetPlayerGhost(CGamePlayer* GamePlayer); // Maniascript
+  CWebServicesTaskResult* Map_SetNewRecord(MwId UserId, string MapUid, string Context, CGameGhostScript* Ghost); // Maniascript
+  uint Map_GetRecord(MwId UserId, string MapUid, string Context); // Maniascript
+  CWebServicesTaskResult_GhostScript* Map_GetRecordGhost(MwId UserId, string MapUid, string Context); // Maniascript
+  uint Map_GetMultiAsyncLevel(MwId UserId, string MapUid, string Context); // Maniascript
+  uint Map_GetMultiAsyncLevelRecord(string MapUid, string Context, uint MultiAsyncLevel); // Maniascript
+  CWebServicesTaskResult_GhostScript* Map_GetMultiAsyncLevelRecordGhost(string MapUid, string Context, uint MultiAsyncLevel); // Maniascript
+  uint Map_GetSkillPoints(MwId UserId, string MapUid, string Context); // Maniascript
+  uint MapLeaderBoard_GetPlayerRanking(MwId UserId, string MapUid, string Context, wstring Zone); // Maniascript
+  uint MapLeaderBoard_GetPlayerCount(string MapUid, string Context, wstring Zone); // Maniascript
+  CWebServicesTaskResult_NaturalLeaderBoardInfoListScript* MapLeaderBoard_GetPlayerList(MwId UserId, string MapUid, string Context, wstring Zone, uint FromIndex, uint Count); // Maniascript
+  uint Campaign_GetMultiAsyncLevel(MwId UserId, string CampaignId); // Maniascript
+  uint Campaign_GetMultiAsyncLevelCount(MwId UserId, string CampaignId, uint MultiAsyncLevel); // Maniascript
+  uint Campaign_GetSkillPoints(MwId UserId, string CampaignId); // Maniascript
+  CWebServicesTaskResult_MapRecordListScript* Campaign_GetOpponentRecords(MwId UserId, string CampaignId, string OpponentLogin); // Maniascript
+  CWebServicesTaskResult_BuddiesChallengeRecord* Campaign_GetBuddiesMapRecord(MwId UserId, string CampaignId, string MapUid); // Maniascript
+  bool Campaign_IsBuddiesMapRecordDirty(MwId UserId, string CampaignId, string MapUid); // Maniascript
+  CWebServicesTaskResult_BuddiesChallengeRecordsComparison* Campaign_GetBuddiesMapRecordsComparison(MwId UserId, string CampaignId); // Maniascript
+  CWebServicesTaskResult_BuddyChallengeRecordsComparison* Campaign_GetBuddyMapRecordsComparison(MwId UserId, string OpponentLogin, string CampaignId); // Maniascript
+  uint CampaignLeaderBoard_GetPlayerRanking(MwId UserId, string CampaignId, wstring Zone, bool UseSkillPoints); // Maniascript
+  uint CampaignLeaderBoard_GetPlayerCount(string CampaignId, wstring Zone, bool UseSkillPoints); // Maniascript
+  CWebServicesTaskResult_NaturalLeaderBoardInfoListScript* CampaignLeaderBoard_GetPlayerList(MwId UserId, string CampaignId, wstring Zone, bool UseSkillPoints, uint FromIndex, uint Count); // Maniascript
+  void Multiplayer_AddToScore(MwId UserId, float ScoreDiff, uint Timestamp); // Maniascript
+  uint MultiplayerLeaderBoard_GetPlayerRanking(MwId UserId, wstring Zone); // Maniascript
+  uint MultiplayerLeaderBoard_GetPlayerCount(wstring Zone); // Maniascript
+  uint GlobalLeaderBoard_GetPlayerRanking(MwId UserId, wstring Zone); // Maniascript
+  uint GlobalLeaderBoard_GetPlayerCount(wstring Zone); // Maniascript
+  CWebServicesTaskResult_RealLeaderBoardInfoListScript* GlobalLeaderBoard_GetPlayerList(MwId UserId, wstring Zone, uint FromIndex, uint Count); // Maniascript
 };
 
 struct CGameCtnMasterServerTask_GetDisplayNameScript : public CWebServicesTaskSequence {
 };
 
 struct CWebServicesTaskResult_GetDisplayNameScriptResult : public CWebServicesTaskResult {
-  void AddLogin(string Login);
-  void StartTask();
-  wstring GetDisplayName(string Login);
+  void AddLogin(string Login); // Maniascript
+  void StartTask(); // Maniascript
+  wstring GetDisplayName(string Login); // Maniascript
 };
 
 struct CGameEditorTimeLine : public CMwNod {
@@ -9621,9 +9621,9 @@ struct CGameMasterServerOnlineSignalTask_NotifyBuddiesAboutNewOnlineSignals : pu
 };
 
 struct CGameMasterServerUserOnlineSignals : public CMwNod {
-  const MwId Id;
-  const MwBuffer<CGameMasterServerOnlineSignal*> OnlineSignals;
-  void RemoveOnlineSignal(uint OnlineId);
+  const MwId Id; // Maniascript
+  const MwBuffer<CGameMasterServerOnlineSignal*> OnlineSignals; // Maniascript
+  void RemoveOnlineSignal(uint OnlineId); // Maniascript
 };
 
 struct CGameEditorAnimSet : public CGameEditorBase {
@@ -9639,16 +9639,16 @@ struct CGameUserPrivilegeTask_CheckPlayMultiplayerMode : public CWebServicesTask
 };
 
 struct CGameAchievementScriptStatDesc : public CMwNod {
-  const string TitleId;
-  const wstring DisplayName;
-  const wstring Description;
+  const string TitleId; // Maniascript
+  const wstring DisplayName; // Maniascript
+  const wstring Description; // Maniascript
 };
 
 struct CGameAchievementScriptAchievementDesc : public CMwNod {
-  const string TitleId;
-  const wstring DisplayName;
-  const wstring Description;
-  const wstring IconUrl;
+  const string TitleId; // Maniascript
+  const wstring DisplayName; // Maniascript
+  const wstring Description; // Maniascript
+  const wstring IconUrl; // Maniascript
 };
 
 struct CGameEditorVehicle : public CGameEditorParent {
@@ -9662,9 +9662,9 @@ struct CGameEditorParent : public CGameSwitcherModule {
 };
 
 struct CWebServicesTaskResult_ZoneList : public CWebServicesTaskResult {
-  const wstring Path;
-  const uint ZoneCount;
-  const MwBuffer<CGameLeagueScript*> Zones;
+  const wstring Path; // Maniascript
+  const uint ZoneCount; // Maniascript
+  const MwBuffer<CGameLeagueScript*> Zones; // Maniascript
 };
 
 struct CGameCtnMasterServerTask_ZoneGetChilds : public CWebServicesTaskSequence {
@@ -9674,27 +9674,27 @@ struct CGameCtnMasterServerTask_GetLeagues : public CNetMasterServerRequestTask 
 };
 
 struct CGameLeagueScript : public CMwNod {
-  const wstring Name;
-  const wstring Path;
-  const wstring FullPath;
-  const string FlagUrl;
+  const wstring Name; // Maniascript
+  const wstring Path; // Maniascript
+  const wstring FullPath; // Maniascript
+  const string FlagUrl; // Maniascript
 };
 
 struct CGameMasterServerTask_Connect : public CNetMasterServerTask_Connect {
 };
 
 struct CGameAchievementScriptUplayAction : public CMwNod {
-  const string ActionId;
-  const wstring Name;
-  const wstring Description;
-  const uint Value;
+  const string ActionId; // Maniascript
+  const wstring Name; // Maniascript
+  const wstring Description; // Maniascript
+  const uint Value; // Maniascript
 };
 
 struct CGameMasterServerPlayerOnlinePresence : public CMwNod {
-  const string Login;
-  const wstring DisplayName;
-  const string ServerLogin;
-  const bool IsOnline;
+  const string Login; // Maniascript
+  const wstring DisplayName; // Maniascript
+  const string ServerLogin; // Maniascript
+  const bool IsOnline; // Maniascript
 };
 
 struct CWebServicesTaskResult_OnlinePresenceList : public CWebServicesTaskResult {
@@ -9704,9 +9704,9 @@ struct CGameCtnMasterServerTask_GetOnlinePresenceForPlayers : public CNetMasterS
 };
 
 struct CGameMasterServerRichPresenceTaskResult_GetOnlinePresenceForPlayersScript : public CGameMasterServerRichPresenceTaskResult_PlayerOnlinePresenceList {
-  const MwBuffer<CGameMasterServerPlayerOnlinePresence*> OnlinePresences;
-  void AddLogin(string Login);
-  void StartTask();
+  const MwBuffer<CGameMasterServerPlayerOnlinePresence*> OnlinePresences; // Maniascript
+  void AddLogin(string Login); // Maniascript
+  void StartTask(); // Maniascript
 };
 
 struct CGameMasterServerRichPresenceManager : public CMwNod {
@@ -9728,12 +9728,12 @@ struct CGameUserPrivilegesManagerScript : public CMwNod {
     PlayMultiplayerAsync = 8,
     DownloadUserCreatedContent = 9,
   };
-  const MwBuffer<CWebServicesTaskResult*> TaskResults;
-  void ReleaseTaskResult(MwId TaskId);
-  CWebServicesTaskResult* CheckPrivilege(MwId UserId, EPrivilege Privilege);
-  CWebServicesTaskResult* CheckPrivilegeForAllUsers(EPrivilege Privilege);
-  CWebServicesTaskResult_CheckTargetedPrivilegeResultScript* CheckTargetedPrivilege(MwId UserId, EPrivilege Privilege);
-  CWebServicesTaskResult_CheckTargetedPrivilegeResultScript* CheckTargetedPrivilegeForAllUsers(EPrivilege Privilege);
+  const MwBuffer<CWebServicesTaskResult*> TaskResults; // Maniascript
+  void ReleaseTaskResult(MwId TaskId); // Maniascript
+  CWebServicesTaskResult* CheckPrivilege(MwId UserId, EPrivilege Privilege); // Maniascript
+  CWebServicesTaskResult* CheckPrivilegeForAllUsers(EPrivilege Privilege); // Maniascript
+  CWebServicesTaskResult_CheckTargetedPrivilegeResultScript* CheckTargetedPrivilege(MwId UserId, EPrivilege Privilege); // Maniascript
+  CWebServicesTaskResult_CheckTargetedPrivilegeResultScript* CheckTargetedPrivilegeForAllUsers(EPrivilege Privilege); // Maniascript
 };
 
 struct CGameUserPrivilegeTask_CheckUploadUserCreatedContent : public CWebServicesTaskSequence {
@@ -9746,10 +9746,10 @@ struct CGameUserPrivilegeTask_CheckViewOnlinePresence : public CWebServicesTaskS
 };
 
 struct CWebServicesTaskResult_CheckTargetedPrivilegeResultScript : public CWebServicesTaskResult_CheckTargetedPrivilegeResult {
-  void AddLogin(string Login);
-  void StartTask();
-  bool HasPrivilege(string Login);
-  wstring GetDenyReason(string Login);
+  void AddLogin(string Login); // Maniascript
+  void StartTask(); // Maniascript
+  bool HasPrivilege(string Login); // Maniascript
+  wstring GetDenyReason(string Login); // Maniascript
 };
 
 struct CGameUserPrivilegeTask_CheckTargetedViewUserCreatedContent : public CWebServicesTaskSequence {
@@ -9770,23 +9770,23 @@ struct CGameMasterServerRichPresenceManagerScript : public CMwNod {
     Party = 4,
     Create = 5,
   };
-  const MwBuffer<CWebServicesTaskResult*> TaskResults;
-  void ReleaseTaskResult(MwId TaskId);
-  void SetPresence(MwId UserId, ERichPresence UplayFlow);
-  CGameMasterServerRichPresenceTaskResult_GetOnlinePresenceForPlayersScript* GetOnlinePresenceForPlayers(MwId UserId);
+  const MwBuffer<CWebServicesTaskResult*> TaskResults; // Maniascript
+  void ReleaseTaskResult(MwId TaskId); // Maniascript
+  void SetPresence(MwId UserId, ERichPresence UplayFlow); // Maniascript
+  CGameMasterServerRichPresenceTaskResult_GetOnlinePresenceForPlayersScript* GetOnlinePresenceForPlayers(MwId UserId); // Maniascript
 };
 
 struct CGameUserPrivilegeTask_CheckViewUserCreatedContent : public CWebServicesTaskSequence {
 };
 
 struct CGameManagerBadgeScript : public CMwNod {
-  const MwBuffer<CGameBadgeScript*> Badges;
-  CGameBadgeScript* BadgeCreate();
-  void BadgeDestroy(CGameBadgeScript* Badge);
-  void BadgeCopy(CGameBadgeScript* Source, CGameBadgeScript* Destination);
-  void BadgeReadFromProfile(CGameBadgeScript* Badge, MwId UserId);
-  void BadgeWriteToProfile(CGameBadgeScript* Badge, MwId UserId);
-  bool ProfileIsReady(MwId UserId);
+  const MwBuffer<CGameBadgeScript*> Badges; // Maniascript
+  CGameBadgeScript* BadgeCreate(); // Maniascript
+  void BadgeDestroy(CGameBadgeScript* Badge); // Maniascript
+  void BadgeCopy(CGameBadgeScript* Source, CGameBadgeScript* Destination); // Maniascript
+  void BadgeReadFromProfile(CGameBadgeScript* Badge, MwId UserId); // Maniascript
+  void BadgeWriteToProfile(CGameBadgeScript* Badge, MwId UserId); // Maniascript
+  bool ProfileIsReady(MwId UserId); // Maniascript
 };
 
 struct CGameUserPrivilegeTask_CheckPlayMultiplayerSession : public CWebServicesTaskSequence {
@@ -9828,8 +9828,8 @@ struct CWebServicesTaskResult_ChallengeRecordsComparisonSummaries : public CWebS
 };
 
 struct CWebServicesTaskResult_LaunchUplayScriptResult : public CWebServicesTaskResult {
-  void AddActionToComplete(string ActionId);
-  void StartTask();
+  void AddActionToComplete(string ActionId); // Maniascript
+  void StartTask(); // Maniascript
 };
 
 struct CGameUserPrivilegeTask_CheckTargetedViewUserCreatedContentForAllUsers : public CWebServicesTaskSequence {
@@ -9848,13 +9848,13 @@ struct CGameScoreTask_BuddiesChallengeRecordsForMap : public CWebServicesTaskSeq
 };
 
 struct CWebServicesTaskResult_BuddiesChallengeRecord : public CWebServicesTaskResult {
-  const string Login;
-  const MwBuffer<CGameHighScoreComparison*> BuddiesChallengeRecord;
-  void SortByOpponentCount();
-  void SortByOpponentDisplayName();
-  void SortByOpponentLogin();
-  void SortByOpponentRecordDate();
-  void SortByOpponentRecordTime();
+  const string Login; // Maniascript
+  const MwBuffer<CGameHighScoreComparison*> BuddiesChallengeRecord; // Maniascript
+  void SortByOpponentCount(); // Maniascript
+  void SortByOpponentDisplayName(); // Maniascript
+  void SortByOpponentLogin(); // Maniascript
+  void SortByOpponentRecordDate(); // Maniascript
+  void SortByOpponentRecordTime(); // Maniascript
 };
 
 struct CGameScoreTask_BuddyChallengeRecordsComparison : public CWebServicesTaskSequence {
@@ -9869,15 +9869,15 @@ struct CGameCtnMediaBlockCheatEmptyCars : public CGameCtnMediaBlock {
 };
 
 struct CGameModuleScriptStoreItem : public CGameModuleScriptItem {
-  const string StoreName;
-  const string StoreDesc;
-  const uint CurrentLevel;
-  const MwBuffer<uint> Prices;
+  const string StoreName; // Maniascript
+  const string StoreDesc; // Maniascript
+  const uint CurrentLevel; // Maniascript
+  const MwBuffer<uint> Prices; // Maniascript
 };
 
 struct CGameModuleScriptStoreCategory : public CMwNod {
-  const string Name;
-  const MwBuffer<CGameModuleScriptStoreItem*> Items;
+  const string Name; // Maniascript
+  const MwBuffer<CGameModuleScriptStoreItem*> Items; // Maniascript
 };
 
 struct CWebServicesTaskResult_NaturalLeaderBoardSummaries : public CWebServicesTaskResult {
@@ -9903,15 +9903,15 @@ struct CGameEditorMainPlugin : public CGameEditorPlugin {
     PickInfo = 6,
     UndoRedo = 7,
   };
-  void Help_Open();
-  void Help_Close();
-  CGameEditorPluginHandle* GetPluginHandle(string Name);
-  void SendPluginEvent(CGameEditorPluginHandle* Handle, wstring Type, MwBuffer<wstring>& Data);
-  void Context_SetActive(wstring ContextName, bool IsActive);
-  bool Context_IsActive(wstring ContextName);
-  bool Binding_IsActive(wstring BindingName);
-  void Plugin_SetClearance_MeshEditor(CGameEditorPluginHandle* Handle, EMeshEditorAPI API, bool IsAllowed);
-  const MwBuffer<CGameEditorPluginHandle*> Plugins;
+  void Help_Open(); // Maniascript
+  void Help_Close(); // Maniascript
+  CGameEditorPluginHandle* GetPluginHandle(string Name); // Maniascript
+  void SendPluginEvent(CGameEditorPluginHandle* Handle, wstring Type, MwBuffer<wstring>& Data); // Maniascript
+  void Context_SetActive(wstring ContextName, bool IsActive); // Maniascript
+  bool Context_IsActive(wstring ContextName); // Maniascript
+  bool Binding_IsActive(wstring BindingName); // Maniascript
+  void Plugin_SetClearance_MeshEditor(CGameEditorPluginHandle* Handle, EMeshEditorAPI API, bool IsAllowed); // Maniascript
+  const MwBuffer<CGameEditorPluginHandle*> Plugins; // Maniascript
 };
 
 struct CGamePlaygroundUIConfigEvent : public CMwNod {
@@ -9935,17 +9935,17 @@ struct CGamePlaygroundUIConfigEvent : public CMwNod {
     MenuBase = 6,
     MenuPage = 7,
   };
-  const EType Type;
-  const CGamePlaygroundUIConfig* UI;
-  const CGamePlaygroundUIConfig* UIConfig;
-  const EModuleType ModuleType;
-  const wstring Param1;
-  const MwBuffer<wstring> Param2;
-  const CGameUILayer* CustomEventLayer;
-  const wstring CustomEventType;
-  const MwBuffer<wstring> CustomEventData;
-  const wstring ItemUrl;
-  const uint Quantity;
+  const EType Type; // Maniascript
+  const CGamePlaygroundUIConfig* UI; // Maniascript
+  const CGamePlaygroundUIConfig* UIConfig; // Maniascript
+  const EModuleType ModuleType; // Maniascript
+  const wstring Param1; // Maniascript
+  const MwBuffer<wstring> Param2; // Maniascript
+  const CGameUILayer* CustomEventLayer; // Maniascript
+  const wstring CustomEventType; // Maniascript
+  const MwBuffer<wstring> CustomEventData; // Maniascript
+  const wstring ItemUrl; // Maniascript
+  const uint Quantity; // Maniascript
 };
 
 struct CGameMgrShieldPhy : public CSceneMgrPhy {
@@ -9957,56 +9957,56 @@ struct CGameMgrShieldVis : public CSceneMgrVis {
 };
 
 struct CGamePackCreatorScript : public CMwNod {
-  void RegisterPackForEditedTitle();
-  const bool RegisterPack_IsInProgess;
-  const CGamePackCreator_PackScript* CurrentPack;
-  MwId Build_Begin(CGamePackCreator_PackScript* Pack, CGamePackCreator_TitleInfoScript* TitleInfo);
-  void Build_AddFile(MwId BuildId, wstring FileName);
-  void Build_AddFolder(MwId BuildId, wstring FolderName);
-  void Build_AddFile_Ex(MwId BuildId, wstring FileName, bool IsPublic, bool IsInternal, bool NoAutomaticDeps);
-  void Build_AddFolder_Ex(MwId BuildId, wstring FolderName, bool IsPublic, bool IsInternal, bool NoRecursion, bool NoAutomaticDeps);
-  void Build_Generate(MwId BuildId, bool Upload);
-  bool Build_IsGenerated(MwId BuildId);
-  wstring Build_ErrorMessage(MwId BuildId);
-  void Build_End(MwId BuildId);
+  void RegisterPackForEditedTitle(); // Maniascript
+  const bool RegisterPack_IsInProgess; // Maniascript
+  const CGamePackCreator_PackScript* CurrentPack; // Maniascript
+  MwId Build_Begin(CGamePackCreator_PackScript* Pack, CGamePackCreator_TitleInfoScript* TitleInfo); // Maniascript
+  void Build_AddFile(MwId BuildId, wstring FileName); // Maniascript
+  void Build_AddFolder(MwId BuildId, wstring FolderName); // Maniascript
+  void Build_AddFile_Ex(MwId BuildId, wstring FileName, bool IsPublic, bool IsInternal, bool NoAutomaticDeps); // Maniascript
+  void Build_AddFolder_Ex(MwId BuildId, wstring FolderName, bool IsPublic, bool IsInternal, bool NoRecursion, bool NoAutomaticDeps); // Maniascript
+  void Build_Generate(MwId BuildId, bool Upload); // Maniascript
+  bool Build_IsGenerated(MwId BuildId); // Maniascript
+  wstring Build_ErrorMessage(MwId BuildId); // Maniascript
+  void Build_End(MwId BuildId); // Maniascript
 };
 
 struct CGamePackCreator_PackScript : public CMwNod {
-  const MwId PackId;
-  const MwId CreatorId;
-  const bool IsTitlePack;
-  void Recipients_Add(string Login, uint UseCost, uint GetCost);
-  void Recipients_Remove(string Login);
-  const MwBuffer<CGamePackCreator_RecipientScript*> Recipients;
+  const MwId PackId; // Maniascript
+  const MwId CreatorId; // Maniascript
+  const bool IsTitlePack; // Maniascript
+  void Recipients_Add(string Login, uint UseCost, uint GetCost); // Maniascript
+  void Recipients_Remove(string Login); // Maniascript
+  const MwBuffer<CGamePackCreator_RecipientScript*> Recipients; // Maniascript
 };
 
 struct CGamePackCreator_TitleInfoScript : public CMwNod {
-  const MwId TitleId;
-  const MwId MakerTitleId;
-  wstring DisplayName;
-  wstring Description;
-  string InfoUrl;
-  string DownloadUrl;
-  string TitleVersion;
-  string AllowedClientTitleVersion;
-  string BaseTitleIds;
-  wstring ForcedPlayerModel;
-  wstring Packaging_ImageFileName;
-  wstring Packaging_LogosFileName;
-  wstring Packaging_Group;
-  string Station_ManialinkUrl;
-  wstring Menus_BgReplayFileName;
-  string Menus_ManiaAppFileName;
-  wstring Menus_MusicFileName;
-  const bool Solo_HasCampaign;
-  wstring Hud3dFontFileName;
-  wstring MusicFolder;
+  const MwId TitleId; // Maniascript
+  const MwId MakerTitleId; // Maniascript
+  wstring DisplayName; // Maniascript
+  wstring Description; // Maniascript
+  string InfoUrl; // Maniascript
+  string DownloadUrl; // Maniascript
+  string TitleVersion; // Maniascript
+  string AllowedClientTitleVersion; // Maniascript
+  string BaseTitleIds; // Maniascript
+  wstring ForcedPlayerModel; // Maniascript
+  wstring Packaging_ImageFileName; // Maniascript
+  wstring Packaging_LogosFileName; // Maniascript
+  wstring Packaging_Group; // Maniascript
+  string Station_ManialinkUrl; // Maniascript
+  wstring Menus_BgReplayFileName; // Maniascript
+  string Menus_ManiaAppFileName; // Maniascript
+  wstring Menus_MusicFileName; // Maniascript
+  const bool Solo_HasCampaign; // Maniascript
+  wstring Hud3dFontFileName; // Maniascript
+  wstring MusicFolder; // Maniascript
 };
 
 struct CGamePackCreator_RecipientScript : public CMwNod {
-  const string Login;
-  const uint GetCost;
-  const uint UseCost;
+  const string Login; // Maniascript
+  const uint GetCost; // Maniascript
+  const uint UseCost; // Maniascript
 };
 
 // File extension: 'DecorationMaterialModifiers.Gbx'
@@ -10019,8 +10019,8 @@ struct CGameCtnDecorationMaterialModifiers : public CMwNod {
 };
 
 struct CGameModuleMenuPage : public CMwNod {
-  const wstring Name;
-  const MwBuffer<CGameModuleMenuComponent*> Components;
+  const wstring Name; // Maniascript
+  const MwBuffer<CGameModuleMenuComponent*> Components; // Maniascript
 };
 
 struct CGameEditorPlugin : public CGameManiaApp {
@@ -10029,12 +10029,12 @@ struct CGameEditorPlugin : public CGameManiaApp {
     Closed = 1,
     Aborted = 2,
   };
-  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents;
-  const CGameEditorModule* ModuleEditor;
-  const CGameEditorMesh* MeshEditor;
-  const CGameEditorPixel* PixelEditor;
-  const CGameEditorEditor* EditorEditor;
-  const EInteractionStatus InteractionStatus;
+  const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents; // Maniascript
+  const CGameEditorModule* ModuleEditor; // Maniascript
+  const CGameEditorMesh* MeshEditor; // Maniascript
+  const CGameEditorPixel* PixelEditor; // Maniascript
+  const CGameEditorEditor* EditorEditor; // Maniascript
+  const EInteractionStatus InteractionStatus; // Maniascript
 };
 
 struct CGameManialinkAnimManager : public CMwNod {
@@ -10074,9 +10074,9 @@ struct CGameManialinkAnimManager : public CMwNod {
     BounceOut = 32,
     BounceInOut = 33,
   };
-  void AddFromXml(CGameManialinkControl* Control, string XmlTarget, uint StartTime, uint Duration, EAnimManagerEasing EasingFunc);
-  void AddChainFromXml(CGameManialinkControl* Control, string XmlTarget, uint Duration, EAnimManagerEasing EasingFunc);
-  void FlushAndAddFromXml(CGameManialinkControl* Control, string XmlTarget, uint Duration, EAnimManagerEasing EasingFunc);
+  void AddFromXml(CGameManialinkControl* Control, string XmlTarget, uint StartTime, uint Duration, EAnimManagerEasing EasingFunc); // Maniascript
+  void AddChainFromXml(CGameManialinkControl* Control, string XmlTarget, uint Duration, EAnimManagerEasing EasingFunc); // Maniascript
+  void FlushAndAddFromXml(CGameManialinkControl* Control, string XmlTarget, uint Duration, EAnimManagerEasing EasingFunc); // Maniascript
 };
 
 struct CGameEditorEditor : public CGameCtnEditor {
@@ -10084,21 +10084,21 @@ struct CGameEditorEditor : public CGameCtnEditor {
   const CMwNod* EditedNod;
   const CGameEditorModel* EditedEditor;
   void FlushBindings();
-  void Bindings_AddContext(wstring ContextName);
-  void Bindings_AddBinding(wstring ContextName, wstring BindingScriptId, wstring BindingDisplayName);
-  void Bindings_RemoveContext(wstring ContextName);
-  void Bindings_RemoveBinding(wstring BindingName);
-  void Bindings_RequestInput(wstring BindingName);
-  const bool Bindings_RequestInput_Done;
-  void Bindings_SetBindingScriptId(wstring BindingScriptId, wstring NewBindingScriptId);
-  void Bindings_SetBindingDisplayName(wstring BindingScriptId, wstring BindingDisplayName);
-  void Bindings_SetContextName(wstring ContextName, wstring NewContextName);
-  const MwBuffer<wstring> BindingContexts;
-  void Bindings_GetContextBindings(wstring ContextName);
-  const MwBuffer<wstring> RequestedContextBindings;
-  wstring Bindings_GetBindingActionName(wstring BindingName);
-  wstring Bindings_GetBindingDisplayName(wstring BindingName);
-  const MwBuffer<CGameEditorEvent*> PendingEvents;
+  void Bindings_AddContext(wstring ContextName); // Maniascript
+  void Bindings_AddBinding(wstring ContextName, wstring BindingScriptId, wstring BindingDisplayName); // Maniascript
+  void Bindings_RemoveContext(wstring ContextName); // Maniascript
+  void Bindings_RemoveBinding(wstring BindingName); // Maniascript
+  void Bindings_RequestInput(wstring BindingName); // Maniascript
+  const bool Bindings_RequestInput_Done; // Maniascript
+  void Bindings_SetBindingScriptId(wstring BindingScriptId, wstring NewBindingScriptId); // Maniascript
+  void Bindings_SetBindingDisplayName(wstring BindingScriptId, wstring BindingDisplayName); // Maniascript
+  void Bindings_SetContextName(wstring ContextName, wstring NewContextName); // Maniascript
+  const MwBuffer<wstring> BindingContexts; // Maniascript
+  void Bindings_GetContextBindings(wstring ContextName); // Maniascript
+  const MwBuffer<wstring> RequestedContextBindings; // Maniascript
+  wstring Bindings_GetBindingActionName(wstring BindingName); // Maniascript
+  wstring Bindings_GetBindingDisplayName(wstring BindingName); // Maniascript
+  const MwBuffer<CGameEditorEvent*> PendingEvents; // Maniascript
 };
 
 struct CGameControlCameraHmdExternal : public CGameControlCameraTarget {
@@ -10111,8 +10111,8 @@ struct CGameCampaignScoreManager_SkillPoint : public CGameCampaignScoreManager {
 };
 
 struct CGameScriptChatRoom : public CMwNod {
-  const string RoomId;
-  const MwBuffer<CGameScriptChatContact*> Members;
+  const string RoomId; // Maniascript
+  const MwBuffer<CGameScriptChatContact*> Members; // Maniascript
 };
 
 struct CGameItem : public CMwNod {
@@ -10134,9 +10134,9 @@ struct CGameTriggerScreen : public CMwNod {
 };
 
 struct CGameScriptChatHistory : public CMwNod {
-  wstring Filter;
-  const bool Filter_IsValid;
-  const MwBuffer<CGameScriptChatHistoryEntry*> Entries;
+  wstring Filter; // Maniascript
+  const bool Filter_IsValid; // Maniascript
+  const MwBuffer<CGameScriptChatHistoryEntry*> Entries; // Maniascript
 };
 
 struct CGameScriptChatHistoryEntry : public CMwNod {
@@ -10144,28 +10144,28 @@ struct CGameScriptChatHistoryEntry : public CMwNod {
     Sent = 0,
     Recieved = 1,
   };
-  const EDirection Direction;
-  const bool InRoom;
-  const wstring Date;
-  const wstring Nickname;
-  const wstring Message;
+  const EDirection Direction; // Maniascript
+  const bool InRoom; // Maniascript
+  const wstring Date; // Maniascript
+  const wstring Nickname; // Maniascript
+  const wstring Message; // Maniascript
 };
 
 struct CGameEditorCanvas : public CMwNod {
   CGameEditorCanvas();
 
-  MwId Layer_Create();
-  void Layer_Destroy(MwId Handle);
-  void Layer_Rename(MwId Handle, string Name);
-  string Layer_GetName(MwId Handle);
-  void Layer_SetSelected(MwId Handle);
-  MwId Layer_GetSelectedLayer();
-  void Layer_SwapLayersPriorities(MwId Handle1, MwId Handle2);
-  void Layer_IncreasePriority(MwId Handle);
-  void Layer_DecreasePriority(MwId Handle);
-  MwBuffer<MwId>& Layer_GetLayers();
-  void Layer_SetVisibility(MwId Handle, bool Visible);
-  bool Layer_IsVisible(MwId Handle);
+  MwId Layer_Create(); // Maniascript
+  void Layer_Destroy(MwId Handle); // Maniascript
+  void Layer_Rename(MwId Handle, string Name); // Maniascript
+  string Layer_GetName(MwId Handle); // Maniascript
+  void Layer_SetSelected(MwId Handle); // Maniascript
+  MwId Layer_GetSelectedLayer(); // Maniascript
+  void Layer_SwapLayersPriorities(MwId Handle1, MwId Handle2); // Maniascript
+  void Layer_IncreasePriority(MwId Handle); // Maniascript
+  void Layer_DecreasePriority(MwId Handle); // Maniascript
+  MwBuffer<MwId>& Layer_GetLayers(); // Maniascript
+  void Layer_SetVisibility(MwId Handle, bool Visible); // Maniascript
+  bool Layer_IsVisible(MwId Handle); // Maniascript
 };
 
 struct CGameEditorPixel : public CGameCtnEditor {
@@ -10173,37 +10173,37 @@ struct CGameEditorPixel : public CGameCtnEditor {
 
   const CControlFrame* UIRoot;
   const CMwNod* EditedNod;
-  float PixelsMargin;
-  const bool MouseInGrid;
-  const UnknownType MousePos;
-  vec3 CurrentColor;
-  const int GridSize;
-  bool GetColorAt(UnknownType Pos);
-  const vec3 GetColorAt_Result;
-  const bool GetColorAt_HasColor;
-  void SetColorAt(UnknownType Pos, vec3 Color);
-  void ClearPixelAt(UnknownType Pos);
-  void DrawRect(UnknownType Pos1, UnknownType Pos2, vec3 Color);
-  void ClearRect(UnknownType Pos1, UnknownType Pos2);
-  void DrawLine(UnknownType Pos1, UnknownType Pos2, vec3 Color);
-  void PaintBucket(UnknownType Pos, vec3 Color);
-  void SetSelectionColor(vec3 Color, float Opacity);
-  void SetSelection_Rect(UnknownType Pos1, UnknownType Pos2);
-  void SetSelection_Line(UnknownType Pos1, UnknownType Pos2);
-  void ClearSelection();
-  void EraseSelection();
-  void DrawSelection(vec3 Color);
-  void Undo();
-  void Redo();
-  void Copy();
-  void Cut();
-  void Paste();
-  void AddUndoState();
-  void MergeLayers(MwId Handle1, MwId Handle2);
-  void SelectedLayer_Move(UnknownType Offset);
-  void SelectedLayer_OffsetPreview(UnknownType Offset);
-  const CGameEditorCanvas* Layers;
-  const MwBuffer<CGameEditorPixelEvent*> PendingEvents;
+  float PixelsMargin; // Maniascript
+  const bool MouseInGrid; // Maniascript
+  const UnknownType MousePos; // Maniascript
+  vec3 CurrentColor; // Maniascript
+  const int GridSize; // Maniascript
+  bool GetColorAt(UnknownType Pos); // Maniascript
+  const vec3 GetColorAt_Result; // Maniascript
+  const bool GetColorAt_HasColor; // Maniascript
+  void SetColorAt(UnknownType Pos, vec3 Color); // Maniascript
+  void ClearPixelAt(UnknownType Pos); // Maniascript
+  void DrawRect(UnknownType Pos1, UnknownType Pos2, vec3 Color); // Maniascript
+  void ClearRect(UnknownType Pos1, UnknownType Pos2); // Maniascript
+  void DrawLine(UnknownType Pos1, UnknownType Pos2, vec3 Color); // Maniascript
+  void PaintBucket(UnknownType Pos, vec3 Color); // Maniascript
+  void SetSelectionColor(vec3 Color, float Opacity); // Maniascript
+  void SetSelection_Rect(UnknownType Pos1, UnknownType Pos2); // Maniascript
+  void SetSelection_Line(UnknownType Pos1, UnknownType Pos2); // Maniascript
+  void ClearSelection(); // Maniascript
+  void EraseSelection(); // Maniascript
+  void DrawSelection(vec3 Color); // Maniascript
+  void Undo(); // Maniascript
+  void Redo(); // Maniascript
+  void Copy(); // Maniascript
+  void Cut(); // Maniascript
+  void Paste(); // Maniascript
+  void AddUndoState(); // Maniascript
+  void MergeLayers(MwId Handle1, MwId Handle2); // Maniascript
+  void SelectedLayer_Move(UnknownType Offset); // Maniascript
+  void SelectedLayer_OffsetPreview(UnknownType Offset); // Maniascript
+  const CGameEditorCanvas* Layers; // Maniascript
+  const MwBuffer<CGameEditorPixelEvent*> PendingEvents; // Maniascript
 };
 
 struct CGameEditorPixelEvent : public CGameManiaAppScriptEvent {
@@ -10221,9 +10221,9 @@ struct CGameEditorPixelEvent : public CGameManiaAppScriptEvent {
     MouseDown = 11,
     MouseReleased = 12,
   };
-  const Type Type;
-  const UnknownType MousePos;
-  const UnknownType MousePath;
+  const Type Type; // Maniascript
+  const UnknownType MousePos; // Maniascript
+  const UnknownType MousePath; // Maniascript
 };
 
 struct CGameEditorPluginMapManager : public CMwNod {
@@ -10297,197 +10297,197 @@ struct CGameEditorMesh : public CGameEditorAsset {
   };
   void UVEditor_UVMode();
   void UVEditor_AtlasMode();
-  const bool Tmp_UseParts;
+  const bool Tmp_UseParts; // Maniascript
   const CControlFrame* UIRoot;
   const CMwNod* EditedNod;
   CPlugMaterialUserInst* MatUserInstToEdit;
-  const uint VertexCount;
-  const uint EdgeCount;
-  const uint FaceCount;
-  void EditionBox_SetScale(float Scale);
-  void EditionBox_OrientPlane(MwId SetHandle);
-  const bool EditionBox_IsPlaneOriented;
-  const float Scale;
-  const float Step;
-  const float Size;
-  const int RotationStep;
-  const float RotationValue;
-  const float ScalingStep;
-  const float ScalingRatio;
-  bool DisplayVertices;
-  bool DisplayFaces;
-  bool DisplayJoints;
-  EEdgesDisplay DisplayEdges;
-  void EditedMesh_Clear();
-  void EditedMesh_Simplify();
-  void UVUnwrap(MwId SetHandle, ETexCoordLayer ETexCoordLayer);
-  void Undo();
-  void Redo();
-  void SwitchPlane();
-  void GridSnap_SetActive(bool IsActive);
-  const bool GridSnap_IsActive;
-  vec3 PickInfo_GetNormal();
-  vec3 PickInfo_GetPosition();
-  float PickInfo_GetEdgeLength();
-  vec3 PickInfo_GetNextVertexPosition();
-  MwId PickInfo_GetMaterial();
-  wstring PickInfo_GetError();
-  void Part_SetAnchorPos(vec3 Position);
-  void Part_SetIsJoint(bool IsJoint);
-  void Part_ClearAnchor();
-  const int MaterialsUpdateId;
-  const MwBuffer<CPlugBitmap*> AllBitmaps;
-  const MwBuffer<MwId> MaterialIds;
-  MwId Material_GetMaterialIdSelected();
-  void Material_SetMaterialIdSelected(MwId MaterialEditorId);
-  uint Material_GetSubTexIndexSelected();
-  void Material_SetDefault(MwId MaterialId);
-  MwId Material_GetDefault();
-  CPlugBitmap* Material_GetBitmapBase(MwId MaterialId);
-  CPlugBitmap* Material_GetBitmap(MwId MaterialId);
-  bool Material_MatchesCriterion(MwId MaterialId, EMaterialFilterCriterion ResultSetHandle);
-  void Material_SetFilter(EMaterialFilterCriterion Criterion, EFilterKind FilterKind);
-  EFilterKind Material_GetFilter(EMaterialFilterCriterion Criterion);
-  void Material_ClearFilters();
-  void Material_UVEditor_SetIsRotation(bool IsRotation);
-  void Material_UVEditor_SetIsScale(bool IsScale);
-  void Material_UVEditor_SetIsScale1D(bool IsScale);
-  void Material_UVEditor_Open(MwId MaterialId, CGameManialinkQuad* LocationQuad);
-  void Material_UVEditor_Close();
-  void Material_UVEditor_SetMode(EUVEditorMode Mode);
-  EUVEditorMode Material_UVEditor_GetMode();
-  void Material_UVEditor_SetProjectionType(EUVEditorProjectionType ProjectionType);
-  void Material_UVEditor_Apply();
-  void Material_PasteMaterial(MwId SetHandle);
-  const uint Material_Atlas_SelectedSubTexIndex;
-  const EInteraction CurrentInteraction;
-  void Interaction_Abort();
-  void Interaction_SetPreview(MwId SetToPreview);
-  const uint CreationElemsCount;
-  void Interaction_StartCreation(MwId CreationSetHandle, EElemType ElemType, MwId SetToPickFromHandle);
-  void Interaction_Creation_GetElems(MwId ResultSetHandle);
-  void Interaction_CloseCreation();
-  void Interaction_Creation_ClearParams();
-  void Interaction_Creation_SetEdgesConstraint(EEdgesConstraint EdgesConstraint);
-  void Interaction_Creation_SetAutoMerge(bool AutoMerge);
-  void Interaction_StartPaste();
-  void Interaction_StartBlocTransformation(MwId TransformationSetHandle);
-  void Interaction_StartCurve2D(MwId BordersSetHandle);
-  void Interaction_CloseCurve2D(bool CanDoCurve2D);
-  void Interaction_StartPick(EElemType ElemType, MwId SetToPickFrom);
-  void Interaction_StartPickJoint();
-  void Interaction_StartMerge(MwId MergeSetHandle);
-  void Interaction_StartMirror(MwId SetHandle);
-  void Interaction_Selection_ClearParams();
-  void Interaction_Selection_SetUseParts(bool UseParts);
-  void Interaction_Selection_SetCanEnterLeaf(bool CanEnterLeaf);
-  void Interaction_StartSelection(MwId SelectionSetHandle, EElemType ElemType, MwId SelectionSetToPickFrom);
-  void Interaction_CloseSelection();
-  void Interaction_StartTranslation(MwId TranslationSetHandle);
-  void Interaction_StartPickTranslation(MwId TranslationSetHandle);
-  void Interaction_StartRotation(MwId RotationSetHandle);
-  void Interaction_StartPickRotation(MwId RotationSetHandle);
-  void Interaction_Rotation_SetStep(int RotationStep);
-  void Interaction_StartPickScale(MwId ScalingSetHandle);
-  void Interaction_Scale_SetStep(float ScalingStep);
-  void Interaction_StartSplit();
-  void Display_HighlightSet(MwId SetHandle);
-  void Display_ClearHighlighting();
-  void Display_AtlasSelectionsSet(bool DisplayAtlasSelection);
-  bool Display_AtlasSelectionsGet();
-  const bool Display_HideElemsByDistance_IsActive;
-  uint Display_HideElemsByDistance_Distance;
-  float Display_HideElemsByDistance_Opacity;
-  void Display_HideElemsByDistance_Start(MwId SetHandle);
-  void Display_HideElemsByDistance_Stop();
-  void Display_HideMap();
-  void Display_ShowMap();
-  void MergeAllSuperposedElements(MwId SetHandle);
-  const MwId SelectionSet;
-  void Selection_Undo();
-  void Selection_Redo();
-  MwId SetOfElements_Create();
-  void SetOfElements_CopyFrom(MwId DestinationSet, MwId SourceSet);
-  void SetOfElements_Append(MwId DestinationSet, MwId SourceSet);
-  void SetOfElements_Destroy(MwId SetHandle);
-  void SetOfElements_Empty(MwId SetHandle);
-  void SetOfElements_SetAllElements(MwId SetHandle);
-  void SetOfElements_SetAllFaces(MwId SetHandle);
-  void SetOfElements_DeleteElements(MwId SetHandle);
-  bool SetOfElements_HasHorizontalFaces(MwId SetHandle);
-  bool SetOfElements_HasVerticalFaces(MwId SetHandle);
-  uint SetOfElements_GetElemsCount(MwId SetHandle);
-  uint SetOfElements_GetVerticesCount(MwId SetHandle);
-  uint SetOfElements_GetEdgesCount(MwId SetHandle);
-  uint SetOfElements_GetFacesCount(MwId SetHandle);
-  void ExtendSelectedSet(MwId SetHandle);
-  void GetBordersSet(MwId SetHandle, MwId SetBordersHandle);
-  void GetBordersVertexs(MwId SetHandle, MwId SetVertexHandle);
-  void SelectionSet_SelectAll();
-  void Curve2DPolygon(MwId FourVertexSetHandle, MwId Sethandle, uint SubTexIndex);
-  MwId AtlasSelection_Create();
-  void AtlasSelection_GetAtlasSelectionHandleFromSet(MwId SetHandle);
-  void AtlasSelections_AddAtlasSelectionFromSet(MwId SetHandle, MwId FourPointsHandle);
-  void AtlasSelections_SubAtlasSelection(MwId SetHandle);
-  void AtlasSelections_TextureAtlasSelection(MwId SetHandle, uint SubTexIndex);
-  void AtlasSelections_GetAtlasSelectionAfterSelection(MwId Sethandle);
-  void Preview_Clear();
-  bool BlocTransformation_Start(MwId SetHandle);
-  void BlocTransformation_Translate(vec3 Translation);
-  void BlocTransformation_Twist(float Angle);
-  void BlocTransformation_Bend(int Axis, float Radius, float Angle, bool Direction);
-  void BlocTransformation_Abort();
-  void BlocTransformation_Close();
-  void VoxelSpace_Init(uint Size, bool UseColors);
-  void VoxelSpace_Destroy();
-  bool VoxelSpace_Get(int3 Pos);
-  void VoxelSpace_Set(int3 Pos);
-  void VoxelSpace_SetVec3(vec3 Pos);
-  void VoxelSpace_SetColor(int3 Pos, vec3 Color);
-  void VoxelSpace_Unset(int3 Pos);
-  void VoxelSpace_GenerateMesh();
-  void SetOfElements_ProjectOnPlane(MwId SetHandle);
-  void SetOfElements_ProjectOnGround(MwId SetHandle, float Height);
-  void SetOfElements_SplitEdgeWithVertex(MwId SetHandle);
-  void SetOfElements_CollapseEdgeWithVertex(MwId SetHandle);
-  void SetOfElements_Subdivide(MwId SetHandle);
-  void SetOfElements_Subdivide_Interpolation(MwId SetHandle);
-  void SetOfVertices_DrawCircle(MwId InputSetHandle, MwId ResultSetHandle);
-  void SetOfVertices_DrawDisc(MwId InputSetHandle, MwId ResultSetHandle);
-  void SetOfVertices_DrawCircle2(MwId CenterSetHandle, vec3 PointOnCircle, MwId ResultSetHandle);
-  void SetOfVertices_DrawIcosahedron(MwId InputSetHandle, MwId ResultSetHandle);
-  void SetOfVertices_DrawIcosahedron2(MwId CenterSetHandle, vec3 PointOnCircle, MwId ResultSetHandle);
-  void SetOfVertices_DrawIcosahedricSphere(MwId InputSetHandle, MwId ResultSetHandle);
-  void SetOfVertices_DrawPoly(MwId InputSetHandle, MwId ResultSetHandle, int VerticesCount);
-  void SetOfVertices_DrawPoly2(MwId CenterSetHandle, vec3 PointOnPoly, MwId ResultSetHandle, int VerticesCount);
-  void SetOfVertices_DrawSpline(MwId ControlSetHandle, MwId ResultSetHandle);
-  void SetOfVertices_Weld(MwId VerticesSetHandle);
-  void SetOfVertices_DrawBox(MwId ControlSetHandle, MwId ResultSetHandle);
-  void SetOfEdges_Fill(MwId SetHandle);
-  void SetOfEdges_Flip(MwId SetHandle, MwId ResultSetHandle);
-  void SetOfEdges_BorderExpand(MwId SetHandle);
-  void SetOfOneEdge_FaceLoopExpand(MwId SetHandle);
-  void SetOfOneEdge_EdgeLoopExpand(MwId SetHandle);
-  void SetOfOneFace_CutHole(MwId FaceSetHandle, MwId EdgesSetHandle);
-  void SetOfFaces_Extrude(MwId SetHandle, MwId ResultSetHandle);
-  void SetOfFaces_QuadsToTriangles(MwId SetHandle, MwId ResultSetHandle);
-  void SetOfFaces_ApplyMaterial(MwId SetHandle, MwId MaterialId);
-  void SetOfFaces_PlanarExpand(MwId FacesSetHandle);
-  void SetOfFaces_ChangeOrientation(MwId FacesSetHandle);
-  const MwBuffer<wstring> PrefabNames;
-  const int PrefabNamesUpdateId;
-  void Prefab_Export();
-  void Prefab_Import(uint PrefabIndex);
-  void Parts_MergeSelectedParts();
-  void Parts_Group();
-  void Parts_UngroupSelectedParts();
-  void Cut();
-  void Copy();
-  void SetBaseUndoState();
-  void AddUndoState();
-  void AutoSave(wstring FileName);
-  const MwBuffer<CGameEditorEvent*> PendingEvents;
-  const bool IsExperimental;
+  const uint VertexCount; // Maniascript
+  const uint EdgeCount; // Maniascript
+  const uint FaceCount; // Maniascript
+  void EditionBox_SetScale(float Scale); // Maniascript
+  void EditionBox_OrientPlane(MwId SetHandle); // Maniascript
+  const bool EditionBox_IsPlaneOriented; // Maniascript
+  const float Scale; // Maniascript
+  const float Step; // Maniascript
+  const float Size; // Maniascript
+  const int RotationStep; // Maniascript
+  const float RotationValue; // Maniascript
+  const float ScalingStep; // Maniascript
+  const float ScalingRatio; // Maniascript
+  bool DisplayVertices; // Maniascript
+  bool DisplayFaces; // Maniascript
+  bool DisplayJoints; // Maniascript
+  EEdgesDisplay DisplayEdges; // Maniascript
+  void EditedMesh_Clear(); // Maniascript
+  void EditedMesh_Simplify(); // Maniascript
+  void UVUnwrap(MwId SetHandle, ETexCoordLayer ETexCoordLayer); // Maniascript
+  void Undo(); // Maniascript
+  void Redo(); // Maniascript
+  void SwitchPlane(); // Maniascript
+  void GridSnap_SetActive(bool IsActive); // Maniascript
+  const bool GridSnap_IsActive; // Maniascript
+  vec3 PickInfo_GetNormal(); // Maniascript
+  vec3 PickInfo_GetPosition(); // Maniascript
+  float PickInfo_GetEdgeLength(); // Maniascript
+  vec3 PickInfo_GetNextVertexPosition(); // Maniascript
+  MwId PickInfo_GetMaterial(); // Maniascript
+  wstring PickInfo_GetError(); // Maniascript
+  void Part_SetAnchorPos(vec3 Position); // Maniascript
+  void Part_SetIsJoint(bool IsJoint); // Maniascript
+  void Part_ClearAnchor(); // Maniascript
+  const int MaterialsUpdateId; // Maniascript
+  const MwBuffer<CPlugBitmap*> AllBitmaps; // Maniascript
+  const MwBuffer<MwId> MaterialIds; // Maniascript
+  MwId Material_GetMaterialIdSelected(); // Maniascript
+  void Material_SetMaterialIdSelected(MwId MaterialEditorId); // Maniascript
+  uint Material_GetSubTexIndexSelected(); // Maniascript
+  void Material_SetDefault(MwId MaterialId); // Maniascript
+  MwId Material_GetDefault(); // Maniascript
+  CPlugBitmap* Material_GetBitmapBase(MwId MaterialId); // Maniascript
+  CPlugBitmap* Material_GetBitmap(MwId MaterialId); // Maniascript
+  bool Material_MatchesCriterion(MwId MaterialId, EMaterialFilterCriterion ResultSetHandle); // Maniascript
+  void Material_SetFilter(EMaterialFilterCriterion Criterion, EFilterKind FilterKind); // Maniascript
+  EFilterKind Material_GetFilter(EMaterialFilterCriterion Criterion); // Maniascript
+  void Material_ClearFilters(); // Maniascript
+  void Material_UVEditor_SetIsRotation(bool IsRotation); // Maniascript
+  void Material_UVEditor_SetIsScale(bool IsScale); // Maniascript
+  void Material_UVEditor_SetIsScale1D(bool IsScale); // Maniascript
+  void Material_UVEditor_Open(MwId MaterialId, CGameManialinkQuad* LocationQuad); // Maniascript
+  void Material_UVEditor_Close(); // Maniascript
+  void Material_UVEditor_SetMode(EUVEditorMode Mode); // Maniascript
+  EUVEditorMode Material_UVEditor_GetMode(); // Maniascript
+  void Material_UVEditor_SetProjectionType(EUVEditorProjectionType ProjectionType); // Maniascript
+  void Material_UVEditor_Apply(); // Maniascript
+  void Material_PasteMaterial(MwId SetHandle); // Maniascript
+  const uint Material_Atlas_SelectedSubTexIndex; // Maniascript
+  const EInteraction CurrentInteraction; // Maniascript
+  void Interaction_Abort(); // Maniascript
+  void Interaction_SetPreview(MwId SetToPreview); // Maniascript
+  const uint CreationElemsCount; // Maniascript
+  void Interaction_StartCreation(MwId CreationSetHandle, EElemType ElemType, MwId SetToPickFromHandle); // Maniascript
+  void Interaction_Creation_GetElems(MwId ResultSetHandle); // Maniascript
+  void Interaction_CloseCreation(); // Maniascript
+  void Interaction_Creation_ClearParams(); // Maniascript
+  void Interaction_Creation_SetEdgesConstraint(EEdgesConstraint EdgesConstraint); // Maniascript
+  void Interaction_Creation_SetAutoMerge(bool AutoMerge); // Maniascript
+  void Interaction_StartPaste(); // Maniascript
+  void Interaction_StartBlocTransformation(MwId TransformationSetHandle); // Maniascript
+  void Interaction_StartCurve2D(MwId BordersSetHandle); // Maniascript
+  void Interaction_CloseCurve2D(bool CanDoCurve2D); // Maniascript
+  void Interaction_StartPick(EElemType ElemType, MwId SetToPickFrom); // Maniascript
+  void Interaction_StartPickJoint(); // Maniascript
+  void Interaction_StartMerge(MwId MergeSetHandle); // Maniascript
+  void Interaction_StartMirror(MwId SetHandle); // Maniascript
+  void Interaction_Selection_ClearParams(); // Maniascript
+  void Interaction_Selection_SetUseParts(bool UseParts); // Maniascript
+  void Interaction_Selection_SetCanEnterLeaf(bool CanEnterLeaf); // Maniascript
+  void Interaction_StartSelection(MwId SelectionSetHandle, EElemType ElemType, MwId SelectionSetToPickFrom); // Maniascript
+  void Interaction_CloseSelection(); // Maniascript
+  void Interaction_StartTranslation(MwId TranslationSetHandle); // Maniascript
+  void Interaction_StartPickTranslation(MwId TranslationSetHandle); // Maniascript
+  void Interaction_StartRotation(MwId RotationSetHandle); // Maniascript
+  void Interaction_StartPickRotation(MwId RotationSetHandle); // Maniascript
+  void Interaction_Rotation_SetStep(int RotationStep); // Maniascript
+  void Interaction_StartPickScale(MwId ScalingSetHandle); // Maniascript
+  void Interaction_Scale_SetStep(float ScalingStep); // Maniascript
+  void Interaction_StartSplit(); // Maniascript
+  void Display_HighlightSet(MwId SetHandle); // Maniascript
+  void Display_ClearHighlighting(); // Maniascript
+  void Display_AtlasSelectionsSet(bool DisplayAtlasSelection); // Maniascript
+  bool Display_AtlasSelectionsGet(); // Maniascript
+  const bool Display_HideElemsByDistance_IsActive; // Maniascript
+  uint Display_HideElemsByDistance_Distance; // Maniascript
+  float Display_HideElemsByDistance_Opacity; // Maniascript
+  void Display_HideElemsByDistance_Start(MwId SetHandle); // Maniascript
+  void Display_HideElemsByDistance_Stop(); // Maniascript
+  void Display_HideMap(); // Maniascript
+  void Display_ShowMap(); // Maniascript
+  void MergeAllSuperposedElements(MwId SetHandle); // Maniascript
+  const MwId SelectionSet; // Maniascript
+  void Selection_Undo(); // Maniascript
+  void Selection_Redo(); // Maniascript
+  MwId SetOfElements_Create(); // Maniascript
+  void SetOfElements_CopyFrom(MwId DestinationSet, MwId SourceSet); // Maniascript
+  void SetOfElements_Append(MwId DestinationSet, MwId SourceSet); // Maniascript
+  void SetOfElements_Destroy(MwId SetHandle); // Maniascript
+  void SetOfElements_Empty(MwId SetHandle); // Maniascript
+  void SetOfElements_SetAllElements(MwId SetHandle); // Maniascript
+  void SetOfElements_SetAllFaces(MwId SetHandle); // Maniascript
+  void SetOfElements_DeleteElements(MwId SetHandle); // Maniascript
+  bool SetOfElements_HasHorizontalFaces(MwId SetHandle); // Maniascript
+  bool SetOfElements_HasVerticalFaces(MwId SetHandle); // Maniascript
+  uint SetOfElements_GetElemsCount(MwId SetHandle); // Maniascript
+  uint SetOfElements_GetVerticesCount(MwId SetHandle); // Maniascript
+  uint SetOfElements_GetEdgesCount(MwId SetHandle); // Maniascript
+  uint SetOfElements_GetFacesCount(MwId SetHandle); // Maniascript
+  void ExtendSelectedSet(MwId SetHandle); // Maniascript
+  void GetBordersSet(MwId SetHandle, MwId SetBordersHandle); // Maniascript
+  void GetBordersVertexs(MwId SetHandle, MwId SetVertexHandle); // Maniascript
+  void SelectionSet_SelectAll(); // Maniascript
+  void Curve2DPolygon(MwId FourVertexSetHandle, MwId Sethandle, uint SubTexIndex); // Maniascript
+  MwId AtlasSelection_Create(); // Maniascript
+  void AtlasSelection_GetAtlasSelectionHandleFromSet(MwId SetHandle); // Maniascript
+  void AtlasSelections_AddAtlasSelectionFromSet(MwId SetHandle, MwId FourPointsHandle); // Maniascript
+  void AtlasSelections_SubAtlasSelection(MwId SetHandle); // Maniascript
+  void AtlasSelections_TextureAtlasSelection(MwId SetHandle, uint SubTexIndex); // Maniascript
+  void AtlasSelections_GetAtlasSelectionAfterSelection(MwId Sethandle); // Maniascript
+  void Preview_Clear(); // Maniascript
+  bool BlocTransformation_Start(MwId SetHandle); // Maniascript
+  void BlocTransformation_Translate(vec3 Translation); // Maniascript
+  void BlocTransformation_Twist(float Angle); // Maniascript
+  void BlocTransformation_Bend(int Axis, float Radius, float Angle, bool Direction); // Maniascript
+  void BlocTransformation_Abort(); // Maniascript
+  void BlocTransformation_Close(); // Maniascript
+  void VoxelSpace_Init(uint Size, bool UseColors); // Maniascript
+  void VoxelSpace_Destroy(); // Maniascript
+  bool VoxelSpace_Get(int3 Pos); // Maniascript
+  void VoxelSpace_Set(int3 Pos); // Maniascript
+  void VoxelSpace_SetVec3(vec3 Pos); // Maniascript
+  void VoxelSpace_SetColor(int3 Pos, vec3 Color); // Maniascript
+  void VoxelSpace_Unset(int3 Pos); // Maniascript
+  void VoxelSpace_GenerateMesh(); // Maniascript
+  void SetOfElements_ProjectOnPlane(MwId SetHandle); // Maniascript
+  void SetOfElements_ProjectOnGround(MwId SetHandle, float Height); // Maniascript
+  void SetOfElements_SplitEdgeWithVertex(MwId SetHandle); // Maniascript
+  void SetOfElements_CollapseEdgeWithVertex(MwId SetHandle); // Maniascript
+  void SetOfElements_Subdivide(MwId SetHandle); // Maniascript
+  void SetOfElements_Subdivide_Interpolation(MwId SetHandle); // Maniascript
+  void SetOfVertices_DrawCircle(MwId InputSetHandle, MwId ResultSetHandle); // Maniascript
+  void SetOfVertices_DrawDisc(MwId InputSetHandle, MwId ResultSetHandle); // Maniascript
+  void SetOfVertices_DrawCircle2(MwId CenterSetHandle, vec3 PointOnCircle, MwId ResultSetHandle); // Maniascript
+  void SetOfVertices_DrawIcosahedron(MwId InputSetHandle, MwId ResultSetHandle); // Maniascript
+  void SetOfVertices_DrawIcosahedron2(MwId CenterSetHandle, vec3 PointOnCircle, MwId ResultSetHandle); // Maniascript
+  void SetOfVertices_DrawIcosahedricSphere(MwId InputSetHandle, MwId ResultSetHandle); // Maniascript
+  void SetOfVertices_DrawPoly(MwId InputSetHandle, MwId ResultSetHandle, int VerticesCount); // Maniascript
+  void SetOfVertices_DrawPoly2(MwId CenterSetHandle, vec3 PointOnPoly, MwId ResultSetHandle, int VerticesCount); // Maniascript
+  void SetOfVertices_DrawSpline(MwId ControlSetHandle, MwId ResultSetHandle); // Maniascript
+  void SetOfVertices_Weld(MwId VerticesSetHandle); // Maniascript
+  void SetOfVertices_DrawBox(MwId ControlSetHandle, MwId ResultSetHandle); // Maniascript
+  void SetOfEdges_Fill(MwId SetHandle); // Maniascript
+  void SetOfEdges_Flip(MwId SetHandle, MwId ResultSetHandle); // Maniascript
+  void SetOfEdges_BorderExpand(MwId SetHandle); // Maniascript
+  void SetOfOneEdge_FaceLoopExpand(MwId SetHandle); // Maniascript
+  void SetOfOneEdge_EdgeLoopExpand(MwId SetHandle); // Maniascript
+  void SetOfOneFace_CutHole(MwId FaceSetHandle, MwId EdgesSetHandle); // Maniascript
+  void SetOfFaces_Extrude(MwId SetHandle, MwId ResultSetHandle); // Maniascript
+  void SetOfFaces_QuadsToTriangles(MwId SetHandle, MwId ResultSetHandle); // Maniascript
+  void SetOfFaces_ApplyMaterial(MwId SetHandle, MwId MaterialId); // Maniascript
+  void SetOfFaces_PlanarExpand(MwId FacesSetHandle); // Maniascript
+  void SetOfFaces_ChangeOrientation(MwId FacesSetHandle); // Maniascript
+  const MwBuffer<wstring> PrefabNames; // Maniascript
+  const int PrefabNamesUpdateId; // Maniascript
+  void Prefab_Export(); // Maniascript
+  void Prefab_Import(uint PrefabIndex); // Maniascript
+  void Parts_MergeSelectedParts(); // Maniascript
+  void Parts_Group(); // Maniascript
+  void Parts_UngroupSelectedParts(); // Maniascript
+  void Cut(); // Maniascript
+  void Copy(); // Maniascript
+  void SetBaseUndoState(); // Maniascript
+  void AddUndoState(); // Maniascript
+  void AutoSave(wstring FileName); // Maniascript
+  const MwBuffer<CGameEditorEvent*> PendingEvents; // Maniascript
+  const bool IsExperimental; // Maniascript
 };
 
 struct CGameEditorEvent : public CGameManiaAppScriptEvent {
@@ -10499,7 +10499,7 @@ struct CGameEditorEvent : public CGameManiaAppScriptEvent {
     OnUndo = 5,
     OnRedo = 6,
   };
-  const Type Type;
+  const Type Type; // Maniascript
 };
 
 struct CGameMgrTurretPhy : public CSceneMgrPhy {
@@ -10527,10 +10527,10 @@ struct CGameCtnMediaBlockTurret : public CGameCtnMediaBlock {
 };
 
 struct CGameEditorPluginLayerScriptHandler : public CGameManialinkScriptHandler {
-  const CGameEditorModule* ModuleEditor;
-  const CGameEditorMesh* MeshEditor;
-  const CGameEditorPixel* PixelEditor;
-  const CGameEditorEditor* EditorEditor;
+  const CGameEditorModule* ModuleEditor; // Maniascript
+  const CGameEditorMesh* MeshEditor; // Maniascript
+  const CGameEditorPixel* PixelEditor; // Maniascript
+  const CGameEditorEditor* EditorEditor; // Maniascript
 };
 
 struct CGameMgrMapPhy : public CSceneMgrPhy {
@@ -10551,7 +10551,7 @@ struct CGameDataFileTask_GhostDownload : public CWebServicesTaskSequence {
 };
 
 struct CWebServicesTaskResult_GhostScript : public CWebServicesTaskResult_Ghost {
-  const CGameGhostScript* Ghost;
+  const CGameGhostScript* Ghost; // Maniascript
 };
 
 struct CGameDataFileTask_GhostLoadMedal : public CWebServicesTaskSequence {
@@ -10566,10 +10566,10 @@ struct CWebServicesTaskResult_NaturalLeaderBoardInfoList : public CWebServicesTa
 };
 
 struct CWebServicesTaskResult_MapListScript : public CWebServicesTaskResult_GameFidList {
-  const wstring ParentPath;
-  const wstring Path;
-  const MwBuffer<CGameCtnChallengeInfo*> MapInfos;
-  const MwBuffer<wstring> SubFolders;
+  const wstring ParentPath; // Maniascript
+  const wstring Path; // Maniascript
+  const MwBuffer<CGameCtnChallengeInfo*> MapInfos; // Maniascript
+  const MwBuffer<wstring> SubFolders; // Maniascript
 };
 
 struct CGameDataFileTask_MapGetUserList : public CWebServicesTaskSequence {
@@ -10590,27 +10590,27 @@ struct CGameDataFileManagerScript : public CMwNod {
     Module = 4,
     Skins = 5,
   };
-  const MwBuffer<CWebServicesTaskResult*> TaskResults;
-  void TaskResult_Release(MwId TaskId);
-  void ReleaseTaskResult(MwId TaskId);
-  const MwBuffer<CGameCtnCampaign*> Campaigns;
-  CGameCtnCampaign* Campaign_Get(string CampaignId);
-  void Map_RefreshFromDisk();
-  CWebServicesTaskResult_MapListScript* Map_GetUserList(MwId UserId);
-  CWebServicesTaskResult_MapListScript* Map_GetGameList(wstring Path, bool Flatten);
-  CWebServicesTaskResult_MapListScript* Map_GetFilteredGameList(uint Scope, wstring Path, bool Flatten);
-  const MwBuffer<CGameGhostScript*> Ghosts;
-  void Ghost_Release(MwId GhostId);
-  CWebServicesTaskResult_GhostScript* Ghost_Download(wstring FileName, string Url);
-  void Replay_RefreshFromDisk();
-  CWebServicesTaskResult_ReplayListScript* Replay_GetGameList(wstring Path, bool Flatten);
-  CWebServicesTaskResult_ReplayListScript* Replay_GetFilteredGameList(uint Scope, wstring Path, bool Flatten);
-  CWebServicesTaskResult_GhostListScript* Replay_Load(wstring Path);
-  CWebServicesTaskResult* Replay_Save(wstring Path, CGameCtnChallenge* Map, CGameGhostScript* Ghost);
-  CWebServicesTaskResult_FileListScript* Media_GetGameList(EMediaType Type, wstring Path, bool Flatten);
-  CWebServicesTaskResult_FileListScript* Media_GetFilteredGameList(EMediaType Type, uint Scope, wstring Path, bool Flatten);
-  CWebServicesTaskResult_GameModeListScript* GameMode_GetGameList(uint Scope, wstring Path, bool Flatten);
-  CWebServicesTaskResult* Pack_DownloadOrUpdate(wstring DisplayName, string Url);
+  const MwBuffer<CWebServicesTaskResult*> TaskResults; // Maniascript
+  void TaskResult_Release(MwId TaskId); // Maniascript
+  void ReleaseTaskResult(MwId TaskId); // Maniascript
+  const MwBuffer<CGameCtnCampaign*> Campaigns; // Maniascript
+  CGameCtnCampaign* Campaign_Get(string CampaignId); // Maniascript
+  void Map_RefreshFromDisk(); // Maniascript
+  CWebServicesTaskResult_MapListScript* Map_GetUserList(MwId UserId); // Maniascript
+  CWebServicesTaskResult_MapListScript* Map_GetGameList(wstring Path, bool Flatten); // Maniascript
+  CWebServicesTaskResult_MapListScript* Map_GetFilteredGameList(uint Scope, wstring Path, bool Flatten); // Maniascript
+  const MwBuffer<CGameGhostScript*> Ghosts; // Maniascript
+  void Ghost_Release(MwId GhostId); // Maniascript
+  CWebServicesTaskResult_GhostScript* Ghost_Download(wstring FileName, string Url); // Maniascript
+  void Replay_RefreshFromDisk(); // Maniascript
+  CWebServicesTaskResult_ReplayListScript* Replay_GetGameList(wstring Path, bool Flatten); // Maniascript
+  CWebServicesTaskResult_ReplayListScript* Replay_GetFilteredGameList(uint Scope, wstring Path, bool Flatten); // Maniascript
+  CWebServicesTaskResult_GhostListScript* Replay_Load(wstring Path); // Maniascript
+  CWebServicesTaskResult* Replay_Save(wstring Path, CGameCtnChallenge* Map, CGameGhostScript* Ghost); // Maniascript
+  CWebServicesTaskResult_FileListScript* Media_GetGameList(EMediaType Type, wstring Path, bool Flatten); // Maniascript
+  CWebServicesTaskResult_FileListScript* Media_GetFilteredGameList(EMediaType Type, uint Scope, wstring Path, bool Flatten); // Maniascript
+  CWebServicesTaskResult_GameModeListScript* GameMode_GetGameList(uint Scope, wstring Path, bool Flatten); // Maniascript
+  CWebServicesTaskResult* Pack_DownloadOrUpdate(wstring DisplayName, string Url); // Maniascript
 };
 
 struct CGameDataUserFileManager : public CMwNod {
@@ -10620,20 +10620,20 @@ struct CWebServicesTaskResult_GameFidList : public CWebServicesTaskResult {
 };
 
 struct CWebServicesTaskResult_ReplayListScript : public CWebServicesTaskResult_GameFidList {
-  const wstring ParentPath;
-  const wstring Path;
-  const MwBuffer<CGameCtnReplayRecordInfo*> ReplayInfos;
-  const MwBuffer<wstring> SubFolders;
+  const wstring ParentPath; // Maniascript
+  const wstring Path; // Maniascript
+  const MwBuffer<CGameCtnReplayRecordInfo*> ReplayInfos; // Maniascript
+  const MwBuffer<wstring> SubFolders; // Maniascript
 };
 
 struct CWebServicesTaskResult_FileList : public CWebServicesTaskResult {
 };
 
 struct CWebServicesTaskResult_FileListScript : public CWebServicesTaskResult_FileList {
-  const wstring ParentPath;
-  const wstring Path;
-  const MwBuffer<wstring> Files;
-  const MwBuffer<wstring> SubFolders;
+  const wstring ParentPath; // Maniascript
+  const wstring Path; // Maniascript
+  const MwBuffer<wstring> Files; // Maniascript
+  const MwBuffer<wstring> SubFolders; // Maniascript
 };
 
 struct CGameDataFileTask_FileGetGameList : public CWebServicesTaskSequence {
@@ -10656,23 +10656,23 @@ struct CGameMapScoreManager_SkillPoint : public CGameMapScoreManager {
 };
 
 struct CGameScriptMgrTurret : public CMwNod {
-  void MapTurrets_Reset();
-  CGameScriptTurret* Turret_Create(MwId ModelId, vec3 Position, vec3 Direction, uint Clan, CGamePlayer* Owner);
-  void Turret_Destroy(CGameScriptTurret* Turret);
-  MwBuffer<CGameScriptTurret*> Turrets;
+  void MapTurrets_Reset(); // Maniascript
+  CGameScriptTurret* Turret_Create(MwId ModelId, vec3 Position, vec3 Direction, uint Clan, CGamePlayer* Owner); // Maniascript
+  void Turret_Destroy(CGameScriptTurret* Turret); // Maniascript
+  MwBuffer<CGameScriptTurret*> Turrets; // Maniascript
 };
 
 struct CGameScriptTurret : public CMwNod {
-  uint Armor;
-  uint ArmorMax;
-  const CGameScriptTurret* Owner;
+  uint Armor; // Maniascript
+  uint ArmorMax; // Maniascript
+  const CGameScriptTurret* Owner; // Maniascript
 };
 
 struct CWebServicesTaskResult_GhostList : public CWebServicesTaskResult {
 };
 
 struct CWebServicesTaskResult_GhostListScript : public CWebServicesTaskResult_GhostList {
-  const MwBuffer<CGameGhostScript*> Ghosts;
+  const MwBuffer<CGameGhostScript*> Ghosts; // Maniascript
 };
 
 struct CGameMasterServerTask_SetTitlePaid : public CNetMasterServerRequestTask {
@@ -10685,25 +10685,25 @@ struct CGameCtnMasterServerTask_GetNaturalLeaderBoard : public CNetMasterServerR
 };
 
 struct CGameNaturalLeaderBoardInfoScript : public CMwNod {
-  const uint Rank;
-  const MwId UserId;
-  const string Login;
-  const wstring DisplayName;
-  const uint Score;
-  const wstring FileName;
-  const string ReplayUrl;
+  const uint Rank; // Maniascript
+  const MwId UserId; // Maniascript
+  const string Login; // Maniascript
+  const wstring DisplayName; // Maniascript
+  const uint Score; // Maniascript
+  const wstring FileName; // Maniascript
+  const string ReplayUrl; // Maniascript
 };
 
 struct CWebServicesTaskResult_NaturalLeaderBoardInfoListScript : public CWebServicesTaskResult_NaturalLeaderBoardInfoList {
-  const uint FromIndex;
-  const uint Count;
-  const MwBuffer<CGameNaturalLeaderBoardInfoScript*> LeaderBoardInfo;
+  const uint FromIndex; // Maniascript
+  const uint Count; // Maniascript
+  const MwBuffer<CGameNaturalLeaderBoardInfoScript*> LeaderBoardInfo; // Maniascript
 };
 
 struct CWebServicesTaskResult_RealLeaderBoardInfoListScript : public CWebServicesTaskResult_RealLeaderBoardInfoList {
-  const uint FromIndex;
-  const uint Count;
-  const MwBuffer<CGameRealLeaderBoardInfoScript*> LeaderBoardInfo;
+  const uint FromIndex; // Maniascript
+  const uint Count; // Maniascript
+  const MwBuffer<CGameRealLeaderBoardInfoScript*> LeaderBoardInfo; // Maniascript
 };
 
 struct CGameMatchSettingsManagerScript : public CMwNod {
@@ -10711,28 +10711,28 @@ struct CGameMatchSettingsManagerScript : public CMwNod {
   void Debug_MatchSettings_Save();
   void Debug_MatchSettings_SaveAs();
   void Debug_MatchSettings_EditScriptSettings();
-  void MatchSettings_Refresh();
-  CGameMatchSettingsScript* MatchSettings_Create(wstring FilePath);
-  void MatchSettings_Save(CGameMatchSettingsScript* MatchSettings);
-  CGameMatchSettingsScript* MatchSettings_SaveAs(wstring FilePath, CGameMatchSettingsScript* MatchSettings);
-  void MatchSettings_EditScriptSettings(CGameMatchSettingsScript* MatchSettings);
-  const bool MatchSettings_EditScriptSettings_Ongoing;
-  const MwBuffer<CGameMatchSettingsScript*> MatchSettings;
+  void MatchSettings_Refresh(); // Maniascript
+  CGameMatchSettingsScript* MatchSettings_Create(wstring FilePath); // Maniascript
+  void MatchSettings_Save(CGameMatchSettingsScript* MatchSettings); // Maniascript
+  CGameMatchSettingsScript* MatchSettings_SaveAs(wstring FilePath, CGameMatchSettingsScript* MatchSettings); // Maniascript
+  void MatchSettings_EditScriptSettings(CGameMatchSettingsScript* MatchSettings); // Maniascript
+  const bool MatchSettings_EditScriptSettings_Ongoing; // Maniascript
+  const MwBuffer<CGameMatchSettingsScript*> MatchSettings; // Maniascript
 };
 
 struct CGameMatchSettingsScript : public CMwNod {
-  const wstring Name;
-  const wstring FileName;
-  wstring ScriptModeName;
-  bool ScriptModeName_Check(wstring ScriptModeName);
-  void ScriptModeName_Set(wstring ScriptModeName);
-  const MwBuffer<CGameMatchSettingsPlaylistItemScript*> Playlist;
-  bool Playlist_FileExists(wstring File);
-  bool Playlist_FileMatchesMode(wstring File);
-  void Playlist_Add(wstring File);
-  void Playlist_Remove(uint Index);
-  void Playlist_SwapUp(uint Index);
-  void Playlist_SwapDown(uint Index);
+  const wstring Name; // Maniascript
+  const wstring FileName; // Maniascript
+  wstring ScriptModeName; // Maniascript
+  bool ScriptModeName_Check(wstring ScriptModeName); // Maniascript
+  void ScriptModeName_Set(wstring ScriptModeName); // Maniascript
+  const MwBuffer<CGameMatchSettingsPlaylistItemScript*> Playlist; // Maniascript
+  bool Playlist_FileExists(wstring File); // Maniascript
+  bool Playlist_FileMatchesMode(wstring File); // Maniascript
+  void Playlist_Add(wstring File); // Maniascript
+  void Playlist_Remove(uint Index); // Maniascript
+  void Playlist_SwapUp(uint Index); // Maniascript
+  void Playlist_SwapDown(uint Index); // Maniascript
 };
 
 struct CGameDataFileTask_PackDownloadOrUpdate : public CWebServicesTaskSequence {
@@ -10742,44 +10742,44 @@ struct CWebServicesTaskResult_Title : public CWebServicesTaskResult {
 };
 
 struct CGameMatchSettingsPlaylistItemScript : public CMwNod {
-  const wstring Name;
-  const bool FileExists;
+  const wstring Name; // Maniascript
+  const bool FileExists; // Maniascript
 };
 
 struct CGameScoreTask_GetCampaignOpponentRecords : public CWebServicesTaskSequence {
 };
 
 struct CWebServicesTaskResult_MapRecordListScript : public CWebServicesTaskResult_PlayerMapRecords {
-  const MwBuffer<CGamePlayerMapRecordScript*> MapRecordList;
+  const MwBuffer<CGamePlayerMapRecordScript*> MapRecordList; // Maniascript
 };
 
 struct CGamePlayerMapRecordScript : public CMwNod {
-  const string Context;
-  const string MapUid;
-  const wstring MapName;
-  const uint Score;
-  const uint Time;
-  const uint RespawnCount;
-  const uint Timestamp;
-  const uint MultiAsyncLevel;
-  const uint SkillPoints;
-  const wstring FileName;
-  const string ReplayUrl;
+  const string Context; // Maniascript
+  const string MapUid; // Maniascript
+  const wstring MapName; // Maniascript
+  const uint Score; // Maniascript
+  const uint Time; // Maniascript
+  const uint RespawnCount; // Maniascript
+  const uint Timestamp; // Maniascript
+  const uint MultiAsyncLevel; // Maniascript
+  const uint SkillPoints; // Maniascript
+  const wstring FileName; // Maniascript
+  const string ReplayUrl; // Maniascript
 };
 
 struct CGameDataFileTask_GameModeGetGameList : public CWebServicesTaskSequence {
 };
 
 struct CWebServicesTaskResult_GameModeListScript : public CWebServicesTaskResult {
-  const MwBuffer<CGameGameModeInfoScript*> GameModes;
+  const MwBuffer<CGameGameModeInfoScript*> GameModes; // Maniascript
 };
 
 struct CGameGameModeInfoScript : public CMwNod {
-  const wstring Name;
-  const wstring Path;
-  const wstring Description;
-  const wstring Version;
-  const MwBuffer<wstring> CompatibleMapTypes;
+  const wstring Name; // Maniascript
+  const wstring Path; // Maniascript
+  const wstring Description; // Maniascript
+  const wstring Version; // Maniascript
+  const MwBuffer<wstring> CompatibleMapTypes; // Maniascript
 };
 
 struct CGameUserProfileWrapper : public CMwNod {
@@ -10787,14 +10787,14 @@ struct CGameUserProfileWrapper : public CMwNod {
     Ask = 0,
     Advanced = 1,
   };
-  EMapEditorMode MapEditorMode;
+  EMapEditorMode MapEditorMode; // Maniascript
 };
 
 struct CGameEditorPluginAPI : public CMwNod {
   CGameEditorPluginAPI();
 
-  void Undo();
-  void Redo();
+  void Undo(); // Maniascript
+  void Redo(); // Maniascript
 };
 
 struct CGameEditorVehiclePluginAPI : public CGameEditorPluginAPI {
@@ -17948,42 +17948,42 @@ struct CAudioScriptManager : public CMwNod {
     ScoreIncrease = 10,
     Checkpoint = 11,
   };
-  CAudioScriptSound* CreateSound(string Url);
-  CAudioScriptSound* CreateSoundEx(string Url, float VolumedB, bool IsMusic, bool IsLooping, bool IsSpatialized);
-  void DestroySound(CAudioScriptSound* Sound);
-  const MwBuffer<CAudioScriptSound*> Sounds;
-  CAudioScriptMusic* CreateMusic(string Url);
-  void DestroyMusic(CAudioScriptMusic* Music);
-  void PlaySoundEvent(CAudioScriptSound* Sound, float VolumedB);
-  void PlaySoundEventUrl(string Url, float VolumedB);
-  void PlaySoundLibrary(ELibSound Sound, uint SoundVariant, float VolumedB);
-  void PlayDelayedSoundEvent(CAudioScriptSound* Sound, float VolumedB, int Delay);
-  void PlayDelayedSoundEventUrl(string Url, float VolumedB, int Delay);
-  void PlayDelayedSoundLibrary(ELibSound Sound, uint SoundVariant, float VolumedB, int Delay);
-  void PlaySoundEventMix(CAudioScriptSound* Sound, float VolumedB, vec3 PanRadiusLfe);
-  void PlaySoundEventMixUrl(string Url, float VolumedB, vec3 PanRadiusLfe);
-  void PlayDelayedSoundEventMix(CAudioScriptSound* Sound, float VolumedB, vec3 PanRadiusLfe, int Delay);
-  void PlayDelayedSoundEventMixUrl(string Url, float VolumedB, vec3 PanRadiusLfe, int Delay);
-  void ClearAllDelayedSoundsEvents();
-  bool ForceEnableMusic;
-  float LimitMusicVolumedB;
-  float LimitSceneSoundVolumedB;
-  float LimitUiSoundVolumedB;
+  CAudioScriptSound* CreateSound(string Url); // Maniascript
+  CAudioScriptSound* CreateSoundEx(string Url, float VolumedB, bool IsMusic, bool IsLooping, bool IsSpatialized); // Maniascript
+  void DestroySound(CAudioScriptSound* Sound); // Maniascript
+  const MwBuffer<CAudioScriptSound*> Sounds; // Maniascript
+  CAudioScriptMusic* CreateMusic(string Url); // Maniascript
+  void DestroyMusic(CAudioScriptMusic* Music); // Maniascript
+  void PlaySoundEvent(CAudioScriptSound* Sound, float VolumedB); // Maniascript
+  void PlaySoundEventUrl(string Url, float VolumedB); // Maniascript
+  void PlaySoundLibrary(ELibSound Sound, uint SoundVariant, float VolumedB); // Maniascript
+  void PlayDelayedSoundEvent(CAudioScriptSound* Sound, float VolumedB, int Delay); // Maniascript
+  void PlayDelayedSoundEventUrl(string Url, float VolumedB, int Delay); // Maniascript
+  void PlayDelayedSoundLibrary(ELibSound Sound, uint SoundVariant, float VolumedB, int Delay); // Maniascript
+  void PlaySoundEventMix(CAudioScriptSound* Sound, float VolumedB, vec3 PanRadiusLfe); // Maniascript
+  void PlaySoundEventMixUrl(string Url, float VolumedB, vec3 PanRadiusLfe); // Maniascript
+  void PlayDelayedSoundEventMix(CAudioScriptSound* Sound, float VolumedB, vec3 PanRadiusLfe, int Delay); // Maniascript
+  void PlayDelayedSoundEventMixUrl(string Url, float VolumedB, vec3 PanRadiusLfe, int Delay); // Maniascript
+  void ClearAllDelayedSoundsEvents(); // Maniascript
+  bool ForceEnableMusic; // Maniascript
+  float LimitMusicVolumedB; // Maniascript
+  float LimitSceneSoundVolumedB; // Maniascript
+  float LimitUiSoundVolumedB; // Maniascript
 };
 
 struct CAudioScriptSound : public CMwNod {
-  void Play();
-  void Stop();
-  const bool IsPlaying;
-  const bool DownloadInProgress;
-  float Volume;
-  float FadeDuration;
-  float VolumedB;
-  float Pitch;
-  vec3 RelativePosition;
-  vec3 PanRadiusLfe;
-  float PlayCursor;
-  const float PlayLength;
+  void Play(); // Maniascript
+  void Stop(); // Maniascript
+  const bool IsPlaying; // Maniascript
+  const bool DownloadInProgress; // Maniascript
+  float Volume; // Maniascript
+  float FadeDuration; // Maniascript
+  float VolumedB; // Maniascript
+  float Pitch; // Maniascript
+  vec3 RelativePosition; // Maniascript
+  vec3 PanRadiusLfe; // Maniascript
+  float PlayCursor; // Maniascript
+  const float PlayLength; // Maniascript
 };
 
 struct CAudioScriptMusic : public CAudioScriptSound {
@@ -17993,30 +17993,30 @@ struct CAudioScriptMusic : public CAudioScriptSound {
     OnNextHalfBar = 2,
     OnNextBeat = 3,
   };
-  MwArray<float> Tracks_Volume;
-  MwArray<float> Tracks_VolumedB;
-  const MwArray<wstring> Tracks_Name;
-  const MwArray<float> Tracks_Length;
-  const uint Tracks_Count;
-  const float BeatsPerMinute;
-  const float BeatDuration;
-  const uint BeatsPerBar;
-  EUpdateMode UpdateMode;
-  bool Dbg_ForceIntensity;
-  bool Dbg_ForceSequential;
-  bool Dbg_ForceRandom;
-  float LPF_CutoffRatio; // Range: 0 - 1
-  float LPF_Q; // Range: 0.1 - 20
-  float HPF_CutoffRatio; // Range: 0 - 1
-  float HPF_Q; // Range: 0.1 - 20
-  float FadeTracksDuration;
-  float FadeFiltersDuration;
-  void MuteAllTracks();
-  void UnmuteAllTracks();
-  void NextVariant();
-  void NextVariant2(bool IsIntensityDecreasing);
-  void EnableSegment(wstring SegmentName);
-  bool UseNewImplem;
+  MwArray<float> Tracks_Volume; // Maniascript
+  MwArray<float> Tracks_VolumedB; // Maniascript
+  const MwArray<wstring> Tracks_Name; // Maniascript
+  const MwArray<float> Tracks_Length; // Maniascript
+  const uint Tracks_Count; // Maniascript
+  const float BeatsPerMinute; // Maniascript
+  const float BeatDuration; // Maniascript
+  const uint BeatsPerBar; // Maniascript
+  EUpdateMode UpdateMode; // Maniascript
+  bool Dbg_ForceIntensity; // Maniascript
+  bool Dbg_ForceSequential; // Maniascript
+  bool Dbg_ForceRandom; // Maniascript
+  float LPF_CutoffRatio; // Range: 0 - 1 // Maniascript
+  float LPF_Q; // Range: 0.1 - 20 // Maniascript
+  float HPF_CutoffRatio; // Range: 0 - 1 // Maniascript
+  float HPF_Q; // Range: 0.1 - 20 // Maniascript
+  float FadeTracksDuration; // Maniascript
+  float FadeFiltersDuration; // Maniascript
+  void MuteAllTracks(); // Maniascript
+  void UnmuteAllTracks(); // Maniascript
+  void NextVariant(); // Maniascript
+  void NextVariant2(bool IsIntensityDecreasing); // Maniascript
+  void EnableSegment(wstring SegmentName); // Maniascript
+  bool UseNewImplem; // Maniascript
 };
 
 struct CAudioZoneSource : public CMwNod {
@@ -18658,23 +18658,23 @@ struct CNetURLSource : public CMwNod {
 };
 
 struct CNetScriptHttpManager : public CMwNod {
-  CNetScriptHttpRequest* CreateGet(string Url);
-  CNetScriptHttpRequest* CreateGet2(string Url, bool UseCache);
-  CNetScriptHttpRequest* CreateGet3(string Url, bool UseCache, string AdditionalHeaders);
-  CNetScriptHttpRequest* CreatePost(string Url, string Resource);
-  CNetScriptHttpRequest* CreatePost2(string Url, string Resource, string AdditionalHeaders);
-  void Destroy(CNetScriptHttpRequest* Request);
-  bool IsValidUrl(string Url);
-  const MwBuffer<CNetScriptHttpRequest*> Requests;
-  const uint SlotsAvailable;
-  bool AutomaticHeaders_Timezone;
+  CNetScriptHttpRequest* CreateGet(string Url); // Maniascript
+  CNetScriptHttpRequest* CreateGet2(string Url, bool UseCache); // Maniascript
+  CNetScriptHttpRequest* CreateGet3(string Url, bool UseCache, string AdditionalHeaders); // Maniascript
+  CNetScriptHttpRequest* CreatePost(string Url, string Resource); // Maniascript
+  CNetScriptHttpRequest* CreatePost2(string Url, string Resource, string AdditionalHeaders); // Maniascript
+  void Destroy(CNetScriptHttpRequest* Request); // Maniascript
+  bool IsValidUrl(string Url); // Maniascript
+  const MwBuffer<CNetScriptHttpRequest*> Requests; // Maniascript
+  const uint SlotsAvailable; // Maniascript
+  bool AutomaticHeaders_Timezone; // Maniascript
 };
 
 struct CNetScriptHttpRequest : public CMwNod {
-  const string Url;
-  const wstring Result;
-  const uint StatusCode;
-  const bool IsCompleted;
+  const string Url; // Maniascript
+  const wstring Result; // Maniascript
+  const uint StatusCode; // Maniascript
+  const bool IsCompleted; // Maniascript
 };
 
 struct CNetXmpp_Timer : public CMwNod {
@@ -18773,21 +18773,21 @@ struct CNetMasterServerUserInfo : public CMwNod {
     XboxOne = 10,
     ScoreManager = 11,
   };
-  const MwId Id;
+  const MwId Id; // Maniascript
   const int UserId;
-  const string Login;
-  const wstring DisplayName;
+  const string Login; // Maniascript
+  const wstring DisplayName; // Maniascript
   const string Password;
   const string NewPassword;
   const CNetMasterServerInfo* MasterServerInfo;
-  const EMasterServerConnectionStatus ConnectionStatus;
-  const ETaskErrorType LastConnectionErrorType;
-  const uint LastConnectionErrorCode;
-  const wstring LastConnectionErrorDescription;
-  const bool HasUplayProfile;
-  const bool HasAcceptedNDA;
-  const MwBuffer<CNetUbiServicesNews*> UbiServicesSpaceNews;
-  const MwBuffer<CNetUbiServicesNews*> UbiServicesProfileNews;
+  const EMasterServerConnectionStatus ConnectionStatus; // Maniascript
+  const ETaskErrorType LastConnectionErrorType; // Maniascript
+  const uint LastConnectionErrorCode; // Maniascript
+  const wstring LastConnectionErrorDescription; // Maniascript
+  const bool HasUplayProfile; // Maniascript
+  const bool HasAcceptedNDA; // Maniascript
+  const MwBuffer<CNetUbiServicesNews*> UbiServicesSpaceNews; // Maniascript
+  const MwBuffer<CNetUbiServicesNews*> UbiServicesProfileNews; // Maniascript
 };
 
 struct CWebServicesTask : public CMwNod {
@@ -18811,15 +18811,15 @@ struct CWebServicesTaskResult : public CMwNod {
     XboxOne = 10,
     ScoreManager = 11,
   };
-  const MwId Id;
-  const bool IsProcessing;
-  const bool HasSucceeded;
-  const bool HasFailed;
-  const bool IsCanceled;
-  const ETaskErrorType ErrorType;
-  const uint ErrorCode;
-  const wstring ErrorDescription;
-  void Cancel();
+  const MwId Id; // Maniascript
+  const bool IsProcessing; // Maniascript
+  const bool HasSucceeded; // Maniascript
+  const bool HasFailed; // Maniascript
+  const bool IsCanceled; // Maniascript
+  const ETaskErrorType ErrorType; // Maniascript
+  const uint ErrorCode; // Maniascript
+  const wstring ErrorDescription; // Maniascript
+  void Cancel(); // Maniascript
 };
 
 struct CWebServicesTaskScheduler : public CMwNod {
@@ -18847,11 +18847,11 @@ struct CNetMasterServerRequestTask : public CWebServicesTaskSequence {
 };
 
 struct CWebServicesTaskResult_Bool : public CWebServicesTaskResult {
-  const bool Value;
+  const bool Value; // Maniascript
 };
 
 struct CWebServicesTaskResult_String : public CWebServicesTaskResult {
-  const string Value;
+  const string Value; // Maniascript
 };
 
 struct CNetMasterServerTask_GetClientConfigUrls : public CNetMasterServerRequestTask {
@@ -18888,9 +18888,9 @@ struct CNetMasterServerTask_Connect : public CNetMasterServerRequestTask {
 };
 
 struct CWebServicesTaskResult_Session_Get : public CWebServicesTaskResult {
-  const string SessionId;
-  const string ServerLogin;
-  const string ServerPassword;
+  const string SessionId; // Maniascript
+  const string ServerLogin; // Maniascript
+  const string ServerPassword; // Maniascript
 };
 
 struct CNetMasterServerTask_ShowProfile : public CWebServicesTaskSequence {
@@ -18915,7 +18915,7 @@ struct CNetMasterServerTask_GetFeatureTimeLimit : public CNetMasterServerRequest
 };
 
 struct CWebServicesTaskResult_Natural : public CWebServicesTaskResult {
-  const uint Value;
+  const uint Value; // Maniascript
 };
 
 struct CNetMasterServerTask_CheckFeatureTimeLimit : public CNetMasterServerRequestTask {
@@ -18928,20 +18928,20 @@ struct CWebServicesTaskResult_PlayerFeatureLimitList : public CWebServicesTaskRe
 };
 
 struct CNetUbiServicesNews : public CMwNod {
-  const MwId Id;
-  const string NewsId;
-  const string Type;
-  const string Placement;
-  const string Locale;
-  const wstring Title;
-  const wstring Body;
-  const string MediaUrl;
-  const string MediaType;
-  const uint Priority;
-  const uint DisplayTime;
-  uint GetPublicationDate(uint Month, uint Day, uint Hour, uint Minute, uint Second);
-  const uint LinksCount;
-  void GetLinkInfo(uint LinkIndex, string Type, string Param, wstring ActionName, wstring ActionDescription);
+  const MwId Id; // Maniascript
+  const string NewsId; // Maniascript
+  const string Type; // Maniascript
+  const string Placement; // Maniascript
+  const string Locale; // Maniascript
+  const wstring Title; // Maniascript
+  const wstring Body; // Maniascript
+  const string MediaUrl; // Maniascript
+  const string MediaType; // Maniascript
+  const uint Priority; // Maniascript
+  const uint DisplayTime; // Maniascript
+  uint GetPublicationDate(uint Month, uint Day, uint Hour, uint Minute, uint Second); // Maniascript
+  const uint LinksCount; // Maniascript
+  void GetLinkInfo(uint LinkIndex, string Type, string Param, wstring ActionName, wstring ActionDescription); // Maniascript
 };
 
 struct CNetMasterServerTask_GamerPic_GetUrl : public CWebServicesTaskSequence {
@@ -18966,7 +18966,7 @@ struct CWebServicesTaskResult_OpenSession : public CWebServicesTaskResult {
 };
 
 struct CWebServicesTaskResult_StringIntList : public CWebServicesTaskResult {
-  const MwBuffer<wstring> Values;
+  const MwBuffer<wstring> Values; // Maniascript
 };
 
 } // namespace Net
@@ -19053,12 +19053,12 @@ struct CInputScriptEvent : public CMwNod {
     R2 = 23,
     None = 24,
   };
-  const EType Type;
-  const CInputScriptPad* Pad;
-  const EButton Button;
-  const bool IsAutoRepeat;
-  const uint KeyCode;
-  const string KeyName;
+  const EType Type; // Maniascript
+  const CInputScriptPad* Pad; // Maniascript
+  const EButton Button; // Maniascript
+  const bool IsAutoRepeat; // Maniascript
+  const uint KeyCode; // Maniascript
+  const string KeyName; // Maniascript
 };
 
 struct CInputBindingsConfig : public CMwNod {
@@ -19132,21 +19132,21 @@ struct CInputScriptManager : public CMwNod {
     R2 = 23,
     None = 24,
   };
-  const MwBuffer<CInputScriptEvent*> PendingEvents;
-  const uint Now;
-  const uint Period;
-  const MwBuffer<CInputScriptPad*> Pads;
-  const vec2 MousePos;
-  const bool MouseLeftButton;
-  const bool MouseRightButton;
-  const bool MouseMiddleButton;
-  wstring GetPadButtonPlaygroundBinding(CInputScriptPad* Pad, EButton Button);
-  wstring GetPadButtonCurrentBinding(CInputScriptPad* Pad, EButton Button);
-  wstring GetPadButtonBinding(CInputScriptPad* Pad, EButton Button);
-  bool ExclusiveMode;
-  bool IsKeyPressed(int KeyCode);
-  uint Dbg_AutoRepeat_InitialDelay;
-  uint Dbg_AutoRepeat_Period;
+  const MwBuffer<CInputScriptEvent*> PendingEvents; // Maniascript
+  const uint Now; // Maniascript
+  const uint Period; // Maniascript
+  const MwBuffer<CInputScriptPad*> Pads; // Maniascript
+  const vec2 MousePos; // Maniascript
+  const bool MouseLeftButton; // Maniascript
+  const bool MouseRightButton; // Maniascript
+  const bool MouseMiddleButton; // Maniascript
+  wstring GetPadButtonPlaygroundBinding(CInputScriptPad* Pad, EButton Button); // Maniascript
+  wstring GetPadButtonCurrentBinding(CInputScriptPad* Pad, EButton Button); // Maniascript
+  wstring GetPadButtonBinding(CInputScriptPad* Pad, EButton Button); // Maniascript
+  bool ExclusiveMode; // Maniascript
+  bool IsKeyPressed(int KeyCode); // Maniascript
+  uint Dbg_AutoRepeat_InitialDelay; // Maniascript
+  uint Dbg_AutoRepeat_Period; // Maniascript
 };
 
 struct CInputScriptPad : public CMwNod {
@@ -19184,35 +19184,35 @@ struct CInputScriptPad : public CMwNod {
     PlayStation = 3,
     Vive = 4,
   };
-  const int ControllerId;
-  const MwId UserId;
-  const EPadType Type;
-  const wstring ModelName;
-  const uint IdleDuration;
-  const uint Left;
-  const uint Right;
-  const uint Up;
-  const uint Down;
-  const uint A;
-  const uint B;
-  const uint X;
-  const uint Y;
-  const uint L1;
-  const uint R1;
-  const uint LeftStickBut;
-  const uint RightStickBut;
-  const uint Menu;
-  const uint View;
-  const float LeftStickX; // Range: -1 - 1
-  const float LeftStickY; // Range: -1 - 1
-  const float RightStickX; // Range: -1 - 1
-  const float RightStickY; // Range: -1 - 1
-  const float L2; // Range: 0 - 1
-  const float R2; // Range: 0 - 1
-  const UnknownType ButtonEvents;
-  void ClearRumble();
-  void AddRumble(uint Duration, float LargeMotor, float SmallMotor);
-  void SetColor(vec3 Color);
+  const int ControllerId; // Maniascript
+  const MwId UserId; // Maniascript
+  const EPadType Type; // Maniascript
+  const wstring ModelName; // Maniascript
+  const uint IdleDuration; // Maniascript
+  const uint Left; // Maniascript
+  const uint Right; // Maniascript
+  const uint Up; // Maniascript
+  const uint Down; // Maniascript
+  const uint A; // Maniascript
+  const uint B; // Maniascript
+  const uint X; // Maniascript
+  const uint Y; // Maniascript
+  const uint L1; // Maniascript
+  const uint R1; // Maniascript
+  const uint LeftStickBut; // Maniascript
+  const uint RightStickBut; // Maniascript
+  const uint Menu; // Maniascript
+  const uint View; // Maniascript
+  const float LeftStickX; // Range: -1 - 1 // Maniascript
+  const float LeftStickY; // Range: -1 - 1 // Maniascript
+  const float RightStickX; // Range: -1 - 1 // Maniascript
+  const float RightStickY; // Range: -1 - 1 // Maniascript
+  const float L2; // Range: 0 - 1 // Maniascript
+  const float R2; // Range: 0 - 1 // Maniascript
+  const UnknownType ButtonEvents; // Maniascript
+  void ClearRumble(); // Maniascript
+  void AddRumble(uint Duration, float LargeMotor, float SmallMotor); // Maniascript
+  void SetColor(vec3 Color); // Maniascript
 };
 
 } // namespace Input
@@ -19220,31 +19220,31 @@ struct CInputScriptPad : public CMwNod {
 namespace Xml {
 
 struct CXmlScriptManager : public CMwNod {
-  CXmlScriptDocument* Create(string Contents);
-  CXmlScriptDocument* Create2(string Contents, bool GenerateText, bool GenerateTextRaw, bool GenerateTextResursive);
-  void Destroy(CXmlScriptDocument* Document);
-  const MwBuffer<CXmlScriptDocument*> Documents;
-  uint DocumentsSlotsLimit;
+  CXmlScriptDocument* Create(string Contents); // Maniascript
+  CXmlScriptDocument* Create2(string Contents, bool GenerateText, bool GenerateTextRaw, bool GenerateTextResursive); // Maniascript
+  void Destroy(CXmlScriptDocument* Document); // Maniascript
+  const MwBuffer<CXmlScriptDocument*> Documents; // Maniascript
+  uint DocumentsSlotsLimit; // Maniascript
 };
 
 struct CXmlScriptDocument : public CMwNod {
-  const string TextContents;
-  const CXmlScriptNode* Root;
-  const MwBuffer<CXmlScriptNode*> Nodes;
-  CXmlScriptNode* GetFirstChild(string Name);
+  const string TextContents; // Maniascript
+  const CXmlScriptNode* Root; // Maniascript
+  const MwBuffer<CXmlScriptNode*> Nodes; // Maniascript
+  CXmlScriptNode* GetFirstChild(string Name); // Maniascript
 };
 
 struct CXmlScriptNode : public CMwNod {
-  const wstring Name;
-  const wstring TextContents;
-  const string TextRawContents;
-  const string TextRecursiveContents;
-  const MwBuffer<CXmlScriptNode*> Children;
-  wstring GetAttributeText(wstring Name, wstring DefaultValue);
-  int GetAttributeInteger(wstring Name, int DefaultValue);
-  float GetAttributeReal(wstring Name, float DefaultValue);
-  bool GetAttributeBoolean(wstring Name, bool DefaultValue);
-  CXmlScriptNode* GetFirstChild(string Name);
+  const wstring Name; // Maniascript
+  const wstring TextContents; // Maniascript
+  const string TextRawContents; // Maniascript
+  const string TextRecursiveContents; // Maniascript
+  const MwBuffer<CXmlScriptNode*> Children; // Maniascript
+  wstring GetAttributeText(wstring Name, wstring DefaultValue); // Maniascript
+  int GetAttributeInteger(wstring Name, int DefaultValue); // Maniascript
+  float GetAttributeReal(wstring Name, float DefaultValue); // Maniascript
+  bool GetAttributeBoolean(wstring Name, bool DefaultValue); // Maniascript
+  CXmlScriptNode* GetFirstChild(string Name); // Maniascript
 };
 
 } // namespace Xml
@@ -19379,79 +19379,79 @@ struct CTrackManiaRaceRules : public CGamePlaygroundScript {
     Latest = 1,
     FastestRace = 2,
   };
-  const MwBuffer<CTmRaceRulesPlayer*> AllPlayers;
-  const MwBuffer<CTmRaceRulesPlayer*> Spectators;
-  const MwBuffer<CTmRaceRulesPlayer*> Players;
-  const MwBuffer<CTmRaceRulesPlayer*> PlayersRacing;
-  const MwBuffer<CTmRaceRulesPlayer*> PlayersWaiting;
-  const MwBuffer<CTmRaceRulesScore*> Scores;
-  uint Clan1Score;
-  uint Clan2Score;
-  MwArray<int> ClanScores;
-  const uint ClansNbTotal;
-  const MwBuffer<uint> ClansNbPlayers;
-  const MwBuffer<CTmRaceRulesEvent*> PendingEvents;
-  bool PassOn(CTmRaceRulesEvent* Event);
-  void Discard(CTmRaceRulesEvent* Event);
-  void SpawnPlayer(CTmRaceRulesPlayer* Player, int ClanNum, int RaceStartTime);
-  void UnspawnPlayer(CTmRaceRulesPlayer* Player);
-  void SetPlayerClan(CTmRaceRulesPlayer* Player, int ClanNum);
-  void Scores_Sort(ETmScoreSortOrder SortOrder);
-  void Scores_Clear();
-  void Ladder_ComputeRank(ETmScoreSortOrder SortOrder);
-  int CutOffTimeLimit;
-  int NbLaps;
-  bool IndependantLaps;
-  bool UseClans;
-  bool UseForcedClans;
-  ETMRespawnBehaviour RespawnBehaviour;
-  bool UiRounds;
-  bool UiLaps;
-  bool UiStuntsMode;
-  bool UiDisplayStuntsNames;
-  bool UiDisableHelpMessage;
-  int UiScoresPointsLimit;
-  ETmRaceChronoBehaviour UiRaceChrono;
-  void Cheats_Reset();
-  bool EnableCollisions;
-  bool EnableScaleCar;
-  bool EnableCheckpointBonus;
-  bool EnableUniqueCamera;
-  bool EnableBonusEvents;
-  bool HideOpponents;
-  uint ForceMaxOpponents;
-  bool EnableLegacyXmlRpcCallbacks;
-  bool MedalGhost_ShowGold;
-  bool MedalGhost_ShowSilver;
-  bool MedalGhost_ShowBronze;
-  EPersonalGhost PersonalGhost;
-  bool StuntModel_EnableCustomisation;
-  bool StuntModel_MP3Combo;
-  bool StuntModel_MP3Points;
-  bool StuntModel_UseStricterAngle;
-  uint StuntModel_MinStuntDuration;
-  uint StuntModel_RespawnPenalty;
-  uint StuntModel_InterComboDelay;
-  uint StuntModel_InterComboDelayExtendPerPoint;
-  float StuntModel_FigureRepeatMalus;
-  MwId RaceGhost_Add(CGameGhostScript* Ghost, bool DisplayAsPlayerBest);
-  MwId RaceGhost_AddWithOffset(CGameGhostScript* Ghost, uint OffsetMs);
-  MwId RaceGhost_AddModel(CGameGhostScript* Ghost, bool DisplayAsPlayerBest, MwId ModelId);
-  void RaceGhost_Remove(MwId GhostInstId);
-  void RaceGhost_RemoveAll();
-  uint RaceGhost_GetStartTime(MwId GhostInstId);
-  uint RaceGhost_GetCurCheckpoint(MwId GhostInstId);
-  uint RaceGhost_GetCheckpointTime(MwId GhostInstId, uint Checkpoint);
-  bool RaceGhost_IsReplayOver(MwId GhostInstId);
-  const vec3 MapStartLinePos;
-  const MwBuffer<vec3> MapCheckpointPos;
-  const MwBuffer<vec3> MapFinishLinePos;
-  const bool MapIsLapRace;
-  const uint MapNbLaps;
-  const MwBuffer<CTmRaceRulesPlayer*> ConnectedPlayers;
-  void FakePlayers_Add(wstring NickName);
-  void FakePlayers_Remove(CGamePlayerInfo* User);
-  void FakePlayers_RemoveAll();
+  const MwBuffer<CTmRaceRulesPlayer*> AllPlayers; // Maniascript
+  const MwBuffer<CTmRaceRulesPlayer*> Spectators; // Maniascript
+  const MwBuffer<CTmRaceRulesPlayer*> Players; // Maniascript
+  const MwBuffer<CTmRaceRulesPlayer*> PlayersRacing; // Maniascript
+  const MwBuffer<CTmRaceRulesPlayer*> PlayersWaiting; // Maniascript
+  const MwBuffer<CTmRaceRulesScore*> Scores; // Maniascript
+  uint Clan1Score; // Maniascript
+  uint Clan2Score; // Maniascript
+  MwArray<int> ClanScores; // Maniascript
+  const uint ClansNbTotal; // Maniascript
+  const MwBuffer<uint> ClansNbPlayers; // Maniascript
+  const MwBuffer<CTmRaceRulesEvent*> PendingEvents; // Maniascript
+  bool PassOn(CTmRaceRulesEvent* Event); // Maniascript
+  void Discard(CTmRaceRulesEvent* Event); // Maniascript
+  void SpawnPlayer(CTmRaceRulesPlayer* Player, int ClanNum, int RaceStartTime); // Maniascript
+  void UnspawnPlayer(CTmRaceRulesPlayer* Player); // Maniascript
+  void SetPlayerClan(CTmRaceRulesPlayer* Player, int ClanNum); // Maniascript
+  void Scores_Sort(ETmScoreSortOrder SortOrder); // Maniascript
+  void Scores_Clear(); // Maniascript
+  void Ladder_ComputeRank(ETmScoreSortOrder SortOrder); // Maniascript
+  int CutOffTimeLimit; // Maniascript
+  int NbLaps; // Maniascript
+  bool IndependantLaps; // Maniascript
+  bool UseClans; // Maniascript
+  bool UseForcedClans; // Maniascript
+  ETMRespawnBehaviour RespawnBehaviour; // Maniascript
+  bool UiRounds; // Maniascript
+  bool UiLaps; // Maniascript
+  bool UiStuntsMode; // Maniascript
+  bool UiDisplayStuntsNames; // Maniascript
+  bool UiDisableHelpMessage; // Maniascript
+  int UiScoresPointsLimit; // Maniascript
+  ETmRaceChronoBehaviour UiRaceChrono; // Maniascript
+  void Cheats_Reset(); // Maniascript
+  bool EnableCollisions; // Maniascript
+  bool EnableScaleCar; // Maniascript
+  bool EnableCheckpointBonus; // Maniascript
+  bool EnableUniqueCamera; // Maniascript
+  bool EnableBonusEvents; // Maniascript
+  bool HideOpponents; // Maniascript
+  uint ForceMaxOpponents; // Maniascript
+  bool EnableLegacyXmlRpcCallbacks; // Maniascript
+  bool MedalGhost_ShowGold; // Maniascript
+  bool MedalGhost_ShowSilver; // Maniascript
+  bool MedalGhost_ShowBronze; // Maniascript
+  EPersonalGhost PersonalGhost; // Maniascript
+  bool StuntModel_EnableCustomisation; // Maniascript
+  bool StuntModel_MP3Combo; // Maniascript
+  bool StuntModel_MP3Points; // Maniascript
+  bool StuntModel_UseStricterAngle; // Maniascript
+  uint StuntModel_MinStuntDuration; // Maniascript
+  uint StuntModel_RespawnPenalty; // Maniascript
+  uint StuntModel_InterComboDelay; // Maniascript
+  uint StuntModel_InterComboDelayExtendPerPoint; // Maniascript
+  float StuntModel_FigureRepeatMalus; // Maniascript
+  MwId RaceGhost_Add(CGameGhostScript* Ghost, bool DisplayAsPlayerBest); // Maniascript
+  MwId RaceGhost_AddWithOffset(CGameGhostScript* Ghost, uint OffsetMs); // Maniascript
+  MwId RaceGhost_AddModel(CGameGhostScript* Ghost, bool DisplayAsPlayerBest, MwId ModelId); // Maniascript
+  void RaceGhost_Remove(MwId GhostInstId); // Maniascript
+  void RaceGhost_RemoveAll(); // Maniascript
+  uint RaceGhost_GetStartTime(MwId GhostInstId); // Maniascript
+  uint RaceGhost_GetCurCheckpoint(MwId GhostInstId); // Maniascript
+  uint RaceGhost_GetCheckpointTime(MwId GhostInstId, uint Checkpoint); // Maniascript
+  bool RaceGhost_IsReplayOver(MwId GhostInstId); // Maniascript
+  const vec3 MapStartLinePos; // Maniascript
+  const MwBuffer<vec3> MapCheckpointPos; // Maniascript
+  const MwBuffer<vec3> MapFinishLinePos; // Maniascript
+  const bool MapIsLapRace; // Maniascript
+  const uint MapNbLaps; // Maniascript
+  const MwBuffer<CTmRaceRulesPlayer*> ConnectedPlayers; // Maniascript
+  void FakePlayers_Add(wstring NickName); // Maniascript
+  void FakePlayers_Remove(CGamePlayerInfo* User); // Maniascript
+  void FakePlayers_RemoveAll(); // Maniascript
 };
 
 struct CTrackManiaRace1P : public CTrackManiaRace {
@@ -19460,14 +19460,14 @@ struct CTrackManiaRace1P : public CTrackManiaRace {
 };
 
 struct CTmRaceRulesScore : public CGamePlaygroundScore {
-  const uint TeamNum;
-  int Points;
-  CTmRaceResultNod* BestRace;
-  CTmRaceResultNod* BestLap;
-  int PrevRaceDeltaPoints;
-  CTmRaceResultNod* PrevRace;
-  CTmRaceResultNod* TempResult;
-  void Clear();
+  const uint TeamNum; // Maniascript
+  int Points; // Maniascript
+  CTmRaceResultNod* BestRace; // Maniascript
+  CTmRaceResultNod* BestLap; // Maniascript
+  int PrevRaceDeltaPoints; // Maniascript
+  CTmRaceResultNod* PrevRace; // Maniascript
+  CTmRaceResultNod* TempResult; // Maniascript
+  void Clear(); // Maniascript
 };
 
 // File extension: 'TrackManiaMenus.Gbx'
@@ -19693,122 +19693,122 @@ struct CTrackManiaPlayer : public CGamePlayer {
     Grind = 36,
     Reset = 37,
   };
-  const int CurrentClan;
-  const ERaceState RaceState;
-  const bool IsSpawned;
-  CTrackManiaScore* Score;
-  const uint RaceStartTime;
-  const uint LapStartTime;
-  CTmRaceResultNod* CurRace;
-  CTmRaceResultNod* CurLap;
-  const uint CurrentNbLaps;
-  const int CurTriggerIndex;
-  const uint CurCheckpointRaceTime;
-  const uint CurCheckpointLapTime;
-  const int CoopSymbiosysPercentTotal;
-  const uint CoopCheckpointCurController;
-  const ETmRacePlayerCoopMode CoopMode;
-  const uint ControllerCount;
-  const int ControllerId0;
-  const int ControllerId1;
-  const int ControllerId2;
-  const int ControllerId3;
-  const uint CoopModeControllerCount;
-  const int CoopModeControllerId0;
-  const int CoopModeControllerId1;
-  const int CoopModeControllerId2;
-  const int CoopModeControllerId3;
-  const bool ForcedAerialCamera;
-  const bool ButtonSmashFrenzy;
-  const bool EnableTurboButton;
-  const bool MaxiAirControl;
-  const bool EnableEmptyCars;
-  const ETmJumpMode JumpMode;
-  const bool TinyCar;
-  const bool EnableCatchUpSpeed;
-  const bool EnableStuntMode;
-  const bool EnableOnlineMode;
-  const float AccelCoef;
-  const float ControlCoef;
-  const float GravityCoef;
-  const vec3 Position;
-  const vec3 AimDirection;
-  const float AimYaw;
-  const float AimPitch;
-  const float Upwardness;
-  const uint CurRaceContinuousRank;
-  const float Distance;
-  const float Speed;
-  const uint DisplaySpeed;
-  const float InputSteer;
-  const float InputGasPedal;
-  const bool InputIsBraking;
-  const float EngineRpm;
-  const int EngineCurGear;
-  const float EngineTurboRatio;
-  const uint WheelsContactCount;
-  const uint WheelsSkiddingCount;
-  const float DamageHullRatio;
-  const float DamageWindowRatio;
-  const uint InWaterDuration;
-  const uint FreeWheelingDuration;
-  const uint FlyingDuration;
-  const uint SparklingDuration;
-  const uint LightTrailsDuration;
-  const uint SkiddingDuration;
-  const float SkiddingDistance;
-  const float FlyingDistance;
-  const uint StuntLastTime;
-  const ESceneVehiclePhyStuntFigure StuntLast;
-  const uint StuntAngle;
-  const uint StuntPoints;
-  const uint StuntCombo;
-  const float StuntFactor;
-  const bool StuntStraightLanding;
-  const bool StuntReverseLanding;
-  const bool StuntPerfectLanding;
-  const bool StuntMasterJump;
-  const bool StuntMasterLanding;
-  const bool StuntEpicLanding;
-  const bool StuntIsInFigure;
-  const bool StuntCurFigureMasterJump;
-  const float StuntCurFigureMasterGauge; // Range: 0 - 1
-  const float StuntCurFigureEpicGauge; // Range: 0 - 1
-  const bool StuntCurComboChainCounter;
-  const uint TimeLeftForStuntCombo;
-  const uint TimeElapsedSinceLastStunt;
-  const bool BonusModeIsJump;
-  const bool BonusModeIsTurbo;
-  const bool BonusModeIsMiniCar;
-  const bool BonusModeIsBigCar;
-  const bool BonusModeIsEmptyCars;
-  const bool BonusModeIsSpeedyCars;
-  const bool BonusModeIsGold;
-  const uint BonusModeEmptyCarsStock;
-  const uint BonusModeTurboStock;
-  const uint BonusModeJumpStock;
-  const uint BonusBumpCooldown;
-  const bool BonusIsPossible;
-  const uint BonusModeTimeTillEvent;
-  const uint BonusModeTimeTillEndEvent;
-  const uint BonusModeTimeTillEventWarning;
-  const ETmBonusModeEventType BonusModeEventType;
-  const bool BonusModeEventIsGold;
-  const uint StuntTurboGauge;
-  const uint StuntTurboGaugeMax;
-  const float StuntJumpCharge;
-  const bool StuntStickNeedHelp;
-  const bool StuntJumpNeedHelp;
-  void StuntStateReset();
-  const float StuntMasterCharge;
-  const float StuntEpicCharge;
-  const uint UniqueCameraRespawnCount;
-  const uint UniqueCameraAvailableRespawnLeft;
-  const uint TimeTillSmashRespawn;
-  const uint TimeTillSmashGiveUp;
-  const bool SmashNeedHelp;
-  const int TimeBeforeDeadlyZone;
-  const bool IsDeadlyZoneActive;
+  const int CurrentClan; // Maniascript
+  const ERaceState RaceState; // Maniascript
+  const bool IsSpawned; // Maniascript
+  CTrackManiaScore* Score; // Maniascript
+  const uint RaceStartTime; // Maniascript
+  const uint LapStartTime; // Maniascript
+  CTmRaceResultNod* CurRace; // Maniascript
+  CTmRaceResultNod* CurLap; // Maniascript
+  const uint CurrentNbLaps; // Maniascript
+  const int CurTriggerIndex; // Maniascript
+  const uint CurCheckpointRaceTime; // Maniascript
+  const uint CurCheckpointLapTime; // Maniascript
+  const int CoopSymbiosysPercentTotal; // Maniascript
+  const uint CoopCheckpointCurController; // Maniascript
+  const ETmRacePlayerCoopMode CoopMode; // Maniascript
+  const uint ControllerCount; // Maniascript
+  const int ControllerId0; // Maniascript
+  const int ControllerId1; // Maniascript
+  const int ControllerId2; // Maniascript
+  const int ControllerId3; // Maniascript
+  const uint CoopModeControllerCount; // Maniascript
+  const int CoopModeControllerId0; // Maniascript
+  const int CoopModeControllerId1; // Maniascript
+  const int CoopModeControllerId2; // Maniascript
+  const int CoopModeControllerId3; // Maniascript
+  const bool ForcedAerialCamera; // Maniascript
+  const bool ButtonSmashFrenzy; // Maniascript
+  const bool EnableTurboButton; // Maniascript
+  const bool MaxiAirControl; // Maniascript
+  const bool EnableEmptyCars; // Maniascript
+  const ETmJumpMode JumpMode; // Maniascript
+  const bool TinyCar; // Maniascript
+  const bool EnableCatchUpSpeed; // Maniascript
+  const bool EnableStuntMode; // Maniascript
+  const bool EnableOnlineMode; // Maniascript
+  const float AccelCoef; // Maniascript
+  const float ControlCoef; // Maniascript
+  const float GravityCoef; // Maniascript
+  const vec3 Position; // Maniascript
+  const vec3 AimDirection; // Maniascript
+  const float AimYaw; // Maniascript
+  const float AimPitch; // Maniascript
+  const float Upwardness; // Maniascript
+  const uint CurRaceContinuousRank; // Maniascript
+  const float Distance; // Maniascript
+  const float Speed; // Maniascript
+  const uint DisplaySpeed; // Maniascript
+  const float InputSteer; // Maniascript
+  const float InputGasPedal; // Maniascript
+  const bool InputIsBraking; // Maniascript
+  const float EngineRpm; // Maniascript
+  const int EngineCurGear; // Maniascript
+  const float EngineTurboRatio; // Maniascript
+  const uint WheelsContactCount; // Maniascript
+  const uint WheelsSkiddingCount; // Maniascript
+  const float DamageHullRatio; // Maniascript
+  const float DamageWindowRatio; // Maniascript
+  const uint InWaterDuration; // Maniascript
+  const uint FreeWheelingDuration; // Maniascript
+  const uint FlyingDuration; // Maniascript
+  const uint SparklingDuration; // Maniascript
+  const uint LightTrailsDuration; // Maniascript
+  const uint SkiddingDuration; // Maniascript
+  const float SkiddingDistance; // Maniascript
+  const float FlyingDistance; // Maniascript
+  const uint StuntLastTime; // Maniascript
+  const ESceneVehiclePhyStuntFigure StuntLast; // Maniascript
+  const uint StuntAngle; // Maniascript
+  const uint StuntPoints; // Maniascript
+  const uint StuntCombo; // Maniascript
+  const float StuntFactor; // Maniascript
+  const bool StuntStraightLanding; // Maniascript
+  const bool StuntReverseLanding; // Maniascript
+  const bool StuntPerfectLanding; // Maniascript
+  const bool StuntMasterJump; // Maniascript
+  const bool StuntMasterLanding; // Maniascript
+  const bool StuntEpicLanding; // Maniascript
+  const bool StuntIsInFigure; // Maniascript
+  const bool StuntCurFigureMasterJump; // Maniascript
+  const float StuntCurFigureMasterGauge; // Range: 0 - 1 // Maniascript
+  const float StuntCurFigureEpicGauge; // Range: 0 - 1 // Maniascript
+  const bool StuntCurComboChainCounter; // Maniascript
+  const uint TimeLeftForStuntCombo; // Maniascript
+  const uint TimeElapsedSinceLastStunt; // Maniascript
+  const bool BonusModeIsJump; // Maniascript
+  const bool BonusModeIsTurbo; // Maniascript
+  const bool BonusModeIsMiniCar; // Maniascript
+  const bool BonusModeIsBigCar; // Maniascript
+  const bool BonusModeIsEmptyCars; // Maniascript
+  const bool BonusModeIsSpeedyCars; // Maniascript
+  const bool BonusModeIsGold; // Maniascript
+  const uint BonusModeEmptyCarsStock; // Maniascript
+  const uint BonusModeTurboStock; // Maniascript
+  const uint BonusModeJumpStock; // Maniascript
+  const uint BonusBumpCooldown; // Maniascript
+  const bool BonusIsPossible; // Maniascript
+  const uint BonusModeTimeTillEvent; // Maniascript
+  const uint BonusModeTimeTillEndEvent; // Maniascript
+  const uint BonusModeTimeTillEventWarning; // Maniascript
+  const ETmBonusModeEventType BonusModeEventType; // Maniascript
+  const bool BonusModeEventIsGold; // Maniascript
+  const uint StuntTurboGauge; // Maniascript
+  const uint StuntTurboGaugeMax; // Maniascript
+  const float StuntJumpCharge; // Maniascript
+  const bool StuntStickNeedHelp; // Maniascript
+  const bool StuntJumpNeedHelp; // Maniascript
+  void StuntStateReset(); // Maniascript
+  const float StuntMasterCharge; // Maniascript
+  const float StuntEpicCharge; // Maniascript
+  const uint UniqueCameraRespawnCount; // Maniascript
+  const uint UniqueCameraAvailableRespawnLeft; // Maniascript
+  const uint TimeTillSmashRespawn; // Maniascript
+  const uint TimeTillSmashGiveUp; // Maniascript
+  const bool SmashNeedHelp; // Maniascript
+  const int TimeBeforeDeadlyZone; // Maniascript
+  const bool IsDeadlyZoneActive; // Maniascript
   uint BonusEventStartTime;
   uint BonusEventDuration;
   uint BonusEventWarningDuration;
@@ -19918,45 +19918,45 @@ struct CTmRaceRulesPlayer : public CGamePlayer {
     Double = 2,
     Infinite = 3,
   };
-  const int CurrentClan;
-  const CTmRaceRulesScore* Score;
-  int RaceStartTime;
-  bool IsSpawned;
-  CTmRaceResultNod* CurRace;
-  CTmRaceResultNod* CurLap;
-  int CurrentNbLaps;
-  const int CurTriggerIndex;
-  const vec3 Position;
-  const float AimYaw;
-  const float AimPitch;
-  const vec3 AimDirection;
-  const vec3 Velocity;
-  const float Speed;
-  MwId ForceModelId;
-  float AccelCoef;
-  float ControlCoef;
-  float GravityCoef;
-  ETmRacePlayerCoopMode CoopMode;
-  uint ControllerCount;
-  int ControllerId0;
-  int ControllerId1;
-  int ControllerId2;
-  int ControllerId3;
-  uint CoopModeControllerCount;
-  int CoopModeControllerId0;
-  int CoopModeControllerId1;
-  int CoopModeControllerId2;
-  int CoopModeControllerId3;
-  bool ForcedAerialCamera;
-  bool ButtonSmashFrenzy;
-  bool EnableTurboButton;
-  bool MaxiAirControl;
-  bool EnableEmptyCars;
-  ETmJumpMode JumpMode;
-  bool TinyCar;
-  bool EnableCatchUpSpeed;
-  bool EnableStuntMode;
-  bool EnableOnlineMode;
+  const int CurrentClan; // Maniascript
+  const CTmRaceRulesScore* Score; // Maniascript
+  int RaceStartTime; // Maniascript
+  bool IsSpawned; // Maniascript
+  CTmRaceResultNod* CurRace; // Maniascript
+  CTmRaceResultNod* CurLap; // Maniascript
+  int CurrentNbLaps; // Maniascript
+  const int CurTriggerIndex; // Maniascript
+  const vec3 Position; // Maniascript
+  const float AimYaw; // Maniascript
+  const float AimPitch; // Maniascript
+  const vec3 AimDirection; // Maniascript
+  const vec3 Velocity; // Maniascript
+  const float Speed; // Maniascript
+  MwId ForceModelId; // Maniascript
+  float AccelCoef; // Maniascript
+  float ControlCoef; // Maniascript
+  float GravityCoef; // Maniascript
+  ETmRacePlayerCoopMode CoopMode; // Maniascript
+  uint ControllerCount; // Maniascript
+  int ControllerId0; // Maniascript
+  int ControllerId1; // Maniascript
+  int ControllerId2; // Maniascript
+  int ControllerId3; // Maniascript
+  uint CoopModeControllerCount; // Maniascript
+  int CoopModeControllerId0; // Maniascript
+  int CoopModeControllerId1; // Maniascript
+  int CoopModeControllerId2; // Maniascript
+  int CoopModeControllerId3; // Maniascript
+  bool ForcedAerialCamera; // Maniascript
+  bool ButtonSmashFrenzy; // Maniascript
+  bool EnableTurboButton; // Maniascript
+  bool MaxiAirControl; // Maniascript
+  bool EnableEmptyCars; // Maniascript
+  ETmJumpMode JumpMode; // Maniascript
+  bool TinyCar; // Maniascript
+  bool EnableCatchUpSpeed; // Maniascript
+  bool EnableStuntMode; // Maniascript
+  bool EnableOnlineMode; // Maniascript
 };
 
 struct CTrackManiaMatchSettings : public CGameFid {
@@ -20071,39 +20071,39 @@ struct CTmRaceRulesEvent : public CMwNod {
     Grind = 36,
     Reset = 37,
   };
-  const EType Type;
-  const CTmRaceRulesPlayer* Player;
-  uint RaceTime;
-  const uint CheckpointInRace;
-  const uint CheckpointInLap;
-  const bool IsEndLap;
-  const bool IsEndRace;
-  uint LapTime;
-  int StuntsScore;
-  uint NbRespawns;
-  const MwId BlockId;
-  float Speed;
-  float Distance;
-  float Damages;
-  const EStuntFigure StuntFigure;
-  const uint Angle;
-  const uint Points;
-  const float Factor;
-  const uint Combo;
-  const bool IsStraight;
-  const bool IsReverse;
-  const bool IsPerfectLanding;
-  const bool IsMasterJump;
-  const bool IsMasterLanding;
-  const bool IsEpicLanding;
-  const CGamePlayerInfo* User;
-  const bool PlayerWasSpawned;
-  const bool PlayerWasInLadderMatch;
-  const string CommandName;
-  const bool CommandValueBoolean;
-  const int CommandValueInteger;
-  const float CommandValueReal;
-  const wstring CommandValueText;
+  const EType Type; // Maniascript
+  const CTmRaceRulesPlayer* Player; // Maniascript
+  uint RaceTime; // Maniascript
+  const uint CheckpointInRace; // Maniascript
+  const uint CheckpointInLap; // Maniascript
+  const bool IsEndLap; // Maniascript
+  const bool IsEndRace; // Maniascript
+  uint LapTime; // Maniascript
+  int StuntsScore; // Maniascript
+  uint NbRespawns; // Maniascript
+  const MwId BlockId; // Maniascript
+  float Speed; // Maniascript
+  float Distance; // Maniascript
+  float Damages; // Maniascript
+  const EStuntFigure StuntFigure; // Maniascript
+  const uint Angle; // Maniascript
+  const uint Points; // Maniascript
+  const float Factor; // Maniascript
+  const uint Combo; // Maniascript
+  const bool IsStraight; // Maniascript
+  const bool IsReverse; // Maniascript
+  const bool IsPerfectLanding; // Maniascript
+  const bool IsMasterJump; // Maniascript
+  const bool IsMasterLanding; // Maniascript
+  const bool IsEpicLanding; // Maniascript
+  const CGamePlayerInfo* User; // Maniascript
+  const bool PlayerWasSpawned; // Maniascript
+  const bool PlayerWasInLadderMatch; // Maniascript
+  const string CommandName; // Maniascript
+  const bool CommandValueBoolean; // Maniascript
+  const int CommandValueInteger; // Maniascript
+  const float CommandValueReal; // Maniascript
+  const wstring CommandValueText; // Maniascript
 };
 
 struct CTrackManiaRaceNetLaps : public CTrackManiaRaceNet {
@@ -20113,22 +20113,22 @@ struct CTrackManiaRaceNetLaps : public CTrackManiaRaceNet {
 };
 
 struct CTmRaceInterfaceManialinkScripHandler : public CGameScriptHandlerPlaygroundInterface {
-  const CTrackManiaPlayer* InputPlayer;
-  const CTrackManiaPlayer* GUIPlayer;
-  const MwBuffer<CTmRaceClientEvent*> RaceEvents;
-  const uint NbLaps;
-  const bool IndependantLaps;
-  const MwBuffer<CTrackManiaPlayer*> Players;
-  const MwBuffer<CTmRaceRulesScore*> Scores;
-  const MwBuffer<int> ClanScores;
-  const uint SplitScreenNum;
-  const uint SplitScreenCount;
-  uint CurPlayerCamera;
-  const vec3 MapStartLinePos;
-  const MwBuffer<vec3> MapCheckpointPos;
-  const MwBuffer<vec3> MapFinishLinePos;
-  const bool MapIsLapRace;
-  const uint MapNbLaps;
+  const CTrackManiaPlayer* InputPlayer; // Maniascript
+  const CTrackManiaPlayer* GUIPlayer; // Maniascript
+  const MwBuffer<CTmRaceClientEvent*> RaceEvents; // Maniascript
+  const uint NbLaps; // Maniascript
+  const bool IndependantLaps; // Maniascript
+  const MwBuffer<CTrackManiaPlayer*> Players; // Maniascript
+  const MwBuffer<CTmRaceRulesScore*> Scores; // Maniascript
+  const MwBuffer<int> ClanScores; // Maniascript
+  const uint SplitScreenNum; // Maniascript
+  const uint SplitScreenCount; // Maniascript
+  uint CurPlayerCamera; // Maniascript
+  const vec3 MapStartLinePos; // Maniascript
+  const MwBuffer<vec3> MapCheckpointPos; // Maniascript
+  const MwBuffer<vec3> MapFinishLinePos; // Maniascript
+  const bool MapIsLapRace; // Maniascript
+  const uint MapNbLaps; // Maniascript
 };
 
 // File extension: '.Frame.Gbx'
@@ -20328,10 +20328,10 @@ struct CTrackManiaRaceAnalyzer : public CGameAnalyzer {
 };
 
 struct CTmEditorPluginMapType : public CGameEditorPluginMapMapType {
-  const CTrackManiaRaceRules* Mode;
-  void TMObjective_SetFromBestRace(CTmRaceRulesScore* Score);
-  const MwBuffer<CTmRaceRulesPlayer*> AllPlayers;
-  const MwBuffer<CTmRaceRulesPlayer*> Players;
+  const CTrackManiaRaceRules* Mode; // Maniascript
+  void TMObjective_SetFromBestRace(CTmRaceRulesScore* Score); // Maniascript
+  const MwBuffer<CTmRaceRulesPlayer*> AllPlayers; // Maniascript
+  const MwBuffer<CTmRaceRulesPlayer*> Players; // Maniascript
 };
 
 struct CTmRaceClientEvent : public CMwNod {
@@ -20349,16 +20349,16 @@ struct CTmRaceClientEvent : public CMwNod {
     StartEngine = 10,
     AirSpawnRelease = 11,
   };
-  const EType Type;
-  const CTrackManiaPlayer* Player;
-  const uint CheckpointInRace;
-  const uint CheckpointInLap;
-  const bool IsEndRace;
-  const bool IsEndLap;
-  const uint RaceTime;
-  const uint LapTime;
-  const int StuntsScore;
-  const uint NbRespawns;
+  const EType Type; // Maniascript
+  const CTrackManiaPlayer* Player; // Maniascript
+  const uint CheckpointInRace; // Maniascript
+  const uint CheckpointInLap; // Maniascript
+  const bool IsEndRace; // Maniascript
+  const bool IsEndLap; // Maniascript
+  const uint RaceTime; // Maniascript
+  const uint LapTime; // Maniascript
+  const int StuntsScore; // Maniascript
+  const uint NbRespawns; // Maniascript
 };
 
 struct CGamePlayerProfileChunk_TrackManiaSettings : public CGamePlayerProfileChunk {
@@ -20418,28 +20418,28 @@ struct CShootMania : public CGameManiaTitleCore {
 };
 
 struct CSmArenaInterfaceManialinkScripHandler : public CGameScriptHandlerPlaygroundInterface {
-  const int ArenaNow;
-  const CSmPlayer* InputPlayer;
-  const CSmPlayer* GUIPlayer;
-  const MwBuffer<CSmPlayer*> Players;
-  const MwBuffer<CSmArenaScore*> Scores;
-  const MwBuffer<int> ClanScores;
-  const MwBuffer<CSmScriptBase*> Bases;
-  const MwBuffer<CSmScriptBlock*> Blocks;
-  const MwBuffer<CSmScriptBlockSpawn*> BlockSpawns;
-  const MwBuffer<CSmScriptBlockPole*> BlockPoles;
-  const MwBuffer<CSmScriptBotPath*> BotPaths;
-  const MwBuffer<CSmScriptObjectAnchor*> ObjectAnchors;
-  bool HideResumePlayingButton;
-  const MwBuffer<CSmScriptMapBase*> MapBases;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_PlayerSpawn;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Gauge;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Sector;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_BotPath;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_BotSpawn;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_ObjectAnchor;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Gate;
+  const int ArenaNow; // Maniascript
+  const CSmPlayer* InputPlayer; // Maniascript
+  const CSmPlayer* GUIPlayer; // Maniascript
+  const MwBuffer<CSmPlayer*> Players; // Maniascript
+  const MwBuffer<CSmArenaScore*> Scores; // Maniascript
+  const MwBuffer<int> ClanScores; // Maniascript
+  const MwBuffer<CSmScriptBase*> Bases; // Maniascript
+  const MwBuffer<CSmScriptBlock*> Blocks; // Maniascript
+  const MwBuffer<CSmScriptBlockSpawn*> BlockSpawns; // Maniascript
+  const MwBuffer<CSmScriptBlockPole*> BlockPoles; // Maniascript
+  const MwBuffer<CSmScriptBotPath*> BotPaths; // Maniascript
+  const MwBuffer<CSmScriptObjectAnchor*> ObjectAnchors; // Maniascript
+  bool HideResumePlayingButton; // Maniascript
+  const MwBuffer<CSmScriptMapBase*> MapBases; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_PlayerSpawn; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Gauge; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Sector; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_BotPath; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_BotSpawn; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_ObjectAnchor; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Gate; // Maniascript
 };
 
 struct CSmArenaClient : public CGamePlaygroundCommon {
@@ -20464,16 +20464,16 @@ struct CSmArenaClient : public CGamePlaygroundCommon {
 };
 
 struct CSmArenaScore : public CGamePlaygroundScore {
-  const uint TeamNum;
-  uint Points;
-  uint RoundPoints;
-  const uint NbEliminationsInflicted;
-  const uint NbEliminationsTaken;
-  const uint NbRespawnsRequested;
-  const uint DamageInflicted;
-  const uint DamageTaken;
-  void Reset();
-  void Clear();
+  const uint TeamNum; // Maniascript
+  uint Points; // Maniascript
+  uint RoundPoints; // Maniascript
+  const uint NbEliminationsInflicted; // Maniascript
+  const uint NbEliminationsTaken; // Maniascript
+  const uint NbRespawnsRequested; // Maniascript
+  const uint DamageInflicted; // Maniascript
+  const uint DamageTaken; // Maniascript
+  void Reset(); // Maniascript
+  void Clear(); // Maniascript
   uint NbEliminationsInflicted_Ed;
   uint NbEliminationsTaken_Ed;
   uint NbRespawnsRequested_Ed;
@@ -20483,57 +20483,57 @@ struct CSmArenaScore : public CGamePlaygroundScore {
 
 struct CSmActionInstance : public CMwNod {
   const CGameActionModel* Model;
-  const uint Now;
-  const uint Variant;
-  MwBuffer<CSmPlayer*> Players;
-  CSmPlayer* Owner;
-  const bool IsActive;
-  const bool IsBound;
-  uint Energy;
-  uint EnergyMax;
-  uint EnergyCost;
-  bool EnergyReload;
-  float AmmoGain;
-  MwId State_EntityId1;
-  int State_Integer1;
-  bool State_Boolean1;
-  const MwBuffer<CSmActionInstanceEvent*> PendingEvents;
-  bool IsJumping;
-  bool IsGliding;
-  bool IsAttractor;
-  bool IsFlying;
-  bool IsSliding;
-  bool IsRunning;
-  bool IsFrozen;
-  bool IsSneaking;
-  bool IsFreeLooking;
-  bool HasNoPlayerCollision;
-  void SendRulesEvent1(wstring Param1, MwBuffer<wstring>& Param2, CSmPlayer* Shooter, CSmPlayer* Victim);
-  void SendRulesEvent2(wstring Param1, MwBuffer<wstring>& Param2, CSmPlayer* Shooter, CSmPlayer* Victim, CSmObject* Object);
-  void SendRulesEvent3(wstring Param1, MwBuffer<wstring>& Param2, CSmPlayer* Shooter, CSmPlayer* Victim, CSmObject* Object, CGameScriptTurret* Turret);
-  MwId Anim_GetModelId(wstring ModelName);
-  MwId Anim_PlayAtLocation(MwId AnimModelId, vec3 Position, vec3 Direction);
-  MwId Anim_PlayOnPlayer(MwId AnimModelId, CSmPlayer* Player);
-  void Anim_Stop(MwId AnimId);
-  MwId Projectile_GetModelId(wstring ModelName);
-  MwId Projectile_CreateAtLocation(MwId ProjectileModelId, CSmPlayer* PlayerToIgnore, vec3 InitialPosition, vec3 InitialDirection, vec3 InitialVelocity);
-  MwId Projectile_CreateOnPlayer(MwId ProjectileModelId, CSmPlayer* Shooter);
-  uint Cooldown;
-  bool Cooldown_IsReady();
-  void Cooldown_Start();
-  MwId Shield_CreateAtLocation(vec3 Position, vec3 Direction);
-  MwId Shield_CreateOnPlayer(CSmPlayer* ShieldOwner);
-  void Shield_Destroy(MwId ShieldId);
-  bool Shield_Exists(MwId ShieldId);
-  uint Shield_GetArmor(MwId ShieldId);
-  void Shield_SetArmor(MwId ShieldId, uint ShieldArmor);
-  bool Shield_GetIsActive(MwId ShieldId);
-  void Shield_SetIsActive(MwId ShieldId, bool ShieldIsActive);
-  uint Shield_GetArmorMax(MwId ShieldId);
-  uint Shield_GetTickReload(MwId ShieldId);
-  uint Shield_GetCooldown(MwId ShieldId);
-  int GetPlayerAmmo(CSmPlayer* Player);
-  int GetPlayerAmmoMax(CSmPlayer* Player);
+  const uint Now; // Maniascript
+  const uint Variant; // Maniascript
+  MwBuffer<CSmPlayer*> Players; // Maniascript
+  CSmPlayer* Owner; // Maniascript
+  const bool IsActive; // Maniascript
+  const bool IsBound; // Maniascript
+  uint Energy; // Maniascript
+  uint EnergyMax; // Maniascript
+  uint EnergyCost; // Maniascript
+  bool EnergyReload; // Maniascript
+  float AmmoGain; // Maniascript
+  MwId State_EntityId1; // Maniascript
+  int State_Integer1; // Maniascript
+  bool State_Boolean1; // Maniascript
+  const MwBuffer<CSmActionInstanceEvent*> PendingEvents; // Maniascript
+  bool IsJumping; // Maniascript
+  bool IsGliding; // Maniascript
+  bool IsAttractor; // Maniascript
+  bool IsFlying; // Maniascript
+  bool IsSliding; // Maniascript
+  bool IsRunning; // Maniascript
+  bool IsFrozen; // Maniascript
+  bool IsSneaking; // Maniascript
+  bool IsFreeLooking; // Maniascript
+  bool HasNoPlayerCollision; // Maniascript
+  void SendRulesEvent1(wstring Param1, MwBuffer<wstring>& Param2, CSmPlayer* Shooter, CSmPlayer* Victim); // Maniascript
+  void SendRulesEvent2(wstring Param1, MwBuffer<wstring>& Param2, CSmPlayer* Shooter, CSmPlayer* Victim, CSmObject* Object); // Maniascript
+  void SendRulesEvent3(wstring Param1, MwBuffer<wstring>& Param2, CSmPlayer* Shooter, CSmPlayer* Victim, CSmObject* Object, CGameScriptTurret* Turret); // Maniascript
+  MwId Anim_GetModelId(wstring ModelName); // Maniascript
+  MwId Anim_PlayAtLocation(MwId AnimModelId, vec3 Position, vec3 Direction); // Maniascript
+  MwId Anim_PlayOnPlayer(MwId AnimModelId, CSmPlayer* Player); // Maniascript
+  void Anim_Stop(MwId AnimId); // Maniascript
+  MwId Projectile_GetModelId(wstring ModelName); // Maniascript
+  MwId Projectile_CreateAtLocation(MwId ProjectileModelId, CSmPlayer* PlayerToIgnore, vec3 InitialPosition, vec3 InitialDirection, vec3 InitialVelocity); // Maniascript
+  MwId Projectile_CreateOnPlayer(MwId ProjectileModelId, CSmPlayer* Shooter); // Maniascript
+  uint Cooldown; // Maniascript
+  bool Cooldown_IsReady(); // Maniascript
+  void Cooldown_Start(); // Maniascript
+  MwId Shield_CreateAtLocation(vec3 Position, vec3 Direction); // Maniascript
+  MwId Shield_CreateOnPlayer(CSmPlayer* ShieldOwner); // Maniascript
+  void Shield_Destroy(MwId ShieldId); // Maniascript
+  bool Shield_Exists(MwId ShieldId); // Maniascript
+  uint Shield_GetArmor(MwId ShieldId); // Maniascript
+  void Shield_SetArmor(MwId ShieldId, uint ShieldArmor); // Maniascript
+  bool Shield_GetIsActive(MwId ShieldId); // Maniascript
+  void Shield_SetIsActive(MwId ShieldId, bool ShieldIsActive); // Maniascript
+  uint Shield_GetArmorMax(MwId ShieldId); // Maniascript
+  uint Shield_GetTickReload(MwId ShieldId); // Maniascript
+  uint Shield_GetCooldown(MwId ShieldId); // Maniascript
+  int GetPlayerAmmo(CSmPlayer* Player); // Maniascript
+  int GetPlayerAmmoMax(CSmPlayer* Player); // Maniascript
 };
 
 struct CSmNetForm : public CGameNetForm {
@@ -20553,67 +20553,67 @@ struct CSmPlayer : public CGamePlayer {
   const UnknownType LinearHueSrgb;
   const int SpawnIndex;
   const uint AFKLatestChangeTime;
-  const CSmArenaScore* Score;
-  const ESpawnStatus SpawnStatus;
-  const int StartTime;
-  int EndTime;
-  float AmmoGain; // Range: 0 - 10
-  float AmmoPower; // Range: 0.1 - 10
-  const bool AutoSwitchWeapon;
-  const uint CurWeapon;
-  const uint CurAmmo;
-  const uint CurAmmoMax;
-  const uint CurAmmoUnit;
-  uint Armor;
-  uint ArmorMax;
-  uint ArmorGain;
-  uint ArmorReplenishGain;
-  float ArmorPower; // Range: 0.1 - 10
-  uint Stamina;
-  float StaminaMax; // Range: 0.1 - 3
-  float StaminaGain; // Range: 0 - 1
-  float StaminaPower; // Range: 0.1 - 1
-  float SpeedPower; // Range: 0.1 - 1
-  float JumpPower; // Range: 0.1 - 1
-  bool AllowWallJump;
-  bool AllowProgressiveJump;
-  bool UseAlternateWeaponVisual;
-  bool IsHighlighted;
-  float EnergyLevel; // Range: 0 - 1
-  vec3 ForceColor;
-  const float GetLinearHue; // Range: 0 - 1
-  float ForceLinearHue;
-  MwId ForceModelId;
-  bool HasShield;
-  const bool IsInVehicle;
-  float ThrowSpeed; // Range: 0 - 500
-  const int CurrentClan;
-  const uint IdleDuration;
-  const vec3 Position;
-  const float AimYaw;
-  const float AimPitch;
-  const vec3 AimDirection;
-  const bool IsUnderground;
-  const bool IsTouchingGround;
-  const bool IsInAir;
-  const bool IsOnTechGround;
-  const bool IsOnTechLaser;
-  const bool IsOnTechArrow;
-  const bool IsOnTechArmor;
-  const bool IsOnTechSafeZone;
-  const bool IsOnTech;
-  const bool IsOnTechNoWeapon;
-  const bool IsInWater;
-  const vec3 Velocity;
-  const float Speed;
-  const bool IsInOffZone;
-  const bool IsCapturing;
-  const CSmScriptBlockPole* BlockPole;
-  const CSmScriptMapLandmark* CapturedLandmark;
-  const MwBuffer<CSmObject*> Objects;
-  const bool IsFakePlayer;
-  const bool IsBot;
-  const CSmPlayerDriver* Driver;
+  const CSmArenaScore* Score; // Maniascript
+  const ESpawnStatus SpawnStatus; // Maniascript
+  const int StartTime; // Maniascript
+  int EndTime; // Maniascript
+  float AmmoGain; // Range: 0 - 10 // Maniascript
+  float AmmoPower; // Range: 0.1 - 10 // Maniascript
+  const bool AutoSwitchWeapon; // Maniascript
+  const uint CurWeapon; // Maniascript
+  const uint CurAmmo; // Maniascript
+  const uint CurAmmoMax; // Maniascript
+  const uint CurAmmoUnit; // Maniascript
+  uint Armor; // Maniascript
+  uint ArmorMax; // Maniascript
+  uint ArmorGain; // Maniascript
+  uint ArmorReplenishGain; // Maniascript
+  float ArmorPower; // Range: 0.1 - 10 // Maniascript
+  uint Stamina; // Maniascript
+  float StaminaMax; // Range: 0.1 - 3 // Maniascript
+  float StaminaGain; // Range: 0 - 1 // Maniascript
+  float StaminaPower; // Range: 0.1 - 1 // Maniascript
+  float SpeedPower; // Range: 0.1 - 1 // Maniascript
+  float JumpPower; // Range: 0.1 - 1 // Maniascript
+  bool AllowWallJump; // Maniascript
+  bool AllowProgressiveJump; // Maniascript
+  bool UseAlternateWeaponVisual; // Maniascript
+  bool IsHighlighted; // Maniascript
+  float EnergyLevel; // Range: 0 - 1 // Maniascript
+  vec3 ForceColor; // Maniascript
+  const float GetLinearHue; // Range: 0 - 1 // Maniascript
+  float ForceLinearHue; // Maniascript
+  MwId ForceModelId; // Maniascript
+  bool HasShield; // Maniascript
+  const bool IsInVehicle; // Maniascript
+  float ThrowSpeed; // Range: 0 - 500 // Maniascript
+  const int CurrentClan; // Maniascript
+  const uint IdleDuration; // Maniascript
+  const vec3 Position; // Maniascript
+  const float AimYaw; // Maniascript
+  const float AimPitch; // Maniascript
+  const vec3 AimDirection; // Maniascript
+  const bool IsUnderground; // Maniascript
+  const bool IsTouchingGround; // Maniascript
+  const bool IsInAir; // Maniascript
+  const bool IsOnTechGround; // Maniascript
+  const bool IsOnTechLaser; // Maniascript
+  const bool IsOnTechArrow; // Maniascript
+  const bool IsOnTechArmor; // Maniascript
+  const bool IsOnTechSafeZone; // Maniascript
+  const bool IsOnTech; // Maniascript
+  const bool IsOnTechNoWeapon; // Maniascript
+  const bool IsInWater; // Maniascript
+  const vec3 Velocity; // Maniascript
+  const float Speed; // Maniascript
+  const bool IsInOffZone; // Maniascript
+  const bool IsCapturing; // Maniascript
+  const CSmScriptBlockPole* BlockPole; // Maniascript
+  const CSmScriptMapLandmark* CapturedLandmark; // Maniascript
+  const MwBuffer<CSmObject*> Objects; // Maniascript
+  const bool IsFakePlayer; // Maniascript
+  const bool IsBot; // Maniascript
+  const CSmPlayerDriver* Driver; // Maniascript
 };
 
 struct CSmArenaInterfaceUI : public CGamePlaygroundInterface {
@@ -20645,39 +20645,39 @@ struct CSmPlayerDriver : public CMwNod {
     OppositeBots = 5,
     Nobody = 6,
   };
-  ESmDriverBehaviour Behaviour;
-  float AggroRadius;
-  float ShootRadius;
-  float TargetMinDistance;
-  float DisengageDistance;
-  float PathSpeedCoef;
-  float Accuracy;
-  int ReactionTime;
-  int ShootPeriodMin;
-  int ShootPeriodMax;
-  bool RocketAnticipation;
-  float Fov;
-  ESmAttackFilter AttackFilter;
-  const CSmPlayer* Target;
-  const bool IsStuck;
-  bool IsFlying;
-  const CSmPlayer* Owner;
-  int PathOffset;
-  float Agressivity;
-  bool UseOldShootingSystem;
-  ESmDriverPatrolMode Patrol_Mode;
+  ESmDriverBehaviour Behaviour; // Maniascript
+  float AggroRadius; // Maniascript
+  float ShootRadius; // Maniascript
+  float TargetMinDistance; // Maniascript
+  float DisengageDistance; // Maniascript
+  float PathSpeedCoef; // Maniascript
+  float Accuracy; // Maniascript
+  int ReactionTime; // Maniascript
+  int ShootPeriodMin; // Maniascript
+  int ShootPeriodMax; // Maniascript
+  bool RocketAnticipation; // Maniascript
+  float Fov; // Maniascript
+  ESmAttackFilter AttackFilter; // Maniascript
+  const CSmPlayer* Target; // Maniascript
+  const bool IsStuck; // Maniascript
+  bool IsFlying; // Maniascript
+  const CSmPlayer* Owner; // Maniascript
+  int PathOffset; // Maniascript
+  float Agressivity; // Maniascript
+  bool UseOldShootingSystem; // Maniascript
+  ESmDriverPatrolMode Patrol_Mode; // Maniascript
   void Patrol_Restart();
-  vec3 Escape_AnchorPoint;
-  float Escape_DistanceSafe;
-  float Escape_DistanceMinEscape;
-  float Escape_DistanceMaxEscape;
-  vec3 Saunter_AnchorPoint;
-  int Saunter_BaseChillingTime;
-  int Saunter_ChillingTimeDelta;
-  float Saunter_Radius;
-  bool Scripted_ForceAimInMoveDir;
-  CSmPlayer* ForcedTarget;
-  MwBuffer<CSmPlayer*> TargetsToAvoid;
+  vec3 Escape_AnchorPoint; // Maniascript
+  float Escape_DistanceSafe; // Maniascript
+  float Escape_DistanceMinEscape; // Maniascript
+  float Escape_DistanceMaxEscape; // Maniascript
+  vec3 Saunter_AnchorPoint; // Maniascript
+  int Saunter_BaseChillingTime; // Maniascript
+  int Saunter_ChillingTimeDelta; // Maniascript
+  float Saunter_Radius; // Maniascript
+  bool Scripted_ForceAimInMoveDir; // Maniascript
+  CSmPlayer* ForcedTarget; // Maniascript
+  MwBuffer<CSmPlayer*> TargetsToAvoid; // Maniascript
 };
 
 struct CSmActionInstanceEvent : public CMwNod {
@@ -20689,16 +20689,16 @@ struct CSmActionInstanceEvent : public CMwNod {
     OnHitShield = 4,
     OnShieldEnd = 5,
   };
-  const EType Type;
-  const CSmPlayer* Player;
-  const CSmObject* Object;
-  const uint Damage;
-  const MwId ProjectileModelId;
-  const uint ContextId;
-  const vec3 Position;
-  const vec3 Direction;
-  const vec3 Normal;
-  const uint Shield;
+  const EType Type; // Maniascript
+  const CSmPlayer* Player; // Maniascript
+  const CSmObject* Object; // Maniascript
+  const uint Damage; // Maniascript
+  const MwId ProjectileModelId; // Maniascript
+  const uint ContextId; // Maniascript
+  const vec3 Position; // Maniascript
+  const vec3 Direction; // Maniascript
+  const vec3 Normal; // Maniascript
+  const uint Shield; // Maniascript
 };
 
 struct CSmArenaRules : public CMwNod {
@@ -20739,14 +20739,14 @@ struct CSmArenaRules : public CMwNod {
 };
 
 struct CSmScriptObjectAnchor : public CSmScriptLandmark {
-  const wstring ItemName;
-  const MwId ItemModelId;
+  const wstring ItemName; // Maniascript
+  const MwId ItemModelId; // Maniascript
 };
 
 struct CSmScriptBotPath : public CSmScriptLandmark {
-  const uint Clan;
-  const MwBuffer<vec3> Path;
-  const bool IsFlying;
+  const uint Clan; // Maniascript
+  const MwBuffer<vec3> Path; // Maniascript
+  const bool IsFlying; // Maniascript
 };
 
 struct CSmChallengeParameters : public CGameCtnChallengeParameters {
@@ -20756,8 +20756,8 @@ struct CSmChallengeParameters : public CGameCtnChallengeParameters {
 };
 
 struct CSmScriptBotSpawn : public CSmScriptLandmark {
-  const wstring ItemName;
-  const MwId ItemModelId;
+  const wstring ItemName; // Maniascript
+  const MwId ItemModelId; // Maniascript
 };
 
 struct CSmObject : public CMwNod {
@@ -20767,20 +20767,20 @@ struct CSmObject : public CMwNod {
     InWorld = 2,
     Unspawned = 3,
   };
-  const EStatus Status;
-  const MwId ModelId;
-  void SetAnchor(CSmScriptMapObjectAnchor* ObjectAnchor);
-  void SetAnchor_Deprecated(CSmScriptObjectAnchor* ObjectAnchor);
-  void SetPlayer(CSmPlayer* Player);
-  void SetPosition(vec3 Position);
-  void SetPositionAndVel(vec3 Position, vec3 Vel);
-  void SetUnspawned();
-  const CSmPlayer* Player;
-  const CSmScriptMapLandmark* AnchorLandmark;
-  const vec3 Position;
-  const vec3 Vel;
-  uint MachineState;
-  bool Throwable;
+  const EStatus Status; // Maniascript
+  const MwId ModelId; // Maniascript
+  void SetAnchor(CSmScriptMapObjectAnchor* ObjectAnchor); // Maniascript
+  void SetAnchor_Deprecated(CSmScriptObjectAnchor* ObjectAnchor); // Maniascript
+  void SetPlayer(CSmPlayer* Player); // Maniascript
+  void SetPosition(vec3 Position); // Maniascript
+  void SetPositionAndVel(vec3 Position, vec3 Vel); // Maniascript
+  void SetUnspawned(); // Maniascript
+  const CSmPlayer* Player; // Maniascript
+  const CSmScriptMapLandmark* AnchorLandmark; // Maniascript
+  const vec3 Position; // Maniascript
+  const vec3 Vel; // Maniascript
+  uint MachineState; // Maniascript
+  bool Throwable; // Maniascript
 };
 
 struct CSmAnalyzer : public CGameAnalyzer {
@@ -20886,122 +20886,122 @@ struct CSmArenaRulesMode : public CGamePlaygroundScript {
     Default = 0,
     Mp3Beta0 = 1,
   };
-  uint StartTime;
-  uint EndTime;
-  uint SpawnInvulnerabilityDuration;
-  bool UseClans;
-  bool UseForcedClans;
-  bool UsePvPCollisions;
-  bool UsePvPWeapons;
-  bool UseInterractiveScreensIn3d;
-  bool UseLaserVsBullets;
-  bool UseLaserSkewering;
-  bool UsePlayerTagging;
-  bool UseBeaconsWithRecipients;
-  bool UseAmmoBonusOnHit;
-  bool UseSameWallJump;
-  bool UseDefaultActionEvents;
-  bool UseAllies;
-  bool UseAutoSpawnBots;
-  bool UseAutoRespawnBots;
-  bool WalkOnWall;
-  bool UseAutoDiscardBotEvents;
-  bool DbgEnableNavMesh;
-  bool ForceNavMapsComputation;
-  uint GameplayVersion;
-  EGameplay Gameplay;
-  bool UseProtectClanmates;
-  float OffZoneRadius;
-  float OffZoneRadiusSpeed;
-  MwId OffZoneCenterBlockId;
-  MwId OffZoneCenterLandmarkId;
-  const uint PlayersNbTotal;
-  const uint PlayersNbAlive;
-  const uint PlayersNbDead;
-  const uint ClansNbTotal;
-  const uint ClansNbAlive;
-  const uint ClansNbDead;
-  const MwBuffer<uint> ClansNbPlayers;
-  const MwBuffer<uint> ClansNbPlayersAlive;
-  const MwBuffer<CSmPlayer*> Players;
-  const MwBuffer<CSmPlayer*> BotPlayers;
-  const MwBuffer<CSmPlayer*> Spectators;
-  const MwBuffer<CSmPlayer*> AllPlayers;
-  const MwBuffer<CSmArenaRulesEvent*> PendingEvents;
-  const MwBuffer<CSmScriptBase*> Bases;
-  const MwBuffer<CSmScriptBlock*> Blocks;
-  const MwBuffer<CSmScriptBlockSpawn*> BlockSpawns;
-  const MwBuffer<CSmScriptBlockPole*> BlockPoles;
-  const MwBuffer<CSmScriptBotPath*> BotPaths;
-  const MwBuffer<CSmScriptObjectAnchor*> ObjectAnchors;
-  void SpawnPlayer_Deprecated(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptBlockSpawn* PlayerSpawn, int ActivationDate);
-  void SpawnBotPlayer_Deprecated(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptLandmark* Landmark, int ActivationDate);
-  CSmPlayer* CreateBotPlayer_Deprecated(MwId ModelId, int ClanNum, int Armor, CSmScriptLandmark* Landmark, int ActivationDate);
-  const MwBuffer<CSmScriptMapBase*> MapBases;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_PlayerSpawn;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Gauge;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Sector;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_BotPath;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_BotSpawn;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_ObjectAnchor;
-  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Gate;
-  const MwBuffer<CSmArenaScore*> Scores;
-  uint Clan1Score;
-  uint Clan2Score;
-  MwArray<int> ClanScores;
-  void PassOn(CSmArenaRulesEvent* Event);
-  void Discard(CSmArenaRulesEvent* Event);
-  void SpawnPlayer(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptMapPlayerSpawn* PlayerSpawn, int ActivationDate);
-  void SpawnBotPlayer_AtPlayerSpawn(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptMapPlayerSpawn* PlayerSpawn, int ActivationDate);
-  void SpawnBotPlayer_AtBotPath(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptMapBotPath* BotPath, int ActivationDate);
-  void SpawnBotPlayer_AtBotSpawn(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptMapBotSpawn* BotSpawn, int ActivationDate);
-  void SpawnBotPlayer_FromOwner(CSmPlayer* Player, CSmPlayer* Owner, int Armor, vec3 Offset, int ActivationDate);
-  void UnspawnPlayer(CSmPlayer* Player);
-  void ClearScores();
-  void SetPlayerClan(CSmPlayer* Player, int ClanNum);
-  void SetPlayerWeapon(CSmPlayer* Player, EWeapon DefaultWeapon, bool AutoSwitchWeapon);
-  void SetPlayerReloadAllWeapons(CSmPlayer* Player, bool ReloadAllWeapons);
-  void SetPlayerAmmo(CSmPlayer* Player, EWeapon Weapon, int Count);
-  int GetPlayerAmmo(CSmPlayer* Player, EWeapon Weapon);
-  void AddPlayerAmmo(CSmPlayer* Player, EWeapon Weapon, float DeltaCount);
-  void SetPlayerAmmoMax(CSmPlayer* Player, EWeapon Weapon, int Count);
-  int GetPlayerAmmoMax(CSmPlayer* Player, EWeapon Weapon);
-  void AddPlayerArmor(CSmPlayer* Victim, int DeltaArmor, CSmPlayer* Shooter, int ShooterPoints);
-  void RemovePlayerArmor(CSmPlayer* Victim, int DeltaArmor, CSmPlayer* Shooter, int ShooterPoints);
-  int GetWeaponIndex(EWeapon Weapon);
-  int GetWeaponNum(EWeapon Weapon);
-  bool CanRespawnPlayer(CSmPlayer* Player);
-  void RespawnPlayer(CSmPlayer* Player);
-  void RespawnPlayerAtCheckpoint(CSmPlayer* Player, CSmScriptMapLandmark* CheckpointLandmark);
-  CSmPlayer* CreateBotPlayer(MwId ModelId, int TeamNum);
-  void DestroyBotPlayer(CSmPlayer* BotPlayer);
-  void DestroyAllBotPlayers();
-  void ScriptedBot_Move(CSmPlayer* BotPlayer, vec3 Goal);
-  void ScriptedBot_MoveDelta(CSmPlayer* BotPlayer, vec3 Delta);
-  void ScriptedBot_MoveAndAim(CSmPlayer* BotPlayer, vec3 Goal);
-  void ScriptedBot_MoveDeltaAndAim(CSmPlayer* BotPlayer, vec3 Delta);
-  void ScriptedBot_Aim(CSmPlayer* BotPlayer, vec3 Goal);
-  void ScriptedBot_AimDelta(CSmPlayer* BotPlayer, float DeltaYaw, float DeltaPitch);
-  void ScriptedBot_RequestAction(CSmPlayer* BotPlayer);
-  void ScriptedBot_RequestGunTrigger(CSmPlayer* BotPlayer);
-  void ActionLoad(CSmPlayer* Player, EActionSlot ActionSlot, MwId ModelId);
-  void ActionBind(CSmPlayer* Player, EActionSlot ActionSlot, EActionInput ActionInput);
-  void ActionSetVariant(CSmPlayer* Player, EActionSlot ActionSlot, uint ActionVariant);
-  void LoadAction(CSmPlayer* Player, EActionSlot ActionSlot, MwId ModelId, uint ActionVariant);
-  void BindAction(CSmPlayer* Player, EActionSlot ActionSlot, EActionInput ActionInput);
-  void SetNbFakePlayers(int NbClan1, int NbClan2);
-  const MwBuffer<CSmObject*> Objects;
-  CSmObject* ObjectCreate(MwId ModelId);
-  void ObjectDestroy(CSmObject* Object);
-  void ObjectDestroyAll();
-  void RemoveShieldArmor(uint VictimShieldId, uint Damage);
-  void Replay_SaveAttackScore(CSmPlayer* Player, int Score);
-  void Replay_SaveDefenseScore(CSmPlayer* Player, int Score);
-  void Replay_SaveTeamScore(uint Team, int Score);
-  void Replay_SavePlayerOfInterest(CSmPlayer* Player);
-  void Replay_SaveWinner(CSmPlayer* Player);
-  void Replay_SaveInterface();
+  uint StartTime; // Maniascript
+  uint EndTime; // Maniascript
+  uint SpawnInvulnerabilityDuration; // Maniascript
+  bool UseClans; // Maniascript
+  bool UseForcedClans; // Maniascript
+  bool UsePvPCollisions; // Maniascript
+  bool UsePvPWeapons; // Maniascript
+  bool UseInterractiveScreensIn3d; // Maniascript
+  bool UseLaserVsBullets; // Maniascript
+  bool UseLaserSkewering; // Maniascript
+  bool UsePlayerTagging; // Maniascript
+  bool UseBeaconsWithRecipients; // Maniascript
+  bool UseAmmoBonusOnHit; // Maniascript
+  bool UseSameWallJump; // Maniascript
+  bool UseDefaultActionEvents; // Maniascript
+  bool UseAllies; // Maniascript
+  bool UseAutoSpawnBots; // Maniascript
+  bool UseAutoRespawnBots; // Maniascript
+  bool WalkOnWall; // Maniascript
+  bool UseAutoDiscardBotEvents; // Maniascript
+  bool DbgEnableNavMesh; // Maniascript
+  bool ForceNavMapsComputation; // Maniascript
+  uint GameplayVersion; // Maniascript
+  EGameplay Gameplay; // Maniascript
+  bool UseProtectClanmates; // Maniascript
+  float OffZoneRadius; // Maniascript
+  float OffZoneRadiusSpeed; // Maniascript
+  MwId OffZoneCenterBlockId; // Maniascript
+  MwId OffZoneCenterLandmarkId; // Maniascript
+  const uint PlayersNbTotal; // Maniascript
+  const uint PlayersNbAlive; // Maniascript
+  const uint PlayersNbDead; // Maniascript
+  const uint ClansNbTotal; // Maniascript
+  const uint ClansNbAlive; // Maniascript
+  const uint ClansNbDead; // Maniascript
+  const MwBuffer<uint> ClansNbPlayers; // Maniascript
+  const MwBuffer<uint> ClansNbPlayersAlive; // Maniascript
+  const MwBuffer<CSmPlayer*> Players; // Maniascript
+  const MwBuffer<CSmPlayer*> BotPlayers; // Maniascript
+  const MwBuffer<CSmPlayer*> Spectators; // Maniascript
+  const MwBuffer<CSmPlayer*> AllPlayers; // Maniascript
+  const MwBuffer<CSmArenaRulesEvent*> PendingEvents; // Maniascript
+  const MwBuffer<CSmScriptBase*> Bases; // Maniascript
+  const MwBuffer<CSmScriptBlock*> Blocks; // Maniascript
+  const MwBuffer<CSmScriptBlockSpawn*> BlockSpawns; // Maniascript
+  const MwBuffer<CSmScriptBlockPole*> BlockPoles; // Maniascript
+  const MwBuffer<CSmScriptBotPath*> BotPaths; // Maniascript
+  const MwBuffer<CSmScriptObjectAnchor*> ObjectAnchors; // Maniascript
+  void SpawnPlayer_Deprecated(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptBlockSpawn* PlayerSpawn, int ActivationDate); // Maniascript
+  void SpawnBotPlayer_Deprecated(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptLandmark* Landmark, int ActivationDate); // Maniascript
+  CSmPlayer* CreateBotPlayer_Deprecated(MwId ModelId, int ClanNum, int Armor, CSmScriptLandmark* Landmark, int ActivationDate); // Maniascript
+  const MwBuffer<CSmScriptMapBase*> MapBases; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_PlayerSpawn; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Gauge; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Sector; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_BotPath; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_BotSpawn; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_ObjectAnchor; // Maniascript
+  const MwBuffer<CSmScriptMapLandmark*> MapLandmarks_Gate; // Maniascript
+  const MwBuffer<CSmArenaScore*> Scores; // Maniascript
+  uint Clan1Score; // Maniascript
+  uint Clan2Score; // Maniascript
+  MwArray<int> ClanScores; // Maniascript
+  void PassOn(CSmArenaRulesEvent* Event); // Maniascript
+  void Discard(CSmArenaRulesEvent* Event); // Maniascript
+  void SpawnPlayer(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptMapPlayerSpawn* PlayerSpawn, int ActivationDate); // Maniascript
+  void SpawnBotPlayer_AtPlayerSpawn(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptMapPlayerSpawn* PlayerSpawn, int ActivationDate); // Maniascript
+  void SpawnBotPlayer_AtBotPath(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptMapBotPath* BotPath, int ActivationDate); // Maniascript
+  void SpawnBotPlayer_AtBotSpawn(CSmPlayer* Player, int ClanNum, int Armor, CSmScriptMapBotSpawn* BotSpawn, int ActivationDate); // Maniascript
+  void SpawnBotPlayer_FromOwner(CSmPlayer* Player, CSmPlayer* Owner, int Armor, vec3 Offset, int ActivationDate); // Maniascript
+  void UnspawnPlayer(CSmPlayer* Player); // Maniascript
+  void ClearScores(); // Maniascript
+  void SetPlayerClan(CSmPlayer* Player, int ClanNum); // Maniascript
+  void SetPlayerWeapon(CSmPlayer* Player, EWeapon DefaultWeapon, bool AutoSwitchWeapon); // Maniascript
+  void SetPlayerReloadAllWeapons(CSmPlayer* Player, bool ReloadAllWeapons); // Maniascript
+  void SetPlayerAmmo(CSmPlayer* Player, EWeapon Weapon, int Count); // Maniascript
+  int GetPlayerAmmo(CSmPlayer* Player, EWeapon Weapon); // Maniascript
+  void AddPlayerAmmo(CSmPlayer* Player, EWeapon Weapon, float DeltaCount); // Maniascript
+  void SetPlayerAmmoMax(CSmPlayer* Player, EWeapon Weapon, int Count); // Maniascript
+  int GetPlayerAmmoMax(CSmPlayer* Player, EWeapon Weapon); // Maniascript
+  void AddPlayerArmor(CSmPlayer* Victim, int DeltaArmor, CSmPlayer* Shooter, int ShooterPoints); // Maniascript
+  void RemovePlayerArmor(CSmPlayer* Victim, int DeltaArmor, CSmPlayer* Shooter, int ShooterPoints); // Maniascript
+  int GetWeaponIndex(EWeapon Weapon); // Maniascript
+  int GetWeaponNum(EWeapon Weapon); // Maniascript
+  bool CanRespawnPlayer(CSmPlayer* Player); // Maniascript
+  void RespawnPlayer(CSmPlayer* Player); // Maniascript
+  void RespawnPlayerAtCheckpoint(CSmPlayer* Player, CSmScriptMapLandmark* CheckpointLandmark); // Maniascript
+  CSmPlayer* CreateBotPlayer(MwId ModelId, int TeamNum); // Maniascript
+  void DestroyBotPlayer(CSmPlayer* BotPlayer); // Maniascript
+  void DestroyAllBotPlayers(); // Maniascript
+  void ScriptedBot_Move(CSmPlayer* BotPlayer, vec3 Goal); // Maniascript
+  void ScriptedBot_MoveDelta(CSmPlayer* BotPlayer, vec3 Delta); // Maniascript
+  void ScriptedBot_MoveAndAim(CSmPlayer* BotPlayer, vec3 Goal); // Maniascript
+  void ScriptedBot_MoveDeltaAndAim(CSmPlayer* BotPlayer, vec3 Delta); // Maniascript
+  void ScriptedBot_Aim(CSmPlayer* BotPlayer, vec3 Goal); // Maniascript
+  void ScriptedBot_AimDelta(CSmPlayer* BotPlayer, float DeltaYaw, float DeltaPitch); // Maniascript
+  void ScriptedBot_RequestAction(CSmPlayer* BotPlayer); // Maniascript
+  void ScriptedBot_RequestGunTrigger(CSmPlayer* BotPlayer); // Maniascript
+  void ActionLoad(CSmPlayer* Player, EActionSlot ActionSlot, MwId ModelId); // Maniascript
+  void ActionBind(CSmPlayer* Player, EActionSlot ActionSlot, EActionInput ActionInput); // Maniascript
+  void ActionSetVariant(CSmPlayer* Player, EActionSlot ActionSlot, uint ActionVariant); // Maniascript
+  void LoadAction(CSmPlayer* Player, EActionSlot ActionSlot, MwId ModelId, uint ActionVariant); // Maniascript
+  void BindAction(CSmPlayer* Player, EActionSlot ActionSlot, EActionInput ActionInput); // Maniascript
+  void SetNbFakePlayers(int NbClan1, int NbClan2); // Maniascript
+  const MwBuffer<CSmObject*> Objects; // Maniascript
+  CSmObject* ObjectCreate(MwId ModelId); // Maniascript
+  void ObjectDestroy(CSmObject* Object); // Maniascript
+  void ObjectDestroyAll(); // Maniascript
+  void RemoveShieldArmor(uint VictimShieldId, uint Damage); // Maniascript
+  void Replay_SaveAttackScore(CSmPlayer* Player, int Score); // Maniascript
+  void Replay_SaveDefenseScore(CSmPlayer* Player, int Score); // Maniascript
+  void Replay_SaveTeamScore(uint Team, int Score); // Maniascript
+  void Replay_SavePlayerOfInterest(CSmPlayer* Player); // Maniascript
+  void Replay_SaveWinner(CSmPlayer* Player); // Maniascript
+  void Replay_SaveInterface(); // Maniascript
 };
 
 struct CSmServer : public CMwNod {
@@ -21062,57 +21062,57 @@ struct CSmArenaRulesEvent : public CMwNod {
     Activable4 = 5,
     None = 6,
   };
-  const EType Type;
-  const CSmPlayer* Player;
-  int Damage;
-  const CSmObject* VictimObject;
-  const uint VictimShield;
-  const CGameScriptTurret* VictimTurret;
-  int ShooterPoints;
-  const CSmPlayer* Shooter;
-  const CGameScriptTurret* ShooterTurret;
-  const uint ShooterClan;
-  const CSmPlayer* Victim;
-  const float Height;
-  const float MissDist;
-  const uint WeaponNum;
-  const bool ShooterUsedAction;
-  const uint ShooterWeaponNum;
-  const EActionSlot ShooterActionSlot;
-  const wstring ShooterActionId;
-  const bool VictimUsedAction;
-  const uint VictimWeaponNum;
-  const EActionSlot VictimActionSlot;
-  const wstring VictimActionId;
-  const EActionSlots ActionSlot;
-  const EActionSlot Action_Slot;
-  const EActionInput ActionInput;
-  const wstring ActionId;
-  const wstring Param1;
-  const MwBuffer<wstring> Param2;
-  const CSmObject* Object;
-  const CSmScriptMapSector* Sector;
-  const CSmScriptBlockPole* BlockPole;
-  const CSmScriptMapLandmark* Landmark;
-  const MwId PlayerId;
-  const CGamePlayerInfo* User;
-  const bool PlayerWasSpawned;
-  const bool PlayerWasInLadderMatch;
-  const vec3 PlayerLastPosition;
-  const vec3 PlayerLastAimDirection;
-  const bool GiveUp;
-  const string CommandName;
-  const bool CommandValueBoolean;
-  const int CommandValueInteger;
-  const float CommandValueReal;
-  const wstring CommandValueText;
-  const int ActionChange;
+  const EType Type; // Maniascript
+  const CSmPlayer* Player; // Maniascript
+  int Damage; // Maniascript
+  const CSmObject* VictimObject; // Maniascript
+  const uint VictimShield; // Maniascript
+  const CGameScriptTurret* VictimTurret; // Maniascript
+  int ShooterPoints; // Maniascript
+  const CSmPlayer* Shooter; // Maniascript
+  const CGameScriptTurret* ShooterTurret; // Maniascript
+  const uint ShooterClan; // Maniascript
+  const CSmPlayer* Victim; // Maniascript
+  const float Height; // Maniascript
+  const float MissDist; // Maniascript
+  const uint WeaponNum; // Maniascript
+  const bool ShooterUsedAction; // Maniascript
+  const uint ShooterWeaponNum; // Maniascript
+  const EActionSlot ShooterActionSlot; // Maniascript
+  const wstring ShooterActionId; // Maniascript
+  const bool VictimUsedAction; // Maniascript
+  const uint VictimWeaponNum; // Maniascript
+  const EActionSlot VictimActionSlot; // Maniascript
+  const wstring VictimActionId; // Maniascript
+  const EActionSlots ActionSlot; // Maniascript
+  const EActionSlot Action_Slot; // Maniascript
+  const EActionInput ActionInput; // Maniascript
+  const wstring ActionId; // Maniascript
+  const wstring Param1; // Maniascript
+  const MwBuffer<wstring> Param2; // Maniascript
+  const CSmObject* Object; // Maniascript
+  const CSmScriptMapSector* Sector; // Maniascript
+  const CSmScriptBlockPole* BlockPole; // Maniascript
+  const CSmScriptMapLandmark* Landmark; // Maniascript
+  const MwId PlayerId; // Maniascript
+  const CGamePlayerInfo* User; // Maniascript
+  const bool PlayerWasSpawned; // Maniascript
+  const bool PlayerWasInLadderMatch; // Maniascript
+  const vec3 PlayerLastPosition; // Maniascript
+  const vec3 PlayerLastAimDirection; // Maniascript
+  const bool GiveUp; // Maniascript
+  const string CommandName; // Maniascript
+  const bool CommandValueBoolean; // Maniascript
+  const int CommandValueInteger; // Maniascript
+  const float CommandValueReal; // Maniascript
+  const wstring CommandValueText; // Maniascript
+  const int ActionChange; // Maniascript
 };
 
 struct CSmEditorPluginMapType : public CGameEditorPluginMapMapType {
-  const CSmArenaRulesMode* Mode;
-  const MwBuffer<CSmPlayer*> AllPlayers;
-  const MwBuffer<CSmPlayer*> Players;
+  const CSmArenaRulesMode* Mode; // Maniascript
+  const MwBuffer<CSmPlayer*> AllPlayers; // Maniascript
+  const MwBuffer<CSmPlayer*> Players; // Maniascript
 };
 
 // File extension: 'SmArenaResource.Gbx'
@@ -21176,107 +21176,107 @@ struct CSmArenaResource : public CMwNod {
 };
 
 struct CSmScriptLandmark : public CMwNod {
-  const string Tag;
-  const uint Order;
-  const vec3 Position;
-  const vec3 DirFront;
+  const string Tag; // Maniascript
+  const uint Order; // Maniascript
+  const vec3 Position; // Maniascript
+  const vec3 DirFront; // Maniascript
 };
 
 struct CSmScriptBlock : public CSmScriptLandmark {
-  const CSmScriptBase* Base;
+  const CSmScriptBase* Base; // Maniascript
 };
 
 struct CSmScriptBlockSpawn : public CSmScriptBlock {
 };
 
 struct CSmScriptBlockPole : public CSmScriptBlock {
-  bool Captured;
-  const CSmScriptSector* Sector;
-  const CSmScriptGauge* Gauge;
+  bool Captured; // Maniascript
+  const CSmScriptSector* Sector; // Maniascript
+  const CSmScriptGauge* Gauge; // Maniascript
 };
 
 struct CSmScriptBase : public CMwNod {
-  uint Clan;
-  bool IsActive;
-  const uint NumberOfCollectors;
+  uint Clan; // Maniascript
+  bool IsActive; // Maniascript
+  const uint NumberOfCollectors; // Maniascript
 };
 
 struct CSmScriptGauge : public CMwNod {
-  uint Clan;
-  float ValueReal; // Range: 0 - 1
-  uint Value;
-  uint Max;
-  int Speed;
+  uint Clan; // Maniascript
+  float ValueReal; // Range: 0 - 1 // Maniascript
+  uint Value; // Maniascript
+  uint Max; // Maniascript
+  int Speed; // Maniascript
 };
 
 struct CSmScriptSector : public CMwNod {
-  const MwBuffer<MwId> PlayersIds;
+  const MwBuffer<MwId> PlayersIds; // Maniascript
 };
 
 struct CSmModuleScoresTable : public CGamePlaygroundModuleClientScoresTable {
 };
 
 struct CSmScriptMapBase : public CMwNod {
-  uint Clan;
-  bool IsActive;
-  const uint NumberOfCollectors;
+  uint Clan; // Maniascript
+  bool IsActive; // Maniascript
+  const uint NumberOfCollectors; // Maniascript
 };
 
 struct CSmScriptMapGate : public CMwNod {
-  uint Clan;
-  bool Automatic;
-  bool ManualClosed;
-  const bool AutoClosed;
-  bool AutoIsActive;
-  int AutoCloseDelay;
-  int AutoOpenSpeed;
+  uint Clan; // Maniascript
+  bool Automatic; // Maniascript
+  bool ManualClosed; // Maniascript
+  const bool AutoClosed; // Maniascript
+  bool AutoIsActive; // Maniascript
+  int AutoCloseDelay; // Maniascript
+  int AutoOpenSpeed; // Maniascript
 };
 
 struct CSmScriptMapGauge : public CMwNod {
-  uint Clan;
-  float ValueReal; // Range: 0 - 1
-  uint Value;
-  uint Max;
-  int Speed;
-  bool Captured;
+  uint Clan; // Maniascript
+  float ValueReal; // Range: 0 - 1 // Maniascript
+  uint Value; // Maniascript
+  uint Max; // Maniascript
+  int Speed; // Maniascript
+  bool Captured; // Maniascript
 };
 
 struct CSmScriptMapLandmark : public CMwNod {
-  const string Tag;
-  const uint Order;
-  const vec3 Position;
-  const CSmScriptMapBase* Base;
-  const CSmScriptMapGate* Gate;
-  const CSmScriptMapGauge* Gauge;
-  const CSmScriptMapSector* Sector;
-  const CSmScriptMapPlayerSpawn* PlayerSpawn;
-  const CSmScriptMapBotPath* BotPath;
-  const CSmScriptMapBotSpawn* BotSpawn;
-  const CSmScriptMapObjectAnchor* ObjectAnchor;
+  const string Tag; // Maniascript
+  const uint Order; // Maniascript
+  const vec3 Position; // Maniascript
+  const CSmScriptMapBase* Base; // Maniascript
+  const CSmScriptMapGate* Gate; // Maniascript
+  const CSmScriptMapGauge* Gauge; // Maniascript
+  const CSmScriptMapSector* Sector; // Maniascript
+  const CSmScriptMapPlayerSpawn* PlayerSpawn; // Maniascript
+  const CSmScriptMapBotPath* BotPath; // Maniascript
+  const CSmScriptMapBotSpawn* BotSpawn; // Maniascript
+  const CSmScriptMapObjectAnchor* ObjectAnchor; // Maniascript
 };
 
 struct CSmScriptMapSector : public CMwNod {
-  const MwBuffer<MwId> PlayersIds;
-  const string Tag;
+  const MwBuffer<MwId> PlayersIds; // Maniascript
+  const string Tag; // Maniascript
 };
 
 struct CSmScriptMapPlayerSpawn : public CMwNod {
 };
 
 struct CSmScriptMapBotPath : public CMwNod {
-  const uint Clan;
-  const MwBuffer<vec3> Path;
-  const bool IsFlying;
+  const uint Clan; // Maniascript
+  const MwBuffer<vec3> Path; // Maniascript
+  const bool IsFlying; // Maniascript
 };
 
 struct CSmScriptMapObjectAnchor : public CMwNod {
-  const wstring ItemName;
-  const MwId ItemModelId;
+  const wstring ItemName; // Maniascript
+  const MwId ItemModelId; // Maniascript
 };
 
 struct CSmScriptMapBotSpawn : public CMwNod {
-  const bool IsFlying;
-  const MwId BotModelId;
+  const bool IsFlying; // Maniascript
+  const MwId BotModelId; // Maniascript
 };
 
 struct CSmModuleManager : public CGamePlaygroundModuleManagerClient {
@@ -21301,18 +21301,18 @@ struct CGameCtnCollector : public CMwNod {
   UnknownType CollectionId;
   MwId Author;
   wstring NameE;
-  const wstring Name;
+  const wstring Name; // Maniascript
   wstring Description;
   bool IsInternal;
   bool IsAdvanced;
-  string PageName;
+  string PageName; // Maniascript
   uint CatalogPosition;
   EProdState ProdState;
   CPlugFileImg* IconFid;
   bool IconUseAutoRender;
   uint IconQuarterRotationY;
-  uint InterfaceNumber;
-  const CPlugBitmap* Icon;
+  uint InterfaceNumber; // Maniascript
+  const CPlugBitmap* Icon; // Maniascript
   const CMwNod* ArticlePtr;
 };
 
@@ -21591,10 +21591,10 @@ struct CGameModuleMenuModel : public CGameModuleModelCommon {
   CGameModuleMenuModel();
 
   CPlugFileTextScript* ManiaAppScript;
-  MwBuffer<CGameModuleMenuPageModel*> Pages;
-  CGameModuleMenuPageModel* AddPage(wstring PageUrl);
-  void AddLink(CGameModuleMenuPageModel* ParentPage, CGameModuleMenuPageModel* ChildPage);
-  string MenuScript;
+  MwBuffer<CGameModuleMenuPageModel*> Pages; // Maniascript
+  CGameModuleMenuPageModel* AddPage(wstring PageUrl); // Maniascript
+  void AddLink(CGameModuleMenuPageModel* ParentPage, CGameModuleMenuPageModel* ChildPage); // Maniascript
+  string MenuScript; // Maniascript
 };
 
 struct CGameModuleModelCommon : public CMwNod {
@@ -21703,7 +21703,7 @@ struct CGameModuleMenuPageModel : public CGameModuleModelCommon {
 
   CPlugFileText* Manialink;
   MwBuffer<CGameModuleNodForPropertyList*> Components;
-  string ManialinkText;
+  string ManialinkText; // Maniascript
 };
 
 // File extension: 'Editor.Gbx'
