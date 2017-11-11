@@ -655,7 +655,6 @@ source\GameMgrObjectPhy.cpp
 source\GameMgrObjectVis.cpp
 source\GameMgrShield.cpp
 source\GameMgrTurret.cpp
-source\GameMinimapBlock.cpp
 source\GameModuleInventoryCategory.cpp
 source\GameModuleMenuBase.cpp
 source\GameModuleMenuBrowser.cpp
@@ -676,16 +675,12 @@ source\GameNaturalLeaderBoard.cpp
 source\GameNaturalLeaderBoardInfoScript.cpp
 source\GameNetClient.cpp
 source\GameNetDataDownload.cpp
-source\GameNetForm.cpp
 source\GameNetFormAdmin.cpp
-source\GameNetFormBuddy.cpp
 source\GameNetFormCallVote.cpp
 source\GameNetFormConnectionAdmin.cpp
 source\GameNetFormPlayground.cpp
 source\GameNetFormPlaygroundSync.cpp
-source\GameNetFormTimeSync.cpp
 source\GameNetFormTunnel.cpp
-source\GameNetFormVoiceChat.cpp
 source\GameNetPlayerInfo.cpp
 source\GameNetSearchRequest.cpp
 source\GameNetServer.cpp
@@ -1060,11 +1055,6 @@ source\NetFileTransferForm.cpp
 source\NetFileTransferNod.cpp
 source\NetFileTransferUpload.cpp
 source\NetFormConnectionAdmin.cpp
-source\NetFormEnumSessions.cpp
-source\NetFormNewPing.cpp
-source\NetFormPing.cpp
-source\NetFormQuerrySessions.cpp
-source\NetFormRpcCall.cpp
 source\NetFormTimed.cpp
 source\NetHttpClient.cpp
 source\NetHttpResult.cpp
@@ -1406,6 +1396,7 @@ source\SceneDynaReplayItem.cpp
 source\SceneDynaZone.cpp
 source\SceneDynaZone_Tests.cpp
 source\SceneEngine.cpp
+source\SceneEntityIdAllocator.cpp
 source\SceneFx.cpp
 source\SceneFxBloom.cpp
 source\SceneFxBloomData.cpp

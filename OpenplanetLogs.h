@@ -1650,8 +1650,6 @@ struct CGameCtnBlockInfo : public CGameCtnCollector {
   bool EdNoRespawn;
   bool IconAutoUseGround;
   CMwNod* IconMacroBlockInfo;
-  CMwNod* PrecalcPartParams;
-  iso4 PrecalcPartLoc;
   bool CharPhySpecialPropertyCustomizable;
   CPlugCharPhySpecialProperty* CharPhySpecialProperty;
   CGameWaypointSpecialProperty* WaypointSpecialProperty;
@@ -1900,6 +1898,10 @@ struct CGameCtnMediaShootParams : public CMwNod {
 struct CGameCampaignsScoresManager : public CMwNod {
   CGameCampaignsScoresManager();
 
+};
+
+// userName: 'ActionFxPhy'
+struct CGameActionFxPhy : public CMwNod {
 };
 
 struct CGameCampaignScores : public CMwNod {
@@ -2465,7 +2467,6 @@ struct CGameCtnGhost : public CGameGhost {
   const string Validate_RaceSettings;
   const uint Validate_OsKind;
   const uint Validate_CpuKind;
-  const uint RecordedPlayerUid;
 };
 
 // File extension: 'TMReplay.Gbx'
@@ -3375,6 +3376,10 @@ struct CGameControlCardMessage : public CGameControlCard {
   wstring StrMessage;
   uint Donation;
   void OnCheckLogin();
+};
+
+// userName: 'ActionFxVis'
+struct CGameActionFxVis : public CMwNod {
 };
 
 // File extension: 'Frame.Gbx'
@@ -8242,6 +8247,7 @@ struct CGameManialinkMiniMap : public CGameManialinkControl {
   float MapYaw; // Maniascript
   float ZoomFactor; // Range: 0.5 - 10 // Maniascript
   bool Underground; // Maniascript
+  bool DisableAutoUnderground; // Maniascript
   void Fog_SetAll(float Value); // Maniascript
   void Fog_ClearDisk(vec3 WorldCenter, float Radius, float FadeSize); // Maniascript
 };
@@ -20241,6 +20247,7 @@ struct CTrackManiaScore : public CTmRaceRulesScore {
   uint RaceInputsDuration;
   uint RaceSimDataSimulationSeed;
   uint BestRaceInputsTimeStartInReplay;
+  uint BestRaceInputsForceModelItemIndex;
   const string StrRaceBestTime;
   const string StrPrevRaceTime;
   const string StrPrevRaceDeltaPoints;
@@ -20607,20 +20614,26 @@ struct CSmPlayer : public CGamePlayer {
   const float AimYaw; // Maniascript
   const float AimPitch; // Maniascript
   const vec3 AimDirection; // Maniascript
+  const vec3 Velocity; // Maniascript
+  const float Speed; // Maniascript
   const bool IsUnderground; // Maniascript
   const bool IsTouchingGround; // Maniascript
   const bool IsInAir; // Maniascript
+  const bool IsInWater; // Maniascript
+  const bool IsInOffZone; // Maniascript
+  const bool IsOnTech; // Maniascript
   const bool IsOnTechGround; // Maniascript
   const bool IsOnTechLaser; // Maniascript
   const bool IsOnTechArrow; // Maniascript
+  const bool IsOnTechNucleus; // Maniascript
   const bool IsOnTechArmor; // Maniascript
   const bool IsOnTechSafeZone; // Maniascript
-  const bool IsOnTech; // Maniascript
+  const bool IsOnTechTeleport; // Maniascript
   const bool IsOnTechNoWeapon; // Maniascript
-  const bool IsInWater; // Maniascript
-  const vec3 Velocity; // Maniascript
-  const float Speed; // Maniascript
-  const bool IsInOffZone; // Maniascript
+  const bool IsPowerJumpActivable; // Maniascript
+  const bool IsTeleportActivable; // Maniascript
+  const bool IsAttractorActivable; // Maniascript
+  const uint NbActiveAttractors; // Maniascript
   const bool IsCapturing; // Maniascript
   const CSmScriptBlockPole* BlockPole; // Maniascript
   const CSmScriptMapLandmark* CapturedLandmark; // Maniascript
@@ -20724,7 +20737,6 @@ struct CSmArenaRules : public CMwNod {
   CSmArenaRulesMode* RulesMode;
   uint RulesStateStartTime;
   uint RulesStateEndTime;
-  bool RulesStateFreeze;
   uint RulesStateTeam1Score;
   uint RulesStateTeam2Score;
   bool FeatureArmorBar;
@@ -20821,7 +20833,6 @@ struct CSmArenaInterface : public CMwNod {
   bool SkippedInputs;
   uint FlipCheck_Duration;
   uint FlipCheck_PitchSumMin;
-  float GhosClipPlayerOffset;
 };
 
 struct CSmClient : public CMwNod {
@@ -21583,8 +21594,8 @@ struct CGameTurbineModel : public CMwNod {
   bool SilencerBubble_OnlyPlayerSounds;
 };
 
-struct CGameGhostData : public CMwNod {
-  CGameGhostData();
+struct CGameGhostTMData : public CMwNod {
+  CGameGhostTMData();
 
 };
 
