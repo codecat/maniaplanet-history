@@ -10673,6 +10673,7 @@ struct CGameScriptMgrTurret : public CMwNod {
   void MapTurrets_Reset(); // Maniascript
   CGameScriptTurret* Turret_Create(MwId ModelId, vec3 Position, vec3 Direction, uint Clan, CGamePlayer* Owner); // Maniascript
   void Turret_Destroy(CGameScriptTurret* Turret); // Maniascript
+  void Turret_DestroyAll(); // Maniascript
   MwBuffer<CGameScriptTurret*> Turrets; // Maniascript
 };
 
@@ -20715,17 +20716,19 @@ struct CSmActionInstanceEvent : public CMwNod {
     OnHitObject = 3,
     OnHitShield = 4,
     OnShieldEnd = 5,
+    OnHitTurret = 6,
   };
   const EType Type; // Maniascript
-  const CSmPlayer* Player; // Maniascript
-  const CSmObject* Object; // Maniascript
-  const uint Damage; // Maniascript
   const MwId ProjectileModelId; // Maniascript
+  const int Damage; // Maniascript
   const uint ContextId; // Maniascript
   const vec3 Position; // Maniascript
   const vec3 Direction; // Maniascript
   const vec3 Normal; // Maniascript
+  const CSmPlayer* Player; // Maniascript
+  const CSmObject* Object; // Maniascript
   const uint Shield; // Maniascript
+  const CGameScriptTurret* Turret; // Maniascript
 };
 
 struct CSmArenaRules : public CMwNod {
