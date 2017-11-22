@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 0.13 (v4, Public)
+// Generated with Openplanet 0.14 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -1495,10 +1495,10 @@ struct CGameCtnChallengeInfo : public CGameFid {
   const bool LapRace;
   const uint DbgPackMask;
   const _EMedal Medal;
-  const _EMedal OfficialMedal;
   const uint BestScore;
   const uint BestTime;
   const uint MinRespawnCount;
+  const _EMedal OfficialMedal;
   const uint OfficialBestScore;
   const uint OfficialBestTime;
   const uint OfficialMinRespawnCount;
@@ -10672,7 +10672,7 @@ struct CGameScriptMgrTurret : public CMwNod {
 struct CGameScriptTurret : public CMwNod {
   uint Armor; // Maniascript
   uint ArmorMax; // Maniascript
-  const CGameScriptTurret* Owner; // Maniascript
+  const CGamePlayer* Owner; // Maniascript
 };
 
 struct CWebServicesTaskResult_GhostList : public CWebServicesTaskResult {
@@ -16981,6 +16981,9 @@ struct CSceneMgrSolid2Vis : public CMwNod {
 };
 
 struct CSceneMgrPhy : public CMwNod {
+};
+
+struct CSceneTriggerAction : public CMwNod {
 };
 
 // userName: 'Bullet'
