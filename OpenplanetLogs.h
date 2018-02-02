@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 0.14 (v4, Public Logs)
+// Generated with Openplanet 0.16 (v4, Public Logs)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -263,7 +263,7 @@ struct CMwCmdBlockMain : public CMwCmdBlock {
   CMwCmdBlockMain();
 
   const string ScriptText;
-  const CMwNod* ThisClass;
+  CMwNod* const ThisClass;
 };
 
 struct CMwCmdContainer : public CMwNod {
@@ -382,8 +382,9 @@ struct CGameManiaTitle : public CGameNod {
   uint ModelSkinInit;
 };
 
+// Description: "A player is the incarnation of the user in the playground."
 struct CGamePlayer : public CMwNod {
-  const CGamePlayerInfo* User; // Maniascript
+  CGamePlayerInfo* const User; // Maniascript
   const string Login; // Maniascript
   const wstring Name; // Maniascript
   const int RequestedClan; // Maniascript
@@ -401,9 +402,9 @@ struct CGameTerminal : public CMwNod {
     _SpectatorCam_Auto = 1,
   };
   CGamePlayer* ControlledPlayer;
-  const CGamePlayerCameraSet* CameraSet;
-  const CGameCtnMediaClipPlayer* MediaClipPlayer;
-  const CGameCtnMediaClipPlayer* MediaAmbianceClipPlayer;
+  CGamePlayerCameraSet* const CameraSet;
+  CGameCtnMediaClipPlayer* const MediaClipPlayer;
+  CGameCtnMediaClipPlayer* const MediaAmbianceClipPlayer;
   void GetNextWantedCameraType();
   void GetNextWantedCameraTarget();
   SpectatorCameraType SpectatorCameraType;
@@ -415,11 +416,11 @@ struct CGameApp : public CMwNod {
 
   void Start();
   void TerminateGame();
-  const CHmsViewport* Viewport;
-  const CAudioPort* AudioPort;
-  const CInputPort* InputPort;
-  const CGameDialogs* BasicDialogs;
-  const CGameSystemOverlay* SystemOverlay;
+  CHmsViewport* const Viewport;
+  CAudioPort* const AudioPort;
+  CInputPort* const InputPort;
+  CGameDialogs* const BasicDialogs;
+  CGameSystemOverlay* const SystemOverlay;
   const MwBuffer<CGameMenu*> ActiveMenus;
   void ShowMenu(CGameMenu* Menu);
   void HideMenu(CGameMenu* Menu);
@@ -428,12 +429,12 @@ struct CGameApp : public CMwNod {
   const string OSLocalDate;
   const string OSUTCTime;
   const string OSLocalTime;
-  const CGameLoadProgress* LoadProgress;
+  CGameLoadProgress* const LoadProgress;
   string CmdLineUrlMptp;
   wstring BenchLoadingFolderName;
-  const CGameAchievementScriptManager* AchievementsScriptManager;
-  const CGameScriptNotificationsConsumer* NotificationsConsumer;
-  const CGameScriptNotificationsProducer* NotificationsProducer;
+  CGameAchievementScriptManager* const AchievementsScriptManager;
+  CGameScriptNotificationsConsumer* const NotificationsConsumer;
+  CGameScriptNotificationsProducer* const NotificationsProducer;
 };
 
 struct CGameMasterServer : public CNetMasterServer {
@@ -463,8 +464,8 @@ struct CGameMasterServer : public CNetMasterServer {
   const MwBuffer<CMwNod*> CurrentDownloads;
   uint Search_TimeToWait;
   const uint Search_Last;
-  const CGameLeagueManager* LeaguesManager;
-  const CGameLeagueManager* SubscribedGroupsManager;
+  CGameLeagueManager* const LeaguesManager;
+  CGameLeagueManager* const SubscribedGroupsManager;
 };
 
 // File extension: ''
@@ -484,16 +485,16 @@ struct CGameMenu : public CMwNod {
   };
   MwArray<CGameMenuFrame*> Frames;
   CGameMenuFrame* MainFrame;
-  const CGameMenuFrame* CurrentFrame;
-  const CControlBase* CurrentFocusedControl;
-  const CControlStyle* CurrentFocusedControlStyle;
+  CGameMenuFrame* const CurrentFrame;
+  CControlBase* const CurrentFocusedControl;
+  CControlStyle* const CurrentFocusedControlStyle;
   CPlugSound* SoundDisplayed;
   CPlugSound* SoundHidden;
   CPlugSound* SoundPageChanged;
   CControlStyleSheet* StyleSheet;
   CPlugBitmap* BackgroundBitmapUnderlay;
   CScene3d* BackgroundScene;
-  const CSceneCamera* BackgroundCamera;
+  CSceneCamera* const BackgroundCamera;
   float BackgroundCameraFov;
   float BackgroundCameraNearZ;
   float BackgroundCameraFarZ;
@@ -502,7 +503,7 @@ struct CGameMenu : public CMwNod {
   void RedrawAll();
   vec3 FrustumCenter;
   vec3 FurstrumHfDiag;
-  const CScene2d* Overlay;
+  CScene2d* const Overlay;
   EMenuOrder MenuOrder;
   vec2 GridStep;
 };
@@ -522,7 +523,7 @@ struct CGameMenuFrame : public CControlFrame {
   CMwCmdBlockMain* OnHideScript;
   CMwCmdBlockMain* OnBeforeShowScript;
   CMwCmdBlockMain* OnShowScript;
-  const CGameMenu* Menu;
+  CGameMenu* const Menu;
   CScene3d* FrameScene;
   void RunOnShowScripts();
   bool AllowBgCamera;
@@ -530,8 +531,8 @@ struct CGameMenuFrame : public CControlFrame {
 };
 
 struct CGameSystemOverlay : public CMwNod {
-  const CScene2d* Overlay;
-  const CScene2d* PluginsMenuOverlayOverlay;
+  CScene2d* const Overlay;
+  CScene2d* const PluginsMenuOverlayOverlay;
   uint HideDelay;
   void SwitchFullscreen();
   void MinimizeApp();
@@ -545,17 +546,17 @@ struct CGameSystemOverlay : public CMwNod {
   bool IconManiaPlanet_ShowHome;
   const bool ToolBarIsActive;
   wstring ToolTip;
-  const CGameManiaPlanetMenuStations* MenuStations;
-  const CGameManialinkBrowser* ManialinkBrowser;
-  const CGameScriptDebugger* ScriptDebugger;
+  CGameManiaPlanetMenuStations* const MenuStations;
+  CGameManialinkBrowser* const ManialinkBrowser;
+  CGameScriptDebugger* const ScriptDebugger;
 };
 
 struct CGamePlayground : public CGameSwitcherModule {
-  const CGamePlaygroundInterface* Interface; // Maniascript
+  CGamePlaygroundInterface* const Interface; // Maniascript
   const MwBuffer<CGamePlayer*> Players;
   const MwBuffer<CGameTerminal*> GameTerminals;
   const MwBuffer<CGamePlaygroundUIConfig*> UIConfigs;
-  const CGameCtnReplayRecord* ReplayRecord;
+  CGameCtnReplayRecord* const ReplayRecord;
   CGameCtnReplayRecord* PrevReplayRecord;
   bool GameTerminals_IsBlackOut;
   bool GameTerminals_BlackOut_Auto2dVr;
@@ -595,21 +596,21 @@ struct CGameNetPlayerInfo : public CMwNod {
 
 struct CGameNetwork : public CMwNod {
   CGameNetServerInfo* ServerInfo;
-  const CNetMasterServer* MasterServer;
-  const CNetFileTransfer* FileTransfer;
+  CNetMasterServer* const MasterServer;
+  CNetFileTransfer* const FileTransfer;
   const MwBuffer<CSystemPackDesc*> PackDescs;
-  const CSystemFidsFolder* LocationPacksContent;
+  CSystemFidsFolder* const LocationPacksContent;
   const bool IsMultiInternet;
   const bool IsEnabled;
   const bool IsServer;
-  const CNetServer* Server;
-  const CNetClient* Client;
+  CNetServer* const Server;
+  CNetClient* const Client;
   const MwBuffer<CGameNetServerInfo*> OnlineServers;
   const MwBuffer<CGameNetServerInfo*> OnlinePlayers;
   MwBuffer<CGameNetPlayerInfo*> PlayerInfos;
   void FindServers();
-  const CGamePlaygroundUIConfigMgrScript* UIConfigMgr_Rules;
-  const CGamePlaygroundUIConfigMgrScript* UIConfigMgr_ServerPlugin;
+  CGamePlaygroundUIConfigMgrScript* const UIConfigMgr_Rules;
+  CGamePlaygroundUIConfigMgrScript* const UIConfigMgr_ServerPlugin;
   float VoteDefaultRatio;
   uint CallVoteTimeOut;
   uint CallVotePercent;
@@ -658,7 +659,7 @@ struct CGameManiaPlanetNetwork : public CGameCtnNetwork {
 
 struct CGameManiaTitleCore : public CGameNod {
   const wstring DisplayName;
-  const CGameManiaPlanet* ManiaPlanet;
+  CGameManiaPlanet* const ManiaPlanet;
   CGameCtnCollection* CollectionCommonFid;
   wstring ModeScriptFolderName;
   bool WithLocalMultiplayer;
@@ -675,11 +676,11 @@ struct CGameManiaPlanet : public CGameCtnApp {
   void ScanDiskForManiaTitles();
   const MwBuffer<CGameManiaTitle*> ManiaTitles;
   const MwBuffer<CGameStation*> Stations;
-  const CGameManiaTitle* LoadedManiaTitle;
-  const CGameManiaTitleCore* LoadedCore;
-  const CGameManiaPlanetScriptAPI* ManiaPlanetScriptAPI;
-  const CGameManiaTitleControlScriptAPI* ManiaTitleControlScriptAPI;
-  const CGameManiaTitleEditionScriptAPI* ManiaTitleEditionScriptAPI;
+  CGameManiaTitle* const LoadedManiaTitle;
+  CGameManiaTitleCore* const LoadedCore;
+  CGameManiaPlanetScriptAPI* const ManiaPlanetScriptAPI;
+  CGameManiaTitleControlScriptAPI* const ManiaTitleControlScriptAPI;
+  CGameManiaTitleEditionScriptAPI* const ManiaTitleEditionScriptAPI;
   string StartupManiaTitle;
   string StartupManiaTitle_SingleTitleMode;
   string StartupManiaTitle_TestMode;
@@ -689,6 +690,7 @@ struct CGameManiaPlanet : public CGameCtnApp {
   void BackToMainMenu();
 };
 
+// Description: "Station info & manipulation."
 struct CGameStation : public CGameNod {
   enum EEchelon {
     None = 0,
@@ -702,7 +704,7 @@ struct CGameStation : public CGameNod {
     Gold2 = 8,
     Gold3 = 9,
   };
-  const CGameManiaTitle* Title; // Maniascript
+  CGameManiaTitle* const Title; // Maniascript
   const uint AudienceRegisteredUsers; // Maniascript
   const uint AudienceInstalls;
   const uint AudienceOnlineUsers;
@@ -720,10 +722,11 @@ struct CGameStation : public CGameNod {
   vec3 NormalLightColor; // Maniascript
   const bool IsEditable; // Maniascript
   const string ManiaApp_Url;
-  const CGameManialinkPage* ManialinkViewer_Page;
-  const CGameManiaApp* ManiaApp;
+  CGameManialinkPage* const ManialinkViewer_Page;
+  CGameManiaApp* const ManiaApp;
 };
 
+// Description: "Manialink entry."
 struct CGameManialinkEntry : public CGameManialinkControl {
   enum ETextFormat {
     Basic = 0,
@@ -746,10 +749,10 @@ struct CGameManialinkEntry : public CGameManialinkControl {
 
 struct CGameScene : public CScene3d {
   CGamePlaygroundResources* Resources;
-  const CGameEnvironmentManager* EnvironmentManager;
-  const CGameHud3d* Hud3d;
-  const CGameMgrActionFxVis* MgrActionFxVis;
-  const CGameMgrCamera* MgrCamera;
+  CGameEnvironmentManager* const EnvironmentManager;
+  CGameHud3d* const Hud3d;
+  CGameMgrActionFxVis* const MgrActionFxVis;
+  CGameMgrCamera* const MgrCamera;
   CSceneMobil* MarksMobil;
   const MwBuffer<CPlugDecalModel*> ChallengeDecals_Models;
   CHmsVisMiniMap* MiniMap;
@@ -785,13 +788,13 @@ struct CGameCtnCollectorList : public CMwNod {
 struct CGameCtnChapter : public CMwNod {
   CGameCtnChapter();
 
-  const CSystemFidFile* CollectionFid;
+  CSystemFidFile* const CollectionFid;
   const wstring LongDesc;
   const MwBuffer<CGameCtnArticle*> Articles;
   vec2 MapCoordElem;
   vec2 MapCoordIcon;
   vec2 MapCoordDesc;
-  const CSystemFidFile* Icon;
+  CSystemFidFile* const Icon;
   const bool Unlocked;
 };
 
@@ -805,15 +808,15 @@ struct CGameCtnArticle : public CMwNod {
   CGameCtnArticle();
 
   const wstring Name;
-  const CSystemFidFile* CollectorFid;
+  CSystemFidFile* const CollectorFid;
   const bool IsLoaded;
   void Preload();
   void Purge();
   const MwId IdentId;
   UnnamedEnum CollectionId;
   const MwId IdentAuthor;
-  const CPlugBitmap* BitmapIcon;
-  const CPlugGameSkin* GameSkin;
+  CPlugBitmap* const BitmapIcon;
+  CPlugGameSkin* const GameSkin;
   uint NbAvailableCurrent;
   uint NbAvailableMax;
   UnnamedEnum ArticleDataLocation;
@@ -823,9 +826,9 @@ struct CGameCtnArticle : public CMwNod {
 };
 
 struct CGameCtnPlayground : public CGamePlayground {
-  const CGameScene* GameScene;
-  const CGameCtnGhost* PlayerRecordedGhost;
-  const CGameCtnGhost* PlayerBestGhost;
+  CGameScene* const GameScene;
+  CGameCtnGhost* const PlayerRecordedGhost;
+  CGameCtnGhost* const PlayerBestGhost;
 };
 
 struct CGameCamera : public CMwNod {
@@ -847,7 +850,7 @@ struct CGameMasterServerRequest : public CNetMasterServerRequest {
 };
 
 struct CGameAvatar : public CMwNod {
-  const CSystemPackDesc* PackDesc;
+  CSystemPackDesc* const PackDesc;
 };
 
 struct CGameNetOnlineMessage : public CMwNod {
@@ -862,11 +865,11 @@ struct CGameNetOnlineMessage : public CMwNod {
 
 // File extension: 'GameCtnMediaBlockTriangles.gbx'
 struct CGameCtnMediaBlockTriangles : public CGameCtnMediaBlock {
-  const CSceneMobil* Mobil;
+  CSceneMobil* const Mobil;
 };
 
 struct CGameRemoteBuffer : public CMwNod {
-  const CMwNod* LocalData;
+  CMwNod* const LocalData;
   const string LastServerUpdate;
   const bool UseRefs;
   const _EMode Mode;
@@ -879,7 +882,7 @@ struct CGameRemoteBuffer : public CMwNod {
 };
 
 struct CGameRemoteBufferPool : public CMwNod {
-  const CGameRemoteBufferDataInfo* DataInfo;
+  CGameRemoteBufferDataInfo* const DataInfo;
   const uint BuffersCount;
 };
 
@@ -1162,6 +1165,7 @@ struct CGameVskObjectInfo : public CGameCtnCollector {
   MwBuffer<CMwNod*> Properties;
 };
 
+// Description: "A 1-square-sized part of a block model."
 struct CGameCtnBlockUnitInfo : public CMwNod {
   CGameCtnBlockUnitInfo();
 
@@ -1194,8 +1198,8 @@ struct CGameFid : public CMwNod {
   const wstring Name; // Maniascript
   const wstring Path; // Maniascript
   const wstring FileName; // Maniascript
-  const CSystemFidFile* Fid;
-  const CSystemFidsFolder* Fids;
+  CSystemFidFile* const Fid;
+  CSystemFidsFolder* const Fids;
   const bool Selected;
 };
 
@@ -1352,14 +1356,14 @@ struct CGameAdvertising : public CGameNod {
   string Nation;
   string Login;
   const MwBuffer<CGameAdvertisingElement*> ZoneElements;
-  const CSceneMobil* ImpressionHelpers_Mobil;
+  CSceneMobil* const ImpressionHelpers_Mobil;
 };
 
 struct CGameAdvertisingElement : public CGameNod {
   const string Name;
   const uint ContentDisplayed;
   const MwBuffer<CMwNod*> OwnerNods;
-  const CSystemFidFile* File;
+  CSystemFidFile* const File;
   void DisplayOrig();
   const float Nadeo_MaxImpression;
   const uint Nadeo_ContentId;
@@ -1390,7 +1394,7 @@ struct CGameCtnChallenge : public CMwNod {
   CGameCtnChallenge();
 
   const string EdChallengeId;
-  const CGameCtnChallengeInfo* MapInfo; // Maniascript
+  CGameCtnChallengeInfo* const MapInfo; // Maniascript
   wstring MapName; // Maniascript
   wstring Comments; // Maniascript
   const string AuthorZoneIconUrl; // Maniascript
@@ -1418,7 +1422,7 @@ struct CGameCtnChallenge : public CMwNod {
   const bool HasCustomMusic; // Maniascript
   CGameCtnChallengeParameters* ChallengeParameters;
   CGameCtnCollectorList* BlockStock;
-  const CPlugBitmap* AuthorZoneIcon;
+  CPlugBitmap* const AuthorZoneIcon;
   const wstring MapTypeOrLegacyMode;
   string HashedPassword;
   MwId VehicleName;
@@ -1509,7 +1513,7 @@ struct CGameCtnChallengeInfo : public CGameFid {
 struct CGameOutlineBox : public CMwNod {
   CGameOutlineBox();
 
-  const CSceneMobil* Mobil;
+  CSceneMobil* const Mobil;
   bool AdditiveElseBlendSrcA;
   bool IsShowQuads;
   bool IsShowLines;
@@ -1554,7 +1558,7 @@ struct CGameCtnPainterSetting : public CMwNod {
   vec2 MinMaxScaleStickerText;
   vec2 MinMaxScaleBrush;
   vec2 MinMaxScaleBrushText;
-  const CGameControlCameraOrbital3d* Camera;
+  CGameControlCameraOrbital3d* const Camera;
   void SetDefaultCameraSettings();
   CPlugMaterial* MaterialPaint;
   CPlugMaterial* MaterialFillColor;
@@ -1612,6 +1616,7 @@ struct CGameCtnMediaBlockTriangles3D : public CGameCtnMediaBlockTriangles {
 
 };
 
+// Description: "The model of a map block"
 struct CGameCtnBlockInfo : public CGameCtnCollector {
   enum EBaseType {
     None = 0,
@@ -1667,8 +1672,8 @@ struct CGameCtnBlockInfo : public CGameCtnCollector {
   const EWayPointType WaypointType; // Maniascript
   const EWayPointType WayPointType; // Maniascript
   const bool NoRespawn; // Maniascript
-  const CGameCtnBlockInfoVariantGround* VariantGround; // Maniascript
-  const CGameCtnBlockInfoVariantAir* VariantAir; // Maniascript
+  CGameCtnBlockInfoVariantGround* const VariantGround; // Maniascript
+  CGameCtnBlockInfoVariantAir* const VariantAir; // Maniascript
 };
 
 // File extension: 'EDFlat.Gbx'
@@ -1769,12 +1774,12 @@ struct CGameCtnBlock : public CMwNod {
   uint CoordZ;
   CardinalDirections Dir;
   const uint MobilIndex;
-  const CSceneMobil* Mobil;
+  CSceneMobil* const Mobil;
   MwArray<CGameCtnBlockUnit*> BlockUnitsE;
-  const CGameCtnBlockSkin* Skin;
+  CGameCtnBlockSkin* const Skin;
   void ApplySkin();
   bool Editable;
-  const CGameCtnBlockInfo* BlockInfo;
+  CGameCtnBlockInfo* const BlockInfo;
   CPlugCharPhySpecialProperty* CharPhySpecialProperty;
   CGameWaypointSpecialProperty* WaypointSpecialProperty;
   const uint BlockScriptId; // Maniascript
@@ -1784,9 +1789,10 @@ struct CGameCtnBlock : public CMwNod {
   const nat3 Coord; // Maniascript
   const CardinalDirections Direction; // Maniascript
   const MwArray<CGameCtnBlockUnit*> BlockUnits; // Maniascript
-  const CGameCtnBlockInfo* BlockModel; // Maniascript
+  CGameCtnBlockInfo* const BlockModel; // Maniascript
 };
 
+// Description: "A 1-square-sized part of a block instance."
 struct CGameCtnBlockUnit : public CMwNod {
   CGameCtnBlockUnit();
 
@@ -1794,8 +1800,8 @@ struct CGameCtnBlockUnit : public CMwNod {
   uint AcceptPylons;
   const nat3 Offset; // Maniascript
   const nat3 AbsoluteOffset; // Maniascript
-  const CGameCtnBlockUnitInfo* BlockUnitModel; // Maniascript
-  const CGameCtnBlock* Block; // Maniascript
+  CGameCtnBlockUnitInfo* const BlockUnitModel; // Maniascript
+  CGameCtnBlock* const Block; // Maniascript
 };
 
 struct CGameCtnBlockSkin : public CMwNod {
@@ -1900,6 +1906,7 @@ struct CGameCampaignsScoresManager : public CMwNod {
 
 };
 
+// Skipping documentation due to broken pointer!
 // userName: 'ActionFxPhy'
 struct CGameActionFxPhy : public CMwNod {
 };
@@ -1919,11 +1926,12 @@ struct CGameGeneralScores : public CMwNod {
 
 };
 
+// Description: "Internal API to the manilink browser."
 struct CGameManialinkBrowser : public CMwNod {
-  const CControlFrame* FramePage;
-  const CControlFrame* FrameHeader;
-  const CGameManialinkPage* CurrentPage;
-  const CGameManiaApp* CurrentManiaApp;
+  CControlFrame* const FramePage;
+  CControlFrame* const FrameHeader;
+  CGameManialinkPage* const CurrentPage;
+  CGameManiaApp* const CurrentManiaApp;
   bool Manialink_Enabled;
   bool Manialink_Active; // Maniascript
   wstring ManialinkBrowser_Link; // Maniascript
@@ -2124,7 +2132,7 @@ struct CGameCtnMediaBlockUi : public CGameCtnMediaBlock {
 
 struct CGameCtnMediaBlockFx : public CGameCtnMediaBlock {
   const float FadeDuration;
-  const CSceneFx* SceneFx;
+  CSceneFx* const SceneFx;
 };
 
 struct CGameCtnMediaBlockFxBlur : public CGameCtnMediaBlockFx {
@@ -2172,8 +2180,8 @@ struct CGameCtnMediaBlockTime : public CGameCtnMediaBlock {
 };
 
 struct CGameCtnMediaClipPlayer : public CMwNod {
-  const CGameCtnMediaClip* Clip;
-  const CScene2d* Scene2d;
+  CGameCtnMediaClip* const Clip;
+  CScene2d* const Scene2d;
   const MwBuffer<CGameCtnMediaTrack*> EdMediaTracks;
   const uint LocalPlayerReplicaId;
 };
@@ -2212,6 +2220,7 @@ struct CGameManiaNetResource : public CMwNod {
   const string Url;
 };
 
+// Description: "User profile."
 struct CGamePlayerInfo : public CGameNetPlayerInfo {
   CGamePlayerInfo();
 
@@ -2281,8 +2290,8 @@ struct CGamePlayerInfo : public CGameNetPlayerInfo {
   const bool RequestsSpectate; // Maniascript
   const bool IsConnectedToMasterServer; // Maniascript
   const MwBuffer<string> AlliesConnected; // Maniascript
-  const CPlugBitmap* ZoneBitmap;
-  const CGameLeague* ZoneLeague;
+  CPlugBitmap* const ZoneBitmap;
+  CGameLeague* const ZoneLeague;
   const bool WishSpectator;
   const bool ForcedSpectator;
   uint PlaygroundTeamRequested;
@@ -2325,7 +2334,7 @@ struct CGamePlayerProfile : public CMwNod {
   CGamePlayerProfileChunk_ManiaPlanetStations* ManiaPlanetStations;
   const MwBuffer<CGamePlayerProfileChunk_InputBindingsConfig*> InputBindingsConfigs;
   const MwBuffer<CGamePlayerProfileChunk_PackagesInfos*> PackagesInfosChunks;
-  const CScriptTraitsPersistent* ScriptPersistentTraits_NoTitle;
+  CScriptTraitsPersistent* const ScriptPersistentTraits_NoTitle;
 };
 
 struct CGameScriptDebugger : public CMwNod {
@@ -2364,7 +2373,7 @@ struct CGameLeague : public CMwNod {
   uint OnlineHostsCount;
   UnnamedEnum MaxServerLevel;
   bool IsGroup;
-  const CSystemData* Logo;
+  CSystemData* const Logo;
 };
 
 struct CGameCtnChallengeGroup : public CMwNod {
@@ -2473,7 +2482,7 @@ struct CGameCtnGhost : public CGameGhost {
 struct CGameCtnReplayRecord : public CMwNod {
   CGameCtnReplayRecord();
 
-  const CGameCtnMediaClip* Clip;
+  CGameCtnMediaClip* const Clip;
   const MwBuffer<CGameCtnGhost*> Ghosts;
   CGameCtnChallenge* Challenge;
   const uint Duration;
@@ -2503,7 +2512,7 @@ struct CGameLadderRankingPlayer : public CGameLadderRanking {
 
 struct CGameLadderRankingSkill : public CGameLadderRanking {
   const wstring DynamicLeagueName;
-  const CSystemData* DynamicLeagueLogo;
+  CSystemData* const DynamicLeagueLogo;
 };
 
 // File extension: 'Frame.Gbx'
@@ -2573,7 +2582,7 @@ struct CGameCtnMediaBlockCameraEffect : public CGameCtnMediaBlock {
 struct CGameCtnMediaBlockCameraEffectShake : public CGameCtnMediaBlockCameraEffect {
   CGameCtnMediaBlockCameraEffectShake();
 
-  const CGameControlCameraEffect* Effect;
+  CGameControlCameraEffect* const Effect;
 };
 
 // File extension: 'GameCtnMediaBlockImage.gbx'
@@ -2581,8 +2590,8 @@ struct CGameCtnMediaBlockImage : public CGameCtnMediaBlock {
   CGameCtnMediaBlockImage();
 
   CPlugBitmap* Bitmap;
-  const CControlEffectSimi* Effect;
-  const CControlBase* Mobil;
+  CControlEffectSimi* const Effect;
+  CControlBase* const Mobil;
 };
 
 // File extension: 'CtnMediaBlockMusicFx.gbx'
@@ -2611,8 +2620,8 @@ struct CGameCtnMediaBlockText : public CGameCtnMediaBlock {
   CGameCtnMediaBlockText();
 
   wstring Text;
-  const CControlBase* Mobil;
-  const CControlEffectSimi* Effect;
+  CControlBase* const Mobil;
+  CControlEffectSimi* const Effect;
 };
 
 // File extension: 'GameCtnMediaBlockTrails.gbx'
@@ -2628,7 +2637,7 @@ struct CGameCtnMediaBlockTransition : public CGameCtnMediaBlock {
 struct CGameCtnMediaBlockTransitionFade : public CGameCtnMediaBlockTransition {
   CGameCtnMediaBlockTransitionFade();
 
-  const CControlBase* Mobil;
+  CControlBase* const Mobil;
   Color Color;
 };
 
@@ -2640,12 +2649,12 @@ struct CGameCtnMediaClipViewer : public CGameSwitcherModule {
 
   const bool DoInputs;
   const _EStatus ViewerStatus;
-  const CGameCtnMediaClip* Clip;
-  const CGameCtnMediaClipPlayer* ClipPlayer;
+  CGameCtnMediaClip* const Clip;
+  CGameCtnMediaClipPlayer* const ClipPlayer;
   float PlaySpeed;
-  const CGameCtnMediaClipGroup* ClipGroup;
-  const CGameCtnMediaClip* ClipGroupClip;
-  const CGameCtnMediaClipPlayer* ClipGroupPlayer;
+  CGameCtnMediaClipGroup* const ClipGroup;
+  CGameCtnMediaClip* const ClipGroupClip;
+  CGameCtnMediaClipPlayer* const ClipGroupPlayer;
   uint ClipGroupIndex;
   float ClipGroupStartTime;
 };
@@ -2676,14 +2685,14 @@ struct CGameCursorBlock : public CMwNod {
   float Roll;
   Color Color;
   float BrightnessFactor;
-  const CGameOutlineBox* CursorBox;
-  const CPlugTree* CursorBoxShadow;
-  const CSceneMobil* BlockMobil;
-  const CSceneMobil* BlockClipsMobil;
-  const CSceneMobil* BlockHelperMobil;
-  const CSceneMobil* PickerMobil;
-  const CSceneMobil* PickerHelperMobil;
-  const CPlugTree* DirectionalArrow;
+  CGameOutlineBox* const CursorBox;
+  CPlugTree* const CursorBoxShadow;
+  CSceneMobil* const BlockMobil;
+  CSceneMobil* const BlockClipsMobil;
+  CSceneMobil* const BlockHelperMobil;
+  CSceneMobil* const PickerMobil;
+  CSceneMobil* const PickerHelperMobil;
+  CPlugTree* const DirectionalArrow;
   Color CanPlaceColor;
   Color CanChangeVariantColor;
   Color CanJoinColor;
@@ -2695,20 +2704,20 @@ struct CGameCursorBlock : public CMwNod {
 
 struct CGameCtnEditor : public CGameEditorParent {
   CControlContainer* FrameRoot;
-  const CGameEditorMainPlugin* MainPLugin;
+  CGameEditorMainPlugin* const MainPLugin;
 };
 
 struct CGameCtnMediaTracker : public CGameCtnEditor {
   CGameCtnMediaTracker();
 
   UnnamedEnum EditionMode;
-  const CGameCtnMediaClipPlayer* MediaClipPlayer;
-  const CGameSafeFrame* SafeFrame;
+  CGameCtnMediaClipPlayer* const MediaClipPlayer;
+  CGameSafeFrame* const SafeFrame;
   bool IsDisplayPlayerNames;
   void SafeFrameCreate();
   void SafeFrameDestroy();
-  const CGameControlCameraFree* ControlCamFree;
-  const CGameCtnMediaBlockEditor* BlockEditor;
+  CGameControlCameraFree* const ControlCamFree;
+  CGameCtnMediaBlockEditor* const BlockEditor;
   void Undo();
   void Redo();
   void TimePlay();
@@ -2808,7 +2817,7 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   void ButResetDir();
   void ButCamCustomAdvancedParams();
   void ButCamPathAdvancedParams();
-  const CControlSimi2* ControlSimi2;
+  CControlSimi2* const ControlSimi2;
   MwBuffer<CGameCtnMediaClip*> Clips;
   MwBuffer<CGameCtnMediaTrack*> Tracks;
   CGameCtnMediaTrack* SelTrack;
@@ -2952,7 +2961,7 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   uint ColoringBaseBaseIndex;
   float ColoringBaseHue;
   float ColoringBaseIntensity;
-  const CGameCtnMediaBlockCameraEffectInertialTracking* SelBlockCamFxTracking;
+  CGameCtnMediaBlockCameraEffectInertialTracking* const SelBlockCamFxTracking;
   float TimeSpeedValue;
   const wstring TrackSound;
   bool SoundIsMusic;
@@ -3003,8 +3012,8 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   float FogSliderBlendF; // Range: 0 - 1
   float CloudsSliderOpacity; // Range: 0 - 1
   float CloudsSliderSpeedScale;
-  const CMwNod* TriggerOutlineBox;
-  const CPlugBitmap* Shoot_Bitmap;
+  CMwNod* const TriggerOutlineBox;
+  CPlugBitmap* const Shoot_Bitmap;
   void ButtonEditCameraEffectScript();
   bool DynaCam_Helpers;
   bool ButtonScreenCaptures;
@@ -3049,15 +3058,15 @@ struct CGameCtnPainter : public CMwNod {
   CGameCtnPainter();
 
   UnnamedEnum PainterMode;
-  const CSceneMobil* PlayerMobil;
-  const CGameControlCameraOrbital3d* ControlCameraOrbital3d;
+  CSceneMobil* const PlayerMobil;
+  CGameControlCameraOrbital3d* const ControlCameraOrbital3d;
   CPlugShader* PaintSolidShader;
   CPlugSolid* PaintSolid;
-  const CPlugBitmap* IconSkinBitmap;
-  const CPlugBitmap* OldBitmap;
-  const CPlugBitmap* BitmapToPaintSrc;
-  const CPlugBitmap* BitmapToPaintDst;
-  const CGameBadgeStickerSlots* BadgeStickerSlots;
+  CPlugBitmap* const IconSkinBitmap;
+  CPlugBitmap* const OldBitmap;
+  CPlugBitmap* const BitmapToPaintSrc;
+  CPlugBitmap* const BitmapToPaintDst;
+  CGameBadgeStickerSlots* const BadgeStickerSlots;
   bool ButtonFillModeEnabled;
   bool ButtonBrushModeEnabled;
   bool ButtonStickerModeEnabled;
@@ -3129,7 +3138,7 @@ struct CGameControlGrid : public CControlGrid {
   string StrPageCounter;
   const uint Remote_TotalCount;
   const string Remote_SpecificOverTotalCount;
-  const CGameRemoteBufferPool* Remote_Pool;
+  CGameRemoteBufferPool* const Remote_Pool;
 };
 
 // File extension: 'GameGridCards.Gbx'
@@ -3239,11 +3248,11 @@ struct CGameControlCardCtnChallengeInfo : public CGameControlCard {
   const uint NextMedalTime;
   const uint PlayerLeagueRanking;
   const uint PlayerSkillScore;
-  const CPlugBitmap* BmpLeagueLogo;
-  const CPlugBitmap* BmpMood;
-  const CPlugBitmap* BmpMod;
-  const CPlugBitmap* BmpBannerGrey;
-  const CPlugBitmap* BmpBanner;
+  CPlugBitmap* const BmpLeagueLogo;
+  CPlugBitmap* const BmpMood;
+  CPlugBitmap* const BmpMod;
+  CPlugBitmap* const BmpBannerGrey;
+  CPlugBitmap* const BmpBanner;
   void OnRemoveChallenge();
 };
 
@@ -3378,6 +3387,7 @@ struct CGameControlCardMessage : public CGameControlCard {
   void OnCheckLogin();
 };
 
+// Skipping documentation due to broken pointer!
 // userName: 'ActionFxVis'
 struct CGameActionFxVis : public CMwNod {
 };
@@ -3409,7 +3419,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   CGameMenu* InGameDialogs;
   CGameMenu* Dialogs;
   CGameMenu* SystemDialogs;
-  const CGameManialinkScriptHandler* ManialinkScriptHandlerMenus;
+  CGameManialinkScriptHandler* const ManialinkScriptHandlerMenus;
   string PasswordString;
   string PasswordString2;
   string PasswordString3;
@@ -3418,7 +3428,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   string SelectedName;
   wstring SelectedNickname;
   wstring SelectedAvatarName;
-  const CGameCtnChallengeInfo* SelectedChallengeInfo;
+  CGameCtnChallengeInfo* const SelectedChallengeInfo;
   const MwBuffer<CGameCtnChapter*> EnvironmentChapters;
   void DialogMessenger_Update();
   void DialogMessenger_UpdateButtons();
@@ -3655,8 +3665,8 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void MenuProfile_OnEditPodiumAnimLose();
   float MenuProfile_SoundPitchLog; // Range: -0.5 - 2
   bool MenuProfile_ParentalLock;
-  const CGameAvatar* MenuProfile_Avatar;
-  const CGameLeague* Menu_GroupToManage;
+  CGameAvatar* const MenuProfile_Avatar;
+  CGameLeague* const Menu_GroupToManage;
   const uint MenuProfile_GroupsCount;
   wstring MenuProfile_HornName;
   void DialogManageGroup_Create();
@@ -3696,7 +3706,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   bool DialogOnlineAccount_ChooseLogin1;
   bool DialogOnlineAccount_ChooseLogin2;
   bool DialogOnlineAccount_ChooseLogin3;
-  const CGameLeague* DialogOnlineAccount_SubscriptionLeague;
+  CGameLeague* const DialogOnlineAccount_SubscriptionLeague;
   void DialogOnlineAccountPersonnal_OnCancel();
   void DialogOnlineAccountPersonnal_OnOk();
   void DialogBuyTitlePackages_OnPay();
@@ -3940,7 +3950,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void DialogVote_OnCancel();
   void DialogInGameAskYesNo_Yes();
   void DialogInGameAskYesNo_No();
-  const CScene2d* DialogPlayerProfile_VehicleOverlayScene;
+  CScene2d* const DialogPlayerProfile_VehicleOverlayScene;
   void DialogManiaCodeActionsList_Ok();
   void DialogManiaCodeActionsList_Cancel();
   void DialogAskIncreaseCacheSize_OnYes();
@@ -3965,7 +3975,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   bool DialogOnlineAccount_RememberOnlinePassword;
   bool DialogOnlineAccountPersonnal_ReceiveNews;
   void DialogAddOrInviteBuddy_OnAdd();
-  const CGameLeague* DialogAddOrInviteBuddy_SelectedGroup;
+  CGameLeague* const DialogAddOrInviteBuddy_SelectedGroup;
   bool DialogAddOrInviteBuddy_InviteToJoinAGroup;
   void DialogAddOrInviteBuddy_OnMail();
   void DialogAddOrInviteBuddy_OnCancel();
@@ -4020,7 +4030,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void DialogSetChallengeType_TypePicked();
   void DialogSetChallengeType_StylePicked();
   uint ChallengeType_NbLaps;
-  const CGameCtnChallenge* CurGameChallenge;
+  CGameCtnChallenge* const CurGameChallenge;
   void DialogSetDifficulty();
   void DialogSetDifficulty_OnOk();
   UnnamedEnum ChallengeDifficulty;
@@ -4100,7 +4110,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void DialogUpdateFiles_Abort();
   const float DialogUpdateFiles_OverallProgress; // Range: 0 - 1
   const float DialogUpdateFiles_CurrentProgress; // Range: 0 - 1
-  const CGameMenuSkinChooser* MenuSkinChooser;
+  CGameMenuSkinChooser* const MenuSkinChooser;
 };
 
 struct CGameLadderRankingCtnChallengeAchievement : public CGameLadderRanking {
@@ -4135,10 +4145,11 @@ struct CGameMgrActionFxPhy : public CMwNod {
   const uint InstancesCount;
 };
 
+// Description: "This is the stations Manialink interface."
 struct CGameScriptHandlerStation : public CGameManialinkScriptHandler {
-  const CGameManiaPlanetScriptAPI* ManiaPlanet; // Maniascript
-  const CGameManiaAppStation* ParentApp; // Maniascript
-  const CGameStation* Station; // Maniascript
+  CGameManiaPlanetScriptAPI* const ManiaPlanet; // Maniascript
+  CGameManiaAppStation* const ParentApp; // Maniascript
+  CGameStation* const Station; // Maniascript
   void EnterStation(); // Maniascript
   void BrowserReload(); // Maniascript
 };
@@ -4170,16 +4181,16 @@ struct CGameCtnApp : public CGameApp {
 
   CGameResources* Resources;
   CGameCtnNetwork* Network;
-  const CGamePlaygroundScript* PlaygroundScript;
-  const CGameSwitcher* Switcher;
+  CGamePlaygroundScript* const PlaygroundScript;
+  CGameSwitcher* const Switcher;
   CGameCtnChallenge* Challenge;
   UnnamedEnum VehicleCollectionId;
   CGameScene* GameScene;
-  const CGameCamera* GameCamera;
-  const CGameEditorBase* EditorBase;
-  const CGameCtnEditor* Editor;
-  const CGamePlayground* CurrentPlayground;
-  const CGameCtnCatalog* GlobalCatalog;
+  CGameCamera* const GameCamera;
+  CGameEditorBase* const EditorBase;
+  CGameCtnEditor* const Editor;
+  CGamePlayground* const CurrentPlayground;
+  CGameCtnCatalog* const GlobalCatalog;
   const MwBuffer<CMwNod*> AdditionalSkinsFids;
   MwBuffer<CGameCtnChallengeInfo*> ChallengeInfos;
   MwBuffer<CGameCtnReplayRecordInfo*> ReplayRecordInfos;
@@ -4187,7 +4198,7 @@ struct CGameCtnApp : public CGameApp {
   CGamePlayerProfile* CurrentProfile;
   MwBuffer<CGameCtnCampaign*> BaseOfficialCampaigns;
   MwBuffer<CGameCtnCampaign*> OfficialCampaigns;
-  const CGameCtnCampaign* CurrentCampaign;
+  CGameCtnCampaign* const CurrentCampaign;
   bool MenuBackground_MustLoopIntro;
   const uint MessagesCount;
   const wstring Money;
@@ -4195,17 +4206,17 @@ struct CGameCtnApp : public CGameApp {
   bool StereoscopyEnable;
   bool CanModifyWithoutInvalidate;
   CGameAdvertising* Advertising;
-  const CGameScriptChatManager* ChatManagerScript;
-  const CGameMatchSettingsManagerScript* MatchSettingsManagerScript;
-  const CGameYoutube* Youtube;
-  const CGameUserManagerScript* UserManagerScript;
+  CGameScriptChatManager* const ChatManagerScript;
+  CGameMatchSettingsManagerScript* const MatchSettingsManagerScript;
+  CGameYoutube* const Youtube;
+  CGameUserManagerScript* const UserManagerScript;
 };
 
 // File extension: 'Frame.Gbx'
 struct CGameControlCardCtnArticle : public CGameControlCard {
   CGameControlCardCtnArticle();
 
-  const CPlugBitmap* Icon;
+  CPlugBitmap* const Icon;
   const wstring StrName;
 };
 
@@ -4224,6 +4235,7 @@ struct CGameControlCardCtnCampaign : public CGameControlCard {
   const wstring Name;
 };
 
+// Description: "Internal API for Maniaplanet."
 struct CGameManiaPlanetScriptAPI : public CMwNod {
   enum EContext {
     MenuStartUp = 0,
@@ -4293,8 +4305,8 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
   const int Now; // Maniascript
   const string CurrentLocalDateText; // Maniascript
   const wstring CurrentTimezone; // Maniascript
-  const CGamePlayerInfo* LocalUser; // Maniascript
-  const CGameManiaTitle* LoadedTitle; // Maniascript
+  CGamePlayerInfo* const LocalUser; // Maniascript
+  CGameManiaTitle* const LoadedTitle; // Maniascript
   const MwBuffer<CGameManiaTitle*> TitlesAvailable; // Maniascript
   const MwBuffer<CGameManiaTitle*> TitlesBases; // Maniascript
   const MwBuffer<string> TitleIdsInstalled; // Maniascript
@@ -4303,7 +4315,7 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
   const ESystemPlatform SystemPlatform; // Maniascript
   const ESystemSkuIdentifier SystemSkuIdentifier; // Maniascript
   const string ExeVersion; // Maniascript
-  const CGameCtnChallenge* CurrentMap; // Maniascript
+  CGameCtnChallenge* const CurrentMap; // Maniascript
   const EContext ActiveContext; // Maniascript
   const string ActiveContext_MenuFrame; // Maniascript
   const string ActiveContext_InGameDialogFrame; // Maniascript
@@ -4374,9 +4386,9 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
   bool IsLiveStreamingEnabled; // Maniascript
   bool IsRemotePlayEnabled; // Maniascript
   void TmTurbo_LoadingOpportunity(); // Maniascript
-  const CGameScriptChatManager* ChatManager; // Maniascript
-  const CGameAchievementScriptManager* AchievementsManager; // Maniascript
-  const CGameUserManagerScript* UserMgr; // Maniascript
+  CGameScriptChatManager* const ChatManager; // Maniascript
+  CGameAchievementScriptManager* const AchievementsManager; // Maniascript
+  CGameUserManagerScript* const UserMgr; // Maniascript
   void Authentication_GetToken(MwId UserId, string AppLogin); // Maniascript
   const bool Authentication_GetTokenResponseReceived; // Maniascript
   const uint Authentication_ErrorCode; // Maniascript
@@ -4384,7 +4396,7 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
   const MwBuffer<CWebServicesTaskResult*> MasterServer_MSTaskResults; // Maniascript
   void MasterServer_ReleaseMSTaskResult(MwId TaskId); // Maniascript
   string MasterServer_GetURL(string ShortCutId); // Maniascript
-  const CGameMasterServerUserInfo* MasterServer_MainMSUser; // Maniascript
+  CGameMasterServerUserInfo* const MasterServer_MainMSUser; // Maniascript
   const MwBuffer<CGameMasterServerUserInfo*> MasterServer_MSUsers; // Maniascript
   CGameMasterServerUserInfo* MasterServer_GetMSUserFromId(MwId UserId); // Maniascript
   void MasterServer_Connect(MwId UserId); // Maniascript
@@ -4431,7 +4443,7 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
   const float HMD_HeadRoll; // Maniascript
   void HMD_ResetTracking(); // Maniascript
   void HMD_SelectUser(); // Maniascript
-  const CGameUserScript* HMD_CurrentUser; // Maniascript
+  CGameUserScript* const HMD_CurrentUser; // Maniascript
   float HMD_WorldScale; // Maniascript
   float HMD_MoveScale; // Range: 1e-05 - 10000 // Maniascript
   float HMD_HUD_Distance; // Range: 0.2 - 100 // Maniascript
@@ -4445,8 +4457,8 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
 struct CGameControlCardCtnChapter : public CGameControlCard {
   CGameControlCardCtnChapter();
 
-  const CPlugBitmap* Icon;
-  const CPlugBitmap* BannerChallenge;
+  CPlugBitmap* const Icon;
+  CPlugBitmap* const BannerChallenge;
   const wstring StrName;
 };
 
@@ -4470,7 +4482,7 @@ struct CGameControlCardCtnGhostInfo : public CGameControlCard {
 struct CGameControlCardCtnVehicle : public CGameControlCard {
   CGameControlCardCtnVehicle();
 
-  const CPlugBitmap* Icon;
+  CPlugBitmap* const Icon;
   const wstring StrName;
 };
 
@@ -4494,22 +4506,22 @@ struct CGameControlGridCtnChallengeGroup : public CControlGrid {
 
 struct CGameAnalyzer : public CMwNod {
   const int Mode;
-  const CMwStatsValue* FrameRate;
+  CMwStatsValue* const FrameRate;
 };
 
 struct CGamePlaygroundInterface : public CMwNod {
   CControlContainer* InterfaceRoot;
-  const CGameHud3d* Hud3d;
-  const CGameCtnNetServerInfo* ServerInfo;
-  const CGameCtnChallenge* Challenge;
-  const CGamePodium* Podium;
+  CGameHud3d* const Hud3d;
+  CGameCtnNetServerInfo* const ServerInfo;
+  CGameCtnChallenge* const Challenge;
+  CGamePodium* const Podium;
   wstring ChatEntry;
   void ChatNextPage();
   void ChatPreviousPage();
   void ChatToggleDisplayMode();
-  const CControlFrame* ManialinkPage;
-  const CGameScriptHandlerPlaygroundInterface* ManialinkScriptHandler;
-  const CGameManialinkScriptHandler* ManialinkScriptHandlerBasic;
+  CControlFrame* const ManialinkPage;
+  CGameScriptHandlerPlaygroundInterface* const ManialinkScriptHandler;
+  CGameManialinkScriptHandler* const ManialinkScriptHandlerBasic;
   void ShowChallengeCard();
   void ShowModeHelp();
   void CopyServerLink();
@@ -4595,7 +4607,7 @@ struct CGameCampaignPlayerScores : public CMwNod {
 };
 
 struct CGameLoadProgress : public CMwNod {
-  const CScene2d* Overlay;
+  CScene2d* const Overlay;
 };
 
 struct CGameNetFormBuddy : public CNetNod {
@@ -4603,6 +4615,7 @@ struct CGameNetFormBuddy : public CNetNod {
 
 };
 
+// Description: "API for GameModes Manialinks"
 struct CGameScriptHandlerPlaygroundInterface : public CGameManialinkScriptHandler {
   enum EUISound {
     Default = 0,
@@ -4643,15 +4656,15 @@ struct CGameScriptHandlerPlaygroundInterface : public CGameManialinkScriptHandle
     ServerSettings = 4,
   };
   const int GameTime; // Maniascript
-  const CGamePlaygroundClientScriptAPI* Playground; // Maniascript
+  CGamePlaygroundClientScriptAPI* const Playground; // Maniascript
   CGamePlaygroundUIConfig* UI; // Maniascript
   CGamePlaygroundUIConfig* ClientUI; // Maniascript
   const bool IsSpectator; // Maniascript
   const bool IsSpectatorClient; // Maniascript
   const bool UseClans; // Maniascript
   const bool UseForcedClans; // Maniascript
-  const CGameManiaAppPlaygroundCommon* ParentApp; // Maniascript
-  const CGameCtnChallenge* Map; // Maniascript
+  CGameManiaAppPlaygroundCommon* const ParentApp; // Maniascript
+  CGameCtnChallenge* const Map; // Maniascript
   void ShowCurChallengeCard(); // Maniascript
   void ShowModeHelp(); // Maniascript
   void CopyServerLinkToClipBoard(); // Maniascript
@@ -4675,12 +4688,13 @@ struct CGameScriptHandlerPlaygroundInterface : public CGameManialinkScriptHandle
   const bool IsTeamMode; // Maniascript
   const bool IsForcedTeams; // Maniascript
   bool IsSpectatorMode; // Maniascript
-  const CGamePlayerInfo* LocalPlayerInfo; // Maniascript
-  const CGameAchievementScriptManager* AchievementsManager; // Maniascript
+  CGamePlayerInfo* const LocalPlayerInfo; // Maniascript
+  CGameAchievementScriptManager* const AchievementsManager; // Maniascript
 };
 
+// Description: "Station mania app."
 struct CGameManiaAppStation : public CGameManiaAppMinimal {
-  const CGameStation* Station; // Maniascript
+  CGameStation* const Station; // Maniascript
   void EnterStation(); // Maniascript
   void Maker_EditTitle(string EditedTitleId); // Maniascript
   void Maker_EditNewTitle(wstring EditedTitleName); // Maniascript
@@ -4721,6 +4735,7 @@ struct CGameEditPos3D : public CMwNod {
   void Hide();
 };
 
+// Description: "This is the base Manialink page interface."
 struct CGameManialinkScriptHandler : public CMwNod {
   enum LinkType {
     ExternalBrowser = 0,
@@ -4743,7 +4758,7 @@ struct CGameManialinkScriptHandler : public CMwNod {
     US = 2,
     JP = 3,
   };
-  const CGameManialinkPage* Page; // Maniascript
+  CGameManialinkPage* const Page; // Maniascript
   const bool PageIsVisible; // Maniascript
   const uint Now; // Maniascript
   const uint Period; // Maniascript
@@ -4751,8 +4766,8 @@ struct CGameManialinkScriptHandler : public CMwNod {
   const string CurrentTimeText; // Maniascript
   const string CurrentLocalDateText; // Maniascript
   const wstring CurrentTimezone; // Maniascript
-  const CGamePlayerInfo* LocalUser; // Maniascript
-  const CGameManiaTitle* LoadedTitle; // Maniascript
+  CGamePlayerInfo* const LocalUser; // Maniascript
+  CGameManiaTitle* const LoadedTitle; // Maniascript
   const ESystemPlatform SystemPlatform; // Maniascript
   const ESystemSkuIdentifier SystemSkuIdentifier; // Maniascript
   const MwBuffer<CGameManialinkScriptEvent*> PendingEvents; // Maniascript
@@ -4776,16 +4791,16 @@ struct CGameManialinkScriptHandler : public CMwNod {
   const bool IsMenuNavigationForeground; // Maniascript
   void OpenLink(string Url, LinkType LinkType); // Maniascript
   void TriggerPageAction(string ActionString); // Maniascript
-  const CXmlScriptManager* Xml; // Maniascript
-  const CNetScriptHttpManager* Http; // Maniascript
-  const CGameVideoScriptManager* Video; // Maniascript
-  const CAudioScriptManager* Audio; // Maniascript
-  const CInputScriptManager* Input; // Maniascript
-  const CGameDataFileManagerScript* DataFileMgr; // Maniascript
-  const CGameScoreAndLeaderBoardManagerScript* ScoreMgr; // Maniascript
-  const CGameUserPrivilegesManagerScript* PrivilegeMgr; // Maniascript
-  const CGameMasterServerRichPresenceManagerScript* PresenceMgr; // Maniascript
-  const CGameManialinkAnimManager* AnimMgr; // Maniascript
+  CXmlScriptManager* const Xml; // Maniascript
+  CNetScriptHttpManager* const Http; // Maniascript
+  CGameVideoScriptManager* const Video; // Maniascript
+  CAudioScriptManager* const Audio; // Maniascript
+  CInputScriptManager* const Input; // Maniascript
+  CGameDataFileManagerScript* const DataFileMgr; // Maniascript
+  CGameScoreAndLeaderBoardManagerScript* const ScoreMgr; // Maniascript
+  CGameUserPrivilegesManagerScript* const PrivilegeMgr; // Maniascript
+  CGameMasterServerRichPresenceManagerScript* const PresenceMgr; // Maniascript
+  CGameManialinkAnimManager* const AnimMgr; // Maniascript
   void SendCustomEvent(wstring Type, MwBuffer<wstring>& Data); // Maniascript
   void PreloadImage(string ImageUrl); // Maniascript
   void PreloadAll(); // Maniascript
@@ -4796,7 +4811,7 @@ struct CGameManialinkScriptHandler : public CMwNod {
 struct CGameControlFrameInventory : public CControlFrame {
   CGameControlFrameInventory();
 
-  const CGameControlGridCard* GridCards;
+  CGameControlGridCard* const GridCards;
   const MwBuffer<CGameControlCardGeneric*> FreeCards;
   void InitItems();
 };
@@ -4878,17 +4893,18 @@ struct CGameManialinkOldTable : public CGameManialinkControl {
 
 struct CGameCtnMenusManiaPlanet : public CGameCtnMenus {
   const MwBuffer<CGameCtnChallengeInfo*> ChallengeInfosCampaign;
-  const CGameCtnCampaign* CurrentCampaign;
-  const CGameManialink3dWorld* Manialink3dWorld;
-  const CGameManialink3dStyle* Manialink3d_BaseStyle;
-  const CGameManiaAppTitle* MenuCustom_CurrentManiaApp;
-  const CGameManiaPlanetMenuStations* MenuManiaPlanet_MenuStations;
-  const CGameManialink3dStyle* MenuManiaPlanet3d_BrowserManialink3dStyle;
+  CGameCtnCampaign* const CurrentCampaign;
+  CGameManialink3dWorld* const Manialink3dWorld;
+  CGameManialink3dStyle* const Manialink3d_BaseStyle;
+  CGameManiaAppTitle* const MenuCustom_CurrentManiaApp;
+  CGameManiaPlanetMenuStations* const MenuManiaPlanet_MenuStations;
+  CGameManialink3dStyle* const MenuManiaPlanet3d_BrowserManialink3dStyle;
   iso4 CurFocusedCamLoc;
   vec2 CurFocusedCamFovMaxMinY;
   bool DebugBlockBackground;
 };
 
+// Description: "Manialink entry."
 struct CGameManialinkLabel : public CGameManialinkControl {
   enum EBlendMode {
     Default = 0,
@@ -4955,7 +4971,7 @@ struct CGameUILayer : public CMwNod {
   string AttachId; // Maniascript
   wstring ManialinkPage; // Maniascript
   string ManialinkPageUtf8;
-  const CGameManialinkPage* LocalPage; // Maniascript
+  CGameManialinkPage* const LocalPage; // Maniascript
   const bool IsLocalPageScriptRunning; // Maniascript
 };
 
@@ -4979,7 +4995,7 @@ struct CGameCtnAnchoredObject : public CMwNod {
   float Roll;
   bool IsFlying;
   float Scale;
-  const CGameItemModel* ItemModel;
+  CGameItemModel* const ItemModel;
   bool IsLocationInitialised;
   iso4 BlockLocation;
   iso4 LocationInBlock;
@@ -4991,6 +5007,7 @@ struct CGameCtnAnchoredObject : public CMwNod {
 struct CGameSwitcherModule : public CMwNod {
 };
 
+// Description: "This object handles the interface."
 struct CGamePlaygroundUIConfig : public CMwNod {
   enum EUISequence {
     None = 0,
@@ -5207,15 +5224,16 @@ struct CGameManialinkFrame : public CGameManialinkControl {
 
 struct CGameManialinkPage : public CMwNod {
   const string Url;
-  const CGameManialinkScriptHandler* ScriptHandler;
+  CGameManialinkScriptHandler* const ScriptHandler;
   const string ScriptText;
-  const CGameManialinkFrame* MainFrame; // Maniascript
+  CGameManialinkFrame* const MainFrame; // Maniascript
   CGameManialinkControl* GetFirstChild(string ControlId); // Maniascript
   bool LinksInhibited; // Maniascript
   void GetClassChildren(string Class, CGameManialinkFrame* Frame, bool Recursive); // Maniascript
   const MwBuffer<CGameManialinkControl*> GetClassChildren_Result; // Maniascript
 };
 
+// Description: "Manialink control."
 struct CGameManialinkControl : public CMwNod {
   enum AlignHorizontal {
     Left = 0,
@@ -5230,8 +5248,8 @@ struct CGameManialinkControl : public CMwNod {
     None = 3,
     VCenter2 = 4,
   };
-  const CControlBase* Control;
-  const CGameManialinkFrame* Parent; // Maniascript
+  CControlBase* const Control;
+  CGameManialinkFrame* const Parent; // Maniascript
   const string ControlId; // Maniascript
   const MwBuffer<string> ControlClasses; // Maniascript
   bool HasClass(string Class); // Maniascript
@@ -5270,6 +5288,7 @@ struct CGameCardEventInfo : public CGameCtnCollector {
   string EventId;
 };
 
+// Description: ""
 struct CGameManialinkQuad : public CGameManialinkControl {
   enum EKeepRatioMode {
     Inactive = 0,
@@ -5302,14 +5321,14 @@ struct CGameManialinkQuad : public CGameManialinkControl {
 
 struct CGameManiaPlanetMenuStations : public CMwNod {
   bool IsActive;
-  const CMwCmdFiber* MenuManiaPlanetCmd;
-  const CScene2d* OverlayMenuStations;
-  const CGameManialinkPage* MainPage;
+  CMwCmdFiber* const MenuManiaPlanetCmd;
+  CScene2d* const OverlayMenuStations;
+  CGameManialinkPage* const MainPage;
   const wstring MainPageManialinkViewerStartUrl;
-  const CGameManiaTitle* MainStationFullManiaTitle;
+  CGameManiaTitle* const MainStationFullManiaTitle;
   const bool IsBeginnerMenuDisplay;
   bool IsEditingStations;
-  const CGameScriptHandlerStation* ScriptHandlerStations;
+  CGameScriptHandlerStation* const ScriptHandlerStations;
 };
 
 // File extension: 'AnchorPoint.gbx'
@@ -5318,7 +5337,7 @@ struct CGameCtnAnchorPoint : public CMwNod {
 
   const MwId TreeId;
   iso4 LocationInBlock;
-  const CGameCtnBlock* Block;
+  CGameCtnBlock* const Block;
 };
 
 // File extension: 'MacroBlock.Gbx'
@@ -5327,13 +5346,13 @@ struct CGameCtnMacroBlockInfo : public CGameCtnCollector {
 
   bool Connected;
   bool Initialized;
-  const CGameCtnBlockInfo* GeneratedBlockInfo;
+  CGameCtnBlockInfo* const GeneratedBlockInfo;
   const bool IsGround; // Maniascript
   const bool HasStart; // Maniascript
   const bool HasFinish; // Maniascript
   const bool HasCheckpoint; // Maniascript
   const bool HasMultilap; // Maniascript
-  const CGameCtnBlockInfo* GeneratedBlockModel; // Maniascript
+  CGameCtnBlockInfo* const GeneratedBlockModel; // Maniascript
   CScriptTraitsMetadata* ScriptMetadata;
   void ClearScriptMetadata(); // Maniascript
   const MwBuffer<CPlugSpline3D*> TrafficPathSplines;
@@ -5341,25 +5360,25 @@ struct CGameCtnMacroBlockInfo : public CGameCtnCollector {
 };
 
 struct CGameCtnEditorCommon : public CGameCtnEditor {
-  const CGameCtnChallenge* Challenge;
-  const CGameCursorBlock* Cursor;
-  const CGameCursorItem* ItemCursor;
+  CGameCtnChallenge* const Challenge;
+  CGameCursorBlock* const Cursor;
+  CGameCursorItem* const ItemCursor;
   bool GhostBlockForcedGroundElseAir;
   uint GhostBlockForcedVariantIndex;
   CGameCtnEditorCommonInterface* EditorInterface;
   const float MouseMoveDist;
-  const CGameCtnBlockInfo* CurrentBlockInfo;
-  const CGameCtnBlockInfo* CurrentGhostBlockInfo;
-  const CGameItemModel* CurrentItemModel;
-  const CGameItemModel* CurrentTrafficItemModel;
-  const CGameCtnMacroBlockInfo* CurrentMacroBlockInfo;
-  const CGameCtnMacroBlockInfo* CopyPasteMacroBlockInfo;
+  CGameCtnBlockInfo* const CurrentBlockInfo;
+  CGameCtnBlockInfo* const CurrentGhostBlockInfo;
+  CGameItemModel* const CurrentItemModel;
+  CGameItemModel* const CurrentTrafficItemModel;
+  CGameCtnMacroBlockInfo* const CurrentMacroBlockInfo;
+  CGameCtnMacroBlockInfo* const CopyPasteMacroBlockInfo;
   CGameCtnBlock* CurrentTerrainBlock;
   CGameCtnBlock* CurrentBlock;
   int PluginOffsetX;
   int PluginOffsetY;
   int PluginOffsetZ;
-  const CGameEditorPluginMapMapType* PluginMapType;
+  CGameEditorPluginMapMapType* const PluginMapType;
   void ReloadPlugins();
   void DeactivateAllPlugins();
   bool HackMixMapping;
@@ -5374,7 +5393,7 @@ struct CGameCtnEditorCommon : public CGameCtnEditor {
   bool EmbedCustomItems;
   bool HideAlwaysCursorDirectionalArrow;
   uint IterationsRecursive;
-  const CGameCtnBlock* PickedBlock;
+  CGameCtnBlock* const PickedBlock;
   CGameCtnBlock* BlockEditor2_Block;
   CGameCtnBlockInfo* BlockEditor2_BlockInfo;
   CPlugSolid* BlockEditor2_BlockSolid;
@@ -5393,12 +5412,12 @@ struct CGameCtnEditorCommon : public CGameCtnEditor {
   const float CameraTargetMinZ;
   const float CameraTargetMaxZ;
   const float CameraAngle;
-  const CSceneMobil* Grid;
-  const CGameOutlineBox* UndergroundBox;
-  const CGameOutlineBox* SelectionBox;
-  const CGameOutlineBox* ItemSelectionBox;
-  const CGameOutlineBox* CustomSelectionBox;
-  const CGameOutlineBox* OffZoneSelectionBox;
+  CSceneMobil* const Grid;
+  CGameOutlineBox* const UndergroundBox;
+  CGameOutlineBox* const SelectionBox;
+  CGameOutlineBox* const ItemSelectionBox;
+  CGameOutlineBox* const CustomSelectionBox;
+  CGameOutlineBox* const OffZoneSelectionBox;
   Color GridColor;
   float GridColorAlpha; // Range: 0 - 1
   string BlockEditor2_Text;
@@ -5551,7 +5570,7 @@ struct CGameCtnEditorPuzzle : public CGameCtnEditorFree {
 };
 
 struct CGamePlaygroundScore : public CMwNod {
-  const CGamePlayerInfo* User; // Maniascript
+  CGamePlayerInfo* const User; // Maniascript
   const bool IsRegisteredForLadderMatch; // Maniascript
   const float LadderScore; // Maniascript
   int LadderRankSortValue; // Maniascript
@@ -5562,16 +5581,16 @@ struct CGamePlaygroundScore : public CMwNod {
 struct CGameCtnEditorCommonInterface : public CMwNod {
   CGameCtnEditorCommonInterface();
 
-  const CGameCtnArticleNodeDirectory* BlockIconsRoot;
-  const CGameCtnArticleNodeDirectory* TerraformIconsRoot;
-  const CGameCtnArticleNodeDirectory* MacroBlockIconsRoot;
-  const CGameCtnArticleNodeDirectory* ObjectIconsRoot;
-  const CGameCtnArticleNodeDirectory* DecalIconsRoot;
-  const CGameCtnArticleNodeDirectory* MacroDecalIconsRoot;
-  const CGameCtnArticleNodeDirectory* TrafficObjectIconsRoot;
-  const CGameCtnArticleNodeDirectory* PluginsIconsRoot;
-  const CScene2d* InterfaceScene;
-  const CGameCtnEditorCommon* Editor;
+  CGameCtnArticleNodeDirectory* const BlockIconsRoot;
+  CGameCtnArticleNodeDirectory* const TerraformIconsRoot;
+  CGameCtnArticleNodeDirectory* const MacroBlockIconsRoot;
+  CGameCtnArticleNodeDirectory* const ObjectIconsRoot;
+  CGameCtnArticleNodeDirectory* const DecalIconsRoot;
+  CGameCtnArticleNodeDirectory* const MacroDecalIconsRoot;
+  CGameCtnArticleNodeDirectory* const TrafficObjectIconsRoot;
+  CGameCtnArticleNodeDirectory* const PluginsIconsRoot;
+  CScene2d* const InterfaceScene;
+  CGameCtnEditorCommon* const Editor;
   void ToggleBlockRotation();
   wstring CurrentToolTip;
   const string Allocated;
@@ -5604,7 +5623,7 @@ struct CGameCtnArticleNodeDirectory : public CGameCtnArticleNode {
 };
 
 struct CGameCtnArticleNodeArticle : public CGameCtnArticleNode {
-  const CGameCtnArticle* Article;
+  CGameCtnArticle* const Article;
 };
 
 struct CGameCtnDecalsBrush : public CMwNod {
@@ -5666,7 +5685,7 @@ struct CGameCtnEditorDecals : public CMwNod {
   void BitmapDecalSetFlipX();
   void BitmapDecalSetFlipY();
   void SnapOnLandscape();
-  const CSceneDecalsManager* DecalsMgr;
+  CSceneDecalsManager* const DecalsMgr;
   CScene* Scene;
   void Undo_Clear();
   float UVDistMax;
@@ -5750,7 +5769,7 @@ struct CGameCtnZoneGenealogy : public CMwNod {
   uint CurrentIndex;
   UnnamedEnum Dir;
   MwBuffer<MwId> ZoneIds;
-  const CGameCtnZone* CurrentZone;
+  CGameCtnZone* const CurrentZone;
   const MwBuffer<CGameCtnZone*> Zones;
   const MwBuffer<int> ZoneHeights;
   const int BaseHeight;
@@ -5760,10 +5779,11 @@ struct CGameCtnZoneGenealogy : public CMwNod {
   void AddZoneId();
 };
 
+// Description: "Server plugin"
 struct CGameServerPlugin : public CMwNod {
   CPlugFileTextScript* Script;
-  const CGameManiaTitle* LoadedTitle; // Maniascript
-  const CGameCtnChallengeInfo* MapInfo; // Maniascript
+  CGameManiaTitle* const LoadedTitle; // Maniascript
+  CGameCtnChallengeInfo* const MapInfo; // Maniascript
   CGameConnectedClient* GetClient(string Login); // Maniascript
   const MwBuffer<CGameConnectedClient*> Clients; // Maniascript
   const MwBuffer<CGameConnectedClient*> Spectators; // Maniascript
@@ -5780,13 +5800,14 @@ struct CGameServerPlugin : public CMwNod {
   void TriggerModeScriptEvent2(wstring Type, MwBuffer<wstring>& Data); // Maniascript
   const bool MapLoaded; // Maniascript
   const MwBuffer<CGameCtnChallengeInfo*> MapList; // Maniascript
-  const CGamePlaygroundUIConfigMgrScript* UIManager; // Maniascript
-  const CGameScriptServerAdmin* ServerAdmin; // Maniascript
-  const CXmlScriptManager* Xml; // Maniascript
-  const CNetScriptHttpManager* Http; // Maniascript
+  CGamePlaygroundUIConfigMgrScript* const UIManager; // Maniascript
+  CGameScriptServerAdmin* const ServerAdmin; // Maniascript
+  CXmlScriptManager* const Xml; // Maniascript
+  CNetScriptHttpManager* const Http; // Maniascript
   wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly); // Maniascript
 };
 
+// Description: "ServerPlugin Event"
 struct CGameServerPluginEvent : public CMwNod {
   enum EType {
     Unknown = 0,
@@ -5801,7 +5822,7 @@ struct CGameServerPluginEvent : public CMwNod {
     ModeCallback = 9,
   };
   const EType Type; // Maniascript
-  const CGameConnectedClient* Client; // Maniascript
+  CGameConnectedClient* const Client; // Maniascript
   const wstring ChatText; // Maniascript
   const wstring ChatCommandType; // Maniascript
   const MwBuffer<wstring> ChatCommandData; // Maniascript
@@ -5815,7 +5836,7 @@ struct CGameCtnAutoTerrain : public CMwNod {
   int OffsetX;
   int OffsetY;
   int OffsetZ;
-  const CGameCtnZoneGenealogy* Genealogy;
+  CGameCtnZoneGenealogy* const Genealogy;
 };
 
 struct CGameCtnSolidDecals : public CMwNod {
@@ -5831,11 +5852,11 @@ struct CGameCtnSolidDecals : public CMwNod {
 struct CGameCtnBlockInfoMobil : public CMwNod {
   CGameCtnBlockInfoMobil();
 
-  const CSceneMobil* OldMobil;
+  CSceneMobil* const OldMobil;
   CPlugSolid* SolidFid;
   CPlugSolid* SolidAggreg;
   CPlugSolid2Model* Solid2Aggreg;
-  const CPlugSolid* SolidCache;
+  CPlugSolid* const SolidCache;
   CPlugPath* RailPath;
   bool RailIsStation;
   const MwBuffer<CPlugSolid*> TextureModifiedSolidsCache;
@@ -5847,9 +5868,10 @@ struct CGameCtnBlockInfoMobil : public CMwNod {
   vec3 GeomRotation;
 };
 
+// Description: "A currently connected CUser"
 struct CGameConnectedClient : public CMwNod {
-  const CGamePlayerInfo* User; // Maniascript
-  const CGamePlaygroundUIConfig* UI; // Maniascript
+  CGamePlayerInfo* const User; // Maniascript
+  CGamePlaygroundUIConfig* const UI; // Maniascript
   const bool IsConnectedToMasterServer; // Maniascript
   const string ClientVersion; // Maniascript
   const string ClientTitleVersion; // Maniascript
@@ -6055,7 +6077,7 @@ struct CGameCardEventListInfo : public CGameCtnCollector {
 
 struct CGamePlaygroundUIConfigMgrScript : public CMwNod {
   void ResetAll(); // Maniascript
-  const CGamePlaygroundUIConfig* UIAll; // Maniascript
+  CGamePlaygroundUIConfig* const UIAll; // Maniascript
   const MwBuffer<CGamePlaygroundUIConfig*> UI; // Maniascript
   CGamePlaygroundUIConfig* GetUI_Player(CGamePlayer* Player); // Maniascript
   CGamePlaygroundUIConfig* GetUI_User(CGamePlayerInfo* User); // Maniascript
@@ -6068,10 +6090,10 @@ struct CGamePlaygroundUIConfigMgrScript : public CMwNod {
   uint UISequenceMaxDuration; // Maniascript
   bool HoldLoadingScreen; // Maniascript
   const MwBuffer<CGamePlaygroundUIConfigEvent*> PendingEvents; // Maniascript
-  const CGamePlaygroundUIConfig* LocalPlayerConfig;
-  const CGamePlaygroundUIConfig* LocalPlayerConfig1;
-  const CGamePlaygroundUIConfig* LocalPlayerConfig2;
-  const CGamePlaygroundUIConfig* LocalPlayerConfig3;
+  CGamePlaygroundUIConfig* const LocalPlayerConfig;
+  CGamePlaygroundUIConfig* const LocalPlayerConfig1;
+  CGamePlaygroundUIConfig* const LocalPlayerConfig2;
+  CGamePlaygroundUIConfig* const LocalPlayerConfig3;
 };
 
 // File extension: 'Frame.Gbx'
@@ -6101,6 +6123,7 @@ struct CGamePlaygroundControlMessages : public CControlFrame {
   float RatioElimination;
 };
 
+// Description: "Rules API for gamemodes."
 struct CGamePlaygroundScript : public CMwNod {
   enum EMedal {
     None = 0,
@@ -6125,12 +6148,12 @@ struct CGamePlaygroundScript : public CMwNod {
   };
   CPlugFileTextScript* Script;
   wstring ModeStatusMessage; // Maniascript
-  const CGameManiaTitle* LoadedTitle; // Maniascript
+  CGameManiaTitle* const LoadedTitle; // Maniascript
   const string ServerLogin; // Maniascript
   const wstring ServerName; // Maniascript
   const wstring ServerModeName; // Maniascript
   const wstring MapName; // Maniascript
-  const CGameCtnChallenge* Map; // Maniascript
+  CGameCtnChallenge* const Map; // Maniascript
   const wstring MapPlayerModelName; // Maniascript
   const MwBuffer<CGamePlayerInfo*> Users; // Maniascript
   const MwBuffer<CGameTeamProfile*> Teams; // Maniascript
@@ -6148,9 +6171,9 @@ struct CGamePlaygroundScript : public CMwNod {
   void RequestUnloadMap(); // Maniascript
   const MwBuffer<CGameCtnChallengeInfo*> MapList; // Maniascript
   uint NextMapIndex; // Maniascript
-  const CGamePlaygroundUIConfigMgrScript* UIManager; // Maniascript
+  CGamePlaygroundUIConfigMgrScript* const UIManager; // Maniascript
   void Hud_Load(wstring ModuleName); // Maniascript
-  const CGamePlaygroundModuleServerHud* Hud; // Maniascript
+  CGamePlaygroundModuleServerHud* const Hud; // Maniascript
   void PassOnModuleEvent(CGamePlaygroundUIConfigEvent* EventToPassOn); // Maniascript
   void DiscardModuleEvent(CGamePlaygroundUIConfigEvent* EventToDiscard); // Maniascript
   void Ladder_OpenMatch_Request(); // Maniascript
@@ -6166,16 +6189,16 @@ struct CGamePlaygroundScript : public CMwNod {
   void Ladder_EnableChallengeMode(bool Enable); // Maniascript
   bool Admin_KickUser(CGamePlayerInfo* User, wstring Reason); // Maniascript
   void Admin_SetLobbyInfo(bool IsLobby, int LobbyPlayerCount, int LobbyMaxPlayerCount, float LobbyPlayersLevel); // Maniascript
-  const CGameScriptServerAdmin* ServerAdmin; // Maniascript
+  CGameScriptServerAdmin* const ServerAdmin; // Maniascript
   void AutoTeamBalance(); // Maniascript
   void Solo_SetNewRecord(CGamePlaygroundScore* PlayerScore, EMedal PlayerScore); // Maniascript
   const bool Solo_NewRecordSequenceInProgress; // Maniascript
-  const CGamePlaygroundScriptXmlRpc* XmlRpc; // Maniascript
-  const CXmlScriptManager* Xml; // Maniascript
-  const CNetScriptHttpManager* Http; // Maniascript
-  const CInputScriptManager* Input; // Maniascript
-  const CGameDataFileManagerScript* DataFileMgr; // Maniascript
-  const CGameScoreAndLeaderBoardManagerScript* ScoreMgr; // Maniascript
+  CGamePlaygroundScriptXmlRpc* const XmlRpc; // Maniascript
+  CXmlScriptManager* const Xml; // Maniascript
+  CNetScriptHttpManager* const Http; // Maniascript
+  CInputScriptManager* const Input; // Maniascript
+  CGameDataFileManagerScript* const DataFileMgr; // Maniascript
+  CGameScoreAndLeaderBoardManagerScript* const ScoreMgr; // Maniascript
   const ESystemPlatform SystemPlatform; // Maniascript
   const ESystemSkuIdentifier SystemSkuIdentifier; // Maniascript
   int Synchro_AddBarrier(); // Maniascript
@@ -6203,8 +6226,8 @@ struct CGamePlaygroundScript : public CMwNod {
   bool Replay_AutoStart; // Maniascript
   void Replay_Start(); // Maniascript
   void Replay_Stop(); // Maniascript
-  const CGameAchievementScriptManager* AchievementsManager; // Maniascript
-  const CGameScriptMgrTurret* TurretsManager; // Maniascript
+  CGameAchievementScriptManager* const AchievementsManager; // Maniascript
+  CGameScriptMgrTurret* const TurretsManager; // Maniascript
   wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly); // Maniascript
 };
 
@@ -6216,7 +6239,7 @@ struct CGameCtnMediaBlockFxCameraMap : public CGameCtnMediaBlock {
 };
 
 struct CGamePodium : public CMwNod {
-  const CSceneCamera* PodiumCamera;
+  CSceneCamera* const PodiumCamera;
 };
 
 struct CGameControlCameraTrackManiaRace : public CGameControlCamera {
@@ -6227,10 +6250,11 @@ struct CGameControlCameraTrackManiaRace : public CGameControlCamera {
 struct CGamePlaygroundBasic : public CGamePlayground {
 };
 
+// Description: "This is the Maniaplanet plugins Manialink interface."
 struct CGameScriptHandlerManiaPlanetPlugin : public CGameManialinkScriptHandler {
-  const CGameManiaPlanetScriptAPI* ManiaPlanet; // Maniascript
-  const CGameManiaplanetPlugin* ParentApp; // Maniascript
-  const CGamePluginInterfacesScript* Plugins; // Maniascript
+  CGameManiaPlanetScriptAPI* const ManiaPlanet; // Maniascript
+  CGameManiaplanetPlugin* const ParentApp; // Maniascript
+  CGamePluginInterfacesScript* const Plugins; // Maniascript
 };
 
 struct CGamePlayerProfileChunk_PackagesInfos : public CGamePlayerProfileChunk {
@@ -6337,8 +6361,8 @@ struct CGameCtnMediaBlockSkel : public CGameCtnMediaBlock {
 };
 
 struct CGameEditorAnimClip : public CMwNod {
-  const CGameEditorAnimChar_Interface* CharEditorInterface;
-  const CGameEditorAnimChar* CharEditor;
+  CGameEditorAnimChar_Interface* const CharEditorInterface;
+  CGameEditorAnimChar* const CharEditor;
   float ParticlesPosX;
   float ParticlesPosY;
   float ParticlesPosZ;
@@ -6401,13 +6425,13 @@ struct CGameCtnZoneTransition : public CGameCtnZone {
   MwId FrontierId_BaseToOverlap;
   MwId ReplacementZoneId;
   UnnamedEnum Border_North;
-  const CGameCtnZoneGenealogy* Genealogy_North;
+  CGameCtnZoneGenealogy* const Genealogy_North;
   UnnamedEnum Border_East;
-  const CGameCtnZoneGenealogy* Genealogy_East;
+  CGameCtnZoneGenealogy* const Genealogy_East;
   UnnamedEnum Border_South;
-  const CGameCtnZoneGenealogy* Genealogy_South;
+  CGameCtnZoneGenealogy* const Genealogy_South;
   UnnamedEnum Border_West;
-  const CGameCtnZoneGenealogy* Genealogy_West;
+  CGameCtnZoneGenealogy* const Genealogy_West;
 };
 
 struct CGameMenuSkinChooser : public CMwNod {
@@ -6473,14 +6497,14 @@ struct CGameEditorPluginMapMapType : public CGameEditorPluginMap {
   void RequestEnterPlayground(); // Maniascript
   void RequestLeavePlayground(); // Maniascript
   const bool IsSwitchedToPlayground; // Maniascript
-  const CGamePlaygroundUIConfigMgrScript* UIManager; // Maniascript
+  CGamePlaygroundUIConfigMgrScript* const UIManager; // Maniascript
   const MwBuffer<CGamePlayerInfo*> Users; // Maniascript
 };
 
 struct CGameCursorItem : public CMwNod {
   CGameCursorItem();
 
-  const CSceneMobil* HelperMobil;
+  CSceneMobil* const HelperMobil;
 };
 
 struct CGameCtnMacroBlockJunction : public CMwNod {
@@ -6577,9 +6601,9 @@ struct CGameActionMaker : public CGameEditorAsset {
   void ParamLoadMesh();
   void DrawHelp();
   void SpriteTextureImport();
-  const CGameEditorAnimClip* ClipEditor;
-  const CGameEditorBullet* BulletEditor;
-  const CPlugAnimFile* AnimFile;
+  CGameEditorAnimClip* const ClipEditor;
+  CGameEditorBullet* const BulletEditor;
+  CPlugAnimFile* const AnimFile;
   uint ClipIndex;
   CGameActionModel* Action;
 };
@@ -6626,8 +6650,8 @@ struct CGameCtnEditorScriptSpecialProperty : public CMwNod {
   const uint DefaultOrder; // Maniascript
   string Tag; // Maniascript
   uint Order; // Maniascript
-  const CGameCtnBlock* Block; // Maniascript
-  const CGameCtnEditorScriptAnchoredObject* Item; // Maniascript
+  CGameCtnBlock* const Block; // Maniascript
+  CGameCtnEditorScriptAnchoredObject* const Item; // Maniascript
 };
 
 struct CGameCtnBlockInfoVariant : public CMwNod {
@@ -6767,6 +6791,7 @@ struct CGameTeamProfile : public CMwNod {
   void UpdateCache();
 };
 
+// Description: "Events for Manialink page scripts."
 struct CGameManialinkScriptEvent : public CMwNod {
   enum Type {
     KeyPress = 0,
@@ -6795,7 +6820,7 @@ struct CGameManialinkScriptEvent : public CMwNod {
   const string KeyName; // Maniascript
   const string CharPressed; // Maniascript
   const string ControlId; // Maniascript
-  const CGameManialinkControl* Control; // Maniascript
+  CGameManialinkControl* const Control; // Maniascript
   const EMenuNavAction MenuNavAction; // Maniascript
   const bool IsActionAutoRepeat; // Maniascript
   const wstring CustomEventType; // Maniascript
@@ -6804,6 +6829,7 @@ struct CGameManialinkScriptEvent : public CMwNod {
   const MwBuffer<wstring> PluginCustomEventData; // Maniascript
 };
 
+// Description: "API for the plugins of the map editor."
 struct CGameEditorPluginMap : public CGameManiaApp {
   enum CardinalDirections {
     North = 0,
@@ -6851,7 +6877,7 @@ struct CGameEditorPluginMap : public CGameManiaApp {
     Validated = 2,
   };
   const MwBuffer<CGameEditorPluginMapScriptEvent*> PendingEvents; // Maniascript
-  const CGameCtnChallenge* Map; // Maniascript
+  CGameCtnChallenge* const Map; // Maniascript
   const wstring MapName; // Maniascript
   const bool IsEditorReadyForRequest; // Maniascript
   bool HoldLoadingScreen; // Maniascript
@@ -7015,7 +7041,7 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   const uint CollectionGroundY; // Maniascript
   const ValidationStatus ValidationStatus; // Maniascript
   string ManialinkText; // Maniascript
-  const CGameManialinkPage* ManialinkPage; // Maniascript
+  CGameManialinkPage* const ManialinkPage; // Maniascript
   uint GetInterfaceNumber(CGameCtnCollector* Collector); // Maniascript
   void SetInterfaceNumber(CGameCtnCollector* Collector, uint NewValue); // Maniascript
 };
@@ -7031,8 +7057,9 @@ struct CGameCtnMediaBlockCameraEffectScript : public CGameCtnMediaBlockCameraEff
   vec3 OffsetRot; // Maniascript
 };
 
+// Description: "API for server control when playing online."
 struct CGameScriptServerAdmin : public CMwNod {
-  const CGameCtnNetServerInfo* ServerInfo; // Maniascript
+  CGameCtnNetServerInfo* const ServerInfo; // Maniascript
   void AutoTeamBalance(); // Maniascript
   bool Kick1(CGamePlayerInfo* User, wstring Reason); // Maniascript
   bool Kick2(CGameConnectedClient* Client, wstring Reason); // Maniascript
@@ -7410,6 +7437,7 @@ struct CGamePlaygroundScriptXmlRpcEvent : public CMwNod {
   const MwBuffer<wstring> ParamArray2; // Maniascript
 };
 
+// Description: "This is the Manialink browser interface."
 struct CGameScriptHandlerBrowser : public CGameManialinkScriptHandler {
   enum EBuddyAction {
     Add = 0,
@@ -7421,9 +7449,9 @@ struct CGameScriptHandlerBrowser : public CGameManialinkScriptHandler {
     Error = 1,
     NotFinished = 2,
   };
-  const CGameManiaPlanetScriptAPI* ManiaPlanet; // Maniascript
-  const CGameManiaAppBrowser* ParentApp; // Maniascript
-  const CGameCtnChallenge* CurMap; // Maniascript
+  CGameManiaPlanetScriptAPI* const ManiaPlanet; // Maniascript
+  CGameManiaAppBrowser* const ParentApp; // Maniascript
+  CGameCtnChallenge* const CurMap; // Maniascript
   void ShowCurMapCard(); // Maniascript
   void BuddyDo(EBuddyAction Action, string BuddyLogin, bool IsSilent); // Maniascript
   const EBuddyResult BuddyDoResult; // Maniascript
@@ -7499,6 +7527,7 @@ struct CGameAnimSet : public CMwNod {
   CGameAnimClipNod* Gesture;
 };
 
+// Description: "Manager of buddies instant messaging."
 struct CGameScriptChatManager : public CMwNod {
   enum EConnectionStatus {
     Offline = 0,
@@ -7576,6 +7605,7 @@ struct CGameScriptChatManager : public CMwNod {
   void Room_SendMessage(CGameScriptChatRoom* Room, wstring Body); // Maniascript
 };
 
+// Description: "A buddy from the buddy list."
 struct CGameScriptChatContact : public CMwNod {
   enum ESubscriptionStatus {
     None = 0,
@@ -7635,6 +7665,7 @@ struct CGameScriptChatContact : public CMwNod {
   void NotifyInteraction(); // Maniascript
 };
 
+// Description: "Event from the BuddiesManager."
 struct CGameScriptChatEvent : public CMwNod {
   enum EType {
     Message = 0,
@@ -7668,12 +7699,12 @@ struct CGameScriptChatEvent : public CMwNod {
     ExtendedAway = 5,
   };
   const EType Type; // Maniascript
-  const CGameScriptChatContact* Sender; // Maniascript
+  CGameScriptChatContact* const Sender; // Maniascript
   const string SenderResource; // Maniascript
   const wstring MessageBody; // Maniascript
-  const CGameScriptChatRoom* ChatRoom; // Maniascript
+  CGameScriptChatRoom* const ChatRoom; // Maniascript
   const wstring SenderNickname; // Maniascript
-  const CGameScriptChatContact* Buddy; // Maniascript
+  CGameScriptChatContact* const Buddy; // Maniascript
   const bool PreviousIsOnline; // Maniascript
   const EPresenceShow PreviousShow; // Maniascript
   const wstring PreviousStatus; // Maniascript
@@ -7706,7 +7737,7 @@ struct CGameScriptChatEvent : public CMwNod {
   const string RoomName; // Maniascript
   const bool Success; // Maniascript
   const wstring ErrorMessage; // Maniascript
-  const CGameScriptChatHistory* History; // Maniascript
+  CGameScriptChatHistory* const History; // Maniascript
 };
 
 struct CGameManialink3dMood : public CMwNod {
@@ -7756,6 +7787,7 @@ struct CGameManialink3dStyle : public CMwNod {
   CGameManialink3dMood* Mood;
 };
 
+// Description: "API for Maniaplanet plugins."
 struct CGameManiaplanetPlugin : public CGameManiaApp {
   enum EContext {
     MenuStartUp = 0,
@@ -7797,7 +7829,7 @@ struct CGameManiaplanetPlugin : public CGameManiaApp {
   const wstring CurrentServerModeName; // Maniascript
   const string CurrentServerJoinLink; // Maniascript
   const MwBuffer<CGamePlayerInfo*> CurrentServerPlayers; // Maniascript
-  const CGameCtnChallenge* CurrentMap; // Maniascript
+  CGameCtnChallenge* const CurrentMap; // Maniascript
   const EContext ActiveContext; // Maniascript
   const string ActiveContext_MenuFrame; // Maniascript
   const string ActiveContext_DialogFrame; // Maniascript
@@ -7806,13 +7838,13 @@ struct CGameManiaplanetPlugin : public CGameManiaApp {
   const uint ActiveContext_GameWill; // Maniascript
   const bool ActiveContext_ManialinkBrowserDisplayed; // Maniascript
   bool PrivateSession; // Maniascript
-  const CGameScriptChatManager* ChatManager; // Maniascript
-  const CGameScriptChatManager* BuddiesManager; // Maniascript
-  const CGamePlaygroundClientScriptAPI* Playground; // Maniascript
-  const CGameAchievementScriptManager* AchievementsManager; // Maniascript
-  const CGameScriptNotificationsProducer* NotificationsProducer; // Maniascript
-  const CGameScriptNotificationsConsumer* Notifications; // Maniascript
-  const CGameMasterServerOnlineSignalsManager* OnlineSignalsManager; // Maniascript
+  CGameScriptChatManager* const ChatManager; // Maniascript
+  CGameScriptChatManager* const BuddiesManager; // Maniascript
+  CGamePlaygroundClientScriptAPI* const Playground; // Maniascript
+  CGameAchievementScriptManager* const AchievementsManager; // Maniascript
+  CGameScriptNotificationsProducer* const NotificationsProducer; // Maniascript
+  CGameScriptNotificationsConsumer* const Notifications; // Maniascript
+  CGameMasterServerOnlineSignalsManager* const OnlineSignalsManager; // Maniascript
   bool ToolBarForceShow; // Maniascript
   const bool ToolBarIsActive; // Maniascript
   bool ToolBarClockVisible; // Maniascript
@@ -7827,7 +7859,7 @@ struct CGameManiaplanetPlugin : public CGameManiaApp {
   void ShowTitle(string TitleId, bool ShowStation); // Maniascript
   void EnterTitle(string TitleId); // Maniascript
   void ShowCurMapCard(); // Maniascript
-  const CGameDialogs* SystemDialogs; // Maniascript
+  CGameDialogs* const SystemDialogs; // Maniascript
   void Dialog_EnterGameKey(); // Maniascript
   void Dialog_BuyTitleDialog(string TitleId, string OverrideBuyUrl, int OverrideActionAfterBuy); // Maniascript
   void Dialog_BuyTitleEx(string TitleId, EBuyTitleMode Mode, string OverrideBuyUrl, int OverrideActionAfterBuy); // Maniascript
@@ -7843,11 +7875,11 @@ struct CGameManiaplanetPlugin : public CGameManiaApp {
   void FlashWindow(); // Maniascript
   const uint Messenger_MessagesCount; // Maniascript
   void PlaySound(EUISound Sound, uint SoundVariant); // Maniascript
-  const CGameManialinkBrowser* ManialinkBrowser; // Maniascript
-  const CGameManiaplanetPluginInterface* Interface;
+  CGameManialinkBrowser* const ManialinkBrowser; // Maniascript
+  CGameManiaplanetPluginInterface* const Interface;
   void CustomEvent(wstring Type, MwBuffer<wstring>& Data); // Maniascript
   void SendExternalCustomEvent(wstring Type, MwBuffer<wstring>& Data); // Maniascript
-  const CGamePluginInterfacesScript* Plugins; // Maniascript
+  CGamePluginInterfacesScript* const Plugins; // Maniascript
   void Dialog_ShowEnterGameKeyDialog();
   void Dialog_ShowBuyTitleDialog();
   void Dialog_ShowGenerateGameKeysDialog();
@@ -7879,12 +7911,13 @@ struct CGameCtnMediaBlockColorGrading : public CGameCtnMediaBlock {
   CPlugFileImg* Image;
 };
 
+// Description: "API for plugins to get playground info."
 struct CGamePlaygroundClientScriptAPI : public CMwNod {
-  const CGameCtnChallenge* Map; // Maniascript
+  CGameCtnChallenge* const Map; // Maniascript
   const int GameTime; // Maniascript
-  const CGamePlayerInfo* LocalUser; // Maniascript
-  const CGamePlaygroundUIConfig* UI; // Maniascript
-  const CGameCtnNetServerInfo* ServerInfo; // Maniascript
+  CGamePlayerInfo* const LocalUser; // Maniascript
+  CGamePlaygroundUIConfig* const UI; // Maniascript
+  CGameCtnNetServerInfo* const ServerInfo; // Maniascript
   const bool IsSpectator; // Maniascript
   const bool IsSpectatorClient; // Maniascript
   const bool UseClans; // Maniascript
@@ -7920,7 +7953,7 @@ struct CGamePlaygroundResources : public CMwNod {
   const MwBuffer<CGameObjectPhyModel*> PickUpPhyLib;
   const MwBuffer<CGameObjectVisModel*> PickUpVisLib;
   const MwBuffer<CPlugCharModel*> CharLib;
-  const CPlugAnimFile* CinematicLib;
+  CPlugAnimFile* const CinematicLib;
   const MwBuffer<CGameActionModel*> ActionsModels;
 };
 
@@ -8208,7 +8241,7 @@ struct CGameEditorItem : public CGameEditorAsset {
   void PrevLinkedAction();
   void NextLinkedAction();
   void AddEmptyMesh();
-  const CGameCtnApp* Game;
+  CGameCtnApp* const Game;
   float TimeTriggerPeriod;
   const string TriggerInput;
   const string LinkedAction;
@@ -8402,19 +8435,20 @@ struct CGameEditorManialink : public CGameEditorBase {
   wstring Step;
   wstring RotationStep;
   float ColorHelperOpacity; // Range: 0 - 1
-  const CControlFrame* FrameLayoutEditor;
+  CControlFrame* const FrameLayoutEditor;
 };
 
+// Description: "API for titles in edition mode."
 struct CGameManiaTitleEditionScriptAPI : public CMwNod {
   enum EDrive {
     TitleReadable = 0,
     Title = 1,
     User = 2,
   };
-  const CGameManiaTitle* TitleMaker; // Maniascript
-  const CGamePackCreatorScript* PackCreator; // Maniascript
+  CGameManiaTitle* const TitleMaker; // Maniascript
+  CGamePackCreatorScript* const PackCreator; // Maniascript
   const string EditedTitleId; // Maniascript
-  const CGamePackCreator_TitleInfoScript* EditedTitleInfo; // Maniascript
+  CGamePackCreator_TitleInfoScript* const EditedTitleInfo; // Maniascript
   void File_ImportFromUser(wstring FileName); // Maniascript
   void File_Move(wstring OrigName, wstring DestNameOrFolder, bool KeepOriginalCopy); // Maniascript
   bool File_Exists(wstring FileName, EDrive InDrive); // Maniascript
@@ -8440,6 +8474,7 @@ struct CGameEditorPropertyList : public CMwNod {
 struct CGameEditorFileToolBar : public CMwNod {
 };
 
+// Description: "API for Maniaplanet client scripts."
 struct CGameManiaApp : public CMwNod {
   enum ELinkType {
     ExternalBrowser = 0,
@@ -8502,8 +8537,8 @@ struct CGameManiaApp : public CMwNod {
   const string CurrentLocalDateText; // Maniascript
   const wstring CurrentTimezone; // Maniascript
   uint LayersDefaultManialinkVersion; // Maniascript
-  const CGamePlayerInfo* LocalUser; // Maniascript
-  const CGameManiaTitle* LoadedTitle; // Maniascript
+  CGamePlayerInfo* const LocalUser; // Maniascript
+  CGameManiaTitle* const LoadedTitle; // Maniascript
   const ESystemPlatform SystemPlatform; // Maniascript
   const ESystemSkuIdentifier SystemSkuIdentifier; // Maniascript
   bool EnableMenuNavigationInputs; // Maniascript
@@ -8517,17 +8552,17 @@ struct CGameManiaApp : public CMwNod {
   void OpenLink(string Url, ELinkType LinkType); // Maniascript
   bool OpenFileInExplorer(wstring FileName); // Maniascript
   void Dialog_Message(wstring Message); // Maniascript
-  const CXmlScriptManager* Xml; // Maniascript
-  const CNetScriptHttpManager* Http; // Maniascript
-  const CGameVideoScriptManager* Video; // Maniascript
-  const CAudioScriptManager* Audio; // Maniascript
-  const CInputScriptManager* Input; // Maniascript
-  const CGameDataFileManagerScript* DataFileMgr; // Maniascript
-  const CGameScoreAndLeaderBoardManagerScript* ScoreMgr; // Maniascript
-  const CGameUserPrivilegesManagerScript* PrivilegeMgr; // Maniascript
-  const CGameMasterServerRichPresenceManagerScript* PresenceMgr; // Maniascript
-  const CGameUserManagerScript* UserMgr; // Maniascript
-  const CGameManiaPlanetScriptAPI* ManiaPlanet; // Maniascript
+  CXmlScriptManager* const Xml; // Maniascript
+  CNetScriptHttpManager* const Http; // Maniascript
+  CGameVideoScriptManager* const Video; // Maniascript
+  CAudioScriptManager* const Audio; // Maniascript
+  CInputScriptManager* const Input; // Maniascript
+  CGameDataFileManagerScript* const DataFileMgr; // Maniascript
+  CGameScoreAndLeaderBoardManagerScript* const ScoreMgr; // Maniascript
+  CGameUserPrivilegesManagerScript* const PrivilegeMgr; // Maniascript
+  CGameMasterServerRichPresenceManagerScript* const PresenceMgr; // Maniascript
+  CGameUserManagerScript* const UserMgr; // Maniascript
+  CGameManiaPlanetScriptAPI* const ManiaPlanet; // Maniascript
   wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly); // Maniascript
 };
 
@@ -8552,7 +8587,7 @@ struct CGameManiaAppScriptEvent : public CMwNod {
     Action2 = 10,
   };
   const EType Type; // Maniascript
-  const CGameUILayer* CustomEventLayer; // Maniascript
+  CGameUILayer* const CustomEventLayer; // Maniascript
   const wstring CustomEventType; // Maniascript
   const MwBuffer<wstring> CustomEventData; // Maniascript
   const wstring ExternalEventType; // Maniascript
@@ -8563,10 +8598,11 @@ struct CGameManiaAppScriptEvent : public CMwNod {
   const string KeyName; // Maniascript
 };
 
+// Description: "API for game interface client scripts"
 struct CGameManiaAppPlaygroundCommon : public CGameManiaApp {
   const MwBuffer<CGameManiaAppPlaygroundScriptEvent*> PendingEvents; // Maniascript
-  const CGamePlaygroundClientScriptAPI* Playground; // Maniascript
-  const CGameCtnChallenge* Map; // Maniascript
+  CGamePlaygroundClientScriptAPI* const Playground; // Maniascript
+  CGameCtnChallenge* const Map; // Maniascript
   CGamePlaygroundUIConfig* UI; // Maniascript
   CGamePlaygroundUIConfig* ClientUI; // Maniascript
 };
@@ -8591,14 +8627,14 @@ struct CGameManiaAppTitle : public CGameManiaApp {
   void PlayMap(wstring Map); // Maniascript
   bool LoadingScreenRequireKeyPressed; // Maniascript
   bool DontScaleMainMenuForHMD; // Maniascript
-  const CGameManiaTitleControlScriptAPI* TitleFlow; // Maniascript
-  const CGameManiaTitleControlScriptAPI* TitleControl; // Maniascript
-  const CGameManiaTitleEditionScriptAPI* TitleEdition; // Maniascript
-  const CGameScriptNotificationsConsumer* Notifications; // Maniascript
+  CGameManiaTitleControlScriptAPI* const TitleFlow; // Maniascript
+  CGameManiaTitleControlScriptAPI* const TitleControl; // Maniascript
+  CGameManiaTitleEditionScriptAPI* const TitleEdition; // Maniascript
+  CGameScriptNotificationsConsumer* const Notifications; // Maniascript
   const wstring ExternalRequest_Type; // Maniascript
   const MwBuffer<wstring> ExternalRequest_Data; // Maniascript
   void ExternalRequest_Clear(); // Maniascript
-  const CGameAchievementScriptManager* AchievementsManager; // Maniascript
+  CGameAchievementScriptManager* const AchievementsManager; // Maniascript
   CGameManagerBadgeScript* BadgeManager; // Maniascript
   CGameMatchSettingsManagerScript* MatchSettingsManager; // Maniascript
   void Authentication_GetToken(MwId UserId, string AppLogin); // Maniascript
@@ -8635,6 +8671,7 @@ struct CGameManiaAppBrowser : public CGameManiaApp {
   wstring BrowserFocusedFrameId; // Maniascript
 };
 
+// Description: "API for titles menus to control the main loop."
 struct CGameManiaTitleControlScriptAPI : public CMwNod {
   enum ESplitScreenLayout {
     Horizontal = 0,
@@ -8709,11 +8746,11 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
   void GetServerInfo(string ServerLogin); // Maniascript
   void GetServerInfoObj(CGameCtnNetServerInfo* LocalServer); // Maniascript
   void GetServerInfo_Abort(); // Maniascript
-  const CGameCtnNetServerInfo* GetServerInfo_Result; // Maniascript
+  CGameCtnNetServerInfo* const GetServerInfo_Result; // Maniascript
   void Join_GetServerInfo_Result(bool AsSpectator, string Password); // Maniascript
   void JoinServer(string ServerLogin, bool AsSpectator, string Password); // Maniascript
   void JoinServer_Abort(); // Maniascript
-  const CGameCtnNetServerInfo* JoinServer_ServerInfo; // Maniascript
+  CGameCtnNetServerInfo* const JoinServer_ServerInfo; // Maniascript
   void JoinServer_GetInfo(string ServerLogin); // Maniascript
   void JoinServer_GetInfoPwd(string ServerLogin, string ServerPassword); // Maniascript
   void JoinServer_GetInfoObj(CGameCtnNetServerInfo* Server); // Maniascript
@@ -8722,16 +8759,18 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
   void Quit(); // Maniascript
 };
 
+// Description: "This is the title menus Manialink interface."
 struct CGameManiaAppTitleLayerScriptHandler : public CGameManialinkScriptHandler {
-  const CGameManiaAppTitle* ParentApp; // Maniascript
-  const CGameManiaTitleControlScriptAPI* TitleControl; // Maniascript
-  const CGameManiaTitleControlScriptAPI* TitleFlow; // Maniascript
+  CGameManiaAppTitle* const ParentApp; // Maniascript
+  CGameManiaTitleControlScriptAPI* const TitleControl; // Maniascript
+  CGameManiaTitleControlScriptAPI* const TitleFlow; // Maniascript
 };
 
 struct CGameEditorPluginMapLayerScriptHandler : public CGameManialinkScriptHandler {
-  const CGameEditorPluginMap* Editor; // Maniascript
+  CGameEditorPluginMap* const Editor; // Maniascript
 };
 
+// Description: "A Notification."
 struct CGameScriptNotificationsConsumerNotification : public CMwNod {
   enum ENotificationPriority {
     Memo = 0,
@@ -8748,6 +8787,7 @@ struct CGameScriptNotificationsConsumerNotification : public CMwNod {
   void SetActivated(); // Maniascript
 };
 
+// Description: "Notifications Producing manager."
 struct CGameScriptNotificationsProducer : public CMwNod {
   enum ENotificationLifeSpan {
     Game = 0,
@@ -8763,6 +8803,7 @@ struct CGameScriptNotificationsProducer : public CMwNod {
   void SendNotification(MwBuffer<wstring>& CallbackParams, wstring Title, wstring Description, wstring ImageUrl, ENotificationLifeSpan LifeSpan, ENotificationPriority Priority); // Maniascript
 };
 
+// Description: "Manager of buddies instant messaging."
 struct CGameScriptNotificationsConsumer : public CMwNod {
   enum EFilterPriority {
     All = 0,
@@ -8775,6 +8816,7 @@ struct CGameScriptNotificationsConsumer : public CMwNod {
   EFilterPriority Filter_Priority; // Maniascript
 };
 
+// Description: "An event."
 struct CGameScriptNotificationsProducerEvent : public CMwNod {
   enum EType {
     NotificationHasBeenActivated = 0,
@@ -8782,15 +8824,17 @@ struct CGameScriptNotificationsProducerEvent : public CMwNod {
   const EType Type; // Maniascript
 };
 
+// Description: "An event."
 struct CGameScriptNotificationsConsumerEvent : public CMwNod {
   enum EType {
     NewNotification = 0,
     NotificationChanged = 1,
   };
   const EType Type; // Maniascript
-  const CGameScriptNotificationsConsumerNotification* Notification; // Maniascript
+  CGameScriptNotificationsConsumerNotification* const Notification; // Maniascript
 };
 
+// Description: "Manialink entry."
 struct CGameManialinkTextEdit : public CGameManialinkControl {
   enum EControlScriptEditorTextFormat {
     Basic = 0,
@@ -8854,12 +8898,14 @@ struct CGameVideoScriptManager : public CMwNod {
   const MwBuffer<CGameVideoScriptVideo*> Videos; // Maniascript
 };
 
+// Description: "Ghost"
 struct CGameGhostScript : public CMwNod {
   const MwId Id; // Maniascript
-  const CTmRaceResultNod* Result; // Maniascript
+  CTmRaceResultNod* const Result; // Maniascript
   wstring Nickname; // Maniascript
 };
 
+// Description: "Description of a race run."
 struct CTmRaceResultNod : public CMwNod {
   enum ETmRaceResultCriteria {
     Time = 0,
@@ -8898,7 +8944,7 @@ struct CGameEditorModule : public CGameCtnEditor {
   void CustomMode();
   void ActionIsPowerup();
   void SwitchInterfaceDesigner();
-  const CGameCtnApp* Game;
+  CGameCtnApp* const Game;
   void EditHudModule_OnBack();
   void EditSubpart_OnBack();
   void EditScoresTableColumn_OnNextTextHalign();
@@ -8939,8 +8985,8 @@ struct CGameEditorModule : public CGameCtnEditor {
   void SaveAs(wstring Url); // Maniascript
   void SaveCopyAs(wstring Url); // Maniascript
   void ForceExit(); // Maniascript
-  const CGameModuleMenuModel* EditedMenu; // Maniascript
-  const CGameModuleMenuPageModel* EditedMenuPage; // Maniascript
+  CGameModuleMenuModel* const EditedMenu; // Maniascript
+  CGameModuleMenuPageModel* const EditedMenuPage; // Maniascript
   const MwBuffer<CGameEditorPluginModuleScriptEvent*> PendingEvents; // Maniascript
 };
 
@@ -8953,6 +8999,7 @@ struct CGameHighScoreList : public CMwNod {
   const bool ErrorOccured; // Maniascript
 };
 
+// Description: "Manager of achievements."
 struct CGameAchievementScriptManager : public CMwNod {
   const MwBuffer<CGameAchievementScriptEvent*> PendingEvents; // Maniascript
   const MwBuffer<CGameAchievementScriptAchievement*> Achievements; // Maniascript
@@ -8971,27 +9018,30 @@ struct CGameAchievementScriptManager : public CMwNod {
   const MwBuffer<CGameAchievementScriptUplayAction*> MasterServer_UplayActions; // Maniascript
 };
 
+// Description: "Event concerning achievements."
 struct CGameAchievementScriptEvent : public CMwNod {
   enum EType {
     NewAchievement = 0,
   };
   const EType Type; // Maniascript
-  const CGameAchievementScriptAchievement* Achievement; // Maniascript
+  CGameAchievementScriptAchievement* const Achievement; // Maniascript
 };
 
+// Description: "An achievement earned by a user."
 struct CGameAchievementScriptAchievement : public CMwNod {
   const MwId UserId; // Maniascript
-  const CGameAchievementScriptAchievementDesc* AchievementDesc; // Maniascript
+  CGameAchievementScriptAchievementDesc* const AchievementDesc; // Maniascript
 };
 
+// Description: "Achievement stat."
 struct CGameAchievementScriptStat : public CMwNod {
   const MwId UserId; // Maniascript
-  const CGameAchievementScriptStatDesc* StatDesc; // Maniascript
+  CGameAchievementScriptStatDesc* const StatDesc; // Maniascript
   const uint Value; // Maniascript
 };
 
 struct CGamePlaygroundModuleClientInventory : public CGamePlaygroundModuleClient {
-  const CGameUILayer* InventoryLayer; // Maniascript
+  CGameUILayer* const InventoryLayer; // Maniascript
 };
 
 struct CGamePlaygroundModuleClientScoresTable : public CGamePlaygroundModuleClient {
@@ -9040,16 +9090,16 @@ struct CGameControlCameraTrackManiaRace3 : public CGameControlCameraTarget {
 struct CGameControlCameraTrackManiaRace2 : public CGameControlCameraTarget {
   CGameControlCameraTrackManiaRace2();
 
-  const CPlugVehicleCameraRace2Model* Model;
+  CPlugVehicleCameraRace2Model* const Model;
 };
 
 struct CGameEditorBadge : public CGameEditorBase {
-  const CGameEditorBadgeScript* ScriptAPI;
+  CGameEditorBadgeScript* const ScriptAPI;
   uint DisplayTextureSize_Log2; // Range: 6 - 12
 };
 
 struct CGameEditorBadgeScript : public CGameManiaAppMinimal {
-  const CGameEditorBadge* Game;
+  CGameEditorBadge* const Game;
   void Leave(); // Maniascript
   CGameBadgeScript* DisplayCurrentBadge; // Maniascript
   vec2 DisplayPosN; // Maniascript
@@ -9071,12 +9121,13 @@ struct CGameEditorBadgeScript : public CGameManiaAppMinimal {
 };
 
 struct CGamePlaygroundModuleClientStore : public CGamePlaygroundModuleClient {
-  const CGameUILayer* StoreLayer; // Maniascript
+  CGameUILayer* const StoreLayer; // Maniascript
 };
 
 struct CGamePlaygroundModuleConfig : public CMwNod {
 };
 
+// Description: "Masterserver user info."
 struct CGameMasterServerUserInfo : public CNetMasterServerUserInfo {
   const bool NeedToChangeZone; // Maniascript
   const uint ZoneLevelCount; // Maniascript
@@ -9095,16 +9146,18 @@ struct CGameBadgeStickerSlots : public CMwNod {
 struct CGamePlaygroundModuleClient : public CGameManiaAppPlaygroundCommon {
 };
 
+// Description: "This is the client ManiaApp for game modes."
 struct CGameManiaAppPlayground : public CGameManiaAppPlaygroundCommon {
   void SendCustomEvent(wstring Type, MwBuffer<wstring>& Data); // Maniascript
 };
 
+// Description: "This is a video playback handle."
 struct CGameVideoScriptVideo : public CMwNod {
   enum ETextureFilter {
     Default = 0,
     Point = 1,
   };
-  const CPlugBitmap* Image; // Maniascript
+  CPlugBitmap* const Image; // Maniascript
   bool IsLooping; // Maniascript
   const bool DownloadInProgress; // Maniascript
   const float PlayLength; // Maniascript
@@ -9120,6 +9173,7 @@ struct CGameVideoScriptVideo : public CMwNod {
   ETextureFilter TextureFilter; // Maniascript
 };
 
+// Description: "User playing the game."
 struct CGameUserScript : public CMwNod {
   const string SystemName; // Maniascript
   const wstring DisplayName; // Maniascript
@@ -9127,17 +9181,18 @@ struct CGameUserScript : public CMwNod {
   const bool PersistentIsReady; // Maniascript
   void PersistentSave(); // Maniascript
   void SavePersistent(); // Maniascript
-  const CGameUserProfileWrapper* Config; // Maniascript
+  CGameUserProfileWrapper* const Config; // Maniascript
 };
 
+// Description: "API for users."
 struct CGameUserManagerScript : public CMwNod {
   const MwBuffer<CWebServicesTaskResult*> TaskResults; // Maniascript
   void TaskResult_Release(MwId TaskId); // Maniascript
   void RequestMainUserChange(); // Maniascript
   const MwBuffer<CGameUserScript*> Users; // Maniascript
-  const CInputScriptPad* MainUserPad; // Maniascript
+  CInputScriptPad* const MainUserPad; // Maniascript
   const bool MainUserLogged; // Maniascript
-  const CGameUserScript* MainUser; // Maniascript
+  CGameUserScript* const MainUser; // Maniascript
   const bool Intro; // Maniascript
   bool CanSkipIntro; // Maniascript
   void SetSkipIntro(); // Maniascript
@@ -9148,6 +9203,7 @@ struct CGameUserManagerScript : public CMwNod {
   void ShowProfile(MwId UserId, string ProfileLogin); // Maniascript
 };
 
+// Description: "Results for comparison of challenge records with all the buddies."
 struct CWebServicesTaskResult_BuddiesChallengeRecordsComparison : public CWebServicesTaskResult {
   const string Login; // Maniascript
   const MwBuffer<CGameHighScoreComparisonSummary*> BuddiesComparison; // Maniascript
@@ -9161,6 +9217,7 @@ struct CWebServicesTaskResult_BuddiesChallengeRecordsComparison : public CWebSer
 struct CGameCtnMasterServerTask_GetChallengeRecordsComparisonSummaries : public CNetMasterServerRequestTask {
 };
 
+// Description: "Results for comparison of challenge records between a user and one of its buddy."
 struct CWebServicesTaskResult_BuddyChallengeRecordsComparison : public CWebServicesTaskResult {
   const string Login; // Maniascript
   const string BuddyLogin; // Maniascript
@@ -9176,7 +9233,7 @@ struct CGameCtnMasterServerTask_ChallengeRecords_GetBuddyRecordComparison : publ
 };
 
 struct CGameHighScoreComparison : public CMwNod {
-  const CGameCtnChallengeInfo* MapInfo; // Maniascript
+  CGameCtnChallengeInfo* const MapInfo; // Maniascript
   const string Login; // Maniascript
   const uint RecordScore; // Maniascript
   const uint RecordTime; // Maniascript
@@ -9211,6 +9268,7 @@ struct CGameHighScoreComparisonSummary : public CMwNod {
   const uint OpponentBestRecordElapsedTime; // Maniascript
 };
 
+// Description: ""
 struct CGameModuleMenuBase : public CGameManiaAppTitle {
   CGameModuleMenuPage* GetFirstPage(wstring PageId); // Maniascript
   void Menu_Goto(wstring PageId); // Maniascript
@@ -9248,13 +9306,14 @@ struct CGameModuleMenuBrowser : public CGameModuleMenuComponent {
 struct CGameHapticDevice : public CMwNod {
 };
 
+// Description: "Script API to communicate with plugins."
 struct CGamePluginInterfacesScript : public CMwNod {
   CGameManiaplanetPluginInterface* GetInterface(wstring Name); // Maniascript
   const MwBuffer<CGameManiaplanetPluginInterface*> Interfaces; // Maniascript
 };
 
 struct CGameModuleMenuComponent : public CMwNod {
-  const CGameUILayer* ComponentLayer; // Maniascript
+  CGameUILayer* const ComponentLayer; // Maniascript
   void Hide(); // Maniascript
   void Show(); // Maniascript
 };
@@ -9441,6 +9500,7 @@ struct CGameScoreTask_SetNewMapRecord : public CWebServicesTaskSequence {
 struct CWebServicesTaskResult_Timestamp : public CWebServicesTaskResult {
 };
 
+// Description: "An playground Store module."
 struct CGamePlaygroundModuleServerStore : public CGamePlaygroundModuleServer {
   void Reset(); // Maniascript
   void Reset2(CGamePlayer* Player); // Maniascript
@@ -9526,6 +9586,7 @@ struct CGamePlaygroundModuleServerScoresTable : public CGamePlaygroundModuleServ
 struct CWebServicesTaskResult_RealLeaderBoardInfoList : public CWebServicesTaskResult {
 };
 
+// Description: "Ranking item of a leaderboard."
 struct CGameRealLeaderBoardInfoScript : public CMwNod {
   const uint Rank; // Maniascript
   const MwId UserId; // Maniascript
@@ -9545,6 +9606,7 @@ struct CWebServicesTaskResult_Ghost : public CWebServicesTaskResult {
 struct CGameScoreTask_GetCampaignMapRecordGhost : public CWebServicesTaskSequence {
 };
 
+// Description: "Score and leaderboard manager."
 struct CGameScoreAndLeaderBoardManagerScript : public CMwNod {
   enum ELocalScoreStatus {
     None = 0,
@@ -9597,6 +9659,7 @@ struct CGameScoreAndLeaderBoardManagerScript : public CMwNod {
 struct CGameCtnMasterServerTask_GetDisplayNameScript : public CWebServicesTaskSequence {
 };
 
+// Description: "Results of task requesting the display name of registered login."
 struct CWebServicesTaskResult_GetDisplayNameScriptResult : public CWebServicesTaskResult {
   void AddLogin(string Login); // Maniascript
   void StartTask(); // Maniascript
@@ -9626,7 +9689,7 @@ struct CGameEditorTimeLine : public CMwNod {
 };
 
 struct CGameEditorAnimChar_Interface : public CMwNod {
-  const CScene2d* Scene2d;
+  CScene2d* const Scene2d;
   float EntryParamTransitionDuration;
   const float Duration;
 };
@@ -9641,7 +9704,7 @@ struct CGameMasterServerUserOnlineSignals : public CMwNod {
 };
 
 struct CGameEditorAnimSet : public CGameEditorBase {
-  const CGameAnimSet* AnimSet;
+  CGameAnimSet* const AnimSet;
 };
 
 struct CGameAnimClipNod : public CMwNod {
@@ -9652,12 +9715,14 @@ struct CGameAnimClipNod : public CMwNod {
 struct CGameUserPrivilegeTask_CheckPlayMultiplayerMode : public CWebServicesTaskSequence {
 };
 
+// Description: "Achievement stat."
 struct CGameAchievementScriptStatDesc : public CMwNod {
   const string TitleId; // Maniascript
   const wstring DisplayName; // Maniascript
   const wstring Description; // Maniascript
 };
 
+// Description: "An achievement's description."
 struct CGameAchievementScriptAchievementDesc : public CMwNod {
   const string TitleId; // Maniascript
   const wstring DisplayName; // Maniascript
@@ -9671,10 +9736,11 @@ struct CGameEditorVehicle : public CGameEditorParent {
 struct CGameEditorParent : public CGameSwitcherModule {
   CGameEditorParent();
 
-  const CGameScene* GameScene;
-  const CGameCamera* GameCamera;
+  CGameScene* const GameScene;
+  CGameCamera* const GameCamera;
 };
 
+// Description: "Results containing a list of child zones of a specified zone."
 struct CWebServicesTaskResult_ZoneList : public CWebServicesTaskResult {
   const wstring Path; // Maniascript
   const uint ZoneCount; // Maniascript
@@ -9697,6 +9763,7 @@ struct CGameLeagueScript : public CMwNod {
 struct CGameMasterServerTask_Connect : public CNetMasterServerTask_Connect {
 };
 
+// Description: "Uplay action."
 struct CGameAchievementScriptUplayAction : public CMwNod {
   const string ActionId; // Maniascript
   const wstring Name; // Maniascript
@@ -9704,6 +9771,7 @@ struct CGameAchievementScriptUplayAction : public CMwNod {
   const uint Value; // Maniascript
 };
 
+// Description: "Online presence"
 struct CGameMasterServerPlayerOnlinePresence : public CMwNod {
   const string Login; // Maniascript
   const wstring DisplayName; // Maniascript
@@ -9717,6 +9785,7 @@ struct CWebServicesTaskResult_OnlinePresenceList : public CWebServicesTaskResult
 struct CGameCtnMasterServerTask_GetOnlinePresenceForPlayers : public CNetMasterServerRequestTask {
 };
 
+// Description: "Results of task requesting the list of servers where the logins are playing."
 struct CGameMasterServerRichPresenceTaskResult_GetOnlinePresenceForPlayersScript : public CGameMasterServerRichPresenceTaskResult_PlayerOnlinePresenceList {
   const MwBuffer<CGameMasterServerPlayerOnlinePresence*> OnlinePresences; // Maniascript
   void AddLogin(string Login); // Maniascript
@@ -9729,6 +9798,7 @@ struct CGameMasterServerRichPresenceManager : public CMwNod {
 struct CGameMasterServerRichPresenceTask_UpdatePresence : public CWebServicesTaskSequence {
 };
 
+// Description: "User privileges manager."
 struct CGameUserPrivilegesManagerScript : public CMwNod {
   enum EPrivilege {
     PlayMultiplayerMode = 0,
@@ -9759,6 +9829,7 @@ struct CWebServicesTaskResult_CheckTargetedPrivilegeResult : public CWebServices
 struct CGameUserPrivilegeTask_CheckViewOnlinePresence : public CWebServicesTaskSequence {
 };
 
+// Description: "Results of task requesting if the registered login have a privilege."
 struct CWebServicesTaskResult_CheckTargetedPrivilegeResultScript : public CWebServicesTaskResult_CheckTargetedPrivilegeResult {
   void AddLogin(string Login); // Maniascript
   void StartTask(); // Maniascript
@@ -9841,6 +9912,7 @@ struct CGameScoreTask_BuddiesChallengeRecordsComparison : public CWebServicesTas
 struct CWebServicesTaskResult_ChallengeRecordsComparisonSummaries : public CWebServicesTaskResult {
 };
 
+// Description: "Results of task launching Uplay and completing action at registration."
 struct CWebServicesTaskResult_LaunchUplayScriptResult : public CWebServicesTaskResult {
   void AddActionToComplete(string ActionId); // Maniascript
   void StartTask(); // Maniascript
@@ -9861,6 +9933,7 @@ struct CWebServicesTaskResult_ChallengeRecords_BuddiesRecord : public CWebServic
 struct CGameScoreTask_BuddiesChallengeRecordsForMap : public CWebServicesTaskSequence {
 };
 
+// Description: "List of all buddies record for a map."
 struct CWebServicesTaskResult_BuddiesChallengeRecord : public CWebServicesTaskResult {
   const string Login; // Maniascript
   const MwBuffer<CGameHighScoreComparison*> BuddiesChallengeRecord; // Maniascript
@@ -9928,6 +10001,7 @@ struct CGameEditorMainPlugin : public CGameEditorPlugin {
   const MwBuffer<CGameEditorPluginHandle*> Plugins; // Maniascript
 };
 
+// Description: "UIConfig Event"
 struct CGamePlaygroundUIConfigEvent : public CMwNod {
   enum EType {
     Unknown = 0,
@@ -9950,12 +10024,12 @@ struct CGamePlaygroundUIConfigEvent : public CMwNod {
     MenuPage = 7,
   };
   const EType Type; // Maniascript
-  const CGamePlaygroundUIConfig* UI; // Maniascript
-  const CGamePlaygroundUIConfig* UIConfig; // Maniascript
+  CGamePlaygroundUIConfig* const UI; // Maniascript
+  CGamePlaygroundUIConfig* const UIConfig; // Maniascript
   const EModuleType ModuleType; // Maniascript
   const wstring Param1; // Maniascript
   const MwBuffer<wstring> Param2; // Maniascript
-  const CGameUILayer* CustomEventLayer; // Maniascript
+  CGameUILayer* const CustomEventLayer; // Maniascript
   const wstring CustomEventType; // Maniascript
   const MwBuffer<wstring> CustomEventData; // Maniascript
   const wstring ItemUrl; // Maniascript
@@ -9966,14 +10040,15 @@ struct CGameMgrShieldPhy : public CSceneMgrPhy {
 };
 
 struct CGameMgrShieldVis : public CSceneMgrVis {
-  const CSceneMgrParticle* MgrParticle;
+  CSceneMgrParticle* const MgrParticle;
   const MwBuffer<CPlugShieldModel*> ShieldModels;
 };
 
+// Description: "Script API to create Packs (can be Titlepacks or plain ManiaCredited data), and generate new builds of these packs."
 struct CGamePackCreatorScript : public CMwNod {
   void RegisterPackForEditedTitle(); // Maniascript
   const bool RegisterPack_IsInProgess; // Maniascript
-  const CGamePackCreator_PackScript* CurrentPack; // Maniascript
+  CGamePackCreator_PackScript* const CurrentPack; // Maniascript
   MwId Build_Begin(CGamePackCreator_PackScript* Pack, CGamePackCreator_TitleInfoScript* TitleInfo); // Maniascript
   void Build_AddFile(MwId BuildId, wstring FileName); // Maniascript
   void Build_AddFolder(MwId BuildId, wstring FolderName); // Maniascript
@@ -9985,6 +10060,7 @@ struct CGamePackCreatorScript : public CMwNod {
   void Build_End(MwId BuildId); // Maniascript
 };
 
+// Description: "A pack"
 struct CGamePackCreator_PackScript : public CMwNod {
   const MwId PackId; // Maniascript
   const MwId CreatorId; // Maniascript
@@ -9994,6 +10070,7 @@ struct CGamePackCreator_PackScript : public CMwNod {
   const MwBuffer<CGamePackCreator_RecipientScript*> Recipients; // Maniascript
 };
 
+// Description: "Script API to create Pack files (can be Titlepack or plain ManiaCredited data)."
 struct CGamePackCreator_TitleInfoScript : public CMwNod {
   const MwId TitleId; // Maniascript
   const MwId MakerTitleId; // Maniascript
@@ -10017,6 +10094,7 @@ struct CGamePackCreator_TitleInfoScript : public CMwNod {
   wstring MusicFolder; // Maniascript
 };
 
+// Description: "A recipient included in the bill for a Pack."
 struct CGamePackCreator_RecipientScript : public CMwNod {
   const string Login; // Maniascript
   const uint GetCost; // Maniascript
@@ -10037,6 +10115,7 @@ struct CGameModuleMenuPage : public CMwNod {
   const MwBuffer<CGameModuleMenuComponent*> Components; // Maniascript
 };
 
+// Description: "API for editor plugins."
 struct CGameEditorPlugin : public CGameManiaApp {
   enum EInteractionStatus {
     Active = 0,
@@ -10044,10 +10123,10 @@ struct CGameEditorPlugin : public CGameManiaApp {
     Aborted = 2,
   };
   const MwBuffer<CGameManiaAppScriptEvent*> PendingEvents; // Maniascript
-  const CGameEditorModule* ModuleEditor; // Maniascript
-  const CGameEditorMesh* MeshEditor; // Maniascript
-  const CGameEditorPixel* PixelEditor; // Maniascript
-  const CGameEditorEditor* EditorEditor; // Maniascript
+  CGameEditorModule* const ModuleEditor; // Maniascript
+  CGameEditorMesh* const MeshEditor; // Maniascript
+  CGameEditorPixel* const PixelEditor; // Maniascript
+  CGameEditorEditor* const EditorEditor; // Maniascript
   const EInteractionStatus InteractionStatus; // Maniascript
 };
 
@@ -10094,9 +10173,9 @@ struct CGameManialinkAnimManager : public CMwNod {
 };
 
 struct CGameEditorEditor : public CGameCtnEditor {
-  const CControlFrame* UIRoot;
-  const CMwNod* EditedNod;
-  const CGameEditorModel* EditedEditor;
+  CControlFrame* const UIRoot;
+  CMwNod* const EditedNod;
+  CGameEditorModel* const EditedEditor;
   void FlushBindings();
   void Bindings_AddContext(wstring ContextName); // Maniascript
   void Bindings_AddBinding(wstring ContextName, wstring BindingScriptId, wstring BindingDisplayName); // Maniascript
@@ -10124,6 +10203,7 @@ struct CGameMgrCamera : public CMwNod {
 struct CGameCampaignScoreManager_SkillPoint : public CGameCampaignScoreManager {
 };
 
+// Description: "A chat room."
 struct CGameScriptChatRoom : public CMwNod {
   const string RoomId; // Maniascript
   const MwBuffer<CGameScriptChatContact*> Members; // Maniascript
@@ -10135,24 +10215,29 @@ struct CGameItem : public CMwNod {
 struct CGameGate : public CMwNod {
 };
 
+// Skipping documentation due to broken pointer!
 struct CGameTriggerGate : public CMwNod {
 };
 
+// Skipping documentation due to broken pointer!
 struct CGameTriggerTeleport : public CMwNod {
 };
 
 struct CGameShield : public CMwNod {
 };
 
+// Skipping documentation due to broken pointer!
 struct CGameTriggerScreen : public CMwNod {
 };
 
+// Description: "A filtered history"
 struct CGameScriptChatHistory : public CMwNod {
   wstring Filter; // Maniascript
   const bool Filter_IsValid; // Maniascript
   const MwBuffer<CGameScriptChatHistoryEntry*> Entries; // Maniascript
 };
 
+// Description: "An message from the history."
 struct CGameScriptChatHistoryEntry : public CMwNod {
   enum EDirection {
     Sent = 0,
@@ -10185,8 +10270,8 @@ struct CGameEditorCanvas : public CMwNod {
 struct CGameEditorPixel : public CGameCtnEditor {
   CGameEditorPixel();
 
-  const CControlFrame* UIRoot;
-  const CMwNod* EditedNod;
+  CControlFrame* const UIRoot;
+  CMwNod* const EditedNod;
   float PixelsMargin; // Maniascript
   const bool MouseInGrid; // Maniascript
   const int2 MousePos; // Maniascript
@@ -10216,7 +10301,7 @@ struct CGameEditorPixel : public CGameCtnEditor {
   void MergeLayers(MwId Handle1, MwId Handle2); // Maniascript
   void SelectedLayer_Move(int2 Offset); // Maniascript
   void SelectedLayer_OffsetPreview(int2 Offset); // Maniascript
-  const CGameEditorCanvas* Layers; // Maniascript
+  CGameEditorCanvas* const Layers; // Maniascript
   const MwBuffer<CGameEditorPixelEvent*> PendingEvents; // Maniascript
 };
 
@@ -10244,6 +10329,7 @@ struct CGameEditorPluginMapManager : public CMwNod {
   const MwBuffer<CGameEditorPluginMap*> ActivePluginsCache;
 };
 
+// Description: "API for the mesh modeler."
 struct CGameEditorMesh : public CGameEditorAsset {
   CGameEditorMesh();
 
@@ -10312,8 +10398,8 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void UVEditor_UVMode();
   void UVEditor_AtlasMode();
   const bool Tmp_UseParts; // Maniascript
-  const CControlFrame* UIRoot;
-  const CMwNod* EditedNod;
+  CControlFrame* const UIRoot;
+  CMwNod* const EditedNod;
   CPlugMaterialUserInst* MatUserInstToEdit;
   const uint VertexCount; // Maniascript
   const uint EdgeCount; // Maniascript
@@ -10528,6 +10614,7 @@ struct CGameScenePhy : public CScenePhy {
 struct CGameMgrTurretVis : public CSceneMgrVis {
 };
 
+// Skipping documentation due to broken pointer!
 // userName: 'Turret'
 struct CGameTurretVis : public CMwNod {
 };
@@ -10540,11 +10627,12 @@ struct CGameCtnMediaBlockTurret : public CGameCtnMediaBlock {
 
 };
 
+// Description: "API for editor plugin layers."
 struct CGameEditorPluginLayerScriptHandler : public CGameManialinkScriptHandler {
-  const CGameEditorModule* ModuleEditor; // Maniascript
-  const CGameEditorMesh* MeshEditor; // Maniascript
-  const CGameEditorPixel* PixelEditor; // Maniascript
-  const CGameEditorEditor* EditorEditor; // Maniascript
+  CGameEditorModule* const ModuleEditor; // Maniascript
+  CGameEditorMesh* const MeshEditor; // Maniascript
+  CGameEditorPixel* const PixelEditor; // Maniascript
+  CGameEditorEditor* const EditorEditor; // Maniascript
 };
 
 struct CGameMgrMapPhy : public CSceneMgrPhy {
@@ -10564,8 +10652,9 @@ struct CGameDataFileTask_GhostLoadUserRecord_Maniaplanet : public CWebServicesTa
 struct CGameDataFileTask_GhostDownload : public CWebServicesTaskSequence {
 };
 
+// Description: "Task result containing a ghost."
 struct CWebServicesTaskResult_GhostScript : public CWebServicesTaskResult_Ghost {
-  const CGameGhostScript* Ghost; // Maniascript
+  CGameGhostScript* const Ghost; // Maniascript
 };
 
 struct CGameDataFileTask_GhostLoadMedal : public CWebServicesTaskSequence {
@@ -10579,6 +10668,7 @@ struct CGameCtnMediaBlockEntity : public CGameCtnMediaBlock {
 struct CWebServicesTaskResult_NaturalLeaderBoardInfoList : public CWebServicesTaskResult {
 };
 
+// Description: "Results containing a list of map info."
 struct CWebServicesTaskResult_MapListScript : public CWebServicesTaskResult_GameFidList {
   const wstring ParentPath; // Maniascript
   const wstring Path; // Maniascript
@@ -10595,6 +10685,7 @@ struct CGameDataFileTask_GameFidGetGameList : public CWebServicesTaskSequence {
 struct CGameDataFileTask_UserDataCacheUpdate : public CWebServicesTaskSequence {
 };
 
+// Description: "Script API to manage game data."
 struct CGameDataFileManagerScript : public CMwNod {
   enum EMediaType {
     Image = 0,
@@ -10633,6 +10724,7 @@ struct CGameDataUserFileManager : public CMwNod {
 struct CWebServicesTaskResult_GameFidList : public CWebServicesTaskResult {
 };
 
+// Description: "Results containing a list of replay info."
 struct CWebServicesTaskResult_ReplayListScript : public CWebServicesTaskResult_GameFidList {
   const wstring ParentPath; // Maniascript
   const wstring Path; // Maniascript
@@ -10643,6 +10735,7 @@ struct CWebServicesTaskResult_ReplayListScript : public CWebServicesTaskResult_G
 struct CWebServicesTaskResult_FileList : public CWebServicesTaskResult {
 };
 
+// Description: "Results containing a list of media info."
 struct CWebServicesTaskResult_FileListScript : public CWebServicesTaskResult_FileList {
   const wstring ParentPath; // Maniascript
   const wstring Path; // Maniascript
@@ -10653,6 +10746,7 @@ struct CWebServicesTaskResult_FileListScript : public CWebServicesTaskResult_Fil
 struct CGameDataFileTask_FileGetGameList : public CWebServicesTaskSequence {
 };
 
+// Skipping documentation due to broken pointer!
 // userName: 'Object'
 struct CGameObjectVis : public CMwNod {
 };
@@ -10680,12 +10774,13 @@ struct CGameScriptMgrTurret : public CMwNod {
 struct CGameScriptTurret : public CMwNod {
   uint Armor; // Maniascript
   uint ArmorMax; // Maniascript
-  const CGamePlayer* Owner; // Maniascript
+  CGamePlayer* const Owner; // Maniascript
 };
 
 struct CWebServicesTaskResult_GhostList : public CWebServicesTaskResult {
 };
 
+// Description: "Results containing a list of ghost."
 struct CWebServicesTaskResult_GhostListScript : public CWebServicesTaskResult_GhostList {
   const MwBuffer<CGameGhostScript*> Ghosts; // Maniascript
 };
@@ -10699,6 +10794,7 @@ struct CGameScoreTask_GetNaturalLeaderBoardPlayerList : public CWebServicesTaskS
 struct CGameCtnMasterServerTask_GetNaturalLeaderBoard : public CNetMasterServerRequestTask {
 };
 
+// Description: "Ranking item of a leaderboard."
 struct CGameNaturalLeaderBoardInfoScript : public CMwNod {
   const uint Rank; // Maniascript
   const MwId UserId; // Maniascript
@@ -10709,18 +10805,21 @@ struct CGameNaturalLeaderBoardInfoScript : public CMwNod {
   const string ReplayUrl; // Maniascript
 };
 
+// Description: "Results containing a part of the leaderboard."
 struct CWebServicesTaskResult_NaturalLeaderBoardInfoListScript : public CWebServicesTaskResult_NaturalLeaderBoardInfoList {
   const uint FromIndex; // Maniascript
   const uint Count; // Maniascript
   const MwBuffer<CGameNaturalLeaderBoardInfoScript*> LeaderBoardInfo; // Maniascript
 };
 
+// Description: "Results containing a part of the leaderboard."
 struct CWebServicesTaskResult_RealLeaderBoardInfoListScript : public CWebServicesTaskResult_RealLeaderBoardInfoList {
   const uint FromIndex; // Maniascript
   const uint Count; // Maniascript
   const MwBuffer<CGameRealLeaderBoardInfoScript*> LeaderBoardInfo; // Maniascript
 };
 
+// Description: "Allows handling of match-settings files"
 struct CGameMatchSettingsManagerScript : public CMwNod {
   void Debug_MatchSettings_New();
   void Debug_MatchSettings_Save();
@@ -10735,6 +10834,7 @@ struct CGameMatchSettingsManagerScript : public CMwNod {
   const MwBuffer<CGameMatchSettingsScript*> MatchSettings; // Maniascript
 };
 
+// Description: "Represents a match-settings file"
 struct CGameMatchSettingsScript : public CMwNod {
   const wstring Name; // Maniascript
   const wstring FileName; // Maniascript
@@ -10756,6 +10856,7 @@ struct CGameDataFileTask_PackDownloadOrUpdate : public CWebServicesTaskSequence 
 struct CWebServicesTaskResult_Title : public CWebServicesTaskResult {
 };
 
+// Description: "Represents a map in the playlist of a matchsetting"
 struct CGameMatchSettingsPlaylistItemScript : public CMwNod {
   const wstring Name; // Maniascript
   const bool FileExists; // Maniascript
@@ -10764,10 +10865,12 @@ struct CGameMatchSettingsPlaylistItemScript : public CMwNod {
 struct CGameScoreTask_GetCampaignOpponentRecords : public CWebServicesTaskSequence {
 };
 
+// Description: "Results containing a list of map records."
 struct CWebServicesTaskResult_MapRecordListScript : public CWebServicesTaskResult_PlayerMapRecords {
   const MwBuffer<CGamePlayerMapRecordScript*> MapRecordList; // Maniascript
 };
 
+// Description: "Map record info."
 struct CGamePlayerMapRecordScript : public CMwNod {
   const string Context; // Maniascript
   const string MapUid; // Maniascript
@@ -10785,10 +10888,12 @@ struct CGamePlayerMapRecordScript : public CMwNod {
 struct CGameDataFileTask_GameModeGetGameList : public CWebServicesTaskSequence {
 };
 
+// Description: "Results containing a list of GameMode info."
 struct CWebServicesTaskResult_GameModeListScript : public CWebServicesTaskResult {
   const MwBuffer<CGameGameModeInfoScript*> GameModes; // Maniascript
 };
 
+// Description: "A GameMode script."
 struct CGameGameModeInfoScript : public CMwNod {
   const wstring Name; // Maniascript
   const wstring Path; // Maniascript
@@ -10797,6 +10902,7 @@ struct CGameGameModeInfoScript : public CMwNod {
   const MwBuffer<wstring> CompatibleMapTypes; // Maniascript
 };
 
+// Description: "Local profile settings."
 struct CGameUserProfileWrapper : public CMwNod {
   enum EMapEditorMode {
     Ask = 0,
@@ -10818,8 +10924,8 @@ struct CGameEditorVehiclePluginAPI : public CGameEditorPluginAPI {
 };
 
 struct CGameBlockItemVariantChooser : public CMwNod {
-  const CGameItemModel* ItemModelToView;
-  const CGameCtnBlockInfo* ArchetypeBlockInfo;
+  CGameItemModel* const ItemModelToView;
+  CGameCtnBlockInfo* const ArchetypeBlockInfo;
   bool ShowOriginalVariant;
   wstring VariantType;
   uint VariantGroupCurrent;
@@ -10834,6 +10940,7 @@ struct CGameBlockItemVariantChooser : public CMwNod {
   void PreviousRandomVariant();
 };
 
+// Skipping documentation due to broken pointer!
 struct CGameArenaPlayer : public CMwNod {
 };
 
@@ -10864,7 +10971,7 @@ struct GxLight : public CMwNod {
   bool EnableGroup1;
   bool EnableGroup2;
   bool EnableGroup3;
-  const CMwNod* PlugLight;
+  CMwNod* const PlugLight;
 };
 
 struct GxLightBall : public GxLightPoint {
@@ -11428,7 +11535,7 @@ struct CHmsCamera : public CHmsPoc {
   bool ClampFovAuto;
   float ClampAutoRatioXy;
   float RatioXY;
-  const CHmsPicker* Picker;
+  CHmsPicker* const Picker;
   const uint GroupIndex;
   float DofFocusZ;
   UnnamedEnum DofLensMode;
@@ -11453,15 +11560,15 @@ struct CHmsCamera : public CHmsPoc {
 struct CHmsCorpus : public CHmsZoneElem {
   CHmsCorpus();
 
-  const CHmsItem* Item;
+  CHmsItem* const Item;
 };
 
 struct CHmsItem : public CMwNod {
   CHmsItem();
 
   CPlugSolid* Solid;
-  const CHmsCorpus* Corpus;
-  const CMwNod* SceneMobil;
+  CHmsCorpus* const Corpus;
+  CMwNod* const SceneMobil;
   bool IsVisionStatic;
   bool IsStatic;
   bool IsBackground;
@@ -11609,7 +11716,7 @@ struct CHmsZone : public CMwNod {
   CPlugBitmap* BitmapWaterFog;
   CPlugBitmap* BitmapCubeReflectHardSpecA;
   CPlugBitmap* BitmapCubeReflectHdrAlpha2;
-  const CMwNod* UserData;
+  CMwNod* const UserData;
 };
 
 struct CHmsPortal : public CMwNod {
@@ -11644,7 +11751,7 @@ struct CHmsPoc : public CHmsZoneElem {
 struct CHmsZoneElem : public CMwNod {
   CHmsZoneElem();
 
-  const CHmsZone* Zone;
+  CHmsZone* const Zone;
   iso4 Location;
   vec3 Vel;
 };
@@ -11673,12 +11780,12 @@ struct CHmsLight : public CHmsPoc {
   CHmsLight();
 
   UnnamedEnum UpdateType;
-  const GxLight* MainGxLight;
+  GxLight* const MainGxLight;
   CPlugBitmap* BitmapFlare;
   CPlugBitmap* BitmapSprite;
   CPlugBitmap* BitmapProjector;
   CHmsCorpusLight* CorpusLight;
-  const CHmsItem* ItemContainer;
+  CHmsItem* const ItemContainer;
   bool ForceShadowGroup;
   uint ForceShadowGroupIndex;
   bool NeverSkipShadow;
@@ -11687,8 +11794,8 @@ struct CHmsLight : public CHmsPoc {
 struct CHmsPortalProperty : public CMwNod {
   CHmsPortalProperty();
 
-  const CHmsPortal* Portal1;
-  const CHmsPortal* Portal2;
+  CHmsPortal* const Portal1;
+  CHmsPortal* const Portal2;
   bool Visibility;
   bool Audibility;
 };
@@ -11757,8 +11864,8 @@ struct CHmsViewport : public CMwNod {
   MwBuffer<CHmsCamera*> Cameras;
   MwBuffer<CHmsZoneOverlay*> Overlays;
   CSystemConfig* SystemConfig;
-  const CSystemWindow* SystemWindow;
-  const CHmsPicker* Picker;
+  CSystemWindow* const SystemWindow;
+  CHmsPicker* const Picker;
   CHmsConfig* Config;
   CHmsAmbientOcc* HmsAmbientOcc;
   UnnamedEnum AmbientOcc;
@@ -11859,16 +11966,16 @@ struct CHmsPicker : public CMwNod {
 
   bool IsEnable;
   const vec2 InputPos;
-  const CHmsCamera* Camera;
-  const CHmsZoneOverlay* Overlay;
+  CHmsCamera* const Camera;
+  CHmsZoneOverlay* const Overlay;
   const vec2 PosRect;
   const vec3 RayDir;
   const vec3 RayPos;
   const uint In3dQuadIndex;
-  const CMwNod* PickedUserData;
-  const CHmsCorpus* Corpus;
-  const CPlugTree* Tree;
-  const CPlugSolid2Model* Solid2Model;
+  CMwNod* const PickedUserData;
+  CHmsCorpus* const Corpus;
+  CPlugTree* const Tree;
+  CPlugSolid2Model* const Solid2Model;
   const uint VisDynaHandle;
   const vec3 PickPosV;
   const vec3 PickPosZ;
@@ -12009,9 +12116,11 @@ struct CHmsMgrVisParticle : public CMwNod {
 struct CHmsVisMiniMap : public CMwNod {
 };
 
+// Skipping documentation due to broken pointer!
 struct CHmsCollType_Warp : public CMwNod {
 };
 
+// Skipping documentation due to broken pointer!
 struct CHmsCollType_VehicleVisForBodyPart : public CMwNod {
 };
 
@@ -12044,7 +12153,7 @@ struct CControlBase : public CSceneToy {
   bool IsHiddenExternal;
   const bool IsVisualFocus;
   const bool IsVisualSelect;
-  const CControlContainer* Parent;
+  CControlContainer* const Parent;
   CMwNod* Nod;
   string StackText;
   wstring ToolTip;
@@ -12084,7 +12193,7 @@ struct CControlEffectSwitchStyle : public CControlEffect {
 struct CControlUiElement : public CControlForm {
   CControlUiElement();
 
-  const CMwRefBuffer* Resources;
+  CMwRefBuffer* const Resources;
 };
 
 struct CControlEffect : public CMwNod {
@@ -12189,9 +12298,9 @@ struct CControlListItem : public CMwNod {
   const float Real3;
   vec2 MapCoordOrigin;
   vec2 MapCoordTarget;
-  const CMwNod* Nod1;
-  const CMwNod* Nod2;
-  const CMwNod* Nod3;
+  CMwNod* const Nod1;
+  CMwNod* const Nod2;
+  CMwNod* const Nod3;
   bool IsSelected;
 };
 
@@ -12269,7 +12378,7 @@ struct CControlOverlay : public CControlBase {
   CControlOverlay();
 
   CScene3d* Scene;
-  const CSceneCamera* Camera;
+  CSceneCamera* const Camera;
 };
 
 struct CControlUiRange : public CControlBase {
@@ -12494,8 +12603,8 @@ struct CControlColorChooser2 : public CControlFrame {
   CControlColorChooser2();
 
   Color Color;
-  const CControlColorChooser* ColorChooserHue;
-  const CControlColorChooser* ColorChooserSV;
+  CControlColorChooser* const ColorChooserHue;
+  CControlColorChooser* const ColorChooserSV;
 };
 
 struct CControlSimi2 : public CMwNod {
@@ -12624,16 +12733,16 @@ struct CControlListMap2 : public CControlFrame {
 struct CControlMediaPlayer : public CControlFrame {
   CControlMediaPlayer();
 
-  const CPlugFileSnd* MediaAudio;
-  const CPlugFileVideo* MediaVideo;
+  CPlugFileSnd* const MediaAudio;
+  CPlugFileVideo* const MediaVideo;
 };
 
 struct CControlRadar : public CControlBase {
   CControlRadar();
 
   CMwRefBuffer* Resources;
-  const CScene2d* Overlay;
-  const CSceneMobil* Screen;
+  CScene2d* const Overlay;
+  CSceneMobil* const Screen;
   float Scale;
   bool FollowOnlyPosition;
   void AddDummyMobil();
@@ -12687,7 +12796,7 @@ struct CControlText : public CControlBase {
   float ClipLength;
   int MaxLine;
   UnnamedEnum TextMode;
-  const CPlugTree* TextTree;
+  CPlugTree* const TextTree;
 };
 
 // File extension: 'FrameAnimated.Gbx'
@@ -12809,7 +12918,7 @@ struct CMotionCmdBaseParams : public CMwNod {
 struct CMotionTrack : public CMwCmdContainer {
   CMotionTrack();
 
-  const CMwNod* Owner;
+  CMwNod* const Owner;
 };
 
 struct CMotionPlayer : public CMotion {
@@ -12854,7 +12963,7 @@ struct CMotionTrackMobilMove : public CMotionTrack {
 struct CMotionTrackVisual : public CMotionTrack {
   CMotionTrackVisual();
 
-  const CPlugVisual* Visual;
+  CPlugVisual* const Visual;
   CFuncVisual* FuncVisual;
 };
 
@@ -12862,7 +12971,7 @@ struct CMotionTrackMobilPitchin : public CMotionTrack {
   CMotionTrackMobilPitchin();
 
   UnnamedEnum PitchinMode;
-  const CSceneToySea* Sea;
+  CSceneToySea* const Sea;
   float Flottaison;
   float Tangage;
   float Roulis;
@@ -12874,7 +12983,7 @@ struct CMotionTrackMobilPitchin : public CMotionTrack {
 struct CMotionTrackTree : public CMotionTrack {
   CMotionTrackTree();
 
-  const CPlugTree* Tree;
+  CPlugTree* const Tree;
   CFuncTree* FuncTree;
 };
 
@@ -12927,7 +13036,7 @@ struct CMotionEmitterLeaves : public CMotionManaged {
 struct CMotionManagerLeaves : public CMotionManager {
   CMotionManagerLeaves();
 
-  const CSceneMobilLeaves* MobilLeaves;
+  CSceneMobilLeaves* const MobilLeaves;
   bool IsActive;
 };
 
@@ -13001,7 +13110,7 @@ struct CMotionManagerMeteo : public CMotionManager {
   float BlockerDist;
   float TideIn01; // Range: 0 - 1
   const float TideBlend; // Range: 0 - 1
-  const CMotionManagerMeteoPuffLull* MeteoPuffLull;
+  CMotionManagerMeteoPuffLull* const MeteoPuffLull;
   float VariationsAmp;
   float VariationsTimeFactor;
   CFuncKeysReal* TideBlendFunc;
@@ -13031,7 +13140,7 @@ struct CMotionManagerWeathers : public CMotionManager {
 struct CMotionWeather : public CMotionManaged {
   CMotionWeather();
 
-  const CMotionManagerWeathers* Manager;
+  CMotionManagerWeathers* const Manager;
 };
 
 struct CMotionDayTime : public CMotionManaged {
@@ -13212,8 +13321,8 @@ struct CPlugVisualSprite : public CPlugVisual3D {
 
   const bool UseTextureAtlas;
   const bool SpriteIndexTC1;
-  const CPlugSpriteParam* SpriteParam;
-  const CPlugBitmapAtlas* BitmapAtlas;
+  CPlugSpriteParam* const SpriteParam;
+  CPlugBitmapAtlas* const BitmapAtlas;
 };
 
 // File extension: 'Texture.Gbx'
@@ -13431,7 +13540,7 @@ struct CPlugBitmap : public CPlug {
   bool NoMipNormalize;
   CPlugFileImg* Image;
   CPlugBitmapAtlas* Atlas;
-  const CPlugSpriteParam* SpriteParam;
+  CPlugSpriteParam* const SpriteParam;
   CPlugBitmapDecals* Decals;
   bool MipLevelSkipFromQuality;
   uint MipLevelSkipCountMax;
@@ -13702,8 +13811,8 @@ struct CPlugSoundEngine2 : public CPlugSound {
   CPlugFileSnd* AudioMotors_LimiterLoop_Engine;
   float AudioMotors_LPF_CutoffRatio_Exhaust; // Range: 0 - 1
   float AudioMotors_LPF_CutoffRatio_Engine; // Range: 0 - 1
-  const CFuncKeysReal* AudioMotors_PitchRandomize_Rpm;
-  const CFuncKeysReal* AudioMotors_PitchRandomize_Throttle;
+  CFuncKeysReal* const AudioMotors_PitchRandomize_Rpm;
+  CFuncKeysReal* const AudioMotors_PitchRandomize_Throttle;
   float AudioMotors_IdleVolumedB;
   float AudioMotors_LimiterVolumedB;
   CSystemFidsFolder* Loops_Folder;
@@ -13711,18 +13820,18 @@ struct CPlugSoundEngine2 : public CPlugSound {
   bool Loops_RpmClamp;
   float RpmMaxFromEngine;
   float RpmGamma;
-  const CFuncKeysReal* Volume_Speed;
-  const CFuncKeysReal* Volume_Distance;
-  const CFuncKeysReal* Volume_Rpm;
-  const CFuncKeysReal* Volume_Throttle;
-  const CFuncKeysReal* Volume_Gear;
-  const CFuncKeysReal* RpmFactor_Gear;
-  const CFuncKeysReal* VolPersp_Rpm_Exhaust;
-  const CFuncKeysReal* VolPersp_Throttle_Exhaust;
-  const CFuncKeysReal* VolPersp_Rpm_Engine;
-  const CFuncKeysReal* VolPersp_Throttle_Engine;
-  const CFuncKeysReal* VolPersp_Rpm_Interior;
-  const CFuncKeysReal* VolPersp_Throttle_Interior;
+  CFuncKeysReal* const Volume_Speed;
+  CFuncKeysReal* const Volume_Distance;
+  CFuncKeysReal* const Volume_Rpm;
+  CFuncKeysReal* const Volume_Throttle;
+  CFuncKeysReal* const Volume_Gear;
+  CFuncKeysReal* const RpmFactor_Gear;
+  CFuncKeysReal* const VolPersp_Rpm_Exhaust;
+  CFuncKeysReal* const VolPersp_Throttle_Exhaust;
+  CFuncKeysReal* const VolPersp_Rpm_Engine;
+  CFuncKeysReal* const VolPersp_Throttle_Engine;
+  CFuncKeysReal* const VolPersp_Rpm_Interior;
+  CFuncKeysReal* const VolPersp_Throttle_Interior;
   float Mix_FrontBackSpread;
   float MixFront; // Range: 0 - 1
   float MixBack; // Range: 0 - 1
@@ -13763,7 +13872,7 @@ struct CPlug : public CMwNod {
 struct CPlugVisual3D : public CPlugVisual {
   bool UseTgtU;
   bool UseTgtV;
-  const CPlugBlendShapes* BlendShapes;
+  CPlugBlendShapes* const BlendShapes;
   void NegNormals();
   void ComputeFaceCull();
   void ComputeOccBox();
@@ -13818,7 +13927,7 @@ struct CPlugAudioBalance : public CPlugAudio {
 };
 
 struct CPlugFileFidContainer : public CPlugFile {
-  const CSystemFids* Location;
+  CSystemFids* const Location;
   void UiInstallFidsInSubFolder();
   void UiInstallFids();
   void UninstallAndDeleteFids();
@@ -13931,8 +14040,8 @@ struct CPlugFileGPU : public CPlugFile {
   const uint GpuVersionMajor;
   const uint GpuVersionMajorReq;
   const uint CodeSize;
-  const CSystemFid* GeneratedCombination_Fid0;
-  const CSystemFid* GeneratedCombination_Fid1;
+  CSystemFid* const GeneratedCombination_Fid0;
+  CSystemFid* const GeneratedCombination_Fid1;
 };
 
 // File extension: 'txt'
@@ -14153,7 +14262,7 @@ struct CPlugVertexStream : public CPlug {
   bool IsStatic;
   const bool SkipVision;
   bool DirtyVision;
-  const CPlugVisualOctree* Octree;
+  CPlugVisualOctree* const Octree;
 };
 
 struct CPlugIndexBuffer : public CPlug {
@@ -14207,7 +14316,7 @@ struct CPlugSoundSurface : public CPlugSound {
   float EdMaxSpeedKmh;
   MwArray<CMwNod*> Texture;
   MwArray<CMwNod*> Skid;
-  const CFuncKeysReal* SkidVolumeFromIntensity;
+  CFuncKeysReal* const SkidVolumeFromIntensity;
 };
 
 struct CPlugFileBink : public CPlugFile {
@@ -14236,7 +14345,7 @@ struct CPlugTreeLight : public CPlugTree {
   CPlugTreeLight();
 
   CPlugLight* PlugLight;
-  const GxLight* Light;
+  GxLight* const Light;
 };
 
 // File extension: 'Sound.Gbx'
@@ -14263,8 +14372,8 @@ struct CPlugSoundMulti : public CPlugSound {
 struct CPlugSoundVideo : public CPlugSound {
   CPlugSoundVideo();
 
-  const CPlugFileVideo* Video;
-  const CPlugFileImg* ImageNonVideo;
+  CPlugFileVideo* const Video;
+  CPlugFileImg* const ImageNonVideo;
 };
 
 // File extension: 'PointsInSphere.Gbx'
@@ -14711,14 +14820,14 @@ struct CPlugSoundEngine : public CPlugSound {
 
   MwArray<CPlugSoundComponent*> Components;
   float MaxRpm;
-  const CFuncKeysReal* Volume_Speed;
-  const CFuncKeysReal* Volume_Distance;
-  const CFuncKeysReal* Volume_Rpm;
-  const CFuncKeysReal* Volume_Accel;
-  const CFuncKeysReal* Alpha_Speed;
-  const CFuncKeysReal* Alpha_Distance;
-  const CFuncKeysReal* Alpha_Rpm;
-  const CFuncKeysReal* Alpha_Accel;
+  CFuncKeysReal* const Volume_Speed;
+  CFuncKeysReal* const Volume_Distance;
+  CFuncKeysReal* const Volume_Rpm;
+  CFuncKeysReal* const Volume_Accel;
+  CFuncKeysReal* const Alpha_Speed;
+  CFuncKeysReal* const Alpha_Distance;
+  CFuncKeysReal* const Alpha_Rpm;
+  CFuncKeysReal* const Alpha_Accel;
 };
 
 struct CPlugSoundComponent : public CMwNod {
@@ -14762,9 +14871,9 @@ struct CPlugModel : public CPlugTreeGenerator {
 
   string Origin;
   float ExportScale;
-  const CPlugModelTree* ModelTree;
-  const CPlugSkel* Skel;
-  const CPlugPath* Path;
+  CPlugModelTree* const ModelTree;
+  CPlugSkel* const Skel;
+  CPlugPath* const Path;
   float VertexPositionsQuantize;
 };
 
@@ -15477,7 +15586,7 @@ struct CPlugSpline3D : public CMwNod {
 
   const float Length;
   vec3 Translate;
-  const CFuncKeysTrans* Keys;
+  CFuncKeysTrans* const Keys;
 };
 
 struct CPlugTrafficPathSquares : public CMwNod {
@@ -16138,26 +16247,26 @@ struct CScene : public CMwNod {
   CSceneConfig* SceneConfig;
   MwBuffer<CMotionManager*> MotionManagers;
   const MwBuffer<CMotionManager*> MotionManagerModels;
-  const CScenePhy* ScenePhy;
-  const CSceneDecalsManager* MgrDecals;
-  const CSceneSoundManager* MgrSound;
-  const CSceneMgrParticle* MgrParticle;
-  const CSceneMgrSolidVis* MgrSolidVis;
-  const CSceneMgrSolid2Vis* MgrSolid2Vis;
-  const CSceneMgrCharVis* MgrCharVis;
-  const CSceneMgrVehicleVis* MgrVehicleVis;
-  const CSceneMgrFlock* MgrFlock;
-  const CSceneMgrAnim* MgrAnim;
-  const CSceneMgrBulletVis* MgrBulletVis;
-  const CSceneMgrTrafficVis* MgrTrafficVis;
-  const CSceneMgrBody* MgrBody;
-  const CSceneMgrWeather* MgrWeather;
-  const CSceneMgrMapColoring* MgrMapColoring;
-  const CHmsMgrVisDyna* MgrVisDyna;
-  const CMwNod* MgrObjectVis;
-  const CMwNod* MgrGateVis;
-  const CMwNod* MgrShieldVis;
-  const CMwNod* MoodBlender;
+  CScenePhy* const ScenePhy;
+  CSceneDecalsManager* const MgrDecals;
+  CSceneSoundManager* const MgrSound;
+  CSceneMgrParticle* const MgrParticle;
+  CSceneMgrSolidVis* const MgrSolidVis;
+  CSceneMgrSolid2Vis* const MgrSolid2Vis;
+  CSceneMgrCharVis* const MgrCharVis;
+  CSceneMgrVehicleVis* const MgrVehicleVis;
+  CSceneMgrFlock* const MgrFlock;
+  CSceneMgrAnim* const MgrAnim;
+  CSceneMgrBulletVis* const MgrBulletVis;
+  CSceneMgrTrafficVis* const MgrTrafficVis;
+  CSceneMgrBody* const MgrBody;
+  CSceneMgrWeather* const MgrWeather;
+  CSceneMgrMapColoring* const MgrMapColoring;
+  CHmsMgrVisDyna* const MgrVisDyna;
+  CMwNod* const MgrObjectVis;
+  CMwNod* const MgrGateVis;
+  CMwNod* const MgrShieldVis;
+  CMwNod* const MoodBlender;
   float EditorHelperHdrScale;
   void LogSceneStats();
 };
@@ -16166,7 +16275,7 @@ struct CScene : public CMwNod {
 struct CScene2d : public CScene {
   CScene2d();
 
-  const CSceneSector* Sector;
+  CSceneSector* const Sector;
   vec2 OverlayMin;
   vec2 OverlayMax;
   MwBuffer<CSceneLight*> Lights;
@@ -16191,7 +16300,7 @@ struct CSceneSector : public CMwNod {
   CSceneSector();
 
   CHmsZone* Zone;
-  const CScene* Scene;
+  CScene* const Scene;
 };
 
 struct CSceneObject : public CMwNod {
@@ -16250,7 +16359,7 @@ struct CSceneSoundSource : public CSceneObject {
 struct CSceneMobil : public CSceneObject {
   CSceneMobil();
 
-  const CSceneMobil* Model;
+  CSceneMobil* const Model;
   bool IsVisible;
   CHmsItem* Item;
   CPlugSolid* Solid;
@@ -16259,7 +16368,7 @@ struct CSceneMobil : public CSceneObject {
   void Hide();
   CMwNod* LinkedObject;
   MwBuffer<CSceneObjectLink*> Links;
-  const CMotion* MotionSolid;
+  CMotion* const MotionSolid;
   uint CastedShadows;
   bool SelfShadow;
   void SolidObjectsRefresh();
@@ -16308,13 +16417,15 @@ struct CSceneObjectLink : public CMwNod {
 };
 
 struct CScenePickerManager : public CMwNod {
-  const CHmsPicker* Picker;
+  CHmsPicker* const Picker;
 };
 
+// Skipping documentation due to broken pointer!
 // userName: 'Vehicle'
 struct CSceneVehicleVis : public CMwNod {
 };
 
+// Skipping documentation due to broken pointer!
 // userName: 'Character'
 struct CSceneCharVis : public CMwNod {
 };
@@ -16365,7 +16476,7 @@ struct CSceneVehicleCar : public CSceneVehicle {
 struct CSceneMobilClouds : public CSceneToy {
   CSceneMobilClouds();
 
-  const CSceneCloudSystem* Clouds;
+  CSceneCloudSystem* const Clouds;
   void ReBuildInstances();
 };
 
@@ -16391,7 +16502,7 @@ struct CSceneMgrFlockPrivate : public CMwNod {
 struct CSceneMgrFlock : public CMwNod {
   CSceneMgrFlock();
 
-  const CSceneMgrFlockPrivate* Private;
+  CSceneMgrFlockPrivate* const Private;
 };
 
 // File extension: 'SceneFx.Gbx'
@@ -16472,7 +16583,7 @@ struct CSceneFxNod : public CMwNod {
 
   bool IsActive;
   CSceneFx* Fx;
-  const CSceneFxNod* NodInput;
+  CSceneFxNod* const NodInput;
 };
 
 // File extension: 'SceneFx.Gbx'
@@ -16502,11 +16613,11 @@ struct CSceneFxToneMapping : public CSceneFxCompo {
 struct CBoatSailState : public CMwNod {
   CBoatSailState();
 
-  const CPlugTree* SailTree;
-  const CPlugTree* BoomTree;
-  const CPlugTree* BoomLowTree;
-  const CPlugVisualIndexedTriangles* SailVisualBase;
-  const CPlugVisualIndexedTriangles* SailVisualFlat;
+  CPlugTree* const SailTree;
+  CPlugTree* const BoomTree;
+  CPlugTree* const BoomLowTree;
+  CPlugVisualIndexedTriangles* const SailVisualBase;
+  CPlugVisualIndexedTriangles* const SailVisualFlat;
   UnnamedEnum SailState;
   float SailStateCoef; // Range: 0 - 1
   bool AutomaticSheetTargetSpeedEnable;
@@ -16533,7 +16644,7 @@ struct CSceneConfig : public CMwNod {
 struct CSceneConfigVision : public CMwNod {
   CSceneConfigVision();
 
-  const CHmsConfig* HmsConfig;
+  CHmsConfig* const HmsConfig;
 };
 
 // File extension: 'SceneMood.Gbx'
@@ -16571,8 +16682,8 @@ struct CSceneFxHeadTrack : public CSceneFxCompo {
 struct CSceneMgrCharVis : public CSceneMgrVis {
   CSceneMgrCharVis();
 
-  const CSceneMgrAnim* MgrAnim;
-  const CPlugAnimFile* CinematicLib;
+  CSceneMgrAnim* const MgrAnim;
+  CPlugAnimFile* const CinematicLib;
   float TacticalFxRadius;
   float TacticalFxSize;
   float TacticalFxMaxY;
@@ -16619,7 +16730,7 @@ struct CSceneMgrAnim : public CMwNod {
 };
 
 struct CSceneMgrVehiclePhy : public CSceneMgrPhy {
-  const CHmsCollZone* MgrCollision;
+  CHmsCollZone* const MgrCollision;
   uint SpawnInvicibilityDurationMs;
 };
 
@@ -16665,7 +16776,7 @@ struct CSceneVehicle : public CSceneMobil {
 };
 
 struct CSceneDecalsManager : public CMwNod {
-  const CSceneMobil* Decal3dMobil;
+  CSceneMobil* const Decal3dMobil;
   void Draw();
   void EdShowHide();
   vec3 Bucket3dGridCellSize;
@@ -16725,12 +16836,12 @@ struct CSceneFx : public CMwNod {
 };
 
 struct CScenePhy : public CMwNod {
-  const CHmsCollZone* MgrCollision;
-  const UnnamedType MgrCharPhy;
-  const CSceneMgrVehiclePhy* MgrVehiclePhy;
-  const CSceneMgrBulletPhy* MgrBulletPhy;
-  const CSceneMgrTrafficPhy* MgrTrafficPhy;
-  const CHmsDynaZone* MgrDyna;
+  CHmsCollZone* const MgrCollision;
+  UnnamedType const MgrCharPhy;
+  CSceneMgrVehiclePhy* const MgrVehiclePhy;
+  CSceneMgrBulletPhy* const MgrBulletPhy;
+  CSceneMgrTrafficPhy* const MgrTrafficPhy;
+  CHmsDynaZone* const MgrDyna;
 };
 
 // File extension: 'SceneFx.Gbx'
@@ -16838,10 +16949,10 @@ struct CSceneFxBloomHdr : public CSceneFxCompo {
   uint DistorPeriodTime;
   float DistorRedSelectRatio; // Range: 0 - 2
   bool DistorUseDepth;
-  const CPlugFilePHlsl* PHlsl_Final;
-  const CPlugFilePHlsl* PHlsl_StreaksSelectSrc;
-  const CPlugFilePHlsl* PHlsl_StreaksWorkDir;
-  const CPlugFilePHlsl* PHlsl_EdShowBlow;
+  CPlugFilePHlsl* const PHlsl_Final;
+  CPlugFilePHlsl* const PHlsl_StreaksSelectSrc;
+  CPlugFilePHlsl* const PHlsl_StreaksWorkDir;
+  CPlugFilePHlsl* const PHlsl_EdShowBlow;
 };
 
 // File extension: 'CarMarksModel.Gbx'
@@ -16923,7 +17034,7 @@ struct CSceneMgrTrafficVis : public CMwNod {
 
 // File extension: 'SceneFx.Gbx'
 struct CSceneMgrWeather : public CMwNod {
-  const CPlugFxLightning* FxLightning;
+  CPlugFxLightning* const FxLightning;
   CMwNod* CloudSystem;
 };
 
@@ -16949,7 +17060,7 @@ struct CSceneMgrTrafficPhy : public CMwNod {
 };
 
 struct CSceneMgrMapColoring : public CMwNod {
-  const CPlugBitmap* BitmapTeamEmblem;
+  CPlugBitmap* const BitmapTeamEmblem;
 };
 
 struct CSceneMgrBody : public CMwNod {
@@ -16976,8 +17087,8 @@ struct CSceneMgrBody : public CMwNod {
 
 struct CSceneAnimFileSkelBinding : public CMwNod {
   const uint cRef;
-  const CMwNod* Skel;
-  const CMwNod* AnimFile;
+  CMwNod* const Skel;
+  CMwNod* const AnimFile;
 };
 
 struct CSceneMobilSolid2 : public CSceneMobil {
@@ -16991,9 +17102,11 @@ struct CSceneMgrSolid2Vis : public CMwNod {
 struct CSceneMgrPhy : public CMwNod {
 };
 
+// Skipping documentation due to broken pointer!
 struct CSceneTriggerAction : public CMwNod {
 };
 
+// Skipping documentation due to broken pointer!
 // userName: 'Bullet'
 struct CSceneBulletVis : public CMwNod {
 };
@@ -17010,14 +17123,17 @@ struct CSceneMgrTrainVis : public CSceneMgrVis {
 struct CSceneMgrTrainPhy : public CMwNod {
 };
 
+// Skipping documentation due to broken pointer!
 // userName: 'Wagon'
 struct CSceneWagonPhy : public CMwNod {
 };
 
+// Skipping documentation due to broken pointer!
 // userName: 'Wagon'
 struct CSceneWagon : public CMwNod {
 };
 
+// Skipping documentation due to broken pointer!
 // userName: 'Gun'
 struct CSceneGunVis : public CMwNod {
 };
@@ -17323,8 +17439,8 @@ struct CSceneMobilSolid : public CSceneMobil {
 struct CSceneMobilCharVis : public CSceneMobil {
   CSceneMobilCharVis();
 
-  const CPlugCharVisModel* CharVisModel;
-  const UnnamedType CharPhyModel;
+  CPlugCharVisModel* const CharVisModel;
+  UnnamedType const CharPhyModel;
 };
 
 } // namespace Scene
@@ -17365,8 +17481,8 @@ struct CSystemConfig : public CMwNod {
   CSystemConfig();
 
   bool IsSafeMode;
-  const CSystemConfigDisplay* Display;
-  const CSystemConfigDisplay* DisplaySafe;
+  CSystemConfigDisplay* const Display;
+  CSystemConfigDisplay* const DisplaySafe;
   bool NetworkUseProxy;
   string NetworkProxyLogin;
   string NetworkProxyPassword;
@@ -17470,7 +17586,7 @@ struct CNodSystem : public CMwNod {
 struct CSystemFid : public CMwNod {
   CSystemFid();
 
-  const CMwNod* Nod;
+  CMwNod* const Nod;
   bool Text;
   bool Compressed;
 };
@@ -17489,7 +17605,7 @@ struct CSystemFidFile : public CSystemFid {
   const wstring FileName;
   const wstring FullFileName;
   const wstring ShortFileName;
-  const CSystemFidFile* Container;
+  CSystemFidFile* const Container;
   void CopyToFileRelative(string RelFileName, bool FailIfExists);
 };
 
@@ -17591,7 +17707,7 @@ struct CSystemNodWrapper : public CMwNod {
 
 struct CSystemData : public CMwNod {
   string Url;
-  const CSystemPackDesc* PackDesc;
+  CSystemPackDesc* const PackDesc;
   CMwNod* Data;
 };
 
@@ -17890,9 +18006,9 @@ struct CAudioPort : public CMwNod {
   const MwBuffer<CAudioBufferKeeper*> BufferKeepers;
   const uint Manager_AllocatedVoices;
   const uint Manager_AvailableVoices;
-  const CPlugAudioBalance* BaseBalanceLoud;
-  const CPlugAudioBalance* BaseBalanceSoft;
-  const CPlugAudioBalance* CurBalance;
+  CPlugAudioBalance* const BaseBalanceLoud;
+  CPlugAudioBalance* const BaseBalanceSoft;
+  CPlugAudioBalance* const CurBalance;
   const float CurScriptLimitMusicVolumedB;
   const float CurScriptLimitSceneSoundVolumedB;
   const float CurScriptLimitUiSoundVolumedB;
@@ -17925,7 +18041,7 @@ struct CAudioPortNull : public CAudioPort {
 };
 
 struct CAudioSoundImplem : public CMwNod {
-  const CAudioSource* Source;
+  CAudioSource* const Source;
   const bool IsActuallyPlaying;
   void RefreshStaticProperties();
   float PlayCursor;
@@ -17933,7 +18049,7 @@ struct CAudioSoundImplem : public CMwNod {
 };
 
 struct CAudioBufferKeeper : public CMwNod {
-  const CPlugFileSnd* PlugFileSnd;
+  CPlugFileSnd* const PlugFileSnd;
   const uint HwAllocSize;
   const bool IsStreaming;
   const bool IsSilent;
@@ -18075,8 +18191,8 @@ struct CAudioZoneSource : public CMwNod {
   uint SurfaceId;
   float SkidIntensity;
   float SkidSpeedKmh;
-  const CMwNod* AudioSourceMain;
-  const CMwNod* AudioSourceBacking;
+  CMwNod* const AudioSourceMain;
+  CMwNod* const AudioSourceBacking;
 };
 
 struct CAudioSource : public CMwNod {
@@ -18100,7 +18216,7 @@ struct CAudioSource : public CMwNod {
   const bool IsPlaying;
   void Play();
   void Stop();
-  const CPlugSound* PlugSound;
+  CPlugSound* const PlugSound;
   bool UseLowQuality;
   float PriorityAdjustement;
   EAudioBalanceGroup BalanceGroup;
@@ -18115,7 +18231,7 @@ struct CAudioSource : public CMwNod {
   vec3 Position;
   iso4 Loc;
   vec3 Velocity;
-  const CAudioSoundImplem* Implementation;
+  CAudioSoundImplem* const Implementation;
 };
 
 struct CAudioSourceMusic : public CAudioSource {
@@ -18177,7 +18293,7 @@ struct COalAudioPort : public CAudioPort {
   const bool EFXEnabled;
   const uint Manager_SpacialVoices;
   const uint Manager_DirectVoices;
-  const CPlugAudioEnvironment* CurrentEnvironment;
+  CPlugAudioEnvironment* const CurrentEnvironment;
 };
 
 struct COalAudioBufferKeeper : public CAudioBufferKeeper {
@@ -18492,11 +18608,11 @@ struct CNetFileTransfer : public CMwNod {
   const uint LastUpdateTime;
   const uint UpdateDelta;
   const uint WriteOnDiskError;
-  const CNetServer* Server;
-  const CNetClient* Client;
-  const CNetMasterServer* MasterServer;
-  const CSystemPackManager* PackManager;
-  const CSystemFidsFolder* DiskCacheDir;
+  CNetServer* const Server;
+  CNetClient* const Client;
+  CNetMasterServer* const MasterServer;
+  CSystemPackManager* const PackManager;
+  CSystemFidsFolder* const DiskCacheDir;
 };
 
 struct CNetMasterServerInfo : public CMwNod {
@@ -18510,7 +18626,7 @@ struct CNetMasterServerInfo : public CMwNod {
 struct CNetFileTransferNod : public CMwNod {
   const wstring Name;
   const string Checksum;
-  const CSystemFidFile* File;
+  CSystemFidFile* const File;
   const uint TotalSize;
   const uint CurrentOffset;
 };
@@ -18523,14 +18639,14 @@ struct CNetFileTransferForm : public CNetNod {
 struct CNetFileTransferDownload : public CNetFileTransferNod {
   const uint IdDownload;
   const UnnamedEnum DownloadState;
-  const CSystemPackDesc* PackDesc;
+  CSystemPackDesc* const PackDesc;
   const uint PriorityLevel;
   const uint PriorityFlags;
   const MwBuffer<CNetSource*> Sources;
   const uint NbOfEffectiveSources;
-  const CNetSource* ActiveSource;
+  CNetSource* const ActiveSource;
   const MwBuffer<CNetURLSource*> UrlSources;
-  const CNetURLSource* ActiveUrlSource;
+  CNetURLSource* const ActiveUrlSource;
   const string Url;
   const string LastUrlUsed;
   const bool AcceptP2P;
@@ -18539,7 +18655,7 @@ struct CNetFileTransferDownload : public CNetFileTransferNod {
   const bool IsNearFinished;
   const wstring TempFileName;
   const uint LastWriteTimeout;
-  const CNetMasterServerUptoDateCheck* PackDescUpToDateCheck;
+  CNetMasterServerUptoDateCheck* const PackDescUpToDateCheck;
   const bool PackDescUpToDateChecked;
   const uint LastDataMsgTime;
   const uint LastDataReception;
@@ -18554,8 +18670,8 @@ struct CNetFileTransferUpload : public CNetFileTransferNod {
   const uint IdDownload;
   const uint IdSource;
   const UnnamedEnum UploadState;
-  const CNetIPSource* IPSource;
-  const CNetConnection* Connection;
+  CNetIPSource* const IPSource;
+  CNetConnection* const Connection;
   const uint DownloadPriorityLevel;
   const uint PriorityLevel;
   const uint NbChannelsUsed;
@@ -18587,9 +18703,9 @@ struct CNetSource : public CMwNod {
   const uint IdSource;
   const uint IdUpload;
   const UnnamedEnum SourceState;
-  const CNetFileTransferDownload* Download;
-  const CNetIPSource* SourceAddress;
-  const CNetConnection* Connection;
+  CNetFileTransferDownload* const Download;
+  CNetIPSource* const SourceAddress;
+  CNetConnection* const Connection;
   const uint LastMessageTime;
   const uint TimeOut;
   const uint NbChannelsUsed;
@@ -18636,9 +18752,9 @@ struct CNetIPSource : public CMwNod {
   const bool IsUploadEnabled;
   const uint P2PKey;
   const uint PlayerUId;
-  const CNetConnection* GameConnection;
-  const CNetConnection* ConnectionFrom;
-  const CNetConnection* ConnectionTo;
+  CNetConnection* const GameConnection;
+  CNetConnection* const ConnectionFrom;
+  CNetConnection* const ConnectionTo;
   const uint ConnectTimeOut;
   const uint LastConnectionTime;
   const uint LastContactTime;
@@ -18666,17 +18782,18 @@ struct CNetMasterServerUptoDateCheck : public CMwNod {
   const uint PriorityLevel;
   const bool IsUpToDate;
   const uint ReturnedError;
-  const CNetHttpResult* HttpResult;
+  CNetHttpResult* const HttpResult;
   const bool IsFinished;
 };
 
 struct CNetURLSource : public CMwNod {
   const UnnamedEnum URLSourceState;
-  const CNetFileTransferDownload* Download;
-  const CNetFileTransferDownload* MasterServerDownload;
+  CNetFileTransferDownload* const Download;
+  CNetFileTransferDownload* const MasterServerDownload;
   const string Url;
 };
 
+// Description: "Manager for HTTP requests"
 struct CNetScriptHttpManager : public CMwNod {
   CNetScriptHttpRequest* CreateGet(string Url); // Maniascript
   CNetScriptHttpRequest* CreateGet2(string Url, bool UseCache); // Maniascript
@@ -18690,6 +18807,7 @@ struct CNetScriptHttpManager : public CMwNod {
   bool AutomaticHeaders_Timezone; // Maniascript
 };
 
+// Description: "An HTTP request."
 struct CNetScriptHttpRequest : public CMwNod {
   const string Url; // Maniascript
   const wstring Result; // Maniascript
@@ -18717,7 +18835,7 @@ struct CNetMasterServerDownload : public CMwNod {
   const uint ReturnedError;
   const string RequestHeaders;
   const uint Timeout;
-  const CNetHttpResult* HttpResult;
+  CNetHttpResult* const HttpResult;
   const bool IsFinished;
   const bool IsPaused;
 };
@@ -18727,6 +18845,7 @@ struct CNetFormNewPing : public CNetNod {
 
 };
 
+// Description: "Masterserver user info."
 struct CNetMasterServerUserInfo : public CMwNod {
   enum EFirstPartySignInState {
     Unknown = 0,
@@ -18799,7 +18918,7 @@ struct CNetMasterServerUserInfo : public CMwNod {
   const wstring DisplayName; // Maniascript
   const string Password;
   const string NewPassword;
-  const CNetMasterServerInfo* MasterServerInfo;
+  CNetMasterServerInfo* const MasterServerInfo;
   const EMasterServerConnectionStatus ConnectionStatus; // Maniascript
   const ETaskErrorType LastConnectionErrorType; // Maniascript
   const uint LastConnectionErrorCode; // Maniascript
@@ -18816,6 +18935,7 @@ struct CWebServicesTask : public CMwNod {
 struct CWebServicesTaskSequence : public CWebServicesTask {
 };
 
+// Description: "Asynchronous task result."
 struct CWebServicesTaskResult : public CMwNod {
   enum ETaskErrorType {
     Success = 0,
@@ -18947,6 +19067,7 @@ struct CNetMasterServerTask_SetFeatureTimeUse : public CNetMasterServerRequestTa
 struct CWebServicesTaskResult_PlayerFeatureLimitList : public CWebServicesTaskResult {
 };
 
+// Description: "UbiServices news."
 struct CNetUbiServicesNews : public CMwNod {
   const MwId Id; // Maniascript
   const string NewsId; // Maniascript
@@ -19078,7 +19199,7 @@ struct CInputScriptEvent : public CMwNod {
     None = 24,
   };
   const EType Type; // Maniascript
-  const CInputScriptPad* Pad; // Maniascript
+  CInputScriptPad* const Pad; // Maniascript
   const EButton Button; // Maniascript
   const bool IsAutoRepeat; // Maniascript
   const uint KeyCode; // Maniascript
@@ -19173,6 +19294,7 @@ struct CInputScriptManager : public CMwNod {
   uint Dbg_AutoRepeat_Period; // Maniascript
 };
 
+// Description: "game controller."
 struct CInputScriptPad : public CMwNod {
   enum EButton {
     Left = 0,
@@ -19253,7 +19375,7 @@ struct CXmlScriptManager : public CMwNod {
 
 struct CXmlScriptDocument : public CMwNod {
   const string TextContents; // Maniascript
-  const CXmlScriptNode* Root; // Maniascript
+  CXmlScriptNode* const Root; // Maniascript
   const MwBuffer<CXmlScriptNode*> Nodes; // Maniascript
   CXmlScriptNode* GetFirstChild(string Name); // Maniascript
 };
@@ -19288,7 +19410,7 @@ struct CTrackMania : public CGameManiaPlanet {
 struct CTrackManiaCore : public CGameManiaTitleCore {
   CTrackManiaCore();
 
-  const CGameManiaPlanet* Dummy;
+  CGameManiaPlanet* const Dummy;
   CTrackManiaResource* Resource;
 };
 
@@ -19375,6 +19497,7 @@ struct CTrackManiaRaceNew : public CTrackManiaRace {
 
 };
 
+// Description: "Rules API for TrackMania gamemodes."
 struct CTrackManiaRaceRules : public CGamePlaygroundScript {
   enum ETmScoreSortOrder {
     TotalPoints = 0,
@@ -19498,7 +19621,7 @@ struct CTmRaceRulesScore : public CGamePlaygroundScore {
 struct CTrackManiaMenus : public CGameCtnMenusManiaPlanet {
   CTrackManiaMenus();
 
-  const CGameCtnChallenge* SelectedChallenge;
+  CGameCtnChallenge* const SelectedChallenge;
   uint LastPage;
   const UnnamedEnum Medal;
   const uint CampaignChallengeNumber;
@@ -19640,7 +19763,7 @@ struct CTrackManiaMenus : public CGameCtnMenusManiaPlanet {
 };
 
 struct CTrackManiaNetwork : public CGameManiaPlanetNetwork {
-  const CTrackManiaRaceRules* TmRaceRules;
+  CTrackManiaRaceRules* const TmRaceRules;
   CTrackManiaPlayerInfo* PlayerInfo;
   bool CurrentRaceIsValid;
   bool ForceEndRound;
@@ -19652,6 +19775,7 @@ struct CTrackManiaNetForm : public CGameNetForm {
 
 };
 
+// Description: "Player for CTmMlScriptIngame."
 struct CTrackManiaPlayer : public CGamePlayer {
   enum ERaceState {
     BeforeStart = 0,
@@ -19919,7 +20043,7 @@ struct CTrackManiaNetworkServerInfo : public CGameCtnNetServerInfo {
 };
 
 struct CTrackManiaPlayerInfo : public CGamePlayerInfo {
-  const CTrackManiaScore* RaceScore;
+  CTrackManiaScore* const RaceScore;
 };
 
 struct CTrackManiaRaceNetRounds : public CTrackManiaRaceNet {
@@ -19930,6 +20054,7 @@ struct CTrackManiaRaceNetRounds : public CTrackManiaRaceNet {
   const uint CupRoundsPerChallenge;
 };
 
+// Description: "Player for CTmMode."
 struct CTmRaceRulesPlayer : public CGamePlayer {
   enum ETmRacePlayerCoopMode {
     None = 0,
@@ -19943,7 +20068,7 @@ struct CTmRaceRulesPlayer : public CGamePlayer {
     Infinite = 3,
   };
   const int CurrentClan; // Maniascript
-  const CTmRaceRulesScore* Score; // Maniascript
+  CTmRaceRulesScore* const Score; // Maniascript
   int RaceStartTime; // Maniascript
   bool IsSpawned; // Maniascript
   CTmRaceResultNod* CurRace; // Maniascript
@@ -20034,7 +20159,7 @@ struct CTrackManiaRaceNet : public CTrackManiaRace {
   MwBuffer<CTrackManiaScore*> GeneralScores;
   MwBuffer<CTrackManiaScore*> CurrentScores;
   MwBuffer<CTrackManiaScore*> TeamScores;
-  const CGamePlaygroundSpectating* Spectating;
+  CGamePlaygroundSpectating* const Spectating;
 };
 
 struct CTrackManiaRaceNetTimeAttack : public CTrackManiaRaceNet {
@@ -20096,7 +20221,7 @@ struct CTmRaceRulesEvent : public CMwNod {
     Reset = 37,
   };
   const EType Type; // Maniascript
-  const CTmRaceRulesPlayer* Player; // Maniascript
+  CTmRaceRulesPlayer* const Player; // Maniascript
   uint RaceTime; // Maniascript
   const uint CheckpointInRace; // Maniascript
   const uint CheckpointInLap; // Maniascript
@@ -20120,7 +20245,7 @@ struct CTmRaceRulesEvent : public CMwNod {
   const bool IsMasterJump; // Maniascript
   const bool IsMasterLanding; // Maniascript
   const bool IsEpicLanding; // Maniascript
-  const CGamePlayerInfo* User; // Maniascript
+  CGamePlayerInfo* const User; // Maniascript
   const bool PlayerWasSpawned; // Maniascript
   const bool PlayerWasInLadderMatch; // Maniascript
   const string CommandName; // Maniascript
@@ -20136,9 +20261,10 @@ struct CTrackManiaRaceNetLaps : public CTrackManiaRaceNet {
   void ComputeScores();
 };
 
+// Description: "Trackmania race API for Manialink scripts"
 struct CTmRaceInterfaceManialinkScripHandler : public CGameScriptHandlerPlaygroundInterface {
-  const CTrackManiaPlayer* InputPlayer; // Maniascript
-  const CTrackManiaPlayer* GUIPlayer; // Maniascript
+  CTrackManiaPlayer* const InputPlayer; // Maniascript
+  CTrackManiaPlayer* const GUIPlayer; // Maniascript
   const MwBuffer<CTmRaceClientEvent*> RaceEvents; // Maniascript
   const uint NbLaps; // Maniascript
   const bool IndependantLaps; // Maniascript
@@ -20291,7 +20417,7 @@ struct CTrackManiaControlMatchSettingsCard : public CTrackManiaControlCard {
 struct CTrackManiaRaceInterface : public CGamePlaygroundInterface {
   CTrackManiaRaceInterface();
 
-  const CTrackManiaRace* Race;
+  CTrackManiaRace* const Race;
   float DownloadProgressMapsTotal;
   float DownloadProgressMapsCur;
   float DownloadProgressAvatarsTotal;
@@ -20306,8 +20432,8 @@ struct CTrackManiaRaceInterface : public CGamePlaygroundInterface {
   const uint TimeCountDown;
   const uint PlayerGeneralPosition;
   const uint NbPlayers;
-  const CTrackManiaPlayerInfo* UiPlayerInfo0;
-  const CTrackManiaPlayer* UiPlayer0;
+  CTrackManiaPlayerInfo* const UiPlayerInfo0;
+  CTrackManiaPlayer* const UiPlayer0;
   const uint CurLapNum0;
   const uint RaceChrono0;
   const uint CarSpeedDisplay0;
@@ -20315,8 +20441,8 @@ struct CTrackManiaRaceInterface : public CGamePlaygroundInterface {
   const string CheckPointInfo_TimeText0;
   const string CheckPointInfo_OffsetTimeText0;
   const wstring CheckPointInfo_CurrentRacePositionText0;
-  const CTrackManiaPlayerInfo* UiPlayerInfo1;
-  const CTrackManiaPlayer* UiPlayer1;
+  CTrackManiaPlayerInfo* const UiPlayerInfo1;
+  CTrackManiaPlayer* const UiPlayer1;
   const uint CurLapNum1;
   const uint RaceChrono1;
   const uint CarSpeedDisplay1;
@@ -20324,8 +20450,8 @@ struct CTrackManiaRaceInterface : public CGamePlaygroundInterface {
   const string CheckPointInfo_TimeText1;
   const string CheckPointInfo_OffsetTimeText1;
   const wstring CheckPointInfo_CurrentRacePositionText1;
-  const CTrackManiaPlayerInfo* UiPlayerInfo2;
-  const CTrackManiaPlayer* UiPlayer2;
+  CTrackManiaPlayerInfo* const UiPlayerInfo2;
+  CTrackManiaPlayer* const UiPlayer2;
   const uint CurLapNum2;
   const uint RaceChrono2;
   const uint CarSpeedDisplay2;
@@ -20333,8 +20459,8 @@ struct CTrackManiaRaceInterface : public CGamePlaygroundInterface {
   const string CheckPointInfo_TimeText2;
   const string CheckPointInfo_OffsetTimeText2;
   const wstring CheckPointInfo_CurrentRacePositionText2;
-  const CTrackManiaPlayerInfo* UiPlayerInfo3;
-  const CTrackManiaPlayer* UiPlayer3;
+  CTrackManiaPlayerInfo* const UiPlayerInfo3;
+  CTrackManiaPlayer* const UiPlayer3;
   const uint CurLapNum3;
   const uint RaceChrono3;
   const uint CarSpeedDisplay3;
@@ -20345,15 +20471,15 @@ struct CTrackManiaRaceInterface : public CGamePlaygroundInterface {
 };
 
 struct CTrackManiaRaceAnalyzer : public CGameAnalyzer {
-  const CMwStatsValue* InputValue1;
-  const CMwStatsValue* InputValue2;
+  CMwStatsValue* const InputValue1;
+  CMwStatsValue* const InputValue2;
   const uint InputDeltaT1;
   const uint InputDeltaT2;
   const uint InputDeltaT3;
 };
 
 struct CTmEditorPluginMapType : public CGameEditorPluginMapMapType {
-  const CTrackManiaRaceRules* Mode; // Maniascript
+  CTrackManiaRaceRules* const Mode; // Maniascript
   void TMObjective_SetFromBestRace(CTmRaceRulesScore* Score); // Maniascript
   const MwBuffer<CTmRaceRulesPlayer*> AllPlayers; // Maniascript
   const MwBuffer<CTmRaceRulesPlayer*> Players; // Maniascript
@@ -20375,7 +20501,7 @@ struct CTmRaceClientEvent : public CMwNod {
     AirSpawnRelease = 11,
   };
   const EType Type; // Maniascript
-  const CTrackManiaPlayer* Player; // Maniascript
+  CTrackManiaPlayer* const Player; // Maniascript
   const uint CheckpointInRace; // Maniascript
   const uint CheckpointInLap; // Maniascript
   const bool IsEndRace; // Maniascript
@@ -20437,15 +20563,16 @@ struct CShootMania : public CGameManiaTitleCore {
 
   CScene2d* ArenaInterfaceUIFid;
   CSmArenaResource* ArenaResourcesFid;
-  const CGamePlaygroundResources* ArenaWorld;
-  const CSmServer* Server;
-  const CSmClient* Client;
+  CGamePlaygroundResources* const ArenaWorld;
+  CSmServer* const Server;
+  CSmClient* const Client;
 };
 
+// Description: "Ingame Manialink API for ShootMania."
 struct CSmArenaInterfaceManialinkScripHandler : public CGameScriptHandlerPlaygroundInterface {
   const int ArenaNow; // Maniascript
-  const CSmPlayer* InputPlayer; // Maniascript
-  const CSmPlayer* GUIPlayer; // Maniascript
+  CSmPlayer* const InputPlayer; // Maniascript
+  CSmPlayer* const GUIPlayer; // Maniascript
   const MwBuffer<CSmPlayer*> Players; // Maniascript
   const MwBuffer<CSmArenaScore*> Scores; // Maniascript
   const MwBuffer<int> ClanScores; // Maniascript
@@ -20468,9 +20595,9 @@ struct CSmArenaInterfaceManialinkScripHandler : public CGameScriptHandlerPlaygro
 };
 
 struct CSmArenaClient : public CGamePlaygroundCommon {
-  const CGameCtnChallenge* Map;
-  const CSmArena* Arena;
-  const CSmArenaInterface* ArenaInterface;
+  CGameCtnChallenge* const Map;
+  CSmArena* const Arena;
+  CSmArenaInterface* const ArenaInterface;
   float PredictionSmoothConvergenceSpeed;
   CFuncKeysReal* PredictionSmoothFromExtrapolationDuration;
   uint PredictionSimDurationMax;
@@ -20488,6 +20615,7 @@ struct CSmArenaClient : public CGamePlaygroundCommon {
   uint GameEditionAmmoGain;
 };
 
+// Description: "Scoring info for ShootMania players."
 struct CSmArenaScore : public CGamePlaygroundScore {
   const uint TeamNum; // Maniascript
   uint Points; // Maniascript
@@ -20507,7 +20635,7 @@ struct CSmArenaScore : public CGamePlaygroundScore {
 };
 
 struct CSmActionInstance : public CMwNod {
-  const CGameActionModel* Model;
+  CGameActionModel* const Model;
   const uint Now; // Maniascript
   const uint Variant; // Maniascript
   MwBuffer<CSmPlayer*> Players; // Maniascript
@@ -20566,6 +20694,7 @@ struct CSmNetForm : public CGameNetForm {
 
 };
 
+// Description: "A Shootmania player."
 struct CSmPlayer : public CGamePlayer {
   enum ESpawnStatus {
     NotSpawned = 0,
@@ -20578,7 +20707,7 @@ struct CSmPlayer : public CGamePlayer {
   const Color LinearHueSrgb;
   const int SpawnIndex;
   const uint AFKLatestChangeTime;
-  const CSmArenaScore* Score; // Maniascript
+  CSmArenaScore* const Score; // Maniascript
   const ESpawnStatus SpawnStatus; // Maniascript
   const int StartTime; // Maniascript
   int EndTime; // Maniascript
@@ -20639,12 +20768,12 @@ struct CSmPlayer : public CGamePlayer {
   const bool IsAttractorActivable; // Maniascript
   const uint NbActiveAttractors; // Maniascript
   const bool IsCapturing; // Maniascript
-  const CSmScriptBlockPole* BlockPole; // Maniascript
-  const CSmScriptMapLandmark* CapturedLandmark; // Maniascript
+  CSmScriptBlockPole* const BlockPole; // Maniascript
+  CSmScriptMapLandmark* const CapturedLandmark; // Maniascript
   const MwBuffer<CSmObject*> Objects; // Maniascript
   const bool IsFakePlayer; // Maniascript
   const bool IsBot; // Maniascript
-  const CSmPlayerDriver* Driver; // Maniascript
+  CSmPlayerDriver* const Driver; // Maniascript
 };
 
 struct CSmArenaInterfaceUI : public CGamePlaygroundInterface {
@@ -20689,10 +20818,10 @@ struct CSmPlayerDriver : public CMwNod {
   bool RocketAnticipation; // Maniascript
   float Fov; // Maniascript
   ESmAttackFilter AttackFilter; // Maniascript
-  const CSmPlayer* Target; // Maniascript
+  CSmPlayer* const Target; // Maniascript
   const bool IsStuck; // Maniascript
   bool IsFlying; // Maniascript
-  const CSmPlayer* Owner; // Maniascript
+  CSmPlayer* const Owner; // Maniascript
   int PathOffset; // Maniascript
   float Agressivity; // Maniascript
   bool UseOldShootingSystem; // Maniascript
@@ -20728,10 +20857,10 @@ struct CSmActionInstanceEvent : public CMwNod {
   const vec3 Position; // Maniascript
   const vec3 Direction; // Maniascript
   const vec3 Normal; // Maniascript
-  const CSmPlayer* Player; // Maniascript
-  const CSmObject* Object; // Maniascript
+  CSmPlayer* const Player; // Maniascript
+  CSmObject* const Object; // Maniascript
   const uint Shield; // Maniascript
-  const CGameScriptTurret* Turret; // Maniascript
+  CGameScriptTurret* const Turret; // Maniascript
 };
 
 struct CSmArenaRules : public CMwNod {
@@ -20792,6 +20921,7 @@ struct CSmScriptBotSpawn : public CSmScriptLandmark {
   const MwId ItemModelId; // Maniascript
 };
 
+// Description: "An instance of an object."
 struct CSmObject : public CMwNod {
   enum EStatus {
     OnPlayer = 0,
@@ -20807,8 +20937,8 @@ struct CSmObject : public CMwNod {
   void SetPosition(vec3 Position); // Maniascript
   void SetPositionAndVel(vec3 Position, vec3 Vel); // Maniascript
   void SetUnspawned(); // Maniascript
-  const CSmPlayer* Player; // Maniascript
-  const CSmScriptMapLandmark* AnchorLandmark; // Maniascript
+  CSmPlayer* const Player; // Maniascript
+  CSmScriptMapLandmark* const AnchorLandmark; // Maniascript
   const vec3 Position; // Maniascript
   const vec3 Vel; // Maniascript
   uint MachineState; // Maniascript
@@ -20820,12 +20950,12 @@ struct CSmAnalyzer : public CGameAnalyzer {
 };
 
 struct CSmArenaPhysics : public CMwNod {
-  const CScenePhy* ScenePhy;
+  CScenePhy* const ScenePhy;
 };
 
 struct CSmArenaInterface : public CMwNod {
-  const CSmPlayer* GUIPlayer;
-  const CSmArenaInterfaceUI* InterfaceUI;
+  CSmPlayer* const GUIPlayer;
+  CSmArenaInterfaceUI* const InterfaceUI;
   bool Mouse_SensitivitiesUser_EnableSpecific;
   float Mouse_SensitivitiesUser_Default; // Range: 0.1 - 10
   float Mouse_SensitivitiesUser_Laser; // Range: 0.1 - 10
@@ -20844,12 +20974,12 @@ struct CSmArenaInterface : public CMwNod {
 struct CSmClient : public CMwNod {
   CSmClient();
 
-  const CSmArenaClient* ArenaClient;
-  const CSmArenaRules* Rules;
+  CSmArenaClient* const ArenaClient;
+  CSmArenaRules* const Rules;
 };
 
 struct CSmArenaServer : public CMwNod {
-  const CSmArena* Arena;
+  CSmArena* const Arena;
   uint ClientInputsMaxLatency;
   uint DbgMinInputDelay;
   uint DbgDelaySendSnapshots;
@@ -20857,7 +20987,7 @@ struct CSmArenaServer : public CMwNod {
 };
 
 struct CSmArena : public CMwNod {
-  const CSmArenaPhysics* ArenaPhysics;
+  CSmArenaPhysics* const ArenaPhysics;
   const MwBuffer<CSmPlayer*> Players;
   const MwBuffer<CSmObject*> Objects;
   const MwBuffer<CSmActionInstance*> Actions;
@@ -20884,6 +21014,7 @@ struct CSmArena : public CMwNod {
   void FakePlayers_AllOneTrip();
 };
 
+// Description: "Rules API for ShootMania gamemodes."
 struct CSmArenaRulesMode : public CGamePlaygroundScript {
   enum EWeapon {
     Laser = 0,
@@ -21038,10 +21169,11 @@ struct CSmArenaRulesMode : public CGamePlaygroundScript {
 struct CSmServer : public CMwNod {
   CSmServer();
 
-  const CSmArenaServer* ArenaServer;
-  const CSmArenaRules* Rules;
+  CSmArenaServer* const ArenaServer;
+  CSmArenaRules* const Rules;
 };
 
+// Description: "Event recieved by ShootMania gamemodes."
 struct CSmArenaRulesEvent : public CMwNod {
   enum EType {
     Unknown = 0,
@@ -21094,16 +21226,16 @@ struct CSmArenaRulesEvent : public CMwNod {
     None = 6,
   };
   const EType Type; // Maniascript
-  const CSmPlayer* Player; // Maniascript
+  CSmPlayer* const Player; // Maniascript
   int Damage; // Maniascript
-  const CSmObject* VictimObject; // Maniascript
+  CSmObject* const VictimObject; // Maniascript
   const uint VictimShield; // Maniascript
-  const CGameScriptTurret* VictimTurret; // Maniascript
+  CGameScriptTurret* const VictimTurret; // Maniascript
   int ShooterPoints; // Maniascript
-  const CSmPlayer* Shooter; // Maniascript
-  const CGameScriptTurret* ShooterTurret; // Maniascript
+  CSmPlayer* const Shooter; // Maniascript
+  CGameScriptTurret* const ShooterTurret; // Maniascript
   const uint ShooterClan; // Maniascript
-  const CSmPlayer* Victim; // Maniascript
+  CSmPlayer* const Victim; // Maniascript
   const float Height; // Maniascript
   const float MissDist; // Maniascript
   const uint WeaponNum; // Maniascript
@@ -21121,12 +21253,12 @@ struct CSmArenaRulesEvent : public CMwNod {
   const wstring ActionId; // Maniascript
   const wstring Param1; // Maniascript
   const MwBuffer<wstring> Param2; // Maniascript
-  const CSmObject* Object; // Maniascript
-  const CSmScriptMapSector* Sector; // Maniascript
-  const CSmScriptBlockPole* BlockPole; // Maniascript
-  const CSmScriptMapLandmark* Landmark; // Maniascript
+  CSmObject* const Object; // Maniascript
+  CSmScriptMapSector* const Sector; // Maniascript
+  CSmScriptBlockPole* const BlockPole; // Maniascript
+  CSmScriptMapLandmark* const Landmark; // Maniascript
   const MwId PlayerId; // Maniascript
-  const CGamePlayerInfo* User; // Maniascript
+  CGamePlayerInfo* const User; // Maniascript
   const bool PlayerWasSpawned; // Maniascript
   const bool PlayerWasInLadderMatch; // Maniascript
   const vec3 PlayerLastPosition; // Maniascript
@@ -21141,7 +21273,7 @@ struct CSmArenaRulesEvent : public CMwNod {
 };
 
 struct CSmEditorPluginMapType : public CGameEditorPluginMapMapType {
-  const CSmArenaRulesMode* Mode; // Maniascript
+  CSmArenaRulesMode* const Mode; // Maniascript
   const MwBuffer<CSmPlayer*> AllPlayers; // Maniascript
   const MwBuffer<CSmPlayer*> Players; // Maniascript
 };
@@ -21214,7 +21346,7 @@ struct CSmScriptLandmark : public CMwNod {
 };
 
 struct CSmScriptBlock : public CSmScriptLandmark {
-  const CSmScriptBase* Base; // Maniascript
+  CSmScriptBase* const Base; // Maniascript
 };
 
 struct CSmScriptBlockSpawn : public CSmScriptBlock {
@@ -21222,8 +21354,8 @@ struct CSmScriptBlockSpawn : public CSmScriptBlock {
 
 struct CSmScriptBlockPole : public CSmScriptBlock {
   bool Captured; // Maniascript
-  const CSmScriptSector* Sector; // Maniascript
-  const CSmScriptGauge* Gauge; // Maniascript
+  CSmScriptSector* const Sector; // Maniascript
+  CSmScriptGauge* const Gauge; // Maniascript
 };
 
 struct CSmScriptBase : public CMwNod {
@@ -21276,14 +21408,14 @@ struct CSmScriptMapLandmark : public CMwNod {
   const string Tag; // Maniascript
   const uint Order; // Maniascript
   const vec3 Position; // Maniascript
-  const CSmScriptMapBase* Base; // Maniascript
-  const CSmScriptMapGate* Gate; // Maniascript
-  const CSmScriptMapGauge* Gauge; // Maniascript
-  const CSmScriptMapSector* Sector; // Maniascript
-  const CSmScriptMapPlayerSpawn* PlayerSpawn; // Maniascript
-  const CSmScriptMapBotPath* BotPath; // Maniascript
-  const CSmScriptMapBotSpawn* BotSpawn; // Maniascript
-  const CSmScriptMapObjectAnchor* ObjectAnchor; // Maniascript
+  CSmScriptMapBase* const Base; // Maniascript
+  CSmScriptMapGate* const Gate; // Maniascript
+  CSmScriptMapGauge* const Gauge; // Maniascript
+  CSmScriptMapSector* const Sector; // Maniascript
+  CSmScriptMapPlayerSpawn* const PlayerSpawn; // Maniascript
+  CSmScriptMapBotPath* const BotPath; // Maniascript
+  CSmScriptMapBotSpawn* const BotSpawn; // Maniascript
+  CSmScriptMapObjectAnchor* const ObjectAnchor; // Maniascript
 };
 
 struct CSmScriptMapSector : public CMwNod {
@@ -21313,6 +21445,7 @@ struct CSmScriptMapBotSpawn : public CMwNod {
 struct CSmModuleManager : public CGamePlaygroundModuleManagerClient {
 };
 
+// Skipping documentation due to broken pointer!
 struct CSmOffZone : public CMwNod {
 };
 
@@ -21343,8 +21476,8 @@ struct CGameCtnCollector : public CMwNod {
   bool IconUseAutoRender;
   uint IconQuarterRotationY;
   uint InterfaceNumber; // Maniascript
-  const CPlugBitmap* Icon; // Maniascript
-  const CMwNod* ArticlePtr;
+  CPlugBitmap* const Icon; // Maniascript
+  CMwNod* const ArticlePtr;
 };
 
 // File extension: 'Item.Gbx'
