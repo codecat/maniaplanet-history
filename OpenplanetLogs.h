@@ -1906,7 +1906,6 @@ struct CGameCampaignsScoresManager : public CMwNod {
 
 };
 
-// Skipping documentation due to broken pointer!
 // userName: 'ActionFxPhy'
 struct CGameActionFxPhy : public CMwNod {
 };
@@ -3387,7 +3386,6 @@ struct CGameControlCardMessage : public CGameControlCard {
   void OnCheckLogin();
 };
 
-// Skipping documentation due to broken pointer!
 // userName: 'ActionFxVis'
 struct CGameActionFxVis : public CMwNod {
 };
@@ -10215,18 +10213,15 @@ struct CGameItem : public CMwNod {
 struct CGameGate : public CMwNod {
 };
 
-// Skipping documentation due to broken pointer!
 struct CGameTriggerGate : public CMwNod {
 };
 
-// Skipping documentation due to broken pointer!
 struct CGameTriggerTeleport : public CMwNod {
 };
 
 struct CGameShield : public CMwNod {
 };
 
-// Skipping documentation due to broken pointer!
 struct CGameTriggerScreen : public CMwNod {
 };
 
@@ -10614,7 +10609,6 @@ struct CGameScenePhy : public CScenePhy {
 struct CGameMgrTurretVis : public CSceneMgrVis {
 };
 
-// Skipping documentation due to broken pointer!
 // userName: 'Turret'
 struct CGameTurretVis : public CMwNod {
 };
@@ -10746,7 +10740,6 @@ struct CWebServicesTaskResult_FileListScript : public CWebServicesTaskResult_Fil
 struct CGameDataFileTask_FileGetGameList : public CWebServicesTaskSequence {
 };
 
-// Skipping documentation due to broken pointer!
 // userName: 'Object'
 struct CGameObjectVis : public CMwNod {
 };
@@ -10940,7 +10933,6 @@ struct CGameBlockItemVariantChooser : public CMwNod {
   void PreviousRandomVariant();
 };
 
-// Skipping documentation due to broken pointer!
 struct CGameArenaPlayer : public CMwNod {
 };
 
@@ -12116,11 +12108,9 @@ struct CHmsMgrVisParticle : public CMwNod {
 struct CHmsVisMiniMap : public CMwNod {
 };
 
-// Skipping documentation due to broken pointer!
 struct CHmsCollType_Warp : public CMwNod {
 };
 
-// Skipping documentation due to broken pointer!
 struct CHmsCollType_VehicleVisForBodyPart : public CMwNod {
 };
 
@@ -16420,12 +16410,10 @@ struct CScenePickerManager : public CMwNod {
   CHmsPicker* const Picker;
 };
 
-// Skipping documentation due to broken pointer!
 // userName: 'Vehicle'
 struct CSceneVehicleVis : public CMwNod {
 };
 
-// Skipping documentation due to broken pointer!
 // userName: 'Character'
 struct CSceneCharVis : public CMwNod {
 };
@@ -17102,11 +17090,9 @@ struct CSceneMgrSolid2Vis : public CMwNod {
 struct CSceneMgrPhy : public CMwNod {
 };
 
-// Skipping documentation due to broken pointer!
 struct CSceneTriggerAction : public CMwNod {
 };
 
-// Skipping documentation due to broken pointer!
 // userName: 'Bullet'
 struct CSceneBulletVis : public CMwNod {
 };
@@ -17123,17 +17109,14 @@ struct CSceneMgrTrainVis : public CSceneMgrVis {
 struct CSceneMgrTrainPhy : public CMwNod {
 };
 
-// Skipping documentation due to broken pointer!
 // userName: 'Wagon'
 struct CSceneWagonPhy : public CMwNod {
 };
 
-// Skipping documentation due to broken pointer!
 // userName: 'Wagon'
 struct CSceneWagon : public CMwNod {
 };
 
-// Skipping documentation due to broken pointer!
 // userName: 'Gun'
 struct CSceneGunVis : public CMwNod {
 };
@@ -21445,7 +21428,6 @@ struct CSmScriptMapBotSpawn : public CMwNod {
 struct CSmModuleManager : public CGamePlaygroundModuleManagerClient {
 };
 
-// Skipping documentation due to broken pointer!
 struct CSmOffZone : public CMwNod {
 };
 
