@@ -402,6 +402,7 @@ struct CGameTerminal : public CMwNod {
     _SpectatorCam_Auto = 1,
   };
   CGamePlayer* ControlledPlayer;
+  CGamePlayer* GUIPlayer;
   CGamePlayerCameraSet* const CameraSet;
   CGameCtnMediaClipPlayer* const MediaClipPlayer;
   CGameCtnMediaClipPlayer* const MediaAmbianceClipPlayer;
@@ -5798,6 +5799,10 @@ struct CGameServerPlugin : public CMwNod {
   void TriggerModeScriptEvent2(wstring Type, MwBuffer<wstring>& Data); // Maniascript
   const bool MapLoaded; // Maniascript
   const MwBuffer<CGameCtnChallengeInfo*> MapList; // Maniascript
+  const uint CurMapIndex; // Maniascript
+  uint NextMapIndex; // Maniascript
+  void RestartMap(); // Maniascript
+  void NextMap(); // Maniascript
   CGamePlaygroundUIConfigMgrScript* const UIManager; // Maniascript
   CGameScriptServerAdmin* const ServerAdmin; // Maniascript
   CXmlScriptManager* const Xml; // Maniascript
@@ -5809,8 +5814,8 @@ struct CGameServerPlugin : public CMwNod {
 struct CGameServerPluginEvent : public CMwNod {
   enum EType {
     Unknown = 0,
-    PlayerAdded = 1,
-    PlayerRemoved = 2,
+    ClientConnected = 1,
+    ClientDisconnected = 2,
     MapLoaded = 3,
     MapUnloaded = 4,
     BeginRound = 5,
@@ -5874,6 +5879,7 @@ struct CGameConnectedClient : public CMwNod {
   const string ClientVersion; // Maniascript
   const string ClientTitleVersion; // Maniascript
   const bool IsSpectator; // Maniascript
+  const uint IdleDuration; // Maniascript
 };
 
 struct CGameControlCameraEditorOrbital : public CGameControlCamera {
@@ -7057,6 +7063,13 @@ struct CGameCtnMediaBlockCameraEffectScript : public CGameCtnMediaBlockCameraEff
 
 // Description: "API for server control when playing online."
 struct CGameScriptServerAdmin : public CMwNod {
+  enum ESpecMode {
+    Selectable = 0,
+    SpectatorForced = 1,
+    PlayerForced = 2,
+    SpectatorSelectable = 3,
+    PlayerSelectable = 4,
+  };
   CGameCtnNetServerInfo* const ServerInfo; // Maniascript
   void AutoTeamBalance(); // Maniascript
   bool Kick1(CGamePlayerInfo* User, wstring Reason); // Maniascript
@@ -7064,11 +7077,17 @@ struct CGameScriptServerAdmin : public CMwNod {
   bool KickUser(CGamePlayerInfo* User, wstring Reason); // Maniascript
   bool Ban1(CGamePlayerInfo* User, wstring Reason); // Maniascript
   bool Ban2(CGameConnectedClient* Client, wstring Reason); // Maniascript
-  bool RequestSwitchToSpectator1(CGamePlayerInfo* User); // Maniascript
-  bool RequestSwitchToSpectator2(CGameConnectedClient* Client); // Maniascript
+  bool ForceSpectator1(CGamePlayerInfo* User, ESpecMode SpecMode); // Maniascript
+  bool ForceSpectator2(CGameConnectedClient* Client, ESpecMode SpecMode); // Maniascript
+  bool ForcePlayerRequestedTeam1(CGamePlayerInfo* User, int Team); // Maniascript
+  bool ForcePlayerRequestedTeam2(CGameConnectedClient* Client, int Team); // Maniascript
   void SetLobbyInfo(bool IsLobby, int LobbyPlayerCount, int LobbyMaxPlayerCount, float LobbyPlayersLevel); // Maniascript
   void SendToServerAfterMatch(string ServerUrl); // Maniascript
   void CustomizeQuitDialog(string ManialinkPage, string SendToServerUrl, bool ProposeAddToFavorites, uint ForceDelay); // Maniascript
+  void Authentication_GetToken(MwId UserId, string AppLogin); // Maniascript
+  const bool Authentication_GetTokenResponseReceived; // Maniascript
+  const uint Authentication_ErrorCode; // Maniascript
+  const string Authentication_Token; // Maniascript
 };
 
 struct CGamePlayerProfileChunk_EditorSettings : public CGamePlayerProfileChunk {
@@ -8698,6 +8717,7 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
     PixelArt = 6,
     EditorEditor = 7,
     VehicleAssembler = 8,
+    MaterialEditor = 9,
   };
   void Dbg_GetServerInfoObj();
   void Dbg_Join_GetServerInfo_Result();
@@ -10392,6 +10412,8 @@ struct CGameEditorMesh : public CGameEditorAsset {
   };
   void UVEditor_UVMode();
   void UVEditor_AtlasMode();
+  bool GoToMaterialEditor; // Maniascript
+  bool IsCreateMaterial; // Maniascript
   const bool Tmp_UseParts; // Maniascript
   CControlFrame* const UIRoot;
   CMwNod* const EditedNod;
@@ -10415,6 +10437,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   EEdgesDisplay DisplayEdges; // Maniascript
   void EditedMesh_Clear(); // Maniascript
   void EditedMesh_Simplify(); // Maniascript
+  void EditedMesh_Lod(float Faces Ratio); // Maniascript
   void UVUnwrap(MwId SetHandle, ETexCoordLayer ETexCoordLayer); // Maniascript
   void Undo(); // Maniascript
   void Redo(); // Maniascript
@@ -10433,9 +10456,11 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const int MaterialsUpdateId; // Maniascript
   const MwBuffer<CPlugBitmap*> AllBitmaps; // Maniascript
   const MwBuffer<MwId> MaterialIds; // Maniascript
+  const MwBuffer<string> MaterialNames; // Maniascript
   MwId Material_GetMaterialIdSelected(); // Maniascript
   void Material_SetMaterialIdSelected(MwId MaterialEditorId); // Maniascript
   uint Material_GetSubTexIndexSelected(); // Maniascript
+  uint Material_MaterialLibGetCount(); // Maniascript
   void Material_SetDefault(MwId MaterialId); // Maniascript
   MwId Material_GetDefault(); // Maniascript
   CPlugBitmap* Material_GetBitmapBase(MwId MaterialId); // Maniascript
@@ -10452,6 +10477,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Material_UVEditor_SetMode(EUVEditorMode Mode); // Maniascript
   EUVEditorMode Material_UVEditor_GetMode(); // Maniascript
   void Material_UVEditor_SetProjectionType(EUVEditorProjectionType ProjectionType); // Maniascript
+  bool Material_IsGameMaterial(); // Maniascript
   void Material_UVEditor_Apply(); // Maniascript
   void Material_PasteMaterial(MwId SetHandle); // Maniascript
   const uint Material_Atlas_SelectedSubTexIndex; // Maniascript
@@ -10593,6 +10619,7 @@ struct CGameEditorEvent : public CGameManiaAppScriptEvent {
     FileChanged = 4,
     OnUndo = 5,
     OnRedo = 6,
+    OnSwitchedBack = 7,
   };
   const Type Type; // Maniascript
 };
@@ -10934,6 +10961,9 @@ struct CGameBlockItemVariantChooser : public CMwNod {
 };
 
 struct CGameArenaPlayer : public CMwNod {
+};
+
+struct CGameEditorMaterial : public CGameEditorParent {
 };
 
 } // namespace Game
@@ -13242,7 +13272,7 @@ struct CPlugSurface : public CPlug {
   MwBuffer<CPlugMaterial*> Materials;
   CPlugSkel* Skel;
   void UpdateSurfMaterialIdsFromMaterialIndexs();
-  surf Surf;
+  UnknownType Surf;
   _EGmSurfType GmSurfType;
   float Radius;
   vec3 Radii;
@@ -13334,7 +13364,7 @@ struct CPlugBitmap : public CPlug {
     Wrap = 0,
     Mirror = 1,
     Clamp = 2,
-    BorderSM3 = 3,
+    Border = 3,
   };
   enum EColorSpace {
     Linear = 0,
@@ -15853,13 +15883,30 @@ struct CPlugCharPhyModelCustom : public CMwNod {
 struct CPlugMaterialUserInst : public CMwNod {
   CPlugMaterialUserInst();
 
-  MwId Name;
+  EMaterialModelStatic ModelModelStatic;
+  EMaterialModelDyna0 ModelModelDyna0;
+  EMaterialModelChar ModelModelChar;
+  EMaterialModelVehicle ModelModelVehicle;
   MwId Model;
   wstring BaseTexture;
+  DataRef TexturesDiffuse;
+  DataRef TexturesDiffuseO;
+  DataRef TexturesSpecular;
+  DataRef TexturesNormal;
+  DataRef TexturesEnergy;
+  DataRef TexturesTeamMask;
+  DataRef TexturesSelfIllum;
+  DataRef TexturesDamage;
+  DataRef TexturesDirt;
+  DataRef TexturesShield;
   MwId Link;
-  ETexAddress IsTilingX;
-  ETexAddress IsTilingY;
-  float TextureHeightInMeters;
+  ETexAddress TilingU;
+  ETexAddress TilingV;
+  float TextureSizeInMeters;
+  uint PhysicsID;
+  uint Dbg_PhysicsID;
+  string PhysicsName;
+  uint Dbg_PhysicsName;
 };
 
 struct CPlugMoodSetting : public CPlug {
@@ -15984,7 +16031,7 @@ struct CPlugFileWebM : public CPlugFileVideo {
 struct CPlugCharVisModelCustom : public CMwNod {
   CPlugCharVisModelCustom();
 
-  UnknownType Sprites;
+  const bool IsSprite;
 };
 
 struct CPlugCamShakeModel : public CMwNod {
@@ -20065,6 +20112,7 @@ struct CTmRaceRulesPlayer : public CGamePlayer {
   const vec3 Velocity; // Maniascript
   const float Speed; // Maniascript
   MwId ForceModelId; // Maniascript
+  const uint IdleDuration; // Maniascript
   float AccelCoef; // Maniascript
   float ControlCoef; // Maniascript
   float GravityCoef; // Maniascript
@@ -20689,7 +20737,6 @@ struct CSmPlayer : public CGamePlayer {
   float LinearHue; // Range: 0 - 1
   const Color LinearHueSrgb;
   const int SpawnIndex;
-  const uint AFKLatestChangeTime;
   CSmArenaScore* const Score; // Maniascript
   const ESpawnStatus SpawnStatus; // Maniascript
   const int StartTime; // Maniascript
@@ -20966,7 +21013,6 @@ struct CSmArenaServer : public CMwNod {
   uint ClientInputsMaxLatency;
   uint DbgMinInputDelay;
   uint DbgDelaySendSnapshots;
-  bool FilterInputs;
 };
 
 struct CSmArena : public CMwNod {
@@ -21529,7 +21575,7 @@ struct CGameItemModel : public CGameCtnCollector {
   CGameItemPlacementParam* DefaultPlacementParam_Head;
   CGameItemPlacementParam* DefaultPlacementParam_Content;
   CGameItemPlacementParam* DefaultPlacementParam_Dbg;
-  DataRef Icon;
+  CPlugFileImg* Icon;
   CMwNod* EntityModelEdition;
   CMwNod* EntityModel;
   CMwNod* VisModel;
@@ -21612,7 +21658,6 @@ struct CGameObjectVisModel : public CMwNod {
   CPlugSolid2Model* MeshShaded;
   wstring SmashParticleRef;
   CPlugParticleEmitterModel* DestroyParticleModel;
-  UnknownType Sprites;
 };
 
 // File extension: 'Action.Gbx'
@@ -21866,6 +21911,7 @@ struct CGameEditorModel : public CMwNod {
     PixelArt = 6,
     EditorEditor = 7,
     VehicleAssembler = 8,
+    MaterialEditor = 9,
   };
   const EEditorType EditorType;
   bool AutoGenerateHelp;
@@ -21943,7 +21989,6 @@ struct CGameCommonItemEntityModelEdition : public CMwNod {
   };
   const EnumItemType ItemType;
   CPlugCrystal* MeshCrystal;
-  UnknownType Sprites;
   CPlugParticleEmitterModel* DestroyParticleModel;
   bool UseMeshAsMoveShape;
   CPlugCrystal* CustomMoveShapeCrystal;

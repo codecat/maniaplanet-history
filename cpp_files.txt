@@ -506,6 +506,7 @@ source\GameEditorFileToolBar.cpp
 source\GameEditorItem.cpp
 source\GameEditorMainPlugin.cpp
 source\GameEditorManialink.cpp
+source\GameEditorMaterial.cpp
 source\GameEditorMesh.cpp
 source\GameEditorMesh_Interaction.cpp
 source\GameEditorMesh_TexAtlas.cpp
