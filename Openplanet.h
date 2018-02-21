@@ -20537,7 +20537,6 @@ struct CGamePlayerProfileChunk_TrackManiaSettings : public CGamePlayerProfileChu
   bool IsShowPlayerGhost;
   bool NadeoGhostsUnlockMessage;
   MwBuffer<bool> IsDisplayRaceHelp;
-  MwArray<bool> RacePlayerInfoIsShow;
 };
 
 // File extension: 'TrackManiaResource.Gbx'
