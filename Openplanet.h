@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 0.16 (v4, Public)
+// Generated with Openplanet 0.17 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -5960,7 +5960,7 @@ struct CGamePlayerProfileChunk : public CMwNod {
 struct CGamePlayerProfileChunk_AccountSettings : public CGamePlayerProfileChunk {
   CGamePlayerProfileChunk_AccountSettings();
 
-  string OnlineLogin;
+  const string OnlineLogin;
   string OnlinePassword;
   string OnlineValidationCode;
   string OnlineSupportKey;
@@ -5990,7 +5990,7 @@ struct CGamePlayerProfileChunk_AccountSettings : public CGamePlayerProfileChunk 
   uint EulaVersion;
   uint PrivacyPolicyVersion;
   uint Age;
-  uint FameStars;
+  const uint FameStars;
 };
 
 struct CGamePlayerProfileChunk_GameSettings : public CGamePlayerProfileChunk {
