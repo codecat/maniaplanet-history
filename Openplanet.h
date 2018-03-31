@@ -10656,7 +10656,13 @@ struct CGameMgrMapPhy : public CSceneMgrPhy {
 struct CGameDataFileManager : public CMwNod {
 };
 
+struct CGameDataFileTask_GhostStoreUserRecord_ConsoleMode : public CWebServicesTaskSequence {
+};
+
 struct CGameDataFileTask_GhostStoreUserRecord_Maniaplanet : public CWebServicesTaskSequence {
+};
+
+struct CGameDataFileTask_GhostLoadUserRecord_ConsoleMode : public CWebServicesTaskSequence {
 };
 
 struct CGameDataFileTask_GhostLoadUserRecord_Maniaplanet : public CWebServicesTaskSequence {
@@ -19106,6 +19112,10 @@ struct CNetUbiServicesNews : public CMwNod {
 };
 
 struct CNetMasterServerTask_GamerPic_GetUrl : public CWebServicesTaskSequence {
+};
+
+struct CWebServicesTaskResult_StringInt : public CWebServicesTaskResult {
+  const wstring Value; // Maniascript
 };
 
 struct CNetMasterServerTask_GetManiaplanetLoginAndWebIdentities : public CNetMasterServerRequestTask {
