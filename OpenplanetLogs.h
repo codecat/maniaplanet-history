@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 0.17 (v4, Public Logs)
+// Generated with Openplanet 1.02 (v4, Public Logs)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -4656,6 +4656,7 @@ struct CGameScriptHandlerPlaygroundInterface : public CGameManialinkScriptHandle
   };
   const int GameTime; // Maniascript
   CGamePlaygroundClientScriptAPI* const Playground; // Maniascript
+  CGameManiaPlanetScriptAPI* const ManiaPlanet; // Maniascript
   CGamePlaygroundUIConfig* UI; // Maniascript
   CGamePlaygroundUIConfig* ClientUI; // Maniascript
   const bool IsSpectator; // Maniascript
@@ -5798,11 +5799,13 @@ struct CGameServerPlugin : public CMwNod {
   const MwBuffer<CGameServerPluginEvent*> PendingEvents; // Maniascript
   void TriggerModeScriptEvent2(wstring Type, MwBuffer<wstring>& Data); // Maniascript
   const bool MapLoaded; // Maniascript
+  const bool MapUnloadRequested; // Maniascript
   const MwBuffer<CGameCtnChallengeInfo*> MapList; // Maniascript
   const uint CurMapIndex; // Maniascript
   uint NextMapIndex; // Maniascript
   void RestartMap(); // Maniascript
   void NextMap(); // Maniascript
+  bool HoldMapUnloadRequest; // Maniascript
   CGamePlaygroundUIConfigMgrScript* const UIManager; // Maniascript
   CGameScriptServerAdmin* const ServerAdmin; // Maniascript
   CXmlScriptManager* const Xml; // Maniascript
@@ -5817,12 +5820,15 @@ struct CGameServerPluginEvent : public CMwNod {
     ClientConnected = 1,
     ClientDisconnected = 2,
     MapLoaded = 3,
-    MapUnloaded = 4,
+    BeginMatch = 4,
     BeginRound = 5,
     EndRound = 6,
-    ChatCommand = 7,
-    ChatMessage = 8,
-    ModeCallback = 9,
+    EndMatch = 7,
+    MapUnloadRequested = 8,
+    MapUnloaded = 9,
+    ChatCommand = 10,
+    ChatMessage = 11,
+    ModeCallback = 12,
   };
   const EType Type; // Maniascript
   CGameConnectedClient* const Client; // Maniascript
@@ -5831,6 +5837,8 @@ struct CGameServerPluginEvent : public CMwNod {
   const MwBuffer<wstring> ChatCommandData; // Maniascript
   const wstring ModeCallbackType; // Maniascript
   const MwBuffer<wstring> ModeCallbackData; // Maniascript
+  const MwBuffer<CGamePlaygroundScore*> EndMatchScores; // Maniascript
+  const MwBuffer<uint> EndMatchRanks; // Maniascript
 };
 
 struct CGameCtnAutoTerrain : public CMwNod {
@@ -17776,6 +17784,9 @@ struct CVisionViewport : public CHmsViewport {
   float NoiseScalingCoef; // Range: 0 - 5
 };
 
+struct CVisionViewportNull : public CVisionViewport {
+};
+
 // File extension: 'VisionResourceFile.Gbx'
 struct CVisionResourceFile : public CMwNod {
   CVisionResourceFile();
@@ -21936,7 +21947,7 @@ struct CGameItemPlacementParam : public CMwNod {
   bool AutoRotation;
   vec3 Cube_Center;
   float Cube_Size;
-  UnknownType PivotRotations;
+  MwBuffer<quat> PivotRotations;
   void AddPivotPosition();
   void AddPivotRotation();
   void RemoveLastPivotPosition();
