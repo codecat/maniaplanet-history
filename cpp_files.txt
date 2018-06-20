@@ -1608,6 +1608,7 @@ source\SystemMemoryMonitor.cpp
 source\SystemNodWrapper.cpp
 source\SystemPackDesc.cpp
 source\SystemPackManager.cpp
+source\SystemPlatformScript.cpp
 source\SystemSteam.cpp
 source\SystemStreamManager.cpp
 source\SystemTime.cpp

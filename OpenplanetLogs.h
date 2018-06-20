@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 1.02 (v4, Public Logs)
+// Generated with Openplanet 1.06 (v4, Public Logs)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -1411,8 +1411,8 @@ struct CGameCtnChallenge : public CMwNod {
   uint TMObjective_GoldTime; // Maniascript
   uint TMObjective_SilverTime; // Maniascript
   uint TMObjective_BronzeTime; // Maniascript
-  uint TMObjective_NbLaps; // Maniascript
-  bool TMObjective_IsLapRace; // Maniascript
+  const uint TMObjective_NbLaps; // Maniascript
+  const bool TMObjective_IsLapRace; // Maniascript
   wstring ObjectiveTextAuthor; // Maniascript
   wstring ObjectiveTextGold; // Maniascript
   wstring ObjectiveTextSilver; // Maniascript
@@ -4311,6 +4311,7 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
   const MwBuffer<string> TitleIdsInstalled; // Maniascript
   const MwBuffer<string> TitleIdsPayed; // Maniascript
   const uint EmptyStationsCount; // Maniascript
+  CSystemPlatformScript* const System; // Maniascript
   const ESystemPlatform SystemPlatform; // Maniascript
   const ESystemSkuIdentifier SystemSkuIdentifier; // Maniascript
   const string ExeVersion; // Maniascript
@@ -4801,6 +4802,7 @@ struct CGameManialinkScriptHandler : public CMwNod {
   CGameUserPrivilegesManagerScript* const PrivilegeMgr; // Maniascript
   CGameMasterServerRichPresenceManagerScript* const PresenceMgr; // Maniascript
   CGameManialinkAnimManager* const AnimMgr; // Maniascript
+  CSystemPlatformScript* const System; // Maniascript
   void SendCustomEvent(wstring Type, MwBuffer<wstring>& Data); // Maniascript
   void PreloadImage(string ImageUrl); // Maniascript
   void PreloadAll(); // Maniascript
@@ -5810,6 +5812,7 @@ struct CGameServerPlugin : public CMwNod {
   CGameScriptServerAdmin* const ServerAdmin; // Maniascript
   CXmlScriptManager* const Xml; // Maniascript
   CNetScriptHttpManager* const Http; // Maniascript
+  CSystemPlatformScript* const System; // Maniascript
   wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly); // Maniascript
 };
 
@@ -6211,6 +6214,7 @@ struct CGamePlaygroundScript : public CMwNod {
   CInputScriptManager* const Input; // Maniascript
   CGameDataFileManagerScript* const DataFileMgr; // Maniascript
   CGameScoreAndLeaderBoardManagerScript* const ScoreMgr; // Maniascript
+  CSystemPlatformScript* const System; // Maniascript
   const ESystemPlatform SystemPlatform; // Maniascript
   const ESystemSkuIdentifier SystemSkuIdentifier; // Maniascript
   int Synchro_AddBarrier(); // Maniascript
@@ -8587,6 +8591,7 @@ struct CGameManiaApp : public CMwNod {
   CGameUserPrivilegesManagerScript* const PrivilegeMgr; // Maniascript
   CGameMasterServerRichPresenceManagerScript* const PresenceMgr; // Maniascript
   CGameUserManagerScript* const UserMgr; // Maniascript
+  CSystemPlatformScript* const System; // Maniascript
   CGameManiaPlanetScriptAPI* const ManiaPlanet; // Maniascript
   wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly); // Maniascript
 };
@@ -17666,6 +17671,30 @@ struct CSystemFidMemory : public CSystemFid {
 
 };
 
+struct CSystemPlatformScript : public CMwNod {
+  enum ESystemPlatform {
+    None = 0,
+    Steam = 1,
+    UPlay = 2,
+    PS4 = 3,
+    XBoxOne = 4,
+  };
+  enum ESystemSkuIdentifier {
+    Unknown = 0,
+    EU = 1,
+    US = 2,
+    JP = 3,
+  };
+  const ESystemPlatform Platform; // Maniascript
+  const ESystemSkuIdentifier SkuIdentifier; // Maniascript
+  const string ExeVersion; // Maniascript
+  const uint CurrentLocalDate; // Maniascript
+  const string CurrentLocalDateText; // Maniascript
+  const wstring CurrentTimezone; // Maniascript
+  const string ExtraTool_Info; // Maniascript
+  wstring ExtraTool_Data; // Maniascript
+};
+
 struct CSystemConfigDisplay : public CMwNod {
   CSystemConfigDisplay();
 
@@ -19163,6 +19192,7 @@ struct CInputPort : public CMwNod {
   const UnnamedEnum InputsMode;
   const string CurrentActionMap;
   bool IsDoingIME;
+  const bool IsFocused;
   UnnamedEnum MouseVisibility;
   float RumbleIntensity; // Range: 0 - 2
   float CenterSpringIntensity; // Range: 0 - 1
