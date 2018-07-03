@@ -17761,6 +17761,7 @@ struct CSystemPackDesc : public CMwNod {
   const wstring Name;
   const string Checksum;
   const wstring FileName;
+  CSystemFidFile* const Fid;
   const string Size;
   const wstring LocatorFileName;
   const string Url;
@@ -18553,7 +18554,6 @@ struct CNetConnection : public CMwNod {
   const bool ConnectionWaiting;
   const bool ConnectionRequest;
   const bool TestingUDP;
-  const bool Synchronisation;
   const bool Connected;
   const bool CanReceiveTCP;
   const bool CanSendTCP;
