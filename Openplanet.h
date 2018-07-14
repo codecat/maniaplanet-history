@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 0.17 (v4, Public)
+// Generated with Openplanet 1.06 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -1411,8 +1411,8 @@ struct CGameCtnChallenge : public CMwNod {
   uint TMObjective_GoldTime; // Maniascript
   uint TMObjective_SilverTime; // Maniascript
   uint TMObjective_BronzeTime; // Maniascript
-  uint TMObjective_NbLaps; // Maniascript
-  bool TMObjective_IsLapRace; // Maniascript
+  const uint TMObjective_NbLaps; // Maniascript
+  const bool TMObjective_IsLapRace; // Maniascript
   wstring ObjectiveTextAuthor; // Maniascript
   wstring ObjectiveTextGold; // Maniascript
   wstring ObjectiveTextSilver; // Maniascript
@@ -4311,6 +4311,7 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
   const MwBuffer<string> TitleIdsInstalled; // Maniascript
   const MwBuffer<string> TitleIdsPayed; // Maniascript
   const uint EmptyStationsCount; // Maniascript
+  CSystemPlatformScript* const System; // Maniascript
   const ESystemPlatform SystemPlatform; // Maniascript
   const ESystemSkuIdentifier SystemSkuIdentifier; // Maniascript
   const string ExeVersion; // Maniascript
@@ -4656,6 +4657,7 @@ struct CGameScriptHandlerPlaygroundInterface : public CGameManialinkScriptHandle
   };
   const int GameTime; // Maniascript
   CGamePlaygroundClientScriptAPI* const Playground; // Maniascript
+  CGameManiaPlanetScriptAPI* const ManiaPlanet; // Maniascript
   CGamePlaygroundUIConfig* UI; // Maniascript
   CGamePlaygroundUIConfig* ClientUI; // Maniascript
   const bool IsSpectator; // Maniascript
@@ -4800,6 +4802,7 @@ struct CGameManialinkScriptHandler : public CMwNod {
   CGameUserPrivilegesManagerScript* const PrivilegeMgr; // Maniascript
   CGameMasterServerRichPresenceManagerScript* const PresenceMgr; // Maniascript
   CGameManialinkAnimManager* const AnimMgr; // Maniascript
+  CSystemPlatformScript* const System; // Maniascript
   void SendCustomEvent(wstring Type, MwBuffer<wstring>& Data); // Maniascript
   void PreloadImage(string ImageUrl); // Maniascript
   void PreloadAll(); // Maniascript
@@ -5790,15 +5793,18 @@ struct CGameServerPlugin : public CMwNod {
   const MwBuffer<CGameServerPluginEvent*> PendingEvents; // Maniascript
   void TriggerModeScriptEvent2(wstring Type, MwBuffer<wstring>& Data); // Maniascript
   const bool MapLoaded; // Maniascript
+  const bool MapUnloadRequested; // Maniascript
   const MwBuffer<CGameCtnChallengeInfo*> MapList; // Maniascript
   const uint CurMapIndex; // Maniascript
   uint NextMapIndex; // Maniascript
   void RestartMap(); // Maniascript
   void NextMap(); // Maniascript
+  bool HoldMapUnloadRequest; // Maniascript
   CGamePlaygroundUIConfigMgrScript* const UIManager; // Maniascript
   CGameScriptServerAdmin* const ServerAdmin; // Maniascript
   CXmlScriptManager* const Xml; // Maniascript
   CNetScriptHttpManager* const Http; // Maniascript
+  CSystemPlatformScript* const System; // Maniascript
   wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly); // Maniascript
 };
 
@@ -5809,12 +5815,15 @@ struct CGameServerPluginEvent : public CMwNod {
     ClientConnected = 1,
     ClientDisconnected = 2,
     MapLoaded = 3,
-    MapUnloaded = 4,
+    BeginMatch = 4,
     BeginRound = 5,
     EndRound = 6,
-    ChatCommand = 7,
-    ChatMessage = 8,
-    ModeCallback = 9,
+    EndMatch = 7,
+    MapUnloadRequested = 8,
+    MapUnloaded = 9,
+    ChatCommand = 10,
+    ChatMessage = 11,
+    ModeCallback = 12,
   };
   const EType Type; // Maniascript
   CGameConnectedClient* const Client; // Maniascript
@@ -5823,6 +5832,8 @@ struct CGameServerPluginEvent : public CMwNod {
   const MwBuffer<wstring> ChatCommandData; // Maniascript
   const wstring ModeCallbackType; // Maniascript
   const MwBuffer<wstring> ModeCallbackData; // Maniascript
+  const MwBuffer<CGamePlaygroundScore*> EndMatchScores; // Maniascript
+  const MwBuffer<uint> EndMatchRanks; // Maniascript
 };
 
 struct CGameCtnAutoTerrain : public CMwNod {
@@ -6195,6 +6206,7 @@ struct CGamePlaygroundScript : public CMwNod {
   CInputScriptManager* const Input; // Maniascript
   CGameDataFileManagerScript* const DataFileMgr; // Maniascript
   CGameScoreAndLeaderBoardManagerScript* const ScoreMgr; // Maniascript
+  CSystemPlatformScript* const System; // Maniascript
   const ESystemPlatform SystemPlatform; // Maniascript
   const ESystemSkuIdentifier SystemSkuIdentifier; // Maniascript
   int Synchro_AddBarrier(); // Maniascript
@@ -8571,6 +8583,7 @@ struct CGameManiaApp : public CMwNod {
   CGameUserPrivilegesManagerScript* const PrivilegeMgr; // Maniascript
   CGameMasterServerRichPresenceManagerScript* const PresenceMgr; // Maniascript
   CGameUserManagerScript* const UserMgr; // Maniascript
+  CSystemPlatformScript* const System; // Maniascript
   CGameManiaPlanetScriptAPI* const ManiaPlanet; // Maniascript
   wstring Dbg_DumpDeclareForVariables(CMwNod* Nod, bool StatsOnly); // Maniascript
 };
@@ -17654,6 +17667,30 @@ struct CSystemFidMemory : public CSystemFid {
 
 };
 
+struct CSystemPlatformScript : public CMwNod {
+  enum ESystemPlatform {
+    None = 0,
+    Steam = 1,
+    UPlay = 2,
+    PS4 = 3,
+    XBoxOne = 4,
+  };
+  enum ESystemSkuIdentifier {
+    Unknown = 0,
+    EU = 1,
+    US = 2,
+    JP = 3,
+  };
+  const ESystemPlatform Platform; // Maniascript
+  const ESystemSkuIdentifier SkuIdentifier; // Maniascript
+  const string ExeVersion; // Maniascript
+  const uint CurrentLocalDate; // Maniascript
+  const string CurrentLocalDateText; // Maniascript
+  const wstring CurrentTimezone; // Maniascript
+  const string ExtraTool_Info; // Maniascript
+  wstring ExtraTool_Data; // Maniascript
+};
+
 struct CSystemConfigDisplay : public CMwNod {
   CSystemConfigDisplay();
 
@@ -17720,6 +17757,7 @@ struct CSystemPackDesc : public CMwNod {
   const wstring Name;
   const string Checksum;
   const wstring FileName;
+  CSystemFidFile* const Fid;
   const string Size;
   const wstring LocatorFileName;
   const string Url;
@@ -17770,6 +17808,9 @@ struct CVisionViewport : public CHmsViewport {
   vec3 Albedo;
   float NoiseMaxDensity; // Range: 0 - 2
   float NoiseScalingCoef; // Range: 0 - 5
+};
+
+struct CVisionViewportNull : public CVisionViewport {
 };
 
 // File extension: 'VisionResourceFile.Gbx'
@@ -18509,7 +18550,6 @@ struct CNetConnection : public CMwNod {
   const bool ConnectionWaiting;
   const bool ConnectionRequest;
   const bool TestingUDP;
-  const bool Synchronisation;
   const bool Connected;
   const bool CanReceiveTCP;
   const bool CanSendTCP;
@@ -19148,6 +19188,7 @@ struct CInputPort : public CMwNod {
   const UnnamedEnum InputsMode;
   const string CurrentActionMap;
   bool IsDoingIME;
+  const bool IsFocused;
   UnnamedEnum MouseVisibility;
   float RumbleIntensity; // Range: 0 - 2
   float CenterSpringIntensity; // Range: 0 - 1
@@ -21932,7 +21973,7 @@ struct CGameItemPlacementParam : public CMwNod {
   bool AutoRotation;
   vec3 Cube_Center;
   float Cube_Size;
-  UnknownType PivotRotations;
+  MwBuffer<quat> PivotRotations;
   void AddPivotPosition();
   void AddPivotRotation();
   void RemoveLastPivotPosition();
