@@ -8925,7 +8925,7 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
   void EditMap(wstring Map, wstring EditorPluginScript, string EditorPluginArgument); // Maniascript
   void EditNewMap1(string Environment, string Decoration, wstring ModNameOrUrl, wstring PlayerModel, wstring MapType, wstring EditorPluginScript, string EditorPluginArgument); // Maniascript
   void EditNewMap2(string Environment, string Decoration, wstring ModNameOrUrl, wstring PlayerModel, wstring MapType, bool UseSimpleEditor, wstring EditorPluginScript, string EditorPluginArgument); // Maniascript
-  void EditNewMapFromBaseMap(string BaseMapName, wstring ModNameOrUrl, wstring PlayerModel, wstring MapType, wstring EditorPluginScript, string EditorPluginArgument); // Maniascript
+  void EditNewMapFromBaseMap(wstring BaseMapName, wstring ModNameOrUrl, wstring PlayerModel, wstring MapType, wstring EditorPluginScript, string EditorPluginArgument); // Maniascript
   void EditBadges(); // Maniascript
   void EditBadgesOld(MwId UserId DEPRECATED); // Maniascript
   const bool CanPublishFiles; // Maniascript
