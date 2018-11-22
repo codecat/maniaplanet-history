@@ -9118,6 +9118,7 @@ struct CTmRaceResultNod : public CMwNod {
   int Compare(CTmRaceResultNod* Other, ETmRaceResultCriteria Criteria); // Maniascript
 };
 
+// Description: ""
 struct CGameEditorModule : public CGameCtnEditor {
   enum EModuleType {
     Undefined = 0,
@@ -9187,8 +9188,10 @@ struct CGameEditorModule : public CGameCtnEditor {
   void ForceExit(); // Maniascript
   CGameModuleMenuModel* const EditedMenu; // Maniascript
   CGameModuleMenuPageModel* const EditedMenuPage; // Maniascript
+  CGameModulePlaygroundPlayerStateModel* const EditedPlaygroundPlayerState; // Maniascript
   CGameModulePlaygroundHudModel* const EditedPlaygroundHud; // Maniascript
   void EditedPlaygroundHud_SetPreviewContext(MwId ContextId); // Maniascript
+  MwBuffer<float>& GetControlRect(MwId ModuleId); // Maniascript
   void FileBrowser_Open(); // Maniascript
   const bool FileBrowser_IsRunning; // Maniascript
   const wstring FileBrowser_FilePath; // Maniascript
@@ -22080,62 +22083,6 @@ struct CGameItemModel : public CGameCtnCollector {
   bool DisableLightmap;
 };
 
-// File extension: 'Module.Gbx'
-struct CGameModulePlaygroundAltimeterModel : public CGameModulePlaygroundModel {
-  CGameModulePlaygroundAltimeterModel();
-
-  enum ECurrentValuePosition {
-    Left = 0,
-    Right = 1,
-  };
-  enum EAltitudeUnit {
-    Meter = 0,
-    Foot = 1,
-  };
-  bool ShowAltitude;
-  vec2 AltitudePosition;
-  float AltitudeScale; // Range: 0 - 100
-  DataRef AxisImage;
-  bool ShowAxisBackground;
-  float AxisLength; // Range: 0 - 1000
-  Color AxisColor;
-  Color GroundColor;
-  DataRef BackgroundImage;
-  uint MaxValue;
-  bool ShowMaxValue;
-  bool ShowMinValue;
-  bool ShowUnit;
-  EAltitudeUnit AltitudeUnit;
-  ECurrentValuePosition CurrentValuePosition;
-  bool ShowCurrentValueBar;
-  DataRef CurrentValueBarImage;
-  bool ShowCurrentValueTextBackground;
-  DataRef CurrentValueTextBackgroundImage;
-  bool AllowCurrentValueOverflow;
-  bool ShowGroundControl;
-  vec2 GroundControlPosition;
-  float GroundControlScale; // Range: 0 - 100
-  DataRef GroundControlBorderImage;
-  DataRef GroundControlPictoImage;
-  float MaxAltitudeToShowGroundControl; // Range: 0 - 1000
-  float MaxSpeedToShowGroundControl; // Range: 0 - 1000
-  float MaxAltitudeToShowGroundControlValue; // Range: 0 - 1000
-};
-
-// File extension: 'Module.Gbx'
-struct CGameModulePlaygroundThrottleModel : public CGameModulePlaygroundModel {
-  CGameModulePlaygroundThrottleModel();
-
-  Color AxisColor;
-  DataRef AxisImage;
-  DataRef GraduationImage;
-  Color ValueColor;
-  DataRef CurrentValueImage;
-  bool ShowPercentValue;
-  Color FillColor;
-  DataRef ClipFillImage;
-};
-
 struct CGameModulePlaygroundPlayerStateComponentModel : public CMwNod {
 };
 
@@ -22584,13 +22531,19 @@ struct CGameItemPlacementParam : public CMwNod {
   bool IsFreelyAnchorable;
 };
 
+// Description: ""
 // File extension: 'Module.Gbx'
 struct CGameModulePlaygroundPlayerStateModel : public CGameModulePlaygroundModel {
   CGameModulePlaygroundPlayerStateModel();
 
-  bool DynamicPreviewInEditor;
-  float PreviewSpeed;
+  bool DynamicPreview; // Maniascript
+  float PreviewSpeed; // Maniascript
   MwBuffer<CGameModulePlaygroundPlayerStateComponentModel*> Components;
+  MwId ComponentSetNameAndId(MwId ComponentId, string NewComponentName); // Maniascript
+  void ComponentRemove(MwId ComponentId); // Maniascript
+  const MwBuffer<MwId> ComponentIds; // Maniascript
+  void ComponentRetrieve(MwId ComponentId); // Maniascript
+  CGameModulePlaygroundPlayerStateComponentModel* Component; // Maniascript
 };
 
 // File extension: 'Module.Gbx'
@@ -22676,7 +22629,7 @@ struct CGameModulePlaygroundTeamStateModel : public CGameModulePlaygroundModel {
 struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlaygroundPlayerStateComponentModel {
   CGameModulePlaygroundPlayerStateGaugeModel();
 
-  enum EInterfacedValueRealSource {
+  enum Source {
     Weapon_current = 0,
     Weapon_max = 1,
     Weapon_grading = 2,
@@ -22700,19 +22653,19 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
     Reserved17 = 20,
     Constant = 21,
   };
-  enum EInterfacedValueRealDistanceUnit {
+  enum DistanceUnit {
     Default = 0,
     Meter = 1,
     Kilometer = 2,
     Mile = 3,
   };
-  enum EInterfacedValueRealSpeedUnit {
+  enum SpeedUnit {
     Default = 0,
     m_s = 1,
     km_h = 2,
     Mi_h = 3,
   };
-  enum ENineDirections {
+  enum Direction {
     Right = 0,
     Top_right = 1,
     Top = 2,
@@ -22723,18 +22676,13 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
     Bottom_right = 7,
     Center = 8,
   };
-  string EditorName;
-  vec2 GlobalPosition;
-  float GlobalZIndex;
-  float GlobalScale;
-  float GlobalRotation;
-  EInterfacedValueRealSource CurrentValueSource;
-  EInterfacedValueRealDistanceUnit CurrentValueDistanceUnit;
-  EInterfacedValueRealSpeedUnit CurrentValueSpeedUnit;
+  Source CurrentValueSource;
+  DistanceUnit CurrentValueDistanceUnit;
+  SpeedUnit CurrentValueSpeedUnit;
   float CurrentValueCustom;
-  EInterfacedValueRealSource MaxValueSource;
-  EInterfacedValueRealDistanceUnit MaxValueDistanceUnit;
-  EInterfacedValueRealSpeedUnit MaxValueSpeedUnit;
+  Source MaxValueSource;
+  DistanceUnit MaxValueDistanceUnit;
+  SpeedUnit MaxValueSpeedUnit;
   float MaxValueCustom;
   bool HideWhenFull;
   float HideDelay;
@@ -22742,14 +22690,14 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
   vec2 GaugePosition;
   float GaugeRotation;
   vec2 GaugeSize;
-  EInterfacedValueRealSource GradingSource;
-  EInterfacedValueRealDistanceUnit GradingDistanceUnit;
-  EInterfacedValueRealSpeedUnit GradingSpeedUnit;
+  Source GradingSource;
+  DistanceUnit GradingDistanceUnit;
+  SpeedUnit GradingSpeedUnit;
   float GradingCustom;
   bool GaugeUseDefaultColor;
   Color GaugeCustomColor;
   bool ShowValue;
-  ENineDirections ValuePosition;
+  Direction ValuePosition;
   vec2 ValueRelativePosition;
   float ValueRotation;
   float CurrentValueSize;
@@ -22765,7 +22713,7 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
   bool BackgroundUseDefaultColor;
   Color BackgroundCustomColor;
   bool ShowIcon;
-  ENineDirections IconPosition;
+  Direction IconPosition;
   vec2 IconRelativePosition;
   float IconRotation;
   float IconScale;
@@ -22796,7 +22744,7 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
   DataRef StaminaScopeImage;
   bool ShowCustomText;
   string CustomText;
-  ENineDirections CustomTextPosition;
+  Direction CustomTextPosition;
   vec2 CustomTextRelativePosition;
   float CustomTextRotation;
   float CustomTextSize;
@@ -22892,7 +22840,7 @@ struct SHudModule {
 struct CGameModulePlaygroundPlayerStateListModel : public CGameModulePlaygroundPlayerStateComponentModel {
   CGameModulePlaygroundPlayerStateListModel();
 
-  enum EInterfacedValueRealSource {
+  enum Source {
     Weapon_current = 0,
     Weapon_max = 1,
     Weapon_grading = 2,
@@ -22916,23 +22864,18 @@ struct CGameModulePlaygroundPlayerStateListModel : public CGameModulePlaygroundP
     Reserved17 = 20,
     Constant = 21,
   };
-  enum EInterfacedValueRealDistanceUnit {
+  enum DistanceUnit {
     Default = 0,
     Meter = 1,
     Kilometer = 2,
     Mile = 3,
   };
-  enum EInterfacedValueRealSpeedUnit {
+  enum SpeedUnit {
     Default = 0,
     m_s = 1,
     km_h = 2,
     Mi_h = 3,
   };
-  string EditorName;
-  vec2 GlobalPosition;
-  float GlobalZIndex;
-  float GlobalScale;
-  float GlobalRotation;
   uint ItemCount;
   vec2 ItemPositionOffset;
   float FocusScale;
@@ -22953,388 +22896,6 @@ struct CGameModulePlaygroundPlayerStateListModel : public CGameModulePlaygroundP
   bool BackgroundUseDefaultColor;
   Color BackgroundCustomColor;
   float BackgroundOpacity; // Range: 0 - 1
-};
-
-struct CGameModulePlaygroundPlayerStateBarModel : public CGameModulePlaygroundPlayerStateComponentModel {
-  CGameModulePlaygroundPlayerStateBarModel();
-
-  enum EInterfacedValueRealSource {
-    Weapon_current = 0,
-    Weapon_max = 1,
-    Weapon_grading = 2,
-    Armor_current = 3,
-    Armor_max = 4,
-    Armor_grading = 5,
-    Stamina_current = 6,
-    Stamina_max = 7,
-    Stamina_grading = 8,
-    X = 9,
-    Y = 10,
-    Z = 11,
-    Reserved9 = 12,
-    Reserved10 = 13,
-    Reserved11 = 14,
-    Reserved12 = 15,
-    Reserved13 = 16,
-    Reserved14 = 17,
-    Reserved15 = 18,
-    Reserved16 = 19,
-    Reserved17 = 20,
-    Constant = 21,
-  };
-  enum EInterfacedValueRealDistanceUnit {
-    Default = 0,
-    Meter = 1,
-    Kilometer = 2,
-    Mile = 3,
-  };
-  enum EInterfacedValueRealSpeedUnit {
-    Default = 0,
-    m_s = 1,
-    km_h = 2,
-    Mi_h = 3,
-  };
-  string EditorName;
-  vec2 GlobalPosition;
-  float GlobalZIndex;
-  float GlobalScale;
-  float GlobalRotation;
-  vec2 AxisSize;
-  DataRef AxisImage;
-  bool AxisIsBackground;
-  Color AxisColor;
-  EInterfacedValueRealSource MaxValueSource;
-  EInterfacedValueRealDistanceUnit MaxValueDistanceUnit;
-  EInterfacedValueRealSpeedUnit MaxValueSpeedUnit;
-  float MaxValueCustom;
-  bool ShowNumericMinValue;
-  bool ShowNumericMaxValue;
-  bool ShowUnitOnNumericValues;
-  bool ShowOnlyPositive;
-  bool ShowClipValue;
-  EInterfacedValueRealSource ClipValueSource;
-  EInterfacedValueRealDistanceUnit ClipValueDistanceUnit;
-  EInterfacedValueRealSpeedUnit ClipValueSpeedUnit;
-  float ClipValueCustom;
-  DataRef ClipImage;
-  Color ClipPositiveColor;
-  Color ClipNegativeColor;
-  bool ShowMarkerValue;
-  EInterfacedValueRealSource MarkerValueSource;
-  EInterfacedValueRealDistanceUnit MarkerValueDistanceUnit;
-  EInterfacedValueRealSpeedUnit MarkerValueSpeedUnit;
-  float MarkerValueCustom;
-  DataRef MarkerImage;
-  vec2 MarkerImageSize;
-  vec2 MarkerImageOffset;
-  float MarkerLineHeight;
-  Color MarkerPositiveColor;
-  Color MarkerNegativeColor;
-  bool ShowNumericValueOnLeft;
-  bool ShowNumericValueOnRight;
-  Color ValueColor;
-  bool ShowValueAsPercentage;
-  bool AllowValueOverflow;
-};
-
-struct CGameModulePlaygroundPlayerStateMovingImageModel : public CGameModulePlaygroundPlayerStateComponentModel {
-  CGameModulePlaygroundPlayerStateMovingImageModel();
-
-  enum EInterfacedValueRealSource {
-    Weapon_current = 0,
-    Weapon_max = 1,
-    Weapon_grading = 2,
-    Armor_current = 3,
-    Armor_max = 4,
-    Armor_grading = 5,
-    Stamina_current = 6,
-    Stamina_max = 7,
-    Stamina_grading = 8,
-    X = 9,
-    Y = 10,
-    Z = 11,
-    Reserved9 = 12,
-    Reserved10 = 13,
-    Reserved11 = 14,
-    Reserved12 = 15,
-    Reserved13 = 16,
-    Reserved14 = 17,
-    Reserved15 = 18,
-    Reserved16 = 19,
-    Reserved17 = 20,
-    Constant = 21,
-  };
-  enum EInterfacedValueRealDistanceUnit {
-    Default = 0,
-    Meter = 1,
-    Kilometer = 2,
-    Mile = 3,
-  };
-  enum EInterfacedValueRealSpeedUnit {
-    Default = 0,
-    m_s = 1,
-    km_h = 2,
-    Mi_h = 3,
-  };
-  string EditorName;
-  vec2 GlobalPosition;
-  float GlobalZIndex;
-  float GlobalScale;
-  float GlobalRotation;
-  EInterfacedValueRealSource CurrentPrimarySource;
-  EInterfacedValueRealDistanceUnit CurrentPrimaryDistanceUnit;
-  EInterfacedValueRealSpeedUnit CurrentPrimarySpeedUnit;
-  float CurrentPrimaryCustom;
-  bool HideComponentWhenPrimaryTooHigh;
-  EInterfacedValueRealSource MaxPrimarySource;
-  EInterfacedValueRealDistanceUnit MaxPrimaryDistanceUnit;
-  EInterfacedValueRealSpeedUnit MaxPrimarySpeedUnit;
-  float MaxPrimaryCustom;
-  DataRef StaticImage;
-  vec2 StaticImageSize;
-  bool StaticImageIsBackground;
-  DataRef MovingImage;
-  vec2 MovingImageSize;
-  bool ClipComponent;
-  vec2 ClipSize;
-  bool IsAngularMove;
-  bool AllowNegative;
-  vec2 BasePosition;
-  float MinAngle;
-  float MaxAngle;
-  vec2 MinPosition;
-  vec2 MaxPosition;
-  bool HideWhenNotLanding;
-  bool ColorizeMovingImage;
-  EInterfacedValueRealSource CurrentSecondarySource;
-  EInterfacedValueRealDistanceUnit CurrentSecondaryDistanceUnit;
-  EInterfacedValueRealSpeedUnit CurrentSecondarySpeedUnit;
-  float CurrentSecondaryCustom;
-  bool HideComponentWhenSecondaryTooHigh;
-  EInterfacedValueRealSource MaxSecondarySource;
-  EInterfacedValueRealDistanceUnit MaxSecondaryDistanceUnit;
-  EInterfacedValueRealSpeedUnit MaxSecondarySpeedUnit;
-  float MaxSecondaryCustom;
-  Color MinColor;
-  Color MaxColor;
-  bool ShowPrimaryValue;
-  bool HideValueWhenPrimaryTooHigh;
-  EInterfacedValueRealSource MaxPrimaryValueSource;
-  EInterfacedValueRealDistanceUnit MaxPrimaryValueDistanceUnit;
-  EInterfacedValueRealSpeedUnit MaxPrimaryValueSpeedUnit;
-  float MaxPrimaryValueCustom;
-  vec2 ValuePosition;
-  float ValueSize;
-};
-
-struct CGameModulePlaygroundPlayerStatePitchRollModel : public CGameModulePlaygroundPlayerStateComponentModel {
-  CGameModulePlaygroundPlayerStatePitchRollModel();
-
-  enum EPlayerStatePitchRollBaseType {
-    Plane = 0,
-    Helicopter = 1,
-  };
-  enum EInterfacedValueRealSource {
-    Weapon_current = 0,
-    Weapon_max = 1,
-    Weapon_grading = 2,
-    Armor_current = 3,
-    Armor_max = 4,
-    Armor_grading = 5,
-    Stamina_current = 6,
-    Stamina_max = 7,
-    Stamina_grading = 8,
-    X = 9,
-    Y = 10,
-    Z = 11,
-    Reserved9 = 12,
-    Reserved10 = 13,
-    Reserved11 = 14,
-    Reserved12 = 15,
-    Reserved13 = 16,
-    Reserved14 = 17,
-    Reserved15 = 18,
-    Reserved16 = 19,
-    Reserved17 = 20,
-    Constant = 21,
-  };
-  enum EInterfacedValueRealDistanceUnit {
-    Default = 0,
-    Meter = 1,
-    Kilometer = 2,
-    Mile = 3,
-  };
-  enum EInterfacedValueRealSpeedUnit {
-    Default = 0,
-    m_s = 1,
-    km_h = 2,
-    Mi_h = 3,
-  };
-  string EditorName;
-  vec2 GlobalPosition;
-  float GlobalZIndex;
-  float GlobalScale;
-  float GlobalRotation;
-  EInterfacedValueRealSource PitchValueSource;
-  EInterfacedValueRealDistanceUnit PitchValueDistanceUnit;
-  EInterfacedValueRealSpeedUnit PitchValueSpeedUnit;
-  float PitchValueCustom;
-  EInterfacedValueRealSource RollValueSource;
-  EInterfacedValueRealDistanceUnit RollValueDistanceUnit;
-  EInterfacedValueRealSpeedUnit RollValueSpeedUnit;
-  float RollValueCustom;
-  EPlayerStatePitchRollBaseType BaseModel;
-  float ZeroAngle;
-  float ZeroThreshold;
-  DataRef BackgroundImage;
-  DataRef VehicleImage;
-  vec2 ImagesSize;
-  Color ZeroColor;
-  Color GroundColor;
-  Color SkyColor;
-  vec2 VehiclePosition;
-  float VehiclePosAmplitude;
-  bool ShowUpDown;
-  float UpTextSize;
-  Color UpTextColor;
-  float DownTextSize;
-  Color DownTextColor;
-};
-
-struct CGameModulePlaygroundPlayerStateSimpleImageModel : public CGameModulePlaygroundPlayerStateComponentModel {
-  CGameModulePlaygroundPlayerStateSimpleImageModel();
-
-  enum EInterfacedValueRealSource {
-    Weapon_current = 0,
-    Weapon_max = 1,
-    Weapon_grading = 2,
-    Armor_current = 3,
-    Armor_max = 4,
-    Armor_grading = 5,
-    Stamina_current = 6,
-    Stamina_max = 7,
-    Stamina_grading = 8,
-    X = 9,
-    Y = 10,
-    Z = 11,
-    Reserved9 = 12,
-    Reserved10 = 13,
-    Reserved11 = 14,
-    Reserved12 = 15,
-    Reserved13 = 16,
-    Reserved14 = 17,
-    Reserved15 = 18,
-    Reserved16 = 19,
-    Reserved17 = 20,
-    Constant = 21,
-  };
-  enum EInterfacedValueRealDistanceUnit {
-    Default = 0,
-    Meter = 1,
-    Kilometer = 2,
-    Mile = 3,
-  };
-  enum EInterfacedValueRealSpeedUnit {
-    Default = 0,
-    m_s = 1,
-    km_h = 2,
-    Mi_h = 3,
-  };
-  string EditorName;
-  vec2 GlobalPosition;
-  float GlobalZIndex;
-  float GlobalScale;
-  float GlobalRotation;
-  bool IsStallingModel;
-  bool IsRotorModel;
-  vec2 ImageSize;
-  DataRef DefaultImage;
-  Color DefaultColor;
-  float DefaultRotationSpeed;
-  DataRef PrimaryImage;
-  Color PrimaryColor;
-  float PrimaryRotationSpeed;
-  DataRef SecondaryImage;
-  Color SecondaryColor;
-  float SecondaryRotationSpeed;
-};
-
-struct CGameModulePlaygroundPlayerStateMeterModel : public CGameModulePlaygroundPlayerStateComponentModel {
-  CGameModulePlaygroundPlayerStateMeterModel();
-
-  enum EInterfacedValueRealSource {
-    Weapon_current = 0,
-    Weapon_max = 1,
-    Weapon_grading = 2,
-    Armor_current = 3,
-    Armor_max = 4,
-    Armor_grading = 5,
-    Stamina_current = 6,
-    Stamina_max = 7,
-    Stamina_grading = 8,
-    X = 9,
-    Y = 10,
-    Z = 11,
-    Reserved9 = 12,
-    Reserved10 = 13,
-    Reserved11 = 14,
-    Reserved12 = 15,
-    Reserved13 = 16,
-    Reserved14 = 17,
-    Reserved15 = 18,
-    Reserved16 = 19,
-    Reserved17 = 20,
-    Constant = 21,
-  };
-  enum EInterfacedValueRealDistanceUnit {
-    Default = 0,
-    Meter = 1,
-    Kilometer = 2,
-    Mile = 3,
-  };
-  enum EInterfacedValueRealSpeedUnit {
-    Default = 0,
-    m_s = 1,
-    km_h = 2,
-    Mi_h = 3,
-  };
-  string EditorName;
-  vec2 GlobalPosition;
-  float GlobalZIndex;
-  float GlobalScale;
-  float GlobalRotation;
-  EInterfacedValueRealSource CurrentValueSource;
-  EInterfacedValueRealDistanceUnit CurrentValueDistanceUnit;
-  EInterfacedValueRealSpeedUnit CurrentValueSpeedUnit;
-  float CurrentValueCustom;
-  float MaxValue;
-  uint NbGauge; // Range: 0 - 3
-  float CircleMaxAngle;
-  float CircleOffsetAngle;
-  DataRef InnerImage;
-  DataRef MiddleImage;
-  DataRef OuterImage;
-  Color InnerColor;
-  Color MiddleColor;
-  Color OuterColor;
-  float Opacity; // Range: 0 - 1
-  bool ShowBackground;
-  Color BGColor;
-  bool ShowBar;
-  DataRef BarImage;
-  float ValueScale;
-  bool ShowUnit;
-  DataRef KMHUnitImage;
-  DataRef MiHUnitImage;
-  DataRef MSUnitImage;
-  float UnitScale;
-  bool ShowSpeedFooter;
-  DataRef SpeedFooterLineImage;
-  bool ShowCustomText;
-  string CustomText;
-  bool ShowDistanceValue;
-  bool ShowDistanceFooter;
-  DataRef DistanceFooterLineImage;
 };
 
 } // namespace GameData
