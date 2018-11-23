@@ -22424,7 +22424,7 @@ struct CGameEditorModel : public CMwNod {
   const EEditorType EditorType;
   bool AutoGenerateHelp;
   CGameManiaAppTextSet* MainPluginTextSet;
-  MwBuffer<CMwParamMwId*> SubPluginIds;
+  MwBuffer<string> SubPluginIds;
   const MwBuffer<CGameManiaAppTextSet*> SubPluginTextSets;
 };
 
