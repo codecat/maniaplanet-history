@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 1.09 (v4, Public)
+// Generated with Openplanet 1.10 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -1786,7 +1786,7 @@ struct CGameCtnMediaBlockEditorTriangles : public CGameCtnMediaBlockEditor {
   void ModeMoveVertexs();
   void ModeCreateTriangles();
   void ModeDeleteVertexs();
-  Color VertRGB;
+  vec3 VertRGB;
   float VertAlpha; // Range: 0 - 1
   float VertPosX;
   float VertPosY;
@@ -2484,9 +2484,9 @@ struct CGameHud3d : public CMwNod {
   bool DisplayEchelon;
   bool DoDistanceFade;
   float DisplaySize;
-  Color PlayerBaseTint;
+  vec3 PlayerBaseTint;
   float PlayerBaseAlpha;
-  Color MarkerBaseTint;
+  vec3 MarkerBaseTint;
   float MarkerBaseAlpha;
   float WorldCartoucheAltitude;
   float ScreenCartoucheAltitude;
@@ -2749,7 +2749,7 @@ struct CGameCtnGhost : public CGameGhost {
   wstring GhostNickname;
   wstring GhostAvatarName;
   string RecordingContext;
-  Color LightTrailColor;
+  vec3 LightTrailColor;
   const uint RaceTime; // Maniascript
   const uint NbRespawns; // Maniascript
   const uint StuntsScore; // Maniascript
@@ -2922,7 +2922,7 @@ struct CGameCtnMediaBlockTransitionFade : public CGameCtnMediaBlockTransition {
   CGameCtnMediaBlockTransitionFade();
 
   CControlBase* const Mobil;
-  Color Color;
+  vec3 Color;
 };
 
 struct CGameCtnMediaBlockUiSimpleEvtsDisplay_deprecated : public CGameCtnMediaBlockUi {
@@ -2967,7 +2967,7 @@ struct CGameCursorBlock : public CMwNod {
   AdditionalDirEnum AdditionalDir;
   float Pitch;
   float Roll;
-  Color Color;
+  vec3 Color;
   float BrightnessFactor;
   CGameOutlineBox* const CursorBox;
   CPlugTree* const CursorBoxShadow;
@@ -2977,13 +2977,13 @@ struct CGameCursorBlock : public CMwNod {
   CSceneMobil* const PickerMobil;
   CSceneMobil* const PickerHelperMobil;
   CPlugTree* const DirectionalArrow;
-  Color CanPlaceColor;
-  Color CanChangeVariantColor;
-  Color CanJoinColor;
-  Color CannotPlaceNorJoinColor;
-  Color NothingToDoColor;
-  Color GhostBlockColor;
-  Color VariantForcedColor;
+  vec3 CanPlaceColor;
+  vec3 CanChangeVariantColor;
+  vec3 CanJoinColor;
+  vec3 CannotPlaceNorJoinColor;
+  vec3 NothingToDoColor;
+  vec3 GhostBlockColor;
+  vec3 VariantForcedColor;
 };
 
 struct CGameCtnEditor : public CGameEditorParent {
@@ -3354,7 +3354,7 @@ struct CGameCtnPainter : public CMwNod {
   bool ButtonStickerModeEnabled;
   bool ButtonLayerModeEnabled;
   bool ButtonTeamModeEnabled;
-  Color PaintColor;
+  vec3 PaintColor;
   float Scale; // Range: 0 - 1
   float Angle; // Range: -3 - 3
   float Shininess; // Range: 0 - 1
@@ -5644,7 +5644,7 @@ struct CGameCtnEditorCommon : public CGameCtnEditor {
   CGameOutlineBox* const CustomSelectionBox;
   CGameOutlineBox* const OffZoneSelectionBox;
   CGameOutlineBox* const ConstraintsSelectionBox;
-  Color GridColor;
+  vec3 GridColor;
   float GridColorAlpha; // Range: 0 - 1
   string BlockEditor2_Text;
   wstring MacroDecalsEditor_Text;
@@ -6970,10 +6970,10 @@ struct CGameTeamProfile : public CMwNod {
   string PresentationManialinkUrl; // Maniascript
   string ClubLinkUrl; // Maniascript
   float ColorLinearHuePrimary; // Range: 0 - 1
-  const Color ColorPrimaryAsColor;
+  const vec3 ColorPrimaryAsColor;
   vec3 ColorPrimary; // Maniascript
   float ColorLinearHueSecondary; // Range: 0 - 1
-  const Color ColorSecondaryAsColor;
+  const vec3 ColorSecondaryAsColor;
   vec3 ColorSecondary; // Maniascript
   const wstring ColorText; // Maniascript
   const wstring ColorizedName; // Maniascript
@@ -7415,7 +7415,7 @@ struct CGameEditorPacks : public CMwNod {
   string TitleMenu_ManialinkUrl;
   void TitleMenu_ChooseManialinkUrl();
   void TitleMenu_ClearManialinkUrl();
-  Color TitleMenu_Color;
+  vec3 TitleMenu_Color;
   const wstring TitleEditor_MapType;
   void TitleEditor_ChooseMapType();
   void TitleEditor_ClearMapType();
@@ -7967,27 +7967,27 @@ struct CGameScriptChatEvent : public CScriptBaseConstEvent {
 struct CGameManialink3dMood : public CMwNod {
   CGameManialink3dMood();
 
-  Color LAmbient_LinearRgb;
-  Color LDir0_LinearRgb;
+  vec3 LAmbient_LinearRgb;
+  vec3 LDir0_LinearRgb;
   float LDir0_Intens;
   float LDir0_DirTheta; // Range: 0 - 180
   float LDir0_DirPhi; // Range: -180 - 180
-  Color LDir1_LinearRgb;
+  vec3 LDir1_LinearRgb;
   float LDir1_Intens;
   float LDir1_DirTheta; // Range: 0 - 180
   float LDir1_DirPhi; // Range: -180 - 180
-  Color LBall_LinearRgb;
+  vec3 LBall_LinearRgb;
   float LBall_Intens;
   float LBall_Radius;
-  Color CloudsRgbMinLinear;
+  vec3 CloudsRgbMinLinear;
   float CloudsRgbMinScale;
-  Color CloudsRgbMaxLinear;
+  vec3 CloudsRgbMaxLinear;
   float CloudsRgbMaxScale;
-  Color FogColorSrgb;
+  vec3 FogColorSrgb;
   float SkyGradientV_Scale;
   CPlugFileImg* FidImageSkyGradientV;
   CPlugFileImg* FidImageCloudsMinMaxDayTime;
-  Color SelfIllumColor;
+  vec3 SelfIllumColor;
 };
 
 struct CGameManialink3dWorld : public CMwNod {
@@ -11641,13 +11641,13 @@ namespace Graphic {
 struct GxLight : public CMwNod {
   GxLight();
 
-  Color Color;
+  vec3 Color;
   float Intensity; // Range: 0 - 1
   float DiffuseIntensity; // Range: 0 - 1
   float SpecularIntens;
   float SpecularPower;
   float ShadowIntensity; // Range: 0 - 1
-  Color ShadowRGB;
+  vec3 ShadowRGB;
   bool DoLighting;
   bool LightMapOnly;
   bool IsInversed;
@@ -11667,7 +11667,7 @@ struct GxLight : public CMwNod {
 struct GxLightBall : public GxLightPoint {
   GxLightBall();
 
-  Color AmbientRGB;
+  vec3 AmbientRGB;
   float Radius; // Range: 0.01 - 50
   bool CustomRadiusSpecular;
   float RadiusSpecular; // Range: 0.01 - 50
@@ -11714,8 +11714,8 @@ struct GxLightNotAmbient : public GxLight {
 struct GxLightDirectional : public GxLightNotAmbient {
   GxLightDirectional();
 
-  Color DblSidedRGB;
-  Color ReverseRGB;
+  vec3 DblSidedRGB;
+  vec3 ReverseRGB;
   float ReverseIntens; // Range: 0 - 1
   float EmittAngularSize;
   float FlareAngularSize;
@@ -11900,8 +11900,8 @@ struct CFuncLight : public CFuncPlug {
 struct CFuncLightColor : public CFuncLight {
   CFuncLightColor();
 
-  Color Color0;
-  Color Color1;
+  vec3 Color0;
+  vec3 Color1;
   CPlugFileImg* Image;
 };
 
@@ -12001,13 +12001,13 @@ struct CFuncWeather : public CFunc {
   CMwNod* SceneFxFid;
   float CameraFarZ;
   bool FogByVertex;
-  Color FogRGB;
+  vec3 FogRGB;
   _EEGxFogFormula FogFormula;
   _EEGxFogSpace FogSpace;
   float FogLinearStart;
   float FogLinearEnd;
   float FogExpDensity;
-  Color DayFogColor;
+  vec3 DayFogColor;
   float DayFogStart;
   float DayFogEnd;
   float DayFogDensity;
@@ -12023,8 +12023,8 @@ struct CFuncWeather : public CFunc {
   float SeaTwkReflecIntensTMDay; // Range: 0 - 1
   float SeaTwkReflecIntensTMmidNight; // Range: 0 - 1
   float SeaTwkReflecIntensTMmidDay; // Range: 0 - 1
-  Color SeaTwkWaterColor_Night;
-  Color SeaTwkWaterColor_Day;
+  vec3 SeaTwkWaterColor_Night;
+  vec3 SeaTwkWaterColor_Day;
 };
 
 // File extension: 'FuncPuffLull.Gbx'
@@ -12075,10 +12075,10 @@ struct CFuncColorGradient : public CFunc {
   CFuncColorGradient();
 
   UnnamedEnum ColorSpace;
-  Color KeyFrameValue0;
-  Color KeyFrameValue1;
-  Color KeyFrameValue2;
-  Color KeyFrameValue3;
+  vec3 KeyFrameValue0;
+  vec3 KeyFrameValue1;
+  vec3 KeyFrameValue2;
+  vec3 KeyFrameValue3;
   float KeyFramePos1;
   float KeyFramePos2;
 };
@@ -12087,10 +12087,10 @@ struct CFuncColorGradient : public CFunc {
 struct CFuncFullColorGradient : public CFunc {
   CFuncFullColorGradient();
 
-  Color KeyFrameValue0;
-  Color KeyFrameValue1;
-  Color KeyFrameValue2;
-  Color KeyFrameValue3;
+  vec3 KeyFrameValue0;
+  vec3 KeyFrameValue1;
+  vec3 KeyFrameValue2;
+  vec3 KeyFrameValue3;
   float KeyFramePos1;
   float KeyFramePos2;
 };
@@ -12180,7 +12180,7 @@ struct CHmsCamera : public CHmsPoc {
   void ResetLocation();
   bool IsOverlay3d;
   bool ClearColorEnable;
-  Color ClearColor;
+  vec3 ClearColor;
   bool UseZBuffer;
   bool ScissorEnable;
   bool FovRectEnable;
@@ -12282,7 +12282,7 @@ struct CHmsZone : public CMwNod {
 
   MwBufferCat<CHmsCorpus*> CorpusCats;
   bool FogByVertex;
-  Color FogRGB;
+  vec3 FogRGB;
   _EEGxFogFormula FogFormula;
   _EEGxFogSpace FogSpace;
   float FogLinearStart;
@@ -12436,7 +12436,7 @@ struct CHmsZoneOverlay : public CHmsZone {
   bool DescIsClearColorEnable;
   bool DescIsClearDepthEnable;
   bool DescIsClearStencilEnable;
-  Color DescClearColor;
+  vec3 DescClearColor;
   MwBuffer<CHmsCorpus*> CorpusVisibles;
   UnnamedEnum RectContext;
   CHmsCamera* In3d_Camera;
@@ -12862,7 +12862,7 @@ struct CControlLabel : public CControlText {
   wstring Label;
   CPlugBitmap* Bitmap;
   CPlugShaderApply* ExternalShader;
-  Color ImageColor;
+  vec3 ImageColor;
   float ImageAlpha; // Range: 0 - 1
   bool DontDrawText;
 };
@@ -12980,7 +12980,7 @@ struct CControlEffectSimi : public CControlEffect {
   float Depth;
   float Opacity;
   float ColorBlend;
-  Color Color;
+  vec3 Color;
 };
 
 // File extension: 'ControlEffect.Gbx'
@@ -13011,9 +13011,9 @@ struct CControlUiRange : public CControlBase {
   bool DrawBlockBackground;
   MwId IconId;
   bool CenteredBar;
-  Color Color;
+  vec3 Color;
   float ColorAlpha; // Range: 0 - 1
-  Color Color2;
+  vec3 Color2;
   float Color2Alpha; // Range: 0 - 1
   float Ratio; // Range: 0 - 1
   uint UnitMax;
@@ -13066,19 +13066,19 @@ struct CControlStyle : public CPlug {
   float FontHeight;
   float FontRatioXY;
   UnnamedEnum LabelColorFromPalette;
-  Color LabelColor;
+  vec3 LabelColor;
   float LabelColorAlpha; // Range: 0 - 1
   bool LabelForceEmbossed;
   bool LabelDisableSqueeze;
   wstring LabelCharAttributes;
   UnnamedEnum EditableColorFromPalette;
-  Color EditableColor;
+  vec3 EditableColor;
   float EditableColorAlpha; // Range: 0 - 1
   bool EditableForceEmbossed;
   bool EditableDisableSqueeze;
   wstring EditableCharAttributes;
   UnnamedEnum GrayedColorFromPalette;
-  Color GrayedColor;
+  vec3 GrayedColor;
   float GrayedColorAlpha; // Range: 0 - 1
   bool GrayedForceEmbossed;
   bool GrayedDisableSqueeze;
@@ -13106,15 +13106,15 @@ struct CControlStyle : public CPlug {
   bool QuadIsLines;
   bool QuadIsFill;
   float QuadZLines;
-  Color QuadGradientColor0;
+  vec3 QuadGradientColor0;
   float QuadGradientColor0Alpha; // Range: 0 - 1
-  Color QuadGradientColor1;
+  vec3 QuadGradientColor1;
   float QuadGradientColor1Alpha; // Range: 0 - 1
-  Color LineGradientColor0;
+  vec3 LineGradientColor0;
   float LineGradientColor0Alpha; // Range: 0 - 1
-  Color LineGradientColor1;
+  vec3 LineGradientColor1;
   float LineGradientColor1Alpha; // Range: 0 - 1
-  Color QuadLinesColor;
+  vec3 QuadLinesColor;
   float QuadLinesColorAlpha; // Range: 0 - 1
   vec2 Quad_UvTopLeft;
   vec2 Quad_UvBottomRight;
@@ -13154,7 +13154,7 @@ struct CControlQuad : public CControlBase {
   bool IsFill;
   UnnamedEnum GradientDir;
   MwId IconId;
-  Color IconVertexColors;
+  vec3 IconVertexColors;
   float IconVertexAlpha; // Range: 0 - 1
 };
 
@@ -13183,7 +13183,7 @@ struct CControlColorChooser : public CControlFrame {
 
   UnnamedEnum StyleType;
   vec2 ColorChooserSize;
-  Color Color;
+  vec3 Color;
   const float Hue; // Range: 0 - 1
   CPlugShader* ColorChooserShader;
 };
@@ -13191,7 +13191,7 @@ struct CControlColorChooser : public CControlFrame {
 struct CControlColorChooser2 : public CControlFrame {
   CControlColorChooser2();
 
-  Color Color;
+  vec3 Color;
   CControlColorChooser* const ColorChooserHue;
   CControlColorChooser* const ColorChooserSV;
 };
@@ -13225,18 +13225,18 @@ struct CControlTimeLine2 : public CControlBase {
   float KeyWidth;
   float KeyHighLightHeight;
   float KeyHighLightWidth;
-  Color RulerLinesColorBig;
-  Color RulerLinesColorSmall;
-  Color TrackSeparationColor;
-  Color BlockColor;
-  Color TimeCursorLineColor;
-  Color BgColor;
-  Color RulerBgColor;
-  Color BlockHighLightColor;
-  Color KeyColor;
-  Color KeyHighLightColor;
-  Color KeyFocusColor;
-  Color DeadZoneColor;
+  vec3 RulerLinesColorBig;
+  vec3 RulerLinesColorSmall;
+  vec3 TrackSeparationColor;
+  vec3 BlockColor;
+  vec3 TimeCursorLineColor;
+  vec3 BgColor;
+  vec3 RulerBgColor;
+  vec3 BlockHighLightColor;
+  vec3 KeyColor;
+  vec3 KeyHighLightColor;
+  vec3 KeyFocusColor;
+  vec3 DeadZoneColor;
   void CreateSampleData();
   float Time;
 };
@@ -13277,7 +13277,7 @@ struct CControlStyleSheet : public CPlug {
   CControlStyle* PagerIconStyle;
   CControlStyle* PagerTextStyle;
   CControlStyle* PagerTextBackgroundStyle;
-  MwArray<Color> Colors;
+  MwArray<vec3> Colors;
   MwArray<float> ColorsAlpha;
 };
 
@@ -13352,15 +13352,15 @@ struct CControlScriptEditor : public CControlBase {
 
   wstring Text;
   bool ShowLineNumbers;
-  Color ShowLineNuKeywordColormbers;
-  Color OperatorColor;
-  Color ConstantColor;
-  Color CommentColor;
-  Color ClassNameColor;
-  Color IdentColor;
-  Color OthersColor;
-  Color DirectiveColor;
-  Color UnexpectedColor;
+  vec3 ShowLineNuKeywordColormbers;
+  vec3 OperatorColor;
+  vec3 ConstantColor;
+  vec3 CommentColor;
+  vec3 ClassNameColor;
+  vec3 IdentColor;
+  vec3 OthersColor;
+  vec3 DirectiveColor;
+  vec3 UnexpectedColor;
   string Colors;
 };
 
@@ -13829,7 +13829,7 @@ struct CPlugBitmap : public CPlug {
   float HeightInMeters;
   bool Force1stPixelAlpha0;
   bool ForceBorderRGB;
-  Color BorderRGB;
+  vec3 BorderRGB;
   bool ForceBorderAlpha;
   float BorderAlpha; // Range: 0 - 1
   EForceBorderSize ForceBorderSize;
@@ -13873,7 +13873,7 @@ struct CPlugBitmap : public CPlug {
   uint MultiSampleCount;
   bool RenderExplicitMip;
   bool RenderCreateClear;
-  Color DefaultRenderClearRGB;
+  vec3 DefaultRenderClearRGB;
   float DefaultRenderClearAlpha; // Range: 0 - 1
   bool DepthUseStencil;
   bool DepthCanSwap;
@@ -13881,9 +13881,9 @@ struct CPlugBitmap : public CPlug {
   EPixelUpdate PixelUpdate;
   EDynamic Dynamic;
   bool Convert_2d_To_1d;
-  Color SpecularRGB;
+  vec3 SpecularRGB;
   float SpecularExp; // Range: 1 - 50
-  Color ClearRGB;
+  vec3 ClearRGB;
   float ClearAlpha; // Range: 0 - 1
   CPlugBitmapRender* Render;
   CPlugBitmapShader* Shader;
@@ -14343,7 +14343,7 @@ struct CPlugTreeGenText : public CPlugTreeGenerator {
 
   wstring Text;
   CPlugFont* Font;
-  Color Color;
+  vec3 Color;
   float Height;
   float RatioXY;
   UnnamedEnum AlignHorizontal;
@@ -14853,9 +14853,9 @@ struct CPlugMaterialFxFur : public CPlugMaterialFx {
 
   uint ShellCount;
   float ShellThick;
-  Color ShellLowRGB;
+  vec3 ShellLowRGB;
   float ShellLowAlpha;
-  Color ShellHighRGB;
+  vec3 ShellHighRGB;
   float ShellHighAlpha;
   uint FenceCount;
   float FenceHeight;
@@ -14882,7 +14882,7 @@ struct CPlugBitmapSampler : public CPlug {
   _EEGxTexAddress TexAddressU;
   _EEGxTexAddress TexAddressV;
   _EEGxTexAddress TexAddressW;
-  Color BorderRGB;
+  vec3 BorderRGB;
   float BorderAlpha; // Range: 0 - 1
   const bool SynchNameWithShader;
   float MipMapLodBias;
@@ -15016,7 +15016,7 @@ struct CPlugBitmapRender : public CPlug {
   bool OnePixBorder;
   bool UseZBuffer;
   _ECPlugBitmapRender__ETrigger TriggerClearRGBA;
-  Color ClearRGB;
+  vec3 ClearRGB;
   float ClearAlpha; // Range: 0 - 1
   UnnamedEnum ClearFogColor;
   bool IgnoreClearBitmap;
@@ -15605,7 +15605,7 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   float SimulatedSmokeParticlePositionRandomRadius;
   float SimulatedSmokeParticlePositionRandomness;
   float SimulatedSmokeParticleLifeDistance;
-  Color SimulatedSmokeParticleBaseColor;
+  vec3 SimulatedSmokeParticleBaseColor;
   CFuncKeysReal* SimulatedSmokeFilamentStrengthOverLife;
   float SimulatedSmokeFilamentBaseStrength;
   float SimulatedSmokeFilamentPositionRandomRadius;
@@ -15614,8 +15614,8 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   float EmitStateFromImpactDirTangentialCoef;
   float LaserLength; // Range: 0.1 - 10
   float LaserRadius; // Range: 0.01 - 3
-  Color LaserColorCenter;
-  Color LaserColorBorder;
+  vec3 LaserColorCenter;
+  vec3 LaserColorBorder;
   float LaserColorLerpPow; // Range: 1 - 10
   float LaserColorCenterMultiplier;
   float LaserColorBorderMultiplier;
@@ -16142,7 +16142,7 @@ struct CPlugAnimLocSimple : public CMwNod {
 struct CPlugLightUserModel : public CMwNod {
   CPlugLightUserModel();
 
-  Color Color;
+  vec3 Color;
   float Intensity;
   float Distance;
   float PointEmissionRadius;
@@ -16337,14 +16337,14 @@ struct CPlugBeamEmitterSubModel : public CMwNod {
   float BeamWithSpheres_DistLOD;
   uint BeamWithSpheres_MaxDetailedRailsCount;
   float BeamWithSpheres_Speed;
-  Color ColorCenter;
-  Color ColorBorder;
+  vec3 ColorCenter;
+  vec3 ColorBorder;
   float ColorLerpPow; // Range: 1 - 10
   float ColorCenterMultiplier;
   float ColorBorderMultiplier;
   float LaserRadius;
-  Color TriColorCenter;
-  Color TriColorBorder;
+  vec3 TriColorCenter;
+  vec3 TriColorBorder;
   float TriColorLerpPow; // Range: 1 - 10
   float TriColorCenterMultiplier;
   float TriColorBorderMultiplier;
@@ -17098,7 +17098,7 @@ struct CScene3d : public CScene {
   float CameraFarZ;
   float EdCamFocusZ;
   float EdCamLensSize;
-  Color CameraClearColor;
+  vec3 CameraClearColor;
   CMwNod* SceneFxMgr;
 };
 
@@ -17150,11 +17150,11 @@ struct CSceneFxColors : public CSceneFxCompo {
   float ParamSaturation; // Range: -1 - 1
   float ParamBrightness; // Range: -1 - 1
   float ParamContrast; // Range: -1 - 1
-  Color ParamModulateRGB;
+  vec3 ParamModulateRGB;
   float ParamModulateR; // Range: 0 - 1
   float ParamModulateG; // Range: 0 - 1
   float ParamModulateB; // Range: 0 - 1
-  Color ParamBlendRGB;
+  vec3 ParamBlendRGB;
   float ParamBlendAlpha; // Range: 0 - 1
   bool ParamUserEnable;
   float UserIntensity; // Range: 0 - 1
@@ -17167,11 +17167,11 @@ struct CSceneFxColors : public CSceneFxCompo {
   float ParamZFarSaturation; // Range: -1 - 1
   float ParamZFarBrightness; // Range: -1 - 1
   float ParamZFarContrast; // Range: -1 - 1
-  Color ParamZFarModulateRGB;
+  vec3 ParamZFarModulateRGB;
   float ParamZFarModulateR; // Range: 0 - 1
   float ParamZFarModulateG; // Range: 0 - 1
   float ParamZFarModulateB; // Range: 0 - 1
-  Color ParamZFarBlendRGB;
+  vec3 ParamZFarBlendRGB;
   float ParamZFarBlendAlpha; // Range: 0 - 1
   CPlugMaterial* MaterialColors;
   CPlugShaderApply* ShaderAutoSaturateWithLight;
@@ -17590,7 +17590,7 @@ struct CSceneMgrWeather : public CMwNod {
   float SiteLatitude; // Range: -90 - 90
   float TimeRemapped; // Range: 0 - 1
   _EEClearMode ClearMode;
-  Color ClearColor;
+  vec3 ClearColor;
   float SunIntensity;
   float MoonIntensity;
   bool EnableUpdate;
@@ -21164,7 +21164,7 @@ struct CSmPlayer : public CGamePlayer {
   uint EdClan;
   bool Speaking;
   float LinearHue; // Range: 0 - 1
-  const Color LinearHueSrgb;
+  const vec3 LinearHueSrgb;
   const int SpawnIndex;
   uint FocusableEntitySceneUId;
   CSmArenaScore* const Score;
@@ -22585,26 +22585,26 @@ struct CGameModulePlaygroundTeamStateModel : public CGameModulePlaygroundModel {
   bool UseCustomActiveBackground;
   DataRef CustomActiveBackground;
   bool UseCustomActiveColor;
-  Color ActiveColor;
+  vec3 ActiveColor;
   float ActiveColorOpacity; // Range: 0 - 1
   bool UseCustomInactiveBackground;
   DataRef CustomInactiveBackground;
   bool UseCustomInactiveColor;
-  Color InactiveColor;
+  vec3 InactiveColor;
   float InactiveColorOpacity; // Range: 0 - 1
   DataRef Team1Emblem;
   DataRef Team1Outline;
   bool Team1UseDefaultColors;
-  Color Team1PrimaryColor;
+  vec3 Team1PrimaryColor;
   float Team1PrimaryColorOpacity; // Range: 0 - 1
-  Color Team1SecondaryColor;
+  vec3 Team1SecondaryColor;
   float Team1SecondaryColorOpacity; // Range: 0 - 1
   DataRef Team2Emblem;
   DataRef Team2Outline;
   bool Team2UseDefaultColors;
-  Color Team2PrimaryColor;
+  vec3 Team2PrimaryColor;
   float Team2PrimaryColorOpacity; // Range: 0 - 1
-  Color Team2SecondaryColor;
+  vec3 Team2SecondaryColor;
   float Team2SecondaryColorOpacity; // Range: 0 - 1
   DataRef Echelon1Image;
   DataRef Echelon2Image;
@@ -22695,7 +22695,7 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
   SpeedUnit GradingSpeedUnit;
   float GradingCustom;
   bool GaugeUseDefaultColor;
-  Color GaugeCustomColor;
+  vec3 GaugeCustomColor;
   bool ShowValue;
   Direction ValuePosition;
   vec2 ValueRelativePosition;
@@ -22704,14 +22704,14 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
   bool ShowMaxValue;
   float MaxValueSize;
   bool ValueUseDefaultColor;
-  Color ValueCustomColor;
+  vec3 ValueCustomColor;
   bool ShowBackground;
   vec2 BackgroundRelativePosition;
   float BackgroundRotation;
   vec2 BackgroundSize;
   DataRef BackgroundImage;
   bool BackgroundUseDefaultColor;
-  Color BackgroundCustomColor;
+  vec3 BackgroundCustomColor;
   bool ShowIcon;
   Direction IconPosition;
   vec2 IconRelativePosition;
@@ -22719,7 +22719,7 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
   float IconScale;
   DataRef IconImage;
   bool IconUseDefaultColor;
-  Color IconCustomColor;
+  vec3 IconCustomColor;
   bool ShowIconBackground;
   float IconBackgroundScale;
   DataRef IconBackgroundImage;
@@ -22749,7 +22749,7 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
   float CustomTextRotation;
   float CustomTextSize;
   bool CustomTextUseDefaultColor;
-  Color CustomTextCustomColor;
+  vec3 CustomTextCustomColor;
 };
 
 // File extension: 'PixelArt.Gbx'
@@ -22885,16 +22885,16 @@ struct CGameModulePlaygroundPlayerStateListModel : public CGameModulePlaygroundP
   DataRef WeaponRocketImage;
   vec2 ItemIconSize;
   bool IconUseDefaultColor;
-  Color IconCustomColor;
+  vec3 IconCustomColor;
   bool ShowItemValue;
   vec2 ItemValuePosition;
   float ItemValueSize;
   bool ValueUseDefaultColor;
-  Color ValueCustomColor;
+  vec3 ValueCustomColor;
   bool ShowBackground;
   float BackgroundBorderSize;
   bool BackgroundUseDefaultColor;
-  Color BackgroundCustomColor;
+  vec3 BackgroundCustomColor;
   float BackgroundOpacity; // Range: 0 - 1
 };
 
