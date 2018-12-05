@@ -1160,7 +1160,6 @@ struct CGameResources : public CMwNod {
   CPlugShaderApply* OffZoneSurfaceShaderFid;
   CPlugShaderApply* OffZoneLayerShaderFid;
   CGameEditorModel* DefaultEditorMeshFid;
-  CGameEditorModel* DefaultEditorMeshFid_Voxel;
   CGameEditorModel* DefaultEditorEditorFid;
   CGameEditorModel* DefaultEditorVehicleFid;
   CGameEditorModel* DefaultEditorModuleFid;
@@ -2939,7 +2938,7 @@ struct CGameCtnMediaClipViewer : public CGameSwitcherModule {
   CGameCtnMediaClipGroup* const ClipGroup;
   CGameCtnMediaClip* const ClipGroupClip;
   CGameCtnMediaClipPlayer* const ClipGroupPlayer;
-  uint ClipGroupIndex;
+  uint ClipIndexInGroup;
   float ClipGroupStartTime;
 };
 
@@ -3084,7 +3083,6 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   const bool ClipKeepPlaying;
   const bool ClipIsCycling;
   bool ClipIsInside;
-  bool ClipIsScriptEvent;
   bool ClipStopOnRespawn;
   _EClipTriggerCond ClipTriggerCond;
   float ClipTriggerCondValue;
@@ -5427,8 +5425,8 @@ struct CGamePlaygroundUIConfig : public CMwNod {
 // Description: ""
 struct CGameManialinkFrame : public CGameManialinkControl {
   const MwBuffer<CGameManialinkControl*> Controls; // Maniascript
-  const MwBuffer<CGameManialinkControl*> SubChildsCache; // Maniascript
   const MwBuffer<CGameManialinkControl*> ControlsCache; // Maniascript
+  const MwBuffer<CGameManialinkControl*> SubChildsCache; // Maniascript
   CGameManialinkControl* GetFirstChild(string ControlId); // Maniascript
   bool ClipWindowActive; // Maniascript
   vec2 ClipWindowRelativePosition; // Maniascript
@@ -7179,7 +7177,6 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   void SetMapStyle(wstring MapStyle); // Maniascript
   const MwBuffer<CGameCtnEditorScriptAnchoredObject*> Items; // Maniascript
   const MwBuffer<wstring> MediatrackIngameClips; // Maniascript
-  const MwBuffer<wstring> MediatrackIngameIsScriptClips; // Maniascript
   uint MediatrackIngameEditedClipIndex; // Maniascript
   const MwBuffer<CGameCtnBlock*> Blocks; // Maniascript
   const MwBuffer<CGameCtnBlockInfo*> BlockModels; // Maniascript
@@ -9181,17 +9178,17 @@ struct CGameEditorModule : public CGameCtnEditor {
   string EditPageName;
   MwBuffer<string> EditedPageButtonsValues;
   void NewModule(EModuleType ModuleType); // Maniascript
-  void OpenModule(wstring Url); // Maniascript
+  void OpenModule(wstring Path); // Maniascript
   void Save(); // Maniascript
-  void SaveAs(wstring Url); // Maniascript
-  void SaveCopyAs(wstring Url); // Maniascript
+  void SaveAs(wstring Path); // Maniascript
+  void SaveCopyAs(wstring Path); // Maniascript
   void ForceExit(); // Maniascript
   CGameModuleMenuModel* const EditedMenu; // Maniascript
   CGameModuleMenuPageModel* const EditedMenuPage; // Maniascript
   CGameModulePlaygroundPlayerStateModel* const EditedPlaygroundPlayerState; // Maniascript
   CGameModulePlaygroundHudModel* const EditedPlaygroundHud; // Maniascript
   void EditedPlaygroundHud_SetPreviewContext(MwId ContextId); // Maniascript
-  MwBuffer<float>& GetControlRect(MwId ModuleId); // Maniascript
+  bool GetControlRect(MwId ElementId, vec2 Center, vec2 Size); // Maniascript
   void FileBrowser_Open(); // Maniascript
   const bool FileBrowser_IsRunning; // Maniascript
   const wstring FileBrowser_FilePath; // Maniascript
@@ -18895,8 +18892,7 @@ struct CNetHttpResult : public CMwNod {
 struct CNetMasterServer : public CMwNod {
   string GameVersion;
   const MwBuffer<CNetMasterServerUserInfo*> MasterServerUserInfos;
-  const MwBuffer<CNetHttpClient*> MasterServerHttpClients;
-  const MwBuffer<CNetHttpClient*> OtherHttpClients;
+  const MwBuffer<CNetHttpClient*> HttpClientCache;
   const MwBuffer<CNetMasterServerDownload*> Downloads;
   const MwBuffer<CNetMasterServerDownload*> CurrentDownloads;
   const MwBuffer<CNetHttpClient*> HttpDownloadClients;
