@@ -10664,7 +10664,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const uint VertexCount; // Maniascript
   const uint EdgeCount; // Maniascript
   const uint FaceCount; // Maniascript
-  void EditionBox_SetScale(float Scale); // Maniascript
+  void EditionBox_SetStep(float Step); // Maniascript
   const bool EditionBox_IsPlaneOriented; // Maniascript
   const float Scale; // Maniascript
   const float Step; // Maniascript
@@ -17313,6 +17313,7 @@ struct CSceneMgrCharVis : public CSceneMgrVis {
   float TacticalFxMinDotN;
   float TacticalFxIntens;
   uint LodMaxVert;
+  bool ForceHideShield;
 };
 
 struct CSceneMgrAnim : public CMwNod {
