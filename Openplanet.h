@@ -10618,7 +10618,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Layers_EditMaskValidate(uint LayerIndex); // Maniascript
   void Layers_MoveSelectedLayerUp(); // Maniascript
   void Layers_MoveSelectedLayerDown(); // Maniascript
-  void Layers_EditSelectedLayer(); // Maniascript
+  void Layers_EditSelectedLayer(bool RegenerateSolid); // Maniascript
   void Layers_CloseEditSelectedLayer(); // Maniascript
   void Layers_DeleteSelectedLayer(); // Maniascript
   uint Transitions_GetCount(); // Maniascript
