@@ -9788,6 +9788,8 @@ struct CGamePlaygroundModuleServerScoresTable : public CGamePlaygroundModuleServ
   void SetColumnValueReal(CGamePlaygroundScore* Score, string ColumnId, float ColumnValue); // Maniascript
   void SetColumnVisibility(EColumnType Type, bool Visibility); // Maniascript
   void SetCustomColumnVisibility(string ColumnId, bool Visibility); // Maniascript
+  void SetColor(CGamePlaygroundScore* Score, vec3 Color); // Maniascript
+  void ResetColor(CGamePlaygroundScore* Score); // Maniascript
 };
 
 struct CWebServicesTaskResult_RealLeaderBoardInfoList : public CWebServicesTaskResult {
@@ -10864,6 +10866,9 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Prefabs_Reload(); // Maniascript
   void Prefab_Export(); // Maniascript
   void Prefab_Import(uint PrefabIndex); // Maniascript
+  bool Parts_CanMergeParts(); // Maniascript
+  bool Parts_CanGroupParts(); // Maniascript
+  bool Parts_CanUngroupParts(); // Maniascript
   void Parts_MergeSelectedParts(); // Maniascript
   void Parts_Group(); // Maniascript
   void Parts_UngroupSelectedParts(); // Maniascript
