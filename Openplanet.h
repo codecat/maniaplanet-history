@@ -8182,7 +8182,7 @@ struct CGamePlaygroundResources : public CMwNod {
 struct CGameMgrObjectPhy : public CSceneMgrPhy {
 };
 
-struct CGameMgrActionFxVis : public CMwNod {
+struct CGameMgrActionFxVis : public CSceneMgrVis {
   const uint cActionFxVis;
 };
 
