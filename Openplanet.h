@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 1.10 (v4, Public)
+// Generated with Openplanet 1.11.6 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -731,7 +731,7 @@ struct CGameNetPlayerInfo : public CMwNod {
     LocalWatcher = 2,
     Target = 3,
   };
-  const uint DbgPlayerUid;
+  const uint DbgClientUId;
   bool Live_IsRegisteredToMasterServer;
   bool Live_HasRetrieveTimeLeft;
   const bool Live_Updating;
@@ -1676,6 +1676,7 @@ struct CGameCtnChallengeInfo : public CGameFid {
   const uint TMObjective_GoldTime; // Maniascript
   const uint TMObjective_SilverTime; // Maniascript
   const uint TMObjective_BronzeTime; // Maniascript
+  const uint TMObjective_NbLaps; // Maniascript
   const bool TMObjective_IsLapRace; // Maniascript
   const wstring NameForUi;
   const string CopperString;
@@ -2468,7 +2469,7 @@ struct CGameCtnMediaClipPlayer : public CMwNod {
   CGameCtnMediaClip* const Clip;
   CScene2d* const Scene2d;
   const MwBuffer<CGameCtnMediaTrack*> EdMediaTracks;
-  const uint LocalPlayerSceneUId;
+  const uint LocalPlayerUId;
 };
 
 struct CGameCtnMediaBlockEvent_deprecated : public CGameCtnMediaBlock {
@@ -5987,6 +5988,10 @@ struct CGameServerPlugin : public CMwNod {
   const uint Now; // Maniascript
   const MwBuffer<CGameServerPluginEvent*> PendingEvents; // Maniascript
   void TriggerModeScriptEvent2(wstring Type, MwBuffer<wstring>& Data); // Maniascript
+  void SendModeScriptCommandBoolean(string CommandName, bool BoolVal); // Maniascript
+  void SendModeScriptCommandInteger(string CommandName, int IntVal); // Maniascript
+  void SendModeScriptCommandReal(string CommandName, float RealVal); // Maniascript
+  void SendModeScriptCommandText(string CommandName, wstring TextVal); // Maniascript
   const bool MapLoaded; // Maniascript
   const bool MapUnloadRequested; // Maniascript
   const MwBuffer<CGameCtnChallengeInfo*> MapList; // Maniascript
@@ -6866,7 +6871,6 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
   void AddSubMapSpot();
   void RemoveLastSubMapSpot();
   MwBuffer<iso4> SubMapSpot_Locations;
-  MwBuffer<UnnamedEnum> SubMapSpot_EnvironmentIds;
   CPlugSolid* HelperSolidFid;
   CPlugSolid* FacultativeHelperSolidFid;
   CMwNod* WaypointTriggerSolid;
@@ -10869,6 +10873,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   bool Parts_CanMergeParts(); // Maniascript
   bool Parts_CanGroupParts(); // Maniascript
   bool Parts_CanUngroupParts(); // Maniascript
+  int3 Parts_GetOpsState(); // Maniascript
   void Parts_MergeSelectedParts(); // Maniascript
   void Parts_Group(); // Maniascript
   void Parts_UngroupSelectedParts(); // Maniascript
@@ -18922,7 +18927,7 @@ struct CNetFileTransfer : public CMwNod {
   const bool WaitForDownload;
   const string IPAddress;
   const uint P2PKey;
-  const uint PlayerUId;
+  const uint ClientUId;
   const bool IsServer;
   const uint UploadRate;
   const uint DownloadRate;
@@ -19100,7 +19105,7 @@ struct CNetIPSource : public CMwNod {
   const bool IsServer;
   const bool IsUploadEnabled;
   const uint P2PKey;
-  const uint PlayerUId;
+  const uint ClientUId;
   CNetConnection* const GameConnection;
   CNetConnection* const ConnectionFrom;
   CNetConnection* const ConnectionTo;
@@ -19176,8 +19181,7 @@ struct CNetMasterServerDownload : public CMwNod {
   const uint Port;
   const _EContext Context;
   const uint Offset;
-  const bool IsPost;
-  const bool IsPut;
+  const _EUploadMethod UploadMethod;
   const uint TotalSize;
   const uint DownloadStartTime;
   const uint DownloadingTime;
