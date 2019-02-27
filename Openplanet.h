@@ -1875,6 +1875,24 @@ struct CGameDisplaySettingsWrapper : public CMwNod {
     WebP = 1,
     TGA = 2,
   };
+  enum ERealtimeSSAA {
+    Disabled = 0,
+    _2Renders = 1,
+    _3Renders = 2,
+    _4Renders = 3,
+    _5Renders = 4,
+    _6Renders = 5,
+    _7Renders = 6,
+    _8Renders = 7,
+    _9Renders = 8,
+  };
+  enum ERealtimeSSAA_Motion {
+    Disabled = 0,
+    _1Frame = 1,
+    _2Frames = 2,
+    _3Frames = 3,
+    _4Frames = 4,
+  };
   const uint DirtyCounter; // Maniascript
   string DeviceInfo; // Maniascript
   EDisplayMode DisplayMode; // Maniascript
@@ -1897,6 +1915,9 @@ struct CGameDisplaySettingsWrapper : public CMwNod {
   EFxMotionBlur FxMotionBlur; // Maniascript
   float FxMotionBlurIntens; // Range: 0 - 1 // Maniascript
   EScreenshotExt ScreenshotExt; // Maniascript
+  ERealtimeSSAA RealtimeSSAA; // Maniascript
+  ERealtimeSSAA_Motion RealtimeSSAA_Motion; // Maniascript
+  uint RealtimeSSAA_MinimumFps; // Maniascript
 };
 
 // Description: "The model of a map block"
