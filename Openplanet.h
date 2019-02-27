@@ -10559,17 +10559,18 @@ struct CGameEditorMesh : public CGameEditorAsset {
     Selection = 11,
     Translation = 12,
     PickTranslation = 13,
-    Rotation = 14,
-    PickRotation = 15,
-    Scale = 16,
-    Curve2D = 17,
-    Merge = 18,
-    Split = 19,
-    Mirror = 20,
-    Paste = 21,
-    PasteMaterial = 22,
-    BlocTransformation = 23,
-    None = 24,
+    ExtrudeTranslation = 14,
+    Rotation = 15,
+    PickRotation = 16,
+    Scale = 17,
+    Curve2D = 18,
+    Merge = 19,
+    Split = 20,
+    Mirror = 21,
+    Paste = 22,
+    PasteMaterial = 23,
+    BlocTransformation = 24,
+    None = 25,
   };
   enum ETexCoordLayer {
     Lightmap = 0,
@@ -10627,7 +10628,6 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void UVEditor_AtlasMode();
   bool GoToMaterialEditor; // Maniascript
   bool IsCreateMaterial; // Maniascript
-  bool UseOptims; // Maniascript
   uint Layers_GetCount(); // Maniascript
   MwId Layers_GetLayerIdFromIndex(uint LayerIndex); // Maniascript
   wstring Layers_GetLayerNameFromIndex(uint LayerIndex); // Maniascript
@@ -10800,8 +10800,6 @@ struct CGameEditorMesh : public CGameEditorAsset {
   bool Interaction_StartSplit(); // Maniascript
   void Display_HighlightSet(MwId SetHandle); // Maniascript
   void Display_ClearHighlighting(); // Maniascript
-  void Display_AtlasSelectionsSet(bool DisplayAtlasSelection); // Maniascript
-  bool Display_AtlasSelectionsGet(); // Maniascript
   const bool Display_HideElemsByDistance_IsActive; // Maniascript
   uint Display_HideElemsByDistance_Distance; // Maniascript
   float Display_HideElemsByDistance_Opacity; // Maniascript
@@ -10821,6 +10819,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void SetOfElements_SetAllElements(MwId SetHandle); // Maniascript
   void SetOfElements_SetAllFaces(MwId SetHandle); // Maniascript
   void SetOfElements_DeleteElements(MwId SetHandle); // Maniascript
+  void SetOfElements_DeleteElements_NoSpread(MwId SetHandle, bool Spread); // Maniascript
   bool SetOfElements_HasHorizontalFaces(MwId SetHandle); // Maniascript
   bool SetOfElements_HasVerticalFaces(MwId SetHandle); // Maniascript
   uint SetOfElements_GetElemsCount(MwId SetHandle); // Maniascript
@@ -10832,22 +10831,8 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void GetBordersVertexs(MwId SetHandle, MwId SetVertexHandle); // Maniascript
   void SelectionSet_SelectAll(); // Maniascript
   void Curve2DPolygon(MwId FourVertexSetHandle, MwId Sethandle, uint SubTexIndex); // Maniascript
-  MwId AtlasSelection_Create(); // Maniascript
-  void AtlasSelection_GetAtlasSelectionHandleFromSet(MwId SetHandle); // Maniascript
-  void AtlasSelections_AddAtlasSelectionFromSet(MwId SetHandle, MwId FourPointsHandle); // Maniascript
-  void AtlasSelections_SubAtlasSelection(MwId SetHandle); // Maniascript
-  void AtlasSelections_TextureAtlasSelection(MwId SetHandle, uint SubTexIndex); // Maniascript
-  void AtlasSelections_GetAtlasSelectionAfterSelection(MwId Sethandle); // Maniascript
   void Preview_Clear(); // Maniascript
-  bool ActivateVoxelMode; // Maniascript
-  void VoxelSpace_Init(uint Size, float Step); // Maniascript
-  void VoxelSpace_Destroy(); // Maniascript
-  bool VoxelSpace_Get(nat3 Pos); // Maniascript
-  void VoxelSpace_Set(nat3 Pos); // Maniascript
   void VoxelSpace_SetVec3(vec3 Pos); // Maniascript
-  void VoxelSpace_SetColor(nat3 Pos, vec3 Color); // Maniascript
-  void VoxelSpace_Unset(nat3 Pos); // Maniascript
-  nat3 VoxelSpace_GetFromFace(MwId SelectionSet); // Maniascript
   uint VoxelSpace_GetVoxelsCount(); // Maniascript
   void VoxelSpace_SelectAll(); // Maniascript
   void VoxelSpace_DeleteOneVoxel(); // Maniascript
@@ -10856,6 +10841,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void VoxelSpace_GenerateMesh(); // Maniascript
   vec3 VoxelSpaceCenter; // Maniascript
   float VoxelSpaceStep; // Maniascript
+  bool VoxelSpaceIsInteractive; // Maniascript
   void SetOfElements_ProjectOnPlane(MwId SetHandle); // Maniascript
   void SetOfElements_ProjectOnGround(MwId SetHandle, float Height); // Maniascript
   void SetOfElements_SplitEdgeWithVertex(MwId SetHandle); // Maniascript
@@ -10901,8 +10887,9 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Cut(); // Maniascript
   void Copy(); // Maniascript
   void AddUndoState(); // Maniascript
-  void AutoSave(wstring FileName); // Maniascript
+  bool AutoSave(wstring FileName); // Maniascript
   const MwBuffer<CGameEditorEvent*> PendingEvents; // Maniascript
+  bool MustClearLastSaveBuffer; // Maniascript
   const bool IsExperimental; // Maniascript
   ETitleCoreType GetTitleCoreType(); // Maniascript
 };
