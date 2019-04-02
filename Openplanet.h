@@ -1672,6 +1672,7 @@ struct CGameCtnChallengeInfo : public CGameFid {
   const bool Unlocked; // Maniascript
   const bool IsPlayable; // Maniascript
   const bool CreatedWithSimpleEditor; // Maniascript
+  const bool CreatedWithPartyEditor; // Maniascript
   const uint TMObjective_AuthorTime; // Maniascript
   const uint TMObjective_GoldTime; // Maniascript
   const uint TMObjective_SilverTime; // Maniascript
@@ -3958,7 +3959,7 @@ struct CGameCtnMenus : public CGameSwitcherModule {
   void MenuProfile_OnShowGameKeyInSteam();
   void MenuProfile_OnEditPodiumAnimWin();
   void MenuProfile_OnEditPodiumAnimLose();
-  float MenuProfile_SoundPitchLog; // Range: -0.5 - 2
+  float MenuProfile_SoundPitch; // Range: 0.5 - 2
   bool MenuProfile_ParentalLock;
   CGameAvatar* const MenuProfile_Avatar;
   CGameLeague* const Menu_GroupToManage;
@@ -7093,6 +7094,7 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   const MwBuffer<CGameEditorPluginMapScriptEvent*> PendingEvents; // Maniascript
   CGameCtnChallenge* const Map; // Maniascript
   const wstring MapName; // Maniascript
+  const wstring MapFileName; // Maniascript
   const bool IsEditorReadyForRequest; // Maniascript
   bool HoldLoadingScreen; // Maniascript
   void ComputeShadows(); // Maniascript
@@ -7100,8 +7102,8 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   const ShadowsQuality CurrentShadowsQuality; // Maniascript
   const bool IsUltraShadowsQualityAvailable; // Maniascript
   void DisplayDefaultSetObjectivesDialog(); // Maniascript
-  void Undo(); // Maniascript
-  void Redo(); // Maniascript
+  bool Undo(); // Maniascript
+  bool Redo(); // Maniascript
   void Help(); // Maniascript
   void Validate(); // Maniascript
   void AutoSave(); // Maniascript
@@ -7198,8 +7200,33 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   CGameCtnMacroBlockInfo* GetMacroblockModelFromFilePath(wstring MacroblockModelFilePath); // Maniascript
   CGameCtnBlockInfo* GetTerrainBlockModelFromName(wstring TerrainBlockModelName); // Maniascript
   CGameCtnBlockInfo* GetBlockModelFromName(wstring BlockModelName); // Maniascript
-  wstring GetMapStyle(); // Maniascript
+  CGameEditorMapScriptClipList* CreateFrameClipList(); // Maniascript
+  CGameEditorMapScriptClipList* CreateFixedClipList(); // Maniascript
+  void UnvalidateMetadata(); // Maniascript
+  void UnvalidateGameplayInfo(); // Maniascript
+  void UnvalidatePlayfield(); // Maniascript
+  bool RemoveMacroblock_NoTerrain_NoUnvalidate(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, CardinalDirections Dir); // Maniascript
+  bool PlaceMacroblock_NoTerrain_NoUnvalidate(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, CardinalDirections Dir); // Maniascript
+  CGameEditorMapMacroBlockInstance* CreateMacroblockInstance(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, CardinalDirections Dir); // Maniascript
+  CGameEditorMapMacroBlockInstance* CreateMacroblockInstanceWithUserData(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, CardinalDirections Dir, int UserData); // Maniascript
+  CGameEditorMapMacroBlockInstance* CreateMacroblockInstanceWithClipList(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, CardinalDirections Dir, CGameEditorMapScriptClipList* DefaultClipList); // Maniascript
+  CGameEditorMapMacroBlockInstance* CreateMacroblockInstanceWithClipListAndUserData(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, CardinalDirections Dir, CGameEditorMapScriptClipList* DefaultClipList, int UserData); // Maniascript
+  CGameEditorMapMacroBlockInstance* GetMacroblockInstanceFromOrder(uint Order); // Maniascript
+  CGameEditorMapMacroBlockInstance* GetMacroblockInstanceFromUnitCoord(int3 Coord); // Maniascript
+  CGameEditorMapMacroBlockInstance* GetLatestMacroblockInstance(); // Maniascript
+  CGameEditorMapMacroBlockInstance* GetLatestMacroblockInstanceWithOffset(uint Offset); // Maniascript
+  CGameEditorMapMacroBlockInstance* GetMacroblockInstanceConnectedToClip(CGameEditorMapScriptClip* Clip); // Maniascript
+  bool RemoveMacroblockInstance(CGameEditorMapMacroBlockInstance* MacroblockInstance); // Maniascript
+  bool RemoveMacroblockInstanceFromOrder(uint Order); // Maniascript
+  bool RemoveMacroblockInstanceFromUnitCoord(uint Order); // Maniascript
+  bool RemoveMacroblockInstancesByUserData(int UserData); // Maniascript
+  void ResetAllMacroblockInstances(); // Maniascript
+  uint GetMaxOrder(); // Maniascript
+  bool SetMapType(wstring MapType); // Maniascript
   void SetMapStyle(wstring MapStyle); // Maniascript
+  wstring GetMapStyle(); // Maniascript
+  void SetMapIsCreatedWithPartyEditor(bool IsCreatedWithPartyEditor); // Maniascript
+  wstring GetAvailableMapName(); // Maniascript
   const MwBuffer<CGameCtnEditorScriptAnchoredObject*> Items; // Maniascript
   const MwBuffer<wstring> MediatrackIngameClips; // Maniascript
   uint MediatrackIngameEditedClipIndex; // Maniascript
@@ -7207,6 +7234,10 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   const MwBuffer<CGameCtnBlockInfo*> BlockModels; // Maniascript
   const MwBuffer<CGameCtnBlockInfo*> TerrainBlockModels; // Maniascript
   const MwBuffer<CGameCtnMacroBlockInfo*> MacroblockModels; // Maniascript
+  const UnknownType FixedClipLists; // Maniascript
+  const UnknownType FrameClipLists; // Maniascript
+  const UnknownType MacroblockInstanceClipLists; // Maniascript
+  UnknownType MacroblockInstances; // Maniascript
   const MwBuffer<CGameCtnEditorScriptSpecialProperty*> AnchorData; // Maniascript
   MwBuffer<nat3> CustomSelectionCoords; // Maniascript
   vec3 CustomSelectionRGB; // Maniascript
@@ -7216,6 +7247,9 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   bool HideBlockHelpers; // Maniascript
   bool ShowPlacementGrid; // Maniascript
   float CursorBrightnessFactor; // Maniascript
+  bool HideAlwaysCursorDirectionalArrow; // Maniascript
+  const bool IsTesting; // Maniascript
+  const bool IsValidating; // Maniascript
   const bool EditorInputIsDown_Menu; // Maniascript
   const bool EditorInputIsDown_SwitchToRace; // Maniascript
   const bool EditorInputIsDown_Undo; // Maniascript
@@ -7293,6 +7327,7 @@ struct CGameScriptServerAdmin : public CMwNod {
   bool ForceSpectator2(CGameConnectedClient* Client, ESpecMode SpecMode); // Maniascript
   bool ForcePlayerRequestedTeam1(CGamePlayerInfo* User, int Team); // Maniascript
   bool ForcePlayerRequestedTeam2(CGameConnectedClient* Client, int Team); // Maniascript
+  bool IsDisableChangeTeams; // Maniascript
   void SetLobbyInfo(bool IsLobby, int LobbyPlayerCount, int LobbyMaxPlayerCount, float LobbyPlayersLevel); // Maniascript
   void SendToServerAfterMatch(string ServerUrl); // Maniascript
   void CustomizeQuitDialog(string ManialinkPage, string SendToServerUrl, bool ProposeAddToFavorites, uint ForceDelay); // Maniascript
@@ -7318,10 +7353,11 @@ struct CGameEditorPluginMapScriptEvent : public CGameManiaAppScriptEvent {
     CursorChange = 6,
     MapModified = 7,
     EditorInput = 8,
-    EditAnchor = 9,
-    EditObjectives = 10,
-    StartValidation = 11,
-    StartTest = 12,
+    MapSavedOrSaveCancelled = 9,
+    EditAnchor = 10,
+    EditObjectives = 11,
+    StartValidation = 12,
+    StartTest = 13,
   };
   enum EInput {
     Unknown = 0,
@@ -7369,6 +7405,7 @@ struct CGameEditorPluginMapScriptEvent : public CGameManiaAppScriptEvent {
   const bool IsFromMouse; // Maniascript
   const bool IsFromKeyboard; // Maniascript
   const bool OnlyScriptMetadataModified; // Maniascript
+  const bool MapSavedOrSaveCancelled; // Maniascript
 };
 
 // File extension: 'GameCtnMediaBlockDirtyLens.gbx'
@@ -8952,6 +8989,7 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
   void EditBadgesOld(MwId UserId DEPRECATED); // Maniascript
   const bool CanPublishFiles; // Maniascript
   void PublishFile(wstring FileName); // Maniascript
+  void ProcessManiaCodeXml(string ManiaCodeXml); // Maniascript
   const MwBuffer<CGameCtnNetServerInfo*> LocalServers; // Maniascript
   const MwBuffer<CGameCtnNetServerInfo*> LocalServers_CurrentTitle; // Maniascript
   void DiscoverLocalServers(); // Maniascript
@@ -10622,7 +10660,6 @@ struct CGameEditorMesh : public CGameEditorAsset {
   enum ETitleCoreType {
     TrackMania = 0,
     ShootMania = 1,
-    Count = 2,
   };
   void UVEditor_UVMode();
   void UVEditor_AtlasMode();
@@ -10684,6 +10721,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   float NewTransitionSize; // Maniascript
   uint RotateAxis; // Maniascript
   const bool Tmp_UseParts; // Maniascript
+  const bool IsDebug; // Maniascript
   bool CameraEatingInputsScript; // Maniascript
   CControlFrame* const UIRoot;
   CMwNod* const EditedNod;
@@ -10788,13 +10826,13 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Interaction_Selection_ClearParams(); // Maniascript
   void Interaction_Selection_SetUseParts(bool UseParts); // Maniascript
   void Interaction_Selection_SetCanEnterLeaf(bool CanEnterLeaf); // Maniascript
-  bool Interaction_StartSelection(MwId SelectionSetHandle, EElemType ElemType, MwId SelectionSetToPickFrom, bool IsFromALayer); // Maniascript
+  bool Interaction_StartSelection(MwId SelectionSetHandle, EElemType ElemType, MwId SelectionSetToPickFrom, bool IsFromALayer, bool AllowDoubleClick); // Maniascript
   void Interaction_CloseSelection(); // Maniascript
   bool Interaction_StartTranslation(MwId TranslationSetHandle); // Maniascript
   bool Interaction_StartPickTranslation(MwId TranslationSetHandle); // Maniascript
   bool Interaction_StartRotation(MwId RotationSetHandle); // Maniascript
   bool Interaction_StartPickRotation(MwId RotationSetHandle); // Maniascript
-  void Interaction_Rotation_SetStep(int RotationStep); // Maniascript
+  void Interaction_Rotation_SetStep(float RotationStep); // Maniascript
   bool Interaction_StartPickScale(MwId ScalingSetHandle); // Maniascript
   void Interaction_Scale_SetStep(float ScalingStep); // Maniascript
   bool Interaction_StartSplit(); // Maniascript
@@ -11271,7 +11309,7 @@ struct CGameUserProfileWrapper : public CMwNod {
   bool Account_AcceptNews; // Maniascript
   bool Account_EnableAutoConnect; // Maniascript
   float User_LightTrailHue; // Range: 0 - 1 // Maniascript
-  float User_HornPitch; // Range: -0.5 - 2 // Maniascript
+  float User_HornPitch; // Range: 0.5 - 2 // Maniascript
   wstring User_Description; // Maniascript
   string User_ClubLinkUrl; // Maniascript
   bool Custom_EnableAvatars; // Maniascript
@@ -11300,6 +11338,7 @@ struct CGameUserProfileWrapper : public CMwNod {
   bool Interface_OppoEnableCustomColor; // Maniascript
   float Interface_OppoLinearHue; // Range: 0 - 1 // Maniascript
   bool Interface_BeaconEnableCustom; // Maniascript
+  bool Interface_BeaconUseProfileColor; // Maniascript
   float Interface_BeaconOpacity; // Range: 0 - 1 // Maniascript
   float Interface_BeaconSize; // Range: 0.1 - 5 // Maniascript
   float Interface_BeaconDuration; // Range: 0.5 - 15 // Maniascript
@@ -11558,21 +11597,26 @@ struct CWebServicesTask_PostConnect_UrlShortCutList : public CWebServicesTaskSeq
 
 struct CGameEditorMapScriptClipList : public CMwNod {
   const MwBuffer<CGameEditorMapScriptClip*> Clips; // Maniascript
+  const nat3 Size; // Maniascript
+  bool SetClipListFromMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, CardinalDirections Dir); // Maniascript
+  bool SetClipListFromMacroblockOnly(CGameCtnMacroBlockInfo* MacroblockModel); // Maniascript
+  bool SetClipListFromBlock(CGameCtnBlockInfo* BlockModel, nat3 Coord, CardinalDirections Dir); // Maniascript
+  bool SetClipListFromBlockOnly(CGameCtnBlockInfo* BlockModel); // Maniascript
+  void CreateAndAddClip(wstring Name, int3 Coord, int3 Offset, CardinalDirections Dir, int ClipId); // Maniascript
+  bool SetFromClipList(CGameEditorMapScriptClipList* ClipList, int3 Coord, CardinalDirections Dir); // Maniascript
+  void RemoveClip(CGameEditorMapScriptClip* Clip); // Maniascript
+  void ClearClips(); // Maniascript
+  void Destroy(); // Maniascript
 };
 
 struct CWebServicesTask_PostConnect_Title : public CWebServicesTaskSequence {
 };
 
 struct CGameEditorMapScriptClip : public CMwNod {
-  enum CardinalDirections {
-    North = 0,
-    East = 1,
-    South = 2,
-    West = 3,
-  };
   const wstring Name; // Maniascript
   CardinalDirections Dir; // Maniascript
-  const int3 Coord; // Maniascript
+  const nat3 Coord; // Maniascript
+  const nat3 Offset; // Maniascript
   int ClipId; // Maniascript
   int3 GetConnectableCoord(); // Maniascript
 };
@@ -11647,6 +11691,17 @@ struct CGameEditorUndoSystem_State : public CMwNod {
 };
 
 struct CGameMasterServerTask_GetAccountFromUplayUser : public CNetMasterServerRequestTask {
+};
+
+struct CGameEditorMapMacroBlockInstance : public CMwNod {
+  CGameCtnMacroBlockInfo* const MacroblockModel; // Maniascript
+  CGameEditorMapScriptClipList* const ClipList; // Maniascript
+  CardinalDirections Dir; // Maniascript
+  const int3 Coord; // Maniascript
+  uint Order; // Maniascript
+  int UserData; // Maniascript
+  const MwBuffer<nat3> UnitCoords; // Maniascript
+  nat3 GetSize(); // Maniascript
 };
 
 } // namespace Game
@@ -17985,6 +18040,7 @@ struct CSystemPlatformScript : public CMwNod {
   const wstring CurrentTimezone; // Maniascript
   const string ExtraTool_Info; // Maniascript
   wstring ExtraTool_Data; // Maniascript
+  void ClipboardSet(wstring ClipboardText); // Maniascript
 };
 
 // File extension: 'RefBuffer.Gbx'
@@ -19162,6 +19218,7 @@ struct CNetScriptHttpManager : public CMwNod {
   CNetScriptHttpRequest* CreateGet3(string Url, bool UseCache, string AdditionalHeaders); // Maniascript
   CNetScriptHttpRequest* CreatePost(string Url, string Resource); // Maniascript
   CNetScriptHttpRequest* CreatePost2(string Url, string Resource, string AdditionalHeaders); // Maniascript
+  CNetScriptHttpRequest* CreatePostFile(string Url, wstring FileName, string AdditionalHeaders); // Maniascript
   void Destroy(CNetScriptHttpRequest* Request); // Maniascript
   bool IsValidUrl(string Url); // Maniascript
   const MwBuffer<CNetScriptHttpRequest*> Requests; // Maniascript
@@ -21291,10 +21348,10 @@ struct CSmArenaRules : public CMwNod {
   uint RulesStateTeam1Score;
   uint RulesStateTeam2Score;
   bool FeatureArmorBar;
-  bool FeatureUseClans;
+  bool FeatureUseTeamClans;
   bool FeatureForcedClans;
+  bool FeatureUseMultiClans;
   bool FeatureStamina;
-  bool FeatureRun;
   bool FeatureWallJump;
   bool FeatureSameWallJump;
   bool FeatureRocketJump;
@@ -21455,6 +21512,7 @@ struct CSmArenaRulesMode : public CGamePlaygroundScript {
   uint StartTime; // Maniascript
   uint EndTime; // Maniascript
   uint SpawnInvulnerabilityDuration; // Maniascript
+  bool UseMultiClans; // Maniascript
   bool UseClans; // Maniascript
   bool UseForcedClans; // Maniascript
   bool UsePvPCollisions; // Maniascript
@@ -21548,7 +21606,7 @@ struct CSmArenaRulesMode : public CGamePlaygroundScript {
   void RespawnPlayer(CSmScriptPlayer* Player); // Maniascript
   void RespawnPlayerAtWaypoint(CSmScriptPlayer* Player, CGameScriptMapWaypoint* Waypoint); // Maniascript
   void RespawnPlayerAtLandmark(CSmScriptPlayer* Player, CSmScriptMapLandmark* CheckpointLandmark); // Maniascript
-  CSmScriptPlayer* CreateBotPlayer(MwId ModelId, int TeamNum); // Maniascript
+  CSmScriptPlayer* CreateBotPlayer(MwId ModelId, int ClanNum); // Maniascript
   void DestroyBotPlayer(CSmScriptPlayer* BotPlayer); // Maniascript
   void DestroyAllBotPlayers(); // Maniascript
   void ScriptedBot_Move(CSmScriptPlayer* BotPlayer, vec3 Goal); // Maniascript
@@ -22437,6 +22495,7 @@ struct CGameEditorModel : public CMwNod {
   };
   const EEditorType EditorType;
   bool AutoGenerateHelp;
+  bool AutoCreateTooltipsFromBindings;
   CGameManiaAppTextSet* MainPluginTextSet;
   MwBuffer<string> SubPluginIds;
   const MwBuffer<CGameManiaAppTextSet*> SubPluginTextSets;
