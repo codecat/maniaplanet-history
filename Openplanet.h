@@ -1901,7 +1901,7 @@ struct CGameDisplaySettingsWrapper : public CMwNod {
   bool WindowBorderless; // Maniascript
   const int2 WindowFullSize; // Maniascript
   int2 FullscreenSize; // Maniascript
-  const UnknownType FullscreenSizes; // Maniascript
+  const MwBuffer<nat2> FullscreenSizes; // Maniascript
   const bool IsDeferred; // Maniascript
   EForwardAA Antialias_Forward; // Maniascript
   EDeferredAA Antialias_Deferred; // Maniascript
@@ -6669,7 +6669,7 @@ struct CGameMenuSkinChooser : public CMwNod {
   CGameMenuSkinChooser();
 
   CGameScene* GameScene;
-  UnknownType CamModel;
+  CPlugCamControlModel* CamModel;
 };
 
 struct CGameEditorTrigger : public CMwNod {
@@ -7234,10 +7234,10 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   const MwBuffer<CGameCtnBlockInfo*> BlockModels; // Maniascript
   const MwBuffer<CGameCtnBlockInfo*> TerrainBlockModels; // Maniascript
   const MwBuffer<CGameCtnMacroBlockInfo*> MacroblockModels; // Maniascript
-  const UnknownType FixedClipLists; // Maniascript
-  const UnknownType FrameClipLists; // Maniascript
-  const UnknownType MacroblockInstanceClipLists; // Maniascript
-  UnknownType MacroblockInstances; // Maniascript
+  const MwArray<CGameEditorMapScriptClipList*> FixedClipLists; // Maniascript
+  const MwArray<CGameEditorMapScriptClipList*> FrameClipLists; // Maniascript
+  const MwArray<CGameEditorMapScriptClipList*> MacroblockInstanceClipLists; // Maniascript
+  MwArray<CGameEditorMapMacroBlockInstance*> MacroblockInstances; // Maniascript
   const MwBuffer<CGameCtnEditorScriptSpecialProperty*> AnchorData; // Maniascript
   MwBuffer<nat3> CustomSelectionCoords; // Maniascript
   vec3 CustomSelectionRGB; // Maniascript
@@ -8231,7 +8231,7 @@ struct CGameControlCameraVehicleInternal : public CGameControlCamera {
 struct CGameMgrObjectVis : public CSceneMgrVis {
   CGameMgrObjectVis();
 
-  UnknownType ModelLib;
+  MwBuffer<CGameObjectModel*> ModelLib;
 };
 
 struct CGamePlaygroundResources : public CMwNod {
@@ -10483,7 +10483,7 @@ struct CGameControlCameraHmdExternal : public CGameControlCameraTarget {
 struct CGameMgrCamera : public CSceneMgrVis {
   CGameMgrCamera();
 
-  UnknownType CamSystems;
+  MwBuffer<CGameCameraSystem*> CamSystems;
 };
 
 struct CGameCampaignScoreManager_SkillPoint : public CGameCampaignScoreManager {
@@ -13620,8 +13620,8 @@ struct CPlugBitmapRenderShadow : public CPlugBitmapRender {
 struct CPlugSurface : public CPlug {
   CPlugSurface();
 
-  UnknownType m_Materials;
-  UnknownType m_Skel;
+  MwBuffer<CPlugMaterial*> m_Materials;
+  CPlugSkel* m_Skel;
   void UpdateSurfMaterialIdsFromMaterialIndexs();
   surf m_GmSurf;
 };
@@ -15541,17 +15541,17 @@ struct CPlugFileHdr : public CPlugFileImg {
 struct CPlugAnimFile : public CMwNod {
   CPlugAnimFile();
 
-  UnknownType Skels;
-  UnknownType BakedClips;
-  UnknownType JointGroups;
-  UnknownType VariantGroups;
-  UnknownType PoseGrids;
-  UnknownType PoseGroups;
-  UnknownType EditionClips;
-  UnknownType Clips;
-  UnknownType Graphs;
-  UnknownType GraphStacks;
-  UnknownType Spots;
+  MwBuffer<CPlugSkel*> Skels;
+  MwBuffer<CPlugAnimSkelBaked*> BakedClips;
+  MwBuffer<CPlugAnimSkelJointGroup*> JointGroups;
+  MwBuffer<CPlugAnimVariantGroup*> VariantGroups;
+  MwBuffer<CPlugAnimPoseGrid*> PoseGrids;
+  MwBuffer<CPlugAnimPoseGroup*> PoseGroups;
+  MwBuffer<CPlugAnimSkelEdition*> EditionClips;
+  MwBuffer<CPlugAnimClip*> Clips;
+  MwBuffer<CPlugAnimGraph*> Graphs;
+  MwBuffer<CPlugAnimGraphStack*> GraphStacks;
+  MwBuffer<CPlugAnimSpotModel> Spots;
   wstring ImportString;
   wstring UpdateString;
   void Dbg();
@@ -15748,21 +15748,21 @@ struct CPlugSkel : public CMwNod {
   CPlugSkel();
 
   MwId Name;
-  UnknownType cJoint;
+  uint16 cJoint;
   MwBuffer<MwId> JointNames;
-  UnknownType JointParentIndexs;
+  MwBuffer<uint16> JointParentIndexs;
   MwBuffer<iso4> RefGlobalJoints;
   UnknownType AnimLodMaxDists;
-  UnknownType AnimJointLodIndexs;
-  UnknownType AnimJointFixedTranss;
-  UnknownType JointChildIndexs;
-  UnknownType JointChildArrays;
+  MwBuffer<uint8> AnimJointLodIndexs;
+  MwBuffer<uint8> AnimJointFixedTranss;
+  MwBuffer<uint16> JointChildIndexs;
+  MwBuffer<uint16> JointChildArrays;
   bool DevNonOrtho;
-  UnknownType Setup;
+  CPlugSkelSetup* Setup;
   UnknownType RefLocalJointsTranss;
-  UnknownType Sockets;
-  UnknownType JointExprs;
-  UnknownType CacheJointExprs;
+  MwBuffer<SPlugSkelSocket> Sockets;
+  MwBuffer<SPlugSkelJointExpr> JointExprs;
+  MwBuffer<SPlugSkelJointExprCache> CacheJointExprs;
 };
 
 struct CPlugSolid2Model : public CMwNod {
@@ -16105,11 +16105,11 @@ struct CPlugFlockModel : public CMwNod {
 
   _EEPlugFlockType FlockType;
   uint DefSpawnCount;
-  UnknownType BirdModel;
+  CMwNod* BirdModel;
   CSystemFidFile* BirdModelFid;
   CSystemFidFile* AnimFile_Fid;
-  UnknownType SoundLoop;
-  UnknownType SoundEventTakeOff;
+  CPlugSound* SoundLoop;
+  CPlugSound* SoundEventTakeOff;
   float Volatility; // Range: 0 - 1
   float Range;
   float CosViewAngle;
@@ -16488,8 +16488,8 @@ struct CPlugImportMeshParam : public CMwNod {
   string MeshOnlyPrefix;
   string MeshSkipSuffix;
   string MeshOnlySuffix;
-  UnknownType MatUserModels;
-  UnknownType LightUserModels;
+  MwBuffer<CPlugMaterialUserInst*> MatUserModels;
+  MwBuffer<CPlugLightUserModel*> LightUserModels;
   string Skel_GenericRootName;
   string Skel_DummyPrefix;
   string Skel_SocketPrefix;
@@ -16502,7 +16502,7 @@ struct CPlugImportMeshParam : public CMwNod {
   bool GenerateSkel;
   _EEPlugModelShadingType ModelShadingType;
   uint MaxInfluenceCount;
-  UnknownType SkelJointExprs;
+  MwBuffer<SPlugSkelJointExpr> SkelJointExprs;
 };
 
 struct CPlugVehicleCarPhyShape : public CMwNod {
@@ -16725,8 +16725,8 @@ struct CPlugAnimGraph : public CMwNod {
   CPlugAnimGraph();
 
   MwId Name;
-  UnknownType States;
-  UnknownType Transitions;
+  MwBuffer<CPlugAnimGraphState> States;
+  MwBuffer<CPlugAnimGraphTransition> Transitions;
   MwId DefaultStateName;
   _EEPlugAnimGraphBlending Blending;
 };
@@ -16760,21 +16760,21 @@ struct CPlugDynaModel : public CMwNod {
 struct CPlugAdnPart : public CMwNod {
   CPlugAdnPart();
 
-  UnknownType Mesh;
-  UnknownType RequiredTags;
-  UnknownType Tags;
-  UnknownType BaseShader;
-  UnknownType DefaultShaders;
+  CPlugSolid2Model* Mesh;
+  MwBuffer<SPlugAdnTag> RequiredTags;
+  MwBuffer<SPlugAdnTag> Tags;
+  CPlugMetaData* BaseShader;
+  MwBuffer<CPlugMetaData*> DefaultShaders;
 };
 
 struct CPlugAnimSkelBaked : public CMwNod {
   CPlugAnimSkelBaked();
 
   CPlugAnimTimingFixedPeriod Timing;
-  UnknownType JointGroup;
+  CPlugAnimSkelJointGroup* JointGroup;
   CPlugAnimClipFlags Flags;
-  UnknownType LocalJointsData;
-  UnknownType RootMotionFrames;
+  MwBuffer<GmTransQuat> LocalJointsData;
+  MwBuffer<GmTransYaw> RootMotionFrames;
   MwBuffer<MwId> FloatChannelIds;
   MwBuffer<float> FloatChannelData;
 };
@@ -16785,14 +16785,14 @@ struct CPlugAnimSkelJointGroup : public CMwNod {
   MwId Name;
   MwBuffer<MwId> JointNames;
   MwBuffer<float> JointWeights;
-  UnknownType OldSkel;
-  UnknownType OldJointIndexs;
+  CPlugSkel* OldSkel;
+  MwBuffer<uint16> OldJointIndexs;
 };
 
 struct CPlugAnimSkelEdition : public CMwNod {
   CPlugAnimSkelEdition();
 
-  UnknownType Skel;
+  CPlugSkel* Skel;
 };
 
 // userName: 'AnimClip'
@@ -16801,8 +16801,8 @@ struct CPlugAnimClip : public CMwNod {
   CPlugAnimClip();
 
   MwId Name;
-  UnknownType Baked;
-  UnknownType Edition;
+  CPlugAnimSkelBaked* Baked;
+  CPlugAnimSkelEdition* Edition;
   CPlugAnimClipFlags Flags;
 };
 
@@ -16810,11 +16810,11 @@ struct CPlugAnimPoseGrid : public CMwNod {
   CPlugAnimPoseGrid();
 
   MwId Name;
-  UnknownType JointGroup;
+  CPlugAnimSkelJointGroup* JointGroup;
   MwBuffer<float> Xs;
   MwBuffer<float> Ys;
   MwBuffer<quat> RefPoseGlobalJoints;
-  UnknownType JointOffsets;
+  MwBuffer<GmTransQuat> JointOffsets;
   MwId RefPoseName;
   MwBuffer<MwId> PoseNames;
 };
@@ -16823,7 +16823,7 @@ struct CPlugAnimPoseGroup : public CMwNod {
   CPlugAnimPoseGroup();
 
   MwId Name;
-  UnknownType JointGroup;
+  CPlugAnimSkelJointGroup* JointGroup;
   uint cPose;
   MwBuffer<vec2> PoseCoords;
   MwBuffer<MwId> PoseNames;
@@ -16835,7 +16835,7 @@ struct CPlugAnimGraphStack : public CMwNod {
   CPlugAnimGraphStack();
 
   MwId Name;
-  UnknownType Graphs;
+  MwBuffer<CPlugAnimGraph*> Graphs;
 };
 
 struct CPlugAnimChannelGroup : public CMwNod {
@@ -16863,8 +16863,8 @@ struct CPlugAnimSpotModel {
 struct CPlugAdnModel : public CMwNod {
   CPlugAdnModel();
 
-  UnknownType PartInstances;
-  UnknownType Tags;
+  MwBuffer<CPlugAdnPartInstance> PartInstances;
+  MwBuffer<SPlugAdnTag> Tags;
 };
 
 // userName: 'AdnProject'
@@ -16873,12 +16873,12 @@ struct CPlugAdnProject : public CMwNod {
   CPlugAdnProject();
 
   CSystemFidsFolder* RootFolder;
-  UnknownType DefaultPartShader;
-  UnknownType DefaultSkinShader;
+  CPlugMetaData* DefaultPartShader;
+  CPlugMetaData* DefaultSkinShader;
   string TextureNameStopAtString;
-  UnknownType TagsFromNames;
+  MwBuffer<STagFromName> TagsFromNames;
   uint PartShaderDefaultCount;
-  UnknownType RandomGroups;
+  MwBuffer<CPlugAdnRandomGroup*> RandomGroups;
 };
 
 // userName: 'AdnRandomGen'
@@ -16889,17 +16889,17 @@ struct CPlugAdnRandomGen : public CMwNod {
   uint RandSeed;
   uint cModel;
   uint cDispModel;
-  UnknownType RequiredTags;
-  UnknownType ExcludedTags;
+  MwBuffer<SPlugAdnTag> RequiredTags;
+  MwBuffer<SPlugAdnTag> ExcludedTags;
 };
 
 struct CPlugAnimImport : public CMwNod {
   CPlugAnimImport();
 
   SImportParams Params;
-  UnknownType Rigs;
+  MwBuffer<SRigImportParams> Rigs;
   void ClipsDisableAll();
-  UnknownType Clips;
+  MwBuffer<SClipImportParams> Clips;
 };
 
 // userName: 'PlugMaterial_VertexIndex'
@@ -16912,15 +16912,15 @@ struct CPlugMaterial_VertexIndex : public CMwNod {
   CPlugBitmap* Normal;
   CPlugBitmap* RoughMetal;
   CPlugBitmap* BlendMask;
-  UnknownType Materials;
+  MwRefBuffer<CPlugMaterial*> Materials;
 };
 
 struct CPlugAdnRandomGroup : public CMwNod {
   CPlugAdnRandomGroup();
 
   string Name;
-  UnknownType Tags;
-  UnknownType RandomMetaDatas;
+  MwBuffer<SPlugAdnTag> Tags;
+  MwBuffer<CPlugMetaData*> RandomMetaDatas;
 };
 
 // userName: 'PlugDynaObjectModel'
@@ -16928,15 +16928,15 @@ struct CPlugAdnRandomGroup : public CMwNod {
 struct CPlugDynaObjectModel : public CMwNod {
   CPlugDynaObjectModel();
 
-  UnknownType Mesh;
-  UnknownType Shape;
-  UnknownType DynaModel;
+  CPlugSolid2Model* Mesh;
+  CPlugSurface* Shape;
+  CPlugDynaModel* DynaModel;
 };
 
 struct CPlugPrefab : public CMwNod {
   CPlugPrefab();
 
-  UnknownType Ents;
+  MwBuffer<SEnt> Ents;
 };
 
 // userName: 'VehicleStyles'
@@ -16944,7 +16944,7 @@ struct CPlugPrefab : public CMwNod {
 struct CPlugVehicleVisStyles : public CMwNod {
   CPlugVehicleVisStyles();
 
-  UnknownType RandomGroups;
+  MwBuffer<CPlugVehicleVisStyleRandomGroup*> RandomGroups;
   string UnwantedTrafficVehiclesMatchName;
 };
 
@@ -16953,7 +16953,7 @@ struct CPlugVehicleVisStyleRandomGroup : public CMwNod {
 
   MwId Name;
   string MatchName;
-  UnknownType Styles;
+  MwBuffer<SPlugVehicleVisStyle> Styles;
   void SetDefault();
 };
 
@@ -16962,7 +16962,7 @@ struct CPlugVehicleVisStyleRandomGroup : public CMwNod {
 struct CPlugMetaData : public CMwNod {
   CPlugMetaData();
 
-  UnknownType ParentData;
+  CPlugMetaData* ParentData;
 };
 
 // userName: 'PlugImageArray'
@@ -16974,7 +16974,7 @@ struct CPlugImageArray : public CMwNod {
   CPlugMaterial_VertexIndex* Material_VId;
   float m_MaskScale; // Range: 1 - 4
   bool m_MaskSmooth;
-  UnknownType Layers;
+  MwBuffer<SElem> Layers;
 };
 
 struct CPlugVehicleCameraHelicoModel : public CPlugCamControlModel {
@@ -18379,7 +18379,7 @@ struct CVisionResourceShaders : public CMwNod {
 };
 
 struct SVisShadowCacheMgr {
-  UnknownType c2TexelShadow;
+  nat2 c2TexelShadow;
   uint Stat_cShadowUsed;
   uint Stat_cShadowFace;
   uint Stat_cSharedFace;
@@ -18396,7 +18396,7 @@ struct SVisShadowCacheMgr {
   bool Cfg_SwitchInvertY;
   bool Cfg_BasicAlloc;
   uint cLightIn;
-  UnknownType MapShadowCache;
+  CPlugBitmap* MapShadowCache;
 };
 
 } // namespace Vision
@@ -21153,7 +21153,7 @@ struct CSmActionInstance : public CGameAction {
   CGameActionModel* const Model;
   const uint Now; // Maniascript
   const uint Variant; // Maniascript
-  const UnknownType Players; // Maniascript
+  const MwRefBuffer<CSmScriptPlayer*> Players; // Maniascript
   CSmScriptPlayer* const Owner; // Maniascript
   CGameScriptVehicle* const OwnerVehicle; // Maniascript
   const bool IsActive; // Maniascript
@@ -22461,7 +22461,7 @@ struct CGameModulePlaygroundHudModel : public CGameModuleModelCommon {
   MwId ContextAdd(string ContextName); // Maniascript
   MwId ContextSetId(MwId ContextId, string NewContextName); // Maniascript
   void ContextRemove(MwId ContextId); // Maniascript
-  const UnknownType ContextsIds; // Maniascript
+  const MwRefBuffer<MwId> ContextsIds; // Maniascript
   const MwBuffer<MwId> SubModuleIds; // Maniascript
   void SubModuleRetrieve(MwId ModuleId); // Maniascript
   SHudModule SubModule; // Maniascript
@@ -22513,10 +22513,10 @@ struct CGameObjectModel : public CMwNod {
   CGameObjectModel();
 
   wstring ScriptId;
-  UnknownType Phy;
-  UnknownType Vis;
-  UnknownType SlaveShieldDome;
-  UnknownType SlaveHealDome;
+  CGameObjectPhyModel* Phy;
+  CGameObjectVisModel* Vis;
+  CGameObjectModel* SlaveShieldDome;
+  CGameObjectModel* SlaveHealDome;
   wstring m_InventoryParams_InventoryName;
   wstring m_InventoryParams_InventoryDescription;
   _EEGameInventoryItemClass m_InventoryParams_InventoryItemClass;
@@ -23019,22 +23019,22 @@ struct CPlugAnimFileXml {
 };
 
 struct CPlugAdnPartInstance {
-  UnknownType Part;
-  UnknownType Shader;
+  CPlugAdnPart* Part;
+  CPlugMetaData* Shader;
 };
 
 // userName: 'Shader'
 // File extension: 'AdnShader.gbx'
 struct CPlugAdnShader_Part : public CMwNod {
-  UnknownType Normal;
-  UnknownType Mask;
-  UnknownType BaseColorMotif;
-  UnknownType Zone0_Normal;
-  UnknownType Zone0_Rough;
-  UnknownType Zone1_Normal;
-  UnknownType Zone1_Rough;
-  UnknownType Zone2_Normal;
-  UnknownType Zone2_Rough;
+  CMwNod* Normal;
+  CMwNod* Mask;
+  CMwNod* BaseColorMotif;
+  CMwNod* Zone0_Normal;
+  CMwNod* Zone0_Rough;
+  CMwNod* Zone1_Normal;
+  CMwNod* Zone1_Rough;
+  CMwNod* Zone2_Normal;
+  CMwNod* Zone2_Rough;
   UnknownType BaseColor_Motif;
   uint iChannelMotif;
   GmSimi2 TcToTcMotif;
@@ -23058,10 +23058,10 @@ struct CPlugAdnShader_Part : public CMwNod {
 // userName: 'Shader'
 // File extension: 'AdnShader.gbx'
 struct CPlugAdnShader_Skin : public CMwNod {
-  UnknownType BaseColor0;
-  UnknownType BaseColor1;
-  UnknownType Normal0;
-  UnknownType Rough0;
+  CMwNod* BaseColor0;
+  CMwNod* BaseColor1;
+  CMwNod* Normal0;
+  CMwNod* Rough0;
   UnknownType BaseColor1_;
   uint iChannelColor1;
 };
@@ -23109,7 +23109,7 @@ struct CPlugAnimNodeAim : public CPlugAnimNode {
 
 struct SPlugSkelSocket {
   MwId Name;
-  UnknownType JointIndex;
+  uint16 JointIndex;
   iso4 LocInJoint;
 };
 
@@ -23147,8 +23147,8 @@ struct GmSurf {
 };
 
 struct GmSurfPrimitive : public GmSurf {
-  UnknownType MaterialId;
-  UnknownType MaterialIndex;
+  uint8 MaterialId;
+  uint16 MaterialIndex;
 };
 
 struct GmSurfSphere : public GmSurfPrimitive {
@@ -23191,7 +23191,7 @@ struct SGmConvexFace {
   vec4 Plane;
   uint iFaceNormal;
   uint FaceNormalDir;
-  UnknownType Verts;
+  MwRefBuffer<uint> Verts;
 };
 
 struct SGmConvexEdge {
@@ -23201,12 +23201,12 @@ struct SGmConvexEdge {
 };
 
 struct IGmConvexPoly {
-  UnknownType Verts;
-  UnknownType FaceNormals;
-  UnknownType EdgeDirs;
+  MwRefBuffer<vec3> Verts;
+  MwRefBuffer<vec3> FaceNormals;
+  MwRefBuffer<vec3> EdgeDirs;
   UnknownType Faces;
   UnknownType Edges;
-  UnknownType MaterialId;
+  uint8 MaterialId;
 };
 
 struct GmSurfConvexPolyhedron : public GmSurfPrimitive {
@@ -23233,13 +23233,13 @@ struct GmSurfMeshTri {
 
 struct GmSurfMesh : public GmSurf {
   MwBuffer<vec3> m_Verts;
-  UnknownType m_Tris;
+  MwBuffer<GmSurfMeshTri> m_Tris;
 };
 
 struct GmSurfCompound : public GmSurf {
   MwBuffer<iso4> SurfLocs;
   MwBuffer<surf> Surfs;
-  UnknownType SurfJoints;
+  MwBuffer<uint16> SurfJoints;
 };
 
 struct GmSurfCompoundInstance : public GmSurf {
@@ -23351,8 +23351,8 @@ struct SElem {
 
 struct SBinding {
   uint cRef;
-  UnknownType AnimRig;
-  UnknownType AnimFile;
+  CPlugSkel* AnimRig;
+  CPlugAnimFile* AnimFile;
 };
 
 struct SPlugSkelJointExpr {
@@ -23364,9 +23364,9 @@ struct SPlugSkelJointExpr {
 
 struct SPlugSkelJointExprCache {
   _EEPlugSkelJointExprType Type;
-  UnknownType Target;
-  UnknownType A;
-  UnknownType B;
+  uint16 Target;
+  uint16 A;
+  uint16 B;
 };
 
 struct GmSurfSphericalShell : public GmSurfPrimitive {
@@ -23421,7 +23421,7 @@ struct SGraphState {
 
 struct SOcean {
   float PixelPerTri; // Range: 1 - 100
-  UnknownType WaveUIs;
+  MwBuffer<SOceanWaveUI> WaveUIs;
 };
 
 struct SRigImportParams {
@@ -23436,7 +23436,7 @@ struct CPlugAnimNodeBlend2d : public CPlugAnimNode {
   MwBuffer<float> Ys;
   string XExpr;
   string YExpr;
-  UnknownType GridNodes;
+  MwBuffer<CPlugAnimNodeClip> GridNodes;
 };
 
 struct SRootYaw {
@@ -23502,7 +23502,7 @@ struct SOceanWaveUI {
 };
 
 struct SEnt {
-  UnknownType Model;
+  CMwNod* Model;
   GmTransQuat Location;
 };
 
