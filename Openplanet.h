@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 1.11.6 (v4, Public)
+// Generated with Openplanet 1.12.1 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -12817,7 +12817,7 @@ struct CHmsCollZone : public CMwNod {
   const uint cSurfaceDiscrete;
   vec3 WarpExclusionBoxCenter;
   vec3 WarpExclusionBoxHalf;
-  UnknownType m_PathFinding_m_NavMeshBuildParam;
+  SHmsNavMeshBuildParam m_PathFinding_m_NavMeshBuildParam;
 };
 
 struct CHmsLightMapParam : public CMwNod {
@@ -15556,7 +15556,7 @@ struct CPlugAnimFile : public CMwNod {
   wstring UpdateString;
   void Dbg();
   void Log();
-  UnknownType BucketAllocator;
+  CFastBucketAlloc BucketAllocator;
 };
 
 struct CPlugVisualCelEdge : public CPlugVisual {
@@ -16770,9 +16770,9 @@ struct CPlugAdnPart : public CMwNod {
 struct CPlugAnimSkelBaked : public CMwNod {
   CPlugAnimSkelBaked();
 
-  UnknownType Timing;
+  CPlugAnimTimingFixedPeriod Timing;
   UnknownType JointGroup;
-  UnknownType Flags;
+  CPlugAnimClipFlags Flags;
   UnknownType LocalJointsData;
   UnknownType RootMotionFrames;
   MwBuffer<MwId> FloatChannelIds;
@@ -16803,7 +16803,7 @@ struct CPlugAnimClip : public CMwNod {
   MwId Name;
   UnknownType Baked;
   UnknownType Edition;
-  UnknownType Flags;
+  CPlugAnimClipFlags Flags;
 };
 
 struct CPlugAnimPoseGrid : public CMwNod {
@@ -16896,7 +16896,7 @@ struct CPlugAdnRandomGen : public CMwNod {
 struct CPlugAnimImport : public CMwNod {
   CPlugAnimImport();
 
-  UnknownType Params;
+  SImportParams Params;
   UnknownType Rigs;
   void ClipsDisableAll();
   UnknownType Clips;
@@ -17208,7 +17208,7 @@ struct CSceneMgrFlock : public CSceneMgrVis {
   CSceneMgrFlock();
 
   bool IsPlaying;
-  UnknownType BirdPhysicsParams;
+  SBirdPhysicsParams BirdPhysicsParams;
 };
 
 // File extension: 'SceneFx.Gbx'
@@ -22464,7 +22464,7 @@ struct CGameModulePlaygroundHudModel : public CGameModuleModelCommon {
   const UnknownType ContextsIds; // Maniascript
   const MwBuffer<MwId> SubModuleIds; // Maniascript
   void SubModuleRetrieve(MwId ModuleId); // Maniascript
-  UnknownType SubModule; // Maniascript
+  SHudModule SubModule; // Maniascript
   const uint EditorContextIndex; // Maniascript
 };
 
@@ -22990,7 +22990,7 @@ struct CPlugAnimTimingFixedPeriod {
 struct STagFromName {
   string MatchName;
   _ENPlugAdn__ETagCat Cat;
-  UnknownType Tag;
+  SPlugAdnTag Tag;
 };
 
 struct STagFid {
@@ -23037,7 +23037,7 @@ struct CPlugAdnShader_Part : public CMwNod {
   UnknownType Zone2_Rough;
   UnknownType BaseColor_Motif;
   uint iChannelMotif;
-  UnknownType TcToTcMotif;
+  GmSimi2 TcToTcMotif;
   bool IsMotifWrap;
   UnknownType BaseColor_Zone0;
   UnknownType BaseColor_Modulate_Zone0;
@@ -23070,14 +23070,14 @@ struct CPlugAnimGraphState {
   MwId Name;
   surf BaseNode;
   surf AimNode;
-  UnknownType RootYaw;
+  CPlugAnimRootYaw RootYaw;
 };
 
 struct CPlugAnimGraphTransition {
   UnknownType FromStates;
   UnknownType ExcludeFromStates;
   UnknownType SelectConds;
-  UnknownType Params;
+  CPlugAnimTransition Params;
   MwId ToState;
   string CondExpr;
   uint EvalPriority;
@@ -23184,7 +23184,7 @@ struct GmSurfCylinder : public GmSurfPrimitive {
 };
 
 struct GmSurfBox : public GmSurfPrimitive {
-  UnknownType AABB;
+  GmBoxAligned AABB;
 };
 
 struct SGmConvexFace {
@@ -23210,8 +23210,8 @@ struct IGmConvexPoly {
 };
 
 struct GmSurfConvexPolyhedron : public GmSurfPrimitive {
-  UnknownType ConvexPoly;
-  UnknownType AABB;
+  IGmConvexPoly ConvexPoly;
+  GmBoxAligned AABB;
 };
 
 struct GmSurfCapsule : public GmSurfPrimitive {
@@ -23276,10 +23276,10 @@ struct CPlugAnimRootYaw {
 };
 
 struct CPlugAnimNodeJump : public CPlugAnimNode {
-  UnknownType Start;
-  UnknownType Phase1;
-  UnknownType Phase2;
-  UnknownType EndLoop;
+  CPlugAnimNodeClip Start;
+  CPlugAnimNodeClip Phase1;
+  CPlugAnimNodeClip Phase2;
+  CPlugAnimNodeClip EndLoop;
 };
 
 struct CPlugAnimNodeSequence : public CPlugAnimNode {
@@ -23287,13 +23287,13 @@ struct CPlugAnimNodeSequence : public CPlugAnimNode {
 };
 
 struct CPlugAnimNodeProceduralAttractor : public CPlugAnimNode {
-  UnknownType Params;
+  SPlugAnimNodeProceduralAttractorParams Params;
 };
 
 struct SPlugAnimNodeLocoNode {
-  UnknownType Clip;
-  UnknownType Aim;
-  UnknownType RootYaw;
+  CPlugAnimNodeClip Clip;
+  CPlugAnimNodeAim Aim;
+  CPlugAnimRootYaw RootYaw;
   _EEPlugAnimLocoNodeType Type;
   float YawDistMinDeg;
   float YawDistMaxDeg;
@@ -23325,7 +23325,7 @@ struct CPlugAnimNodeClip : public CPlugAnimNode {
 };
 
 struct CPlugAnimNodeLocoGroup : public CPlugAnimNode {
-  UnknownType Transition;
+  CPlugAnimTransition Transition;
   UnknownType LocoNodes;
 };
 
@@ -23449,24 +23449,24 @@ struct SNode {
 
 struct SNodeClip : public SNode {
   float ClipTimeSec;
-  UnknownType RootYaw;
+  SRootYaw RootYaw;
 };
 
 struct SNodeJump : public SNode {
   uint iPhase;
-  UnknownType Clip;
+  SNodeClip Clip;
 };
 
 struct SNodeSequence : public SNode {
   uint iSequenceClip;
-  UnknownType Clip;
+  SNodeClip Clip;
 };
 
 struct SNodeLocoGroup : public SNode {
   uint iLocoNode;
   uint iLocoNodePrev;
-  UnknownType Clip;
-  UnknownType ClipPrev;
+  SNodeClip Clip;
+  SNodeClip ClipPrev;
   float ClipTransitionTime;
   float ClipWeight;
   float TurnClipStartRootYaw;
@@ -23489,9 +23489,9 @@ struct SGraphInstance {
 
 struct SChar {
   surf Binding;
-  UnknownType Input;
+  SCharInput Input;
   UnknownType Layers;
-  UnknownType State;
+  SCharState State;
 };
 
 struct SOceanWaveUI {
@@ -23503,7 +23503,7 @@ struct SOceanWaveUI {
 
 struct SEnt {
   UnknownType Model;
-  UnknownType Location;
+  GmTransQuat Location;
 };
 
 struct SPlugVehicleVisStyle {
