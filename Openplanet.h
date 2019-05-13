@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 1.12.1 (v4, Public)
+// Generated with Openplanet 1.12.2 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -7891,8 +7891,6 @@ struct CGameScriptChatContact : public CMwNod {
     Away = 4,
     ExtendedAway = 5,
   };
-  const string BuddyId; // Maniascript
-  const string ContactId; // Maniascript
   const string Login; // Maniascript
   const wstring Name; // Maniascript
   const wstring Description; // Maniascript
@@ -10849,6 +10847,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   const MwId SelectionSet; // Maniascript
   void Selection_Undo(); // Maniascript
   void Selection_Redo(); // Maniascript
+  void Selection_Invert(); // Maniascript
   MwId SetOfElements_Create(); // Maniascript
   void SetOfElements_CopyFrom(MwId DestinationSet, MwId SourceSet); // Maniascript
   void SetOfElements_Append(MwId DestinationSet, MwId SourceSet); // Maniascript
@@ -20290,6 +20289,7 @@ struct CTrackManiaNetwork : public CGameManiaPlanetNetwork {
   bool CurrentRaceIsValid;
   bool ForceEndRound;
   uint WaitTimeBeforeTwoValidations;
+  uint SpectatorTimeshift; // Range: 0 - 60000
 };
 
 struct CTrackManiaNetForm : public CGameNetForm {
@@ -20638,6 +20638,7 @@ struct CTmRaceInterfaceManialinkScripHandler : public CGameScriptHandlerPlaygrou
   const MwBuffer<CTmRaceRulesScore*> Scores; // Maniascript
   const MwBuffer<int> ClanScores; // Maniascript
   uint CurPlayerCamera; // Maniascript
+  uint SpectatorTimeshift; // Maniascript
   const vec3 MapStartLinePos; // Maniascript
   const MwBuffer<vec3> MapCheckpointPos; // Maniascript
   const MwBuffer<vec3> MapFinishLinePos; // Maniascript
@@ -22251,6 +22252,7 @@ struct CGameWaypointSpecialProperty : public CMwNod {
 
   string Tag;
   uint Order;
+  void LinkedCheckpointToggle();
 };
 
 // File extension: 'GameActionFxResources.Gbx'
