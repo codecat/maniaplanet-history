@@ -21014,6 +21014,11 @@ struct CTrackManiaScriptPlayer : public CGameScriptPlayer {
   const uint SkiddingDuration; // Maniascript
   const float SkiddingDistance; // Maniascript
   const float FlyingDistance; // Maniascript
+  const uint HandicapNoGasDuration; // Maniascript
+  const uint HandicapFullGasDuration; // Maniascript
+  const uint HandicapNoBrakesDuration; // Maniascript
+  const uint HandicapNoSteeringDuration; // Maniascript
+  const uint HandicapNoGripDuration; // Maniascript
   const uint StuntLastTime; // Maniascript
   const ESceneVehiclePhyStuntFigure StuntLast; // Maniascript
   const uint StuntAngle; // Maniascript
