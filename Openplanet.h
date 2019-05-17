@@ -10789,7 +10789,9 @@ struct CGameEditorMesh : public CGameEditorAsset {
   EUVEditorMode Material_UVEditor_GetMode(); // Maniascript
   void Material_UVEditor_SetProjectionType(EUVEditorProjectionType ProjectionType); // Maniascript
   bool Material_IsGameMaterial(); // Maniascript
+  bool Material_IsCustomLinkFull(MwId MaterialId); // Maniascript
   void Material_UVEditor_Apply(); // Maniascript
+  void Material_CopyMaterial(MwId SetHandle); // Maniascript
   void Material_PasteMaterial(MwId SetHandle); // Maniascript
   const uint Material_Atlas_SelectedSubTexIndex; // Maniascript
   const EInteraction CurrentInteraction; // Maniascript
