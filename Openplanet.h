@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 1.12.2 (v4, Public)
+// Generated with Openplanet 1.12.4 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -1787,6 +1787,7 @@ struct CGameCtnMediaBlockEditorTriangles : public CGameCtnMediaBlockEditor {
   void ModeMoveVertexs();
   void ModeCreateTriangles();
   void ModeDeleteVertexs();
+  void ActionImportSvg();
   vec3 VertRGB;
   float VertAlpha; // Range: 0 - 1
   float VertPosX;
@@ -10850,6 +10851,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
   void Selection_Undo(); // Maniascript
   void Selection_Redo(); // Maniascript
   void Selection_Invert(); // Maniascript
+  void Selection_SelectAllByMaterial(); // Maniascript
   MwId SetOfElements_Create(); // Maniascript
   void SetOfElements_CopyFrom(MwId DestinationSet, MwId SourceSet); // Maniascript
   void SetOfElements_Append(MwId DestinationSet, MwId SourceSet); // Maniascript
@@ -14821,7 +14823,7 @@ struct CPlugTreeFrustum : public CPlugTree {
   uint NbPointZ;
 };
 
-// File extension: '.Svg'
+// File extension: '.svg'
 struct CPlugFileSvg : public CPlugFile {
   CPlugFileSvg();
 
@@ -22163,7 +22165,28 @@ struct CGameItemModel : public CGameCtnCollector {
   bool DisableLightmap;
 };
 
+// Description: ""
 struct CGameModulePlaygroundPlayerStateComponentModel : public CMwNod {
+  enum Type {
+    Invalid = 0,
+    Gauge = 1,
+    List = 2,
+  };
+  enum Model {
+    Invalid = 0,
+    WeaponGauge = 1,
+    ArmorGauge = 2,
+    StaminaGauge = 3,
+    WeaponList = 4,
+  };
+  const Type Type; // Maniascript
+  string Name; // Maniascript
+  vec2 Position;
+  float PosX; // Maniascript
+  float PosY; // Maniascript
+  float ZIndex; // Maniascript
+  float Scale; // Maniascript
+  float Rotation; // Maniascript
 };
 
 // File extension: 'GameObjectPhyModel.Gbx'
@@ -22621,6 +22644,8 @@ struct CGameModulePlaygroundPlayerStateModel : public CGameModulePlaygroundModel
   bool DynamicPreview; // Maniascript
   float PreviewSpeed; // Maniascript
   MwBuffer<CGameModulePlaygroundPlayerStateComponentModel*> Components;
+  MwId ComponentAddDefaultName(Model ComponentModel); // Maniascript
+  MwId ComponentAddCustomName(Model ComponentModel, string ComponentName); // Maniascript
   MwId ComponentSetNameAndId(MwId ComponentId, string NewComponentName); // Maniascript
   void ComponentRemove(MwId ComponentId); // Maniascript
   const MwBuffer<MwId> ComponentIds; // Maniascript
