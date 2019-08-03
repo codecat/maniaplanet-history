@@ -2067,7 +2067,7 @@ GameData\Valley\Media\Solid\RailTrack\SlopeStart_Air.Path.Gbx (CPlugPath, 977 by
 GameData\Valley\Media\Solid\RailTrack\SlopeStart_Air.Solid.Gbx (CPlugSolid, 1398593 bytes, hash 52EB76D7124BADC3AD394B90BD1D9526)
 GameData\Valley\Media\Solid\RailTrack\SlopeStart_Ground.Path.Gbx (CPlugPath, 977 bytes, hash 76561BD41A5A49CCD67F1FA46BF4C0A8)
 GameData\Valley\Media\Solid\RailTrack\SlopeStart_Ground.Solid.Gbx (CPlugSolid, 1350764 bytes, hash 744DBD30BA84B9A9F5D7959E1BF8CB8A)
-(unresolved) GameData\Valley\Media\Material\C1F5C3189736EA24691B30A63C5A4C4A8F (CPlugMaterial, 1096 bytes, hash 96EC6231477379635E19255FF0D621C1)
+GameData\Valley\Media\Material\RailTrackToDirt.Material.gbx (CPlugMaterial, 1096 bytes, hash 96EC6231477379635E19255FF0D621C1)
 GameData\Valley\GameCtnBlockInfo\GameCtnBlockInfoClassic\RailTrackSlopeEnd6x1.EDClassic.Gbx (CGameCtnBlockInfoClassic, 21344 bytes, hash 65BB9C41A9D712437395E302388B0732)
 GameData\Valley\Media\Solid\RailTrack\SlopeEnd_Air.Path.Gbx (CPlugPath, 977 bytes, hash 148386EAF850DDE78C6DD0FC215706C7)
 GameData\Valley\Media\Solid\RailTrack\SlopeEnd_Air.Solid.Gbx (CPlugSolid, 1394885 bytes, hash A5F2D3E2CCB7D4AB2A0EFDE4B8127A4F)
