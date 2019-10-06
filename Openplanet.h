@@ -1025,6 +1025,12 @@ struct CGameRemoteBuffer : public CMwNod {
   CMwNod* const LocalData;
   const string LastServerUpdate;
   const bool UseRefs;
+  enum class Mode {
+    None = 0,
+    Get = 1,
+    Set = 2,
+    Get_Set = 3,
+  };
   const Mode Mode;
   const uint TotalCount;
   const uint SpecificCount;
@@ -1176,6 +1182,13 @@ struct CGameNetServerInfo : public CNetMasterHost {
   const uint LadderMatchId;
   const uint DownloadRate;
   const uint UploadRate;
+  enum class PingEnum {
+    ____ = 0,
+    A___ = 1,
+    AA__ = 2,
+    AAA_ = 3,
+    AAAA = 4,
+  };
   const PingEnum PingEnum;
   const uint Ping;
   string ServerHostName;
@@ -1684,6 +1697,14 @@ struct CGameCtnChallengeInfo : public CGameFid {
   const UnnamedEnum Kind;
   const bool LapRace;
   const uint DbgPackMask;
+  enum class Medal {
+    None = 0,
+    Finished = 1,
+    Bronze = 2,
+    Silver = 3,
+    Gold = 4,
+    Author = 5,
+  };
   const Medal Medal;
   const uint BestScore;
   const uint BestTime;
@@ -2947,6 +2968,11 @@ struct CGameCtnMediaClipViewer : public CGameSwitcherModule {
   CGameCtnMediaClipViewer();
 
   const bool DoInputs;
+  enum class Status {
+    Running = 0,
+    Exit = 1,
+    Next = 2,
+  };
   const Status ViewerStatus;
   CGameCtnMediaClip* const Clip;
   CGameCtnMediaClipPlayer* const ClipPlayer;
@@ -3100,6 +3126,18 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   const bool ClipIsCycling;
   bool ClipIsInside;
   bool ClipStopOnRespawn;
+  enum class ClipTriggerCond {
+    None = 0,
+    RaceTime_L = 1,
+    RaceTime_G = 2,
+    Already_Triggered = 3,
+    Speed_L = 4,
+    Speed_G = 5,
+    Not_Already_Triggered = 6,
+    Max_play_count = 7,
+    Random_once = 8,
+    Random = 9,
+  };
   ClipTriggerCond ClipTriggerCond;
   float ClipTriggerCondValue;
   bool TrackKeepPlaying;
@@ -3153,6 +3191,12 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   float CamTargetPosXCamCustom;
   float CamTargetPosYCamCustom;
   float CamTargetPosZCamCustom;
+  enum class CamInterpCamCustom {
+    _CameraInterp_None = 0,
+    _CameraInterp_Hermite = 1,
+    _CameraInterp_Linear = 2,
+    _CameraInterp_FixedTangent = 3,
+  };
   CamInterpCamCustom CamInterpCamCustom;
   float CamLeftTangentXCamCustom;
   float CamLeftTangentYCamCustom;
@@ -3512,6 +3556,10 @@ struct CGameCtnNetServerInfo : public CGameNetServerInfo {
   uint NextMaxPlayerCount;
   uint NextMaxSpectatorCount;
   UnnamedEnum NextLadderMode;
+  enum class EVehicleNetQuality {
+    Low = 0,
+    High = 1,
+  };
   EVehicleNetQuality NextVehicleNetQuality;
   string FirstPartySessionId;
 };
@@ -12005,7 +12053,19 @@ struct GxLightFrustum : public GxLightBall {
   float SizeX;
   float SizeY;
   bool DoAttenuation;
+  enum class EApply {
+    ModulateAdd = 0,
+    Modulate = 1,
+    Add = 2,
+    ModulateX2 = 3,
+  };
   EApply Apply;
+  enum class ETechnique {
+    RenderCube = 0,
+    _2dMaskNoClipZ = 1,
+    _2dBallLight = 2,
+    GenShadowMask = 3,
+  };
   ETechnique Technique;
   uint iShadowGroup;
   bool DoFadeZ;
@@ -12057,6 +12117,15 @@ struct CFuncKeysTransQuat : public CFuncKeysTrans {
 struct CFuncKeysPath : public CFuncKeysTransQuat {
   CFuncKeysPath();
 
+  enum class CFuncKeysPath__EPathDrawMode {
+    Line = 0,
+    BSpline = 1,
+    BSplineTension = 2,
+    BSplineBias = 3,
+    BezierSpline = 4,
+    BetaSpline = 5,
+    Hermite = 6,
+  };
   CFuncKeysPath__EPathDrawMode DrawMode;
   float BSplineTension; // Range: -2 - 0
   float BSplineBias; // Range: -1 - 1
@@ -12120,6 +12189,19 @@ struct CFuncShaderLayerUV : public CFuncShader {
 
   string LayerName;
   UnnamedEnum LayerEnum;
+  enum class SignalType {
+    TransLinear = 0,
+    TransCircular = 1,
+    Rotate = 2,
+    TransSubTexture = 3,
+    TransLinearScale = 4,
+    CopySubTexture = 5,
+    Scale = 6,
+    Reset = 7,
+    TransSubTexture2 = 8,
+    _GComp = 9,
+    TransLinearScaleRotate = 10,
+  };
   SignalType SignalType;
   vec2 Base;
   vec2 Amplitude;
@@ -12147,7 +12229,16 @@ struct CFuncShaderLayerUV : public CFuncShader {
 struct CFuncShaderFxFactor : public CFuncShader {
   CFuncShaderFxFactor();
 
+  enum class CFuncShaderFxFactor__EMapFx {
+    SelfIllumLuminance = 0,
+    LightMapIntensity = 1,
+  };
   CFuncShaderFxFactor__EMapFx MapFx;
+  enum class CFuncShaderFxFactor__EFctType {
+    Linear = 0,
+    Smooth = 1,
+    Refresh_glow = 2,
+  };
   CFuncShaderFxFactor__EFctType Type;
   float Base;
   float Amplitude;
@@ -12155,6 +12246,10 @@ struct CFuncShaderFxFactor : public CFuncShader {
 };
 
 struct CFuncLight : public CFuncPlug {
+  enum class CFuncLight__EFctType {
+    Sinus = 0,
+    Flick = 1,
+  };
   CFuncLight__EFctType FctType;
   float FlickPeriod;
   uint FlickCount;
@@ -12172,6 +12267,12 @@ struct CFuncLightColor : public CFuncLight {
 struct CFuncKeysReal : public CFuncKeys {
   CFuncKeysReal();
 
+  enum class ERealInterp {
+    None = 0,
+    Linear = 1,
+    Hermite = 2,
+    SmoothStep = 3,
+  };
   ERealInterp RealInterp;
   bool ForceTangentMinX;
   float ForcedTangentMinX;
@@ -12265,7 +12366,17 @@ struct CFuncWeather : public CFunc {
   float CameraFarZ;
   bool FogByVertex;
   vec3 FogRGB;
+  enum class EGxFogFormula {
+    None = 0,
+    Exp = 1,
+    Exp2 = 2,
+    Linear = 3,
+  };
   EGxFogFormula FogFormula;
+  enum class EGxFogSpace {
+    CameraFarZ = 0,
+    World = 1,
+  };
   EGxFogSpace FogSpace;
   float FogLinearStart;
   float FogLinearEnd;
@@ -12324,6 +12435,10 @@ struct CFuncEnvelope : public CFunc {
   float KeyFramePos2;
   float Frequency;
   float Amplitude;
+  enum class Modulation {
+    Cos = 0,
+    Sin = 1,
+  };
   Modulation ModFunc;
 };
 
@@ -12688,6 +12803,11 @@ struct CHmsZoneOverlay : public CHmsZone {
   CHmsZoneOverlay();
 
   bool IsVisible;
+  enum class EnablePick {
+    Disabled = 0,
+    Foreground = 1,
+    Always = 2,
+  };
   EnablePick PickEnableMode;
   const uint SortOrder;
   UnnamedEnum AdaptRatio;
@@ -12830,6 +12950,10 @@ struct CHmsPrecalcRender : public CMwNod {
 
   CPlugBitmap* BitmapRGB;
   CPlugBitmap* BitmapDepth;
+  enum class EBitmapDepth {
+    Linear = 0,
+    ZBuffer = 1,
+  };
   EBitmapDepth BitmapDepthMode;
   string TreeIdDepthGen;
   const bool IsTreeDepthGenFound;
@@ -13170,6 +13294,10 @@ struct CControlEnum : public CControlText {
 struct CControlSlider : public CControlBase {
   CControlSlider();
 
+  enum class Axis {
+    X = 0,
+    Y = 1,
+  };
   Axis Axis;
   float Ratio;
   MwId IconIdBar;
@@ -13685,6 +13813,13 @@ struct CMotionCmdBase : public CMwCmd {
   float Period;
   float Phase;
   const float Value;
+  enum class EWave {
+    Sin = 0,
+    Triangle = 1,
+    Square = 2,
+    SawTooth = 3,
+    InverseSawTooth = 4,
+  };
   EWave WaveType;
   bool IsOnce;
   const float NormedValue;
@@ -13703,6 +13838,13 @@ struct CMotionShader : public CMotionTrack {
 struct CMotionCmdBaseParams : public CMwNod {
   CMotionCmdBaseParams();
 
+  enum class ETimeUnit {
+    mSecond = 0,
+    Second = 1,
+    Minute = 2,
+    Hour = 3,
+    Day = 4,
+  };
   ETimeUnit TimeUnit;
   float Period;
   float Phase;
@@ -13723,6 +13865,12 @@ struct CMotionPlayer : public CMotion {
   const bool IsPlaying;
   CMotionCmdBase* Base;
   float BaseValue;
+  enum class EPlayState {
+    Playing = 0,
+    Paused = 1,
+    Stopped = 2,
+    Current = 3,
+  };
   EPlayState SavePlayState;
   const MwArray<CMotionTrack*> Tracks;
   bool IsPhysics;
@@ -14348,13 +14496,49 @@ struct CPlugFileDds : public CPlugFileImg {
 };
 
 struct CPlugFileImg : public CPlugFile {
+  enum class CPlugFileImg__EDimension {
+    _1D = 0,
+    _2D = 1,
+    _3D = 2,
+    Cube = 3,
+  };
   const CPlugFileImg__EDimension Dimension;
   const uint Width;
   const uint Height;
   const uint Depth;
   const uint ArraySize;
   const uint NbComp;
+  enum class EPlugImageFormat {
+    BGRA = 0,
+    BC1_DXT1 = 1,
+    BC2_DXT2_PM = 2,
+    BC2_DXT3 = 3,
+    BC3_DXT4_PM = 4,
+    BC3_DXT5 = 5,
+    RGBA16 = 6,
+    RGBA16F = 7,
+    RGBA32F = 8,
+    FileJpg = 9,
+    BC4 = 10,
+    BC5yx = 11,
+    BC6U = 12,
+    BC6F = 13,
+    BC7 = 14,
+    R11G11B10F = 15,
+    RGBA8 = 16,
+    R10G10B10A2 = 17,
+    BC5 = 18,
+  };
   const EPlugImageFormat Format;
+  enum class EPlugChannelType {
+    Auto = 0,
+    UNorm = 1,
+    SNorm = 2,
+    UInt = 3,
+    SInt = 4,
+    Srgb = 5,
+    Float = 6,
+  };
   const EPlugChannelType ChannelType;
   const uint cMipLevel;
   const uint cMipLevelSkipAtLoad;
@@ -14469,6 +14653,59 @@ struct CPlugFileFont : public CPlugFile {
 struct CPlugFileGen : public CPlugFileImg {
   CPlugFileGen();
 
+  enum class CPlugFileGen__EGenKind {
+    Checker = 0,
+    LightMap = 1,
+    Plain = 2,
+    Point = 3,
+    Shade = 4,
+    Render = 5,
+    RenderCube = 6,
+    CubeNormals = 7,
+    Identity = 8,
+    Pixels = 9,
+    Depth = 10,
+    DepthCube = 11,
+    RenderF = 12,
+    Iradiance = 13,
+    Specular = 14,
+    TestNormal = 15,
+    RandNormal = 16,
+    SpecularCube = 17,
+    HemiReflec = 18,
+    CubeInvHemiReflec = 19,
+    SpecularsLA = 20,
+    HueGradient = 21,
+    SLGradient = 22,
+    VolumeRotate = 23,
+    SpecularCubeVect = 24,
+    TestMipMap = 25,
+    SpecCubeVectRgb = 26,
+    DdxInMipMap = 27,
+    RandVolume = 28,
+    Unalloc = 29,
+    PotentialField = 30,
+    RenderCubeF = 31,
+    TestAnaglyph = 32,
+    ACosSmoothInRange = 33,
+    PerlinPerm = 34,
+    PerlinPerm2D = 35,
+    PerlinGrad3 = 36,
+    PerlinGrad3OfPerm = 37,
+    Script = 38,
+    Cube3x2_2d1RotCube = 39,
+    Cube3x2_Ya1 = 40,
+    ShClampedCos = 41,
+    Random = 42,
+    HueSaturation = 43,
+    SmEnergyHueIntens = 44,
+    PerlinGrad3OfPerm2d = 45,
+    PerlinGrad4OfPerm2d = 46,
+    Simplex4 = 47,
+    InvalidData = 48,
+    Callback = 49,
+    Noise = 50,
+  };
   const CPlugFileGen__EGenKind GenKind;
   const MwBuffer<CPlugFileImg*> ArrayOfImages;
 };
@@ -14642,6 +14879,12 @@ struct CPlugBitmapPack : public CPlug {
   uint SizeY;
   UnnamedEnum Format;
   uint NbComp;
+  enum class EGxTexAddress {
+    Wrap = 0,
+    Mirror = 1,
+    Clamp = 2,
+    Border = 3,
+  };
   EGxTexAddress TexAdrU;
   CPlugBitmap* Bitmap;
   const MwBuffer<CPlugBitmapPackElem*> PackElems;
@@ -14663,6 +14906,35 @@ struct CPlugBitmapAddress : public CPlugBitmapSampler {
 
   bool UseBitmapTcScale;
   bool DirectTransfo;
+  enum class EGxUVGenerate {
+    NoGenerate = 0,
+    CameraVertex = 1,
+    WorldVertex = 2,
+    WorldVertexXY = 3,
+    WorldVertexXZ = 4,
+    WorldVertexYZ = 5,
+    CameraNormal = 6,
+    WorldNormal = 7,
+    CameraReflectionVector = 8,
+    WorldReflectionVector = 9,
+    WorldNormalNeg = 10,
+    WaterReflectionVector = 11,
+    Hack1Vertex = 12,
+    MapTexel_DEPRECATED = 13,
+    FogPlane0 = 14,
+    Vsk3SeaFoam = 15,
+    ImageSpace = 16,
+    LightDir0Reflect = 17,
+    EyeNormal = 18,
+    ShadowB1Pw01 = 19,
+    Tex3AsPosPrCamera = 20,
+    FlatWaterReflect = 21,
+    FlatWaterRefract = 22,
+    FlatWaterFresnel = 23,
+    WorldPosXYblendZY = 24,
+    DisableVshOutput = 25,
+    WorldPos_PyPxz = 26,
+  };
   EGxUVGenerate GenerateUV;
   bool UVTransfoIso3;
   bool UVTransfoMat4;
@@ -14970,8 +15242,28 @@ struct CPlugShaderPass : public CPlug {
   CPlugShaderPass();
 
   const uint iPass;
+  enum class EGxBlendFactor {
+    _0 = 0,
+    _1 = 1,
+    SrcColor = 2,
+    _1NSrcColor = 3,
+    SrcAlpha = 4,
+    _1NSrcAlpha = 5,
+    DstColor = 6,
+    _1NDstColor = 7,
+    DstAlpha = 8,
+    _1NDstAlpha = 9,
+    SrcAlphaSat = 10,
+    Constant = 11,
+    _1NConstant = 12,
+  };
   EGxBlendFactor BlendSrc;
   EGxBlendFactor BlendDst;
+  enum class ECullMode {
+    Default = 0,
+    Inverse_Culling = 1,
+    DblSidedLighting = 2,
+  };
   ECullMode CullMode;
   bool WriteZ;
   bool FlatCBufferV;
@@ -15137,10 +15429,22 @@ struct CPlugBitmapSampler : public CPlug {
 
   bool IsInternal;
   uint NbCompRequired;
+  enum class EAlphaReq {
+    None = 0,
+    Binary = 1,
+    Translucent = 2,
+  };
   EAlphaReq AlphaRequired;
   bool IsSharedByDevices;
   bool SrgbToLinear;
   bool UseBitmapDefaults;
+  enum class EGxTexFilter {
+    Point = 0,
+    Bilinear = 1,
+    Trilinear = 2,
+    Anisotropic = 3,
+    AnisoPoint = 4,
+  };
   EGxTexFilter WantedFiltering;
   EGxTexAddress TexAddressU;
   EGxTexAddress TexAddressV;
@@ -15199,9 +15503,18 @@ struct CPlugFileAudioMotors : public CPlugFile {
 };
 
 struct CPlugBitmapRender : public CPlug {
+  enum class CPlugBitmapRender__ETrigger {
+    None = 0,
+    Once = 1,
+    EachFrame = 2,
+  };
   CPlugBitmapRender__ETrigger TriggerRender;
   uint cFrameToSkip;
   UnnamedEnum RenderPath;
+  enum class ERenderPathFails {
+    Ignore = 0,
+    Hide = 1,
+  };
   ERenderPathFails RenderPathFails;
   bool IVIdMaskReflected;
   bool IVIdMaskReflectMirror;
@@ -15311,6 +15624,10 @@ struct CPlugBitmapRender : public CPlug {
 struct CPlugBitmapRenderWater : public CPlugBitmapRender {
   CPlugBitmapRenderWater();
 
+  enum class CPlugBitmap____ {
+    Refraction = 0,
+    Reflection = 1,
+  };
   CPlugBitmap____ WaterType;
   float FogMaxDepth;
   float FogClampAboveDist;
@@ -15603,6 +15920,15 @@ struct CPlugDecoratorTree : public CMwNod {
   MwId TreeId;
   CPlugMaterial* Material;
   CPlugTreeLight* TreeLight;
+  enum class EBoolCond {
+    Never = 0,
+    LowOnly = 1,
+    LowAndMedium = 2,
+    MediumOnly = 3,
+    MediumAndHigh = 4,
+    HighOnly = 5,
+    Always = 6,
+  };
   EBoolCond ExistCond;
   EBoolCond VisibleCond;
   bool VisibleApplyOnChilds;
@@ -15697,6 +16023,10 @@ struct CPlugBitmapArray : public CPlug {
 struct CPlugSpriteParam : public CPlug {
   CPlugSpriteParam();
 
+  enum class CPlugVisualSprite__ERenderMode {
+    Quad = 0,
+    RotatedQuad = 1,
+  };
   CPlugVisualSprite__ERenderMode RenderMode;
   UnnamedEnum Usage;
   bool RadiusInScreen;
@@ -15764,6 +16094,17 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   bool IsActive;
   bool IsSolo;
   float ActiveMinSpeedKmh;
+  enum class ParticleEmitterSubModel {
+    Standard = 0,
+    MultiState = 1,
+    OneParticle = 2,
+    VortexSim_Particle = 3,
+    VortexSim_VortexFilament = 4,
+    VortexSim_Repulsor = 5,
+    Chain = 6,
+    Gpu = 7,
+    Energy = 8,
+  };
   ParticleEmitterSubModel ParticleEmitterSubModel;
   uint MaxParticleCount;
   bool MultiState_IsAsyncLink;
@@ -15776,6 +16117,13 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   uint SpawnStartTime;
   uint SpawnEndTime;
   void SpawnEndTimeNull();
+  enum class ESpawnCond {
+    Active_FixedPeriod = 0,
+    Active_MinDist = 1,
+    Active = 2,
+    None = 3,
+    Active_FixedDist = 4,
+  };
   ESpawnCond SpawnCond;
   float SpawnPeriod;
   float SpawnMinDist;
@@ -15784,7 +16132,27 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   float Life;
   float LifeVariation;
   uint LifePeriodMs_OnePart;
+  enum class MultiStateRenderMode {
+    LineNormal = 0,
+    LineWideWorld = 1,
+    LineWideScreen = 2,
+    QuadCenterLeft = 3,
+    QuadUp = 4,
+    WaterSplash = 5,
+    LightTrail = 6,
+    GrassMarks = 7,
+  };
   MultiStateRenderMode MultiStateRenderMode;
+  enum class StandardRenderMode {
+    QuadCamera = 0,
+    WaterSplash = 1,
+    QuadSpeed = 2,
+    LinesSpeedCamera = 3,
+    Mesh = 4,
+    Triangle = 5,
+    LightOnly = 6,
+    Beam = 7,
+  };
   StandardRenderMode StandardRenderMode;
   bool SortSprites;
   float ViewDistMax;
@@ -15793,6 +16161,10 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   CPlugSolid2Model* Mesh;
   wstring MeshRef;
   bool MeshUseInstancing;
+  enum class MeshInstanceType {
+    Color_Iso4 = 0,
+    VolumeExplosion = 1,
+  };
   MeshInstanceType MeshInstanceType;
   CFuncKeysReal* MeshScaleOverLife;
   CFuncKeysReal* MeshRampMinOverLife;
@@ -15804,6 +16176,13 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   bool LightTrail_Hack_ImmobileEmitter;
   float SizeBirthRatioXY;
   vec2 SpritePivotPoint;
+  enum class TextureAtlas {
+    None = 0,
+    Fixed = 1,
+    Random = 2,
+    AnimatedRandom = 3,
+    AnimatedSynchro = 4,
+  };
   TextureAtlas TextureAtlas;
   uint TextureAtlasDimX;
   uint TextureAtlasDimY;
@@ -15828,6 +16207,10 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   float RollSpeedBirth;
   float RollSpeedBirthVariation;
   CFuncColorGradient* ColorGradient;
+  enum class ColorGradientUse {
+    RandomConstantColor = 0,
+    ColorOverLife = 1,
+  };
   ColorGradientUse ColorGradientUse;
   bool ColorModulateWithTransparency;
   UnnamedEnum ColorType;
@@ -16562,6 +16945,20 @@ struct CPlugBeamEmitterSubModel : public CMwNod {
   bool EdVisible;
   CPlugMaterial* Material;
   const MwBuffer<CPlugMaterial*> AdditionalMaterials;
+  enum class DisplayType {
+    LinesWide = 0,
+    Cylinder = 1,
+    Helix = 2,
+    HelixWithCylinder = 3,
+    DoubleHelix = 4,
+    DoubleHelixWithHelix = 5,
+    BeamWithCylinders = 6,
+    BeamWithSpheres = 7,
+    Lightning = 8,
+    Analytic = 9,
+    EnergyPrim = 10,
+    LinesCurved = 11,
+  };
   DisplayType DisplayType;
   float UVScale;
   uint CylinderSideCount;
@@ -17857,6 +18254,10 @@ struct CSceneMgrWeather : public CMwNod {
   CMwNod* CloudSystem;
   float SiteLatitude; // Range: -90 - 90
   float TimeRemapped; // Range: 0 - 1
+  enum class EClearMode {
+    Fixed = 0,
+    Fog = 1,
+  };
   EClearMode ClearMode;
   vec3 ClearColor;
   float SunIntensity;
@@ -18119,6 +18520,11 @@ struct CSystemConfig : public CMwNod {
   string ProfileName;
   void SetProfileNameUnassigned();
   uint PlayerInfoDisplaySize; // Range: 1 - 5
+  enum class _EUnnamedEnum_5391423032 {
+    Name = 0,
+    Avatar = 1,
+    Avatar_and_Name = 2,
+  };
   _EUnnamedEnum_5391423032 PlayerInfoDisplayType;
   bool EdDontConnect;
   bool DisableReplayRecording;
@@ -18869,6 +19275,83 @@ struct CAudioSourceEngine : public CAudioSource {
 };
 
 struct CAudioSourceSurface : public CAudioSource {
+  enum class SurfId {
+    Concrete = 0,
+    Pavement = 1,
+    Grass = 2,
+    Ice = 3,
+    Metal = 4,
+    Sand = 5,
+    Dirt = 6,
+    Turbo = 7,
+    DirtRoad = 8,
+    Rubber = 9,
+    SlidingRubber = 10,
+    Test = 11,
+    Rock = 12,
+    Water = 13,
+    Wood = 14,
+    Danger = 15,
+    Asphalt = 16,
+    WetDirtRoad = 17,
+    WetAsphalt = 18,
+    WetPavement = 19,
+    WetGrass = 20,
+    Snow = 21,
+    ResonantMetal = 22,
+    GolfBall = 23,
+    GolfWall = 24,
+    GolfGround = 25,
+    Turbo2 = 26,
+    Bumper = 27,
+    NotCollidable = 28,
+    FreeWheeling = 29,
+    TurboRoulette = 30,
+    WallJump = 31,
+    MetalTrans = 32,
+    Stone = 33,
+    Player = 34,
+    Trunk = 35,
+    TechLaser = 36,
+    SlidingWood = 37,
+    PlayerOnly = 38,
+    Tech = 39,
+    TechArmor = 40,
+    TechSafe = 41,
+    OffZone = 42,
+    Bullet = 43,
+    TechHook = 44,
+    TechGround = 45,
+    TechWall = 46,
+    TechArrow = 47,
+    TechHook2 = 48,
+    Forest = 49,
+    Wheat = 50,
+    TechTarget = 51,
+    PavementStair = 52,
+    TechTeleport = 53,
+    Energy = 54,
+    TechMagnetic = 55,
+    TurboTechMagnetic = 56,
+    Turbo2TechMagnetic = 57,
+    TurboWood = 58,
+    Turbo2Wood = 59,
+    FreeWheelingTechMagnetic = 60,
+    FreeWheelingWood = 61,
+    TechSuperMagnetic = 62,
+    TechNucleus = 63,
+    TechMagneticAccel = 64,
+    MetalFence = 65,
+    TechGravityChange = 66,
+    TechGravityReset = 67,
+    RubberBand = 68,
+    Gravel = 69,
+    NoGrip = 70,
+    Bumper2 = 71,
+    NoSteering = 72,
+    NoBrakes = 73,
+    CustomIce = 74,
+  };
   SurfId SurfaceId;
   float SpeedNormalised; // Range: 0 - 1
   float SpeedKmh;
@@ -19153,6 +19636,10 @@ struct CNetHttpClient : public CMwNod {
 struct CNetHttpResult : public CMwNod {
   const string Server;
   const string Path;
+  enum class Kind {
+    Download = 0,
+    Upload = 1,
+  };
   const Kind Kind;
   const Status Status;
   const uint ExpectedTransfertSize;
@@ -19442,8 +19929,20 @@ struct CNetMasterServerDownload : public CMwNod {
   const string Server;
   const string Path;
   const uint Port;
+  enum class Context {
+    None = 0,
+    Browser = 1,
+    Menu = 2,
+    Screen = 3,
+    InGameInterface = 4,
+  };
   const Context Context;
   const uint Offset;
+  enum class UploadMethod {
+    None = 0,
+    Post = 1,
+    Put = 2,
+  };
   const UploadMethod UploadMethod;
   const uint TotalSize;
   const uint DownloadStartTime;
@@ -22429,7 +22928,17 @@ struct CGameObjectPhyModel : public CMwNod {
   DataRef ActionModel;
   const MwBuffer<CGameActionModel*> Actions;
   MwBuffer<CPlugTriggerAction*> Triggers;
+  enum class EGameObjectPhyModelProgam {
+    None = 0,
+    Target = 1,
+    Turret = 2,
+  };
   EGameObjectPhyModelProgam Program;
+  enum class EGameObjectPhyModelPersistence {
+    OnPlayerUnspawn = 0,
+    OnPlayerRemoved = 1,
+    NeverRemove = 2,
+  };
   EGameObjectPhyModelPersistence Persistence;
   bool CanStopEnemyBullet;
   bool CanStopEnemy;
