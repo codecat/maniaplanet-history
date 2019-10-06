@@ -557,12 +557,12 @@ struct CGamePlayer : public CMwNod {
 };
 
 struct CGameTerminal : public CMwNod {
-  enum SpectatorCameraType {
+  enum class SpectatorCameraType {
     _SpectatorCam_Replay = 0,
     _SpectatorCam_Follow = 1,
     _SpectatorCam_Free = 2,
   };
-  enum SpectatorCameraTarget {
+  enum class SpectatorCameraTarget {
     _SpectatorCam_Manual = 0,
     _SpectatorCam_Auto = 1,
   };
@@ -631,7 +631,7 @@ struct CGameNod : public CMwNod {
 struct CGameMenu : public CMwNod {
   CGameMenu();
 
-  enum EMenuOrder {
+  enum class EMenuOrder {
     Menu = 2,
     InGameMenu = 3,
     GameDialog = 5,
@@ -719,13 +719,13 @@ struct CGamePlayground : public CGameSwitcherModule {
 };
 
 struct CGameNetPlayerInfo : public CMwNod {
-  enum PlayerType {
+  enum class PlayerType {
     Human = 0,
     Fake = 1,
     Net = 2,
     Replay = 3,
   };
-  enum SpectatorMode {
+  enum class SpectatorMode {
     Void = 0,
     Watcher = 1,
     LocalWatcher = 2,
@@ -846,7 +846,7 @@ struct CGameManiaPlanet : public CGameCtnApp {
 
 // Description: "Station info & manipulation."
 struct CGameStation : public CGameNod {
-  enum EEchelon {
+  enum class EEchelon {
     None = 0,
     Bronze1 = 1,
     Bronze2 = 2,
@@ -882,7 +882,7 @@ struct CGameStation : public CGameNod {
 
 // Description: "Manialink entry."
 struct CGameManialinkEntry : public CGameManialinkControl {
-  enum ETextFormat {
+  enum class ETextFormat {
     Basic = 0,
     Script = 1,
     Password = 2,
@@ -1206,7 +1206,7 @@ struct CGameNetForm : public CNetNod {
 };
 
 struct CGameDialogs : public CMwNod {
-  enum EDialog {
+  enum class EDialog {
     None = 0,
     Message = 1,
     WaitMessage = 2,
@@ -1358,7 +1358,7 @@ struct CGameVskObjectInfo : public CGameCtnCollector {
 struct CGameCtnBlockUnitInfo : public CMwNod {
   CGameCtnBlockUnitInfo();
 
-  enum CardinalDirEnum {
+  enum class CardinalDirEnum {
     North = 0,
     East = 1,
     South = 2,
@@ -1580,14 +1580,14 @@ struct CGameControlCameraThirdPerson : public CGameControlCamera {
 struct CGameCtnChallenge : public CMwNod {
   CGameCtnChallenge();
 
-  enum ETrafficDensity {
+  enum class ETrafficDensity {
     Null = 0,
     Low = 1,
     Normal = 2,
     High = 3,
     Very_High = 4,
   };
-  enum BotPathTypeEnum {
+  enum class BotPathTypeEnum {
     Recast = 0,
     Recorded = 1,
   };
@@ -1741,7 +1741,7 @@ struct CGameCtnParticleParam : public CMwNod {
 struct CGameHighScore : public CMwNod {
   CGameHighScore();
 
-  enum EMedal {
+  enum class EMedal {
     None = 0,
     Finished = 1,
     Bronze = 2,
@@ -1829,29 +1829,29 @@ struct CGameCtnMediaBlockTriangles3D : public CGameCtnMediaBlockTriangles {
 
 // Description: "Script API for graphic settings"
 struct CGameDisplaySettingsWrapper : public CMwNod {
-  enum EDisplayMode {
+  enum class EDisplayMode {
     FullscreenExclusive = 0,
     Windowed = 1,
     WindowedFull = 2,
   };
-  enum EGpuSync {
+  enum class EGpuSync {
     None = 0,
     _3Frames = 1,
     _2Frames = 2,
     _1Frames = 3,
     Immediate = 4,
   };
-  enum EDisplaySync {
+  enum class EDisplaySync {
     None = 0,
     VBlank1 = 1,
     VBlank2 = 2,
     VBlank3 = 3,
   };
-  enum ETripleBuffer {
+  enum class ETripleBuffer {
     Off = 0,
     On = 1,
   };
-  enum EForwardAA {
+  enum class EForwardAA {
     None = 0,
     _2x = 1,
     _4x = 2,
@@ -1859,11 +1859,11 @@ struct CGameDisplaySettingsWrapper : public CMwNod {
     _8x = 4,
     _16x = 5,
   };
-  enum EDeferredAA {
+  enum class EDeferredAA {
     None = 0,
     FXAA = 1,
   };
-  enum ETextureFilter {
+  enum class ETextureFilter {
     Bilinear = 0,
     Trilinear = 1,
     Aniso_2x = 2,
@@ -1872,31 +1872,31 @@ struct CGameDisplaySettingsWrapper : public CMwNod {
     Aniso_16x = 5,
     Aniso_16x_Everywhere = 6,
   };
-  enum EFxBloomHdr {
+  enum class EFxBloomHdr {
     None = 0,
     Medium = 1,
     High = 2,
   };
-  enum EFxMotionBlur {
+  enum class EFxMotionBlur {
     None = 0,
     Enabled = 1,
   };
-  enum EWaterReflect {
+  enum class EWaterReflect {
     Low = 0,
     Med = 1,
     High = 2,
   };
-  enum EVehicleReflect {
+  enum class EVehicleReflect {
     Low = 0,
     HighInReplay = 1,
     High = 2,
   };
-  enum EScreenshotExt {
+  enum class EScreenshotExt {
     JPEG = 0,
     WebP = 1,
     TGA = 2,
   };
-  enum ERealtimeSSAA {
+  enum class ERealtimeSSAA {
     Disabled = 0,
     _2Renders = 1,
     _3Renders = 2,
@@ -1907,7 +1907,7 @@ struct CGameDisplaySettingsWrapper : public CMwNod {
     _8Renders = 7,
     _9Renders = 8,
   };
-  enum ERealtimeSSAA_Motion {
+  enum class ERealtimeSSAA_Motion {
     Disabled = 0,
     _1Frame = 1,
     _2Frames = 2,
@@ -1943,13 +1943,13 @@ struct CGameDisplaySettingsWrapper : public CMwNod {
 
 // Description: "The model of a map block"
 struct CGameCtnBlockInfo : public CGameCtnCollector {
-  enum EBaseType {
+  enum class EBaseType {
     None = 0,
     Conductor = 1,
     Generator = 2,
     Collector = 3,
   };
-  enum EWayPointType {
+  enum class EWayPointType {
     Start = 0,
     Finish = 1,
     Checkpoint = 2,
@@ -1957,7 +1957,7 @@ struct CGameCtnBlockInfo : public CGameCtnCollector {
     StartFinish = 4,
     Dispenser = 5,
   };
-  enum MultiDirEnum {
+  enum class MultiDirEnum {
     SameDir = 0,
     SymmetricalDirs = 1,
     AllDir = 2,
@@ -2030,13 +2030,13 @@ struct CGameCtnBlockInfoRoad : public CGameCtnBlockInfo {
 struct CGameCtnBlockInfoClip : public CGameCtnBlockInfo {
   CGameCtnBlockInfoClip();
 
-  enum EnumClipType {
+  enum class EnumClipType {
     ClassicClip = 0,
     FreeClipSide = 1,
     FreeClipTop = 2,
     FreeClipBottom = 3,
   };
-  enum MultiDirEnum {
+  enum class MultiDirEnum {
     SameDir = 0,
     SymmetricalDirs = 1,
     AllDir = 2,
@@ -2085,7 +2085,7 @@ struct CGameCtnBlockInfoRectAsym : public CGameCtnBlockInfo {
 struct CGameCtnBlock : public CMwNod {
   CGameCtnBlock();
 
-  enum CardinalDirections {
+  enum class CardinalDirections {
     North = 0,
     East = 1,
     South = 2,
@@ -2545,7 +2545,7 @@ struct CGameManiaNetResource : public CMwNod {
 struct CGamePlayerInfo : public CGameNetPlayerInfo {
   CGamePlayerInfo();
 
-  enum EEchelon {
+  enum class EEchelon {
     None = 0,
     Bronze1 = 1,
     Bronze2 = 2,
@@ -2557,18 +2557,18 @@ struct CGamePlayerInfo : public CGameNetPlayerInfo {
     Gold2 = 8,
     Gold3 = 9,
   };
-  enum ETagType {
+  enum class ETagType {
     Bronze = 0,
     Silver = 1,
     Gold = 2,
     Nadeo = 3,
   };
-  enum EStereoDisplayMode {
+  enum class EStereoDisplayMode {
     None = 0,
     Stereo = 1,
     HMD = 2,
   };
-  enum EMuteSetting {
+  enum class EMuteSetting {
     Auto = 0,
     Muted = 1,
     NotMuted = 2,
@@ -2661,7 +2661,7 @@ struct CGamePlayerProfile : public CMwNod {
 };
 
 struct CGameScriptDebugger : public CMwNod {
-  enum EVisibility {
+  enum class EVisibility {
     Hidden = 0,
     Editor = 1,
     EditorAndLogs = 2,
@@ -2712,7 +2712,7 @@ struct CGameCtnChallengeGroup : public CMwNod {
 struct CGameCtnCampaign : public CMwNod {
   CGameCtnCampaign();
 
-  enum EType {
+  enum class EType {
     None = 0,
     Race = 1,
     Puzzle = 2,
@@ -2721,7 +2721,7 @@ struct CGameCtnCampaign : public CMwNod {
     Stunts = 5,
     Training = 6,
   };
-  enum ERequiredPlayersCount {
+  enum class ERequiredPlayersCount {
     Solo_Only = 0,
     Multi_Only = 1,
     Duo_Only = 2,
@@ -2729,12 +2729,12 @@ struct CGameCtnCampaign : public CMwNod {
     Quatuor_Only = 4,
     All = 5,
   };
-  enum EUnlockType {
+  enum class EUnlockType {
     By_Row = 0,
     By_Column = 1,
     Custom = 2,
   };
-  enum EMedal {
+  enum class EMedal {
     None = 0,
     Finished = 1,
     Bronze = 2,
@@ -2987,13 +2987,13 @@ struct CGameCtnMediaClipViewer : public CGameSwitcherModule {
 struct CGameCursorBlock : public CMwNod {
   CGameCursorBlock();
 
-  enum CardinalDirEnum {
+  enum class CardinalDirEnum {
     North = 0,
     East = 1,
     South = 2,
     West = 3,
   };
-  enum AdditionalDirEnum {
+  enum class AdditionalDirEnum {
     P0deg = 0,
     P15deg = 1,
     P30deg = 2,
@@ -3647,7 +3647,7 @@ struct CGameControlCardLeague : public CGameControlCard {
 struct CGameControlCardCtnNetServerInfo : public CGameControlCard {
   CGameControlCardCtnNetServerInfo();
 
-  enum ELadderServerType {
+  enum class ELadderServerType {
     _ServerLevel_Amateurs_place = 1,
     _ServerLevel_Serious_challengers = 2,
     _ServerLevel_Competitive_racers = 3,
@@ -4558,7 +4558,7 @@ struct CGameControlCardCtnArticle : public CGameControlCard {
 
 // Description: "Internal API for Maniaplanet."
 struct CGameManiaPlanetScriptAPI : public CMwNod {
-  enum EContext {
+  enum class EContext {
     MenuStartUp = 0,
     MenuManiaPlanet = 1,
     MenuManiaTitleMain = 2,
@@ -4577,53 +4577,53 @@ struct CGameManiaPlanetScriptAPI : public CMwNod {
     MenuCustom = 15,
     Unknown = 16,
   };
-  enum ELinkType {
+  enum class ELinkType {
     ExternalBrowser = 0,
     ManialinkBrowser = 1,
   };
-  enum EBuyTitleMode {
+  enum class EBuyTitleMode {
     OpenStore = 0,
     BuyIfNeeded = 1,
     Ask = 2,
   };
-  enum EMenuStationsPage {
+  enum class EMenuStationsPage {
     Channels = 0,
     Play = 1,
     Options = 2,
     Help = 3,
   };
-  enum EUplayFlow {
+  enum class EUplayFlow {
     OverView = 0,
     Auth = 1,
     Reward = 2,
     Rewards = 3,
     Actions = 4,
   };
-  enum ESystemPlatform {
+  enum class ESystemPlatform {
     None = 0,
     Steam = 1,
     UPlay = 2,
     PS4 = 3,
     XBoxOne = 4,
   };
-  enum ESystemSkuIdentifier {
+  enum class ESystemSkuIdentifier {
     Unknown = 0,
     EU = 1,
     US = 2,
     JP = 3,
   };
-  enum EHmdWearingState {
+  enum class EHmdWearingState {
     Dismount = 0,
     Mount = 1,
     Unknown = 2,
   };
-  enum EHmdTrackingState {
+  enum class EHmdTrackingState {
     NotStarted = 0,
     Calibrating = 1,
     NotTracking = 2,
     Tracking = 3,
   };
-  enum EInputsListFilter {
+  enum class EInputsListFilter {
     All = 0,
     OnlyGeneral = 1,
     OnlyPlayer = 2,
@@ -4940,7 +4940,7 @@ struct CGameNetFormBuddy : public CNetNod {
 
 // Description: "API for GameModes Manialinks"
 struct CGameScriptHandlerPlaygroundInterface : public CGameManialinkScriptHandler {
-  enum EUISound {
+  enum class EUISound {
     Default = 0,
     Silence = 1,
     StartMatch = 2,
@@ -4971,7 +4971,7 @@ struct CGameScriptHandlerPlaygroundInterface : public CGameManialinkScriptHandle
     Custom3 = 27,
     Custom4 = 28,
   };
-  enum EInGameMenuResult {
+  enum class EInGameMenuResult {
     Resume = 0,
     Quit = 1,
     NormalMenu = 2,
@@ -5029,7 +5029,7 @@ struct CGameManiaAppStation : public CGameManiaAppMinimal {
 
 // Description: "This is the base Manialink page interface."
 struct CGameManialinkScriptHandler : public CMwNod {
-  enum LinkType {
+  enum class LinkType {
     ExternalBrowser = 0,
     ManialinkBrowser = 1,
     Goto = 2,
@@ -5037,14 +5037,14 @@ struct CGameManialinkScriptHandler : public CMwNod {
     ManialinkFromId = 4,
     GotoFromId = 5,
   };
-  enum ESystemPlatform {
+  enum class ESystemPlatform {
     None = 0,
     Steam = 1,
     UPlay = 2,
     PS4 = 3,
     XBoxOne = 4,
   };
-  enum ESystemSkuIdentifier {
+  enum class ESystemSkuIdentifier {
     Unknown = 0,
     EU = 1,
     US = 2,
@@ -5181,7 +5181,7 @@ struct CGameCtnMenusManiaPlanet : public CGameCtnMenus {
 
 // Description: "Manialink entry."
 struct CGameManialinkLabel : public CGameManialinkControl {
-  enum EBlendMode {
+  enum class EBlendMode {
     Default = 0,
     Add = 1,
   };
@@ -5211,7 +5211,7 @@ struct CGameYoutube : public CMwNod {
 };
 
 struct CGameUILayer : public CMwNod {
-  enum EUILayerType {
+  enum class EUILayerType {
     Normal = 0,
     ScoresTable = 1,
     ScreenIn3d = 2,
@@ -5224,7 +5224,7 @@ struct CGameUILayer : public CMwNod {
     ManiaplanetMenu = 9,
     LoadingScreen = 10,
   };
-  enum EUILayerAnimation {
+  enum class EUILayerAnimation {
     None = 0,
     DownFast = 1,
     DownSlow = 2,
@@ -5256,7 +5256,7 @@ struct CGamePlaygroundCommon : public CGameCtnPlayground {
 struct CGameCtnAnchoredObject : public CMwNod {
   CGameCtnAnchoredObject();
 
-  enum CardinalDirections {
+  enum class CardinalDirections {
     North = 0,
     East = 1,
     South = 2,
@@ -5285,7 +5285,7 @@ struct CGameSwitcherModule : public CMwNod {
 
 // Description: "This object handles the interface."
 struct CGamePlaygroundUIConfig : public CMwNod {
-  enum EUISequence {
+  enum class EUISequence {
     None = 0,
     Playing = 1,
     Intro = 2,
@@ -5298,21 +5298,21 @@ struct CGamePlaygroundUIConfig : public CMwNod {
     RollingBackgroundIntro = 9,
     CustomMTClip_WithUIInteraction = 10,
   };
-  enum EUIStatus {
+  enum class EUIStatus {
     None = 0,
     Normal = 1,
     Warning = 2,
     Error = 3,
     Official = 4,
   };
-  enum EVisibility {
+  enum class EVisibility {
     None = 0,
     Normal = 1,
     Manual = 2,
     ForcedHidden = 3,
     ForcedVisible = 4,
   };
-  enum ELabelsVisibility {
+  enum class ELabelsVisibility {
     None = 0,
     Never = 1,
     Always = 2,
@@ -5320,12 +5320,12 @@ struct CGamePlaygroundUIConfig : public CMwNod {
     WhenVisible = 4,
     WhenInMiddleOfScreen = 5,
   };
-  enum EAvatarVariant {
+  enum class EAvatarVariant {
     Default = 0,
     Sad = 1,
     Happy = 2,
   };
-  enum EUISound {
+  enum class EUISound {
     Default = 0,
     Silence = 1,
     StartMatch = 2,
@@ -5356,7 +5356,7 @@ struct CGamePlaygroundUIConfig : public CMwNod {
     Custom3 = 27,
     Custom4 = 28,
   };
-  enum ENoticeLevel {
+  enum class ENoticeLevel {
     Default = 0,
     PlayerInfo = 1,
     PlayerWarning = 2,
@@ -5365,19 +5365,19 @@ struct CGamePlaygroundUIConfig : public CMwNod {
     MatchInfo = 5,
     MatchWarning = 6,
   };
-  enum EMessageDisplay {
+  enum class EMessageDisplay {
     Chat = 0,
     Small = 1,
     Status = 2,
     Big = 3,
   };
-  enum EObserverMode {
+  enum class EObserverMode {
     Default = 0,
     Forced = 1,
     Forbidden = 2,
     Manual = 3,
   };
-  enum EHudVisibility {
+  enum class EHudVisibility {
     Nothing = 0,
     Everything = 1,
     MarkersOnly = 2,
@@ -5529,13 +5529,13 @@ struct CGameManialinkPage : public CMwNod {
 
 // Description: "Manialink control."
 struct CGameManialinkControl : public CMwNod {
-  enum AlignHorizontal {
+  enum class AlignHorizontal {
     Left = 0,
     HCenter = 1,
     Right = 2,
     None = 3,
   };
-  enum AlignVertical {
+  enum class AlignVertical {
     Top = 0,
     VCenter = 1,
     Bottom = 2,
@@ -5577,12 +5577,12 @@ struct CGameManialinkControl : public CMwNod {
 
 // Description: ""
 struct CGameManialinkQuad : public CGameManialinkControl {
-  enum EKeepRatioMode {
+  enum class EKeepRatioMode {
     Inactive = 0,
     Clip = 1,
     Fit = 2,
   };
-  enum EBlendMode {
+  enum class EBlendMode {
     Default = 0,
     Add = 1,
   };
@@ -5647,7 +5647,7 @@ struct CGameCtnMacroBlockInfo : public CGameCtnCollector {
 };
 
 struct CGameCtnEditorCommon : public CGameCtnEditor {
-  enum TrafficDensityEnum {
+  enum class TrafficDensityEnum {
     Null = 0,
     Low = 1,
     Normal = 2,
@@ -5951,7 +5951,7 @@ struct CGameCtnDecalsBrush : public CMwNod {
 struct CGameCtnEditorDecals : public CMwNod {
   CGameCtnEditorDecals();
 
-  enum SemanticsEnum {
+  enum class SemanticsEnum {
     Normal = 0,
     Underwater = 1,
     Other = 2,
@@ -6080,7 +6080,7 @@ struct CGameServerPlugin : public CMwNod {
 
 // Description: "ServerPlugin Event"
 struct CGameServerPluginEvent : public CScriptBaseConstEvent {
-  enum EType {
+  enum class EType {
     Unknown = 0,
     ClientConnected = 1,
     ClientDisconnected = 2,
@@ -6399,7 +6399,7 @@ struct CGamePlaygroundControlMessages : public CControlFrame {
 
 // Description: "Rules API for gamemodes."
 struct CGamePlaygroundScript : public CMwNod {
-  enum EMedal {
+  enum class EMedal {
     None = 0,
     Finished = 1,
     Bronze = 2,
@@ -6407,14 +6407,14 @@ struct CGamePlaygroundScript : public CMwNod {
     Gold = 4,
     Author = 5,
   };
-  enum ESystemPlatform {
+  enum class ESystemPlatform {
     None = 0,
     Steam = 1,
     UPlay = 2,
     PS4 = 3,
     XBoxOne = 4,
   };
-  enum ESystemSkuIdentifier {
+  enum class ESystemSkuIdentifier {
     Unknown = 0,
     EU = 1,
     US = 2,
@@ -6687,7 +6687,7 @@ struct CGameCtnBlockInfoTransition : public CGameCtnBlockInfo {
 struct CGameCtnZoneTransition : public CGameCtnZone {
   CGameCtnZoneTransition();
 
-  enum ZoneTransitionType {
+  enum class ZoneTransitionType {
     Custom = 0,
     TriZone = 1,
     Overlap = 2,
@@ -6762,7 +6762,7 @@ struct CGameBuddy : public CMwNod {
 };
 
 struct CGameEditorPluginMapMapType : public CGameEditorPluginMap {
-  enum ValidationStatus {
+  enum class ValidationStatus {
     NotValidable = 0,
     Validable = 1,
     Validated = 2,
@@ -6790,7 +6790,7 @@ struct CGameCursorItem : public CMwNod {
 struct CGameCtnMacroBlockJunction : public CMwNod {
   CGameCtnMacroBlockJunction();
 
-  enum ECardDir {
+  enum class ECardDir {
     North = 0,
     East = 1,
     South = 2,
@@ -6890,7 +6890,7 @@ struct CGameActionMaker : public CGameEditorAsset {
 };
 
 struct CGameCtnEditorScriptAnchoredObject : public CMwNod {
-  enum CardinalDirections {
+  enum class CardinalDirections {
     North = 0,
     East = 1,
     South = 2,
@@ -6901,7 +6901,7 @@ struct CGameCtnEditorScriptAnchoredObject : public CMwNod {
 
 // Description: "Landmark of a map."
 struct CGameCtnEditorScriptSpecialProperty : public CMwNod {
-  enum EWaypointType {
+  enum class EWaypointType {
     Start = 0,
     Finish = 1,
     Checkpoint = 2,
@@ -6920,13 +6920,13 @@ struct CGameCtnEditorScriptSpecialProperty : public CMwNod {
 };
 
 struct CGameCtnBlockInfoVariant : public CMwNod {
-  enum CardinalDirEnum {
+  enum class CardinalDirEnum {
     North = 0,
     East = 1,
     South = 2,
     West = 3,
   };
-  enum MultiDirEnum {
+  enum class MultiDirEnum {
     SameDir = 0,
     SymmetricalDirs = 1,
     AllDir = 2,
@@ -6935,7 +6935,7 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
     NextDirOnly = 5,
     PreviousDirOnly = 6,
   };
-  enum VariantBaseTypeEnum {
+  enum class VariantBaseTypeEnum {
     Inherit = 0,
     None = 1,
     Conductor = 2,
@@ -7025,7 +7025,7 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
 struct CGameCtnBlockInfoVariantGround : public CGameCtnBlockInfoVariant {
   CGameCtnBlockInfoVariantGround();
 
-  enum EnumAutoTerrainPlaceType {
+  enum class EnumAutoTerrainPlaceType {
     Auto = 0,
     Force = 1,
     DoNotPlace = 2,
@@ -7063,7 +7063,7 @@ struct CGameTeamProfile : public CMwNod {
 
 // Description: "Events for Manialink page scripts."
 struct CGameManialinkScriptEvent : public CScriptBaseConstEvent {
-  enum Type {
+  enum class Type {
     KeyPress = 0,
     MouseClick = 1,
     MouseOver = 2,
@@ -7072,7 +7072,7 @@ struct CGameManialinkScriptEvent : public CScriptBaseConstEvent {
     MenuNavigation = 5,
     PluginCustomEvent = 6,
   };
-  enum EMenuNavAction {
+  enum class EMenuNavAction {
     Up = 0,
     Right = 1,
     Left = 2,
@@ -7103,13 +7103,13 @@ struct CGameManialinkScriptEvent : public CScriptBaseConstEvent {
 
 // Description: "API for the plugins of the map editor."
 struct CGameEditorPluginMap : public CGameManiaApp {
-  enum CardinalDirections {
+  enum class CardinalDirections {
     North = 0,
     East = 1,
     South = 2,
     West = 3,
   };
-  enum CardinalDirections8 {
+  enum class CardinalDirections8 {
     North = 0,
     East = 1,
     South = 2,
@@ -7119,7 +7119,7 @@ struct CGameEditorPluginMap : public CGameManiaApp {
     SouthWest = 6,
     NorthWest = 7,
   };
-  enum RelativeDirections {
+  enum class RelativeDirections {
     Forward = 0,
     RightForward = 1,
     Right = 2,
@@ -7129,7 +7129,7 @@ struct CGameEditorPluginMap : public CGameManiaApp {
     Left = 6,
     LeftForward = 7,
   };
-  enum PlaceMode {
+  enum class PlaceMode {
     Unknown = 0,
     Terraform = 1,
     Block = 2,
@@ -7146,7 +7146,7 @@ struct CGameEditorPluginMap : public CGameManiaApp {
     Item = 13,
     Light = 14,
   };
-  enum EditMode {
+  enum class EditMode {
     Unknown = 0,
     Place = 1,
     FreeLook = 2,
@@ -7155,7 +7155,7 @@ struct CGameEditorPluginMap : public CGameManiaApp {
     SelectionAdd = 5,
     SelectionRemove = 6,
   };
-  enum ShadowsQuality {
+  enum class ShadowsQuality {
     NotComputed = 0,
     VeryFast = 1,
     Fast = 2,
@@ -7163,7 +7163,7 @@ struct CGameEditorPluginMap : public CGameManiaApp {
     High = 4,
     Ultra = 5,
   };
-  enum ValidationStatus {
+  enum class ValidationStatus {
     NotValidable = 0,
     Validable = 1,
     Validated = 2,
@@ -7406,7 +7406,7 @@ struct CGameCtnMediaBlockCameraEffectScript : public CGameCtnMediaBlockCameraEff
 
 // Description: "API for server control when playing online."
 struct CGameScriptServerAdmin : public CMwNod {
-  enum ESpecMode {
+  enum class ESpecMode {
     Selectable = 0,
     SpectatorForced = 1,
     PlayerForced = 2,
@@ -7441,7 +7441,7 @@ struct CGamePlayerProfileChunk_EditorSettings : public CGamePlayerProfileChunk {
 };
 
 struct CGameEditorPluginMapScriptEvent : public CGameManiaAppScriptEvent {
-  enum Type {
+  enum class Type {
     LayerCustomEvent = 0,
     KeyPress = 1,
     MenuNavigation = 3,
@@ -7456,7 +7456,7 @@ struct CGameEditorPluginMapScriptEvent : public CGameManiaAppScriptEvent {
     StartValidation = 12,
     StartTest = 13,
   };
-  enum EInput {
+  enum class EInput {
     Unknown = 0,
     Menu = 1,
     SwitchToRace = 2,
@@ -7774,7 +7774,7 @@ struct CGameCtnMediaClipConfigScriptContext : public CMwNod {
 };
 
 struct CGameServerScriptXmlRpcEvent : public CScriptBaseConstEvent {
-  enum EType {
+  enum class EType {
     Unknown = 0,
     Callback = 1,
     CallbackArray = 2,
@@ -7788,12 +7788,12 @@ struct CGameServerScriptXmlRpcEvent : public CScriptBaseConstEvent {
 
 // Description: "This is the Manialink browser interface."
 struct CGameScriptHandlerBrowser : public CGameManialinkScriptHandler {
-  enum EBuddyAction {
+  enum class EBuddyAction {
     Add = 0,
     Invite = 1,
     Remove = 2,
   };
-  enum EBuddyResult {
+  enum class EBuddyResult {
     Ok = 0,
     Error = 1,
     NotFinished = 2,
@@ -7884,16 +7884,16 @@ struct CGameAnimSet : public CMwNod {
 
 // Description: "Manager of buddies instant messaging."
 struct CGameScriptChatManager : public CMwNod {
-  enum EConnectionStatus {
+  enum class EConnectionStatus {
     Offline = 0,
     Online = 1,
     Connecting = 2,
   };
-  enum EDesiredConnectionStatus {
+  enum class EDesiredConnectionStatus {
     Offline = 0,
     Online = 1,
   };
-  enum EPresenceShow {
+  enum class EPresenceShow {
     Available = 0,
     WantToChat = 1,
     DoNotDisturb = 2,
@@ -7969,18 +7969,18 @@ struct CGameScriptChatManager : public CMwNod {
 
 // Description: "A buddy from the buddy list."
 struct CGameScriptChatContact : public CMwNod {
-  enum ESubscriptionStatus {
+  enum class ESubscriptionStatus {
     None = 0,
     RequestFrom = 1,
     RequestTo = 2,
     Both = 3,
   };
-  enum ESubscription {
+  enum class ESubscription {
     None = 0,
     Pending = 1,
     Accepted = 2,
   };
-  enum EPresenceShow {
+  enum class EPresenceShow {
     Offline = 0,
     Available = 1,
     WantToChat = 2,
@@ -8029,7 +8029,7 @@ struct CGameScriptChatContact : public CMwNod {
 
 // Description: "Event from the BuddiesManager."
 struct CGameScriptChatEvent : public CScriptBaseConstEvent {
-  enum EType {
+  enum class EType {
     Message = 0,
     ChatRoomMessage = 1,
     PresenceChange = 2,
@@ -8044,18 +8044,18 @@ struct CGameScriptChatEvent : public CScriptBaseConstEvent {
     SquadInviteResult = 11,
     SquadInvitationReceived = 12,
   };
-  enum ESubscriptionStatus {
+  enum class ESubscriptionStatus {
     None = 0,
     RequestFrom = 1,
     RequestTo = 2,
     Both = 3,
   };
-  enum ESubscription {
+  enum class ESubscription {
     None = 0,
     Pending = 1,
     Accepted = 2,
   };
-  enum EPresenceShow {
+  enum class EPresenceShow {
     Offline = 0,
     Available = 1,
     WantToChat = 2,
@@ -8063,7 +8063,7 @@ struct CGameScriptChatEvent : public CScriptBaseConstEvent {
     Away = 4,
     ExtendedAway = 5,
   };
-  enum EAddBuddySlotStatus {
+  enum class EAddBuddySlotStatus {
     Success = 0,
     AlreadyBuddy = 1,
     NotConnected = 2,
@@ -8167,7 +8167,7 @@ struct CGameManialink3dStyle : public CMwNod {
 
 // Description: "API for Maniaplanet plugins."
 struct CGameManiaplanetPlugin : public CGameManiaApp {
-  enum EContext {
+  enum class EContext {
     MenuStartUp = 0,
     MenuManiaPlanet = 1,
     MenuManiaTitleMain = 2,
@@ -8186,12 +8186,12 @@ struct CGameManiaplanetPlugin : public CGameManiaApp {
     MenuCustom = 15,
     Unknown = 16,
   };
-  enum EBuyTitleMode {
+  enum class EBuyTitleMode {
     OpenStore = 0,
     BuyIfNeeded = 1,
     Ask = 2,
   };
-  enum EUISound {
+  enum class EUISound {
     Alert = 0,
     ShowDialog = 1,
     HideDialog = 2,
@@ -8379,7 +8379,7 @@ struct CGameManiaplanetPluginInterface : public CMwNod {
 };
 
 struct CGameManiaplanetPluginInterfaceEvent : public CScriptBaseConstEvent {
-  enum EType {
+  enum class EType {
     PluginCustomEvent = 0,
   };
   const EType Type; // Maniascript
@@ -8822,7 +8822,7 @@ struct CGameEditorManialink : public CGameEditorBase {
 
 // Description: "API for titles in edition mode."
 struct CGameManiaTitleEditionScriptAPI : public CMwNod {
-  enum EDrive {
+  enum class EDrive {
     TitleReadable = 0,
     Title = 1,
     User = 2,
@@ -8859,18 +8859,18 @@ struct CGameEditorFileToolBar : public CMwNod {
 
 // Description: "API for Maniaplanet client scripts."
 struct CGameManiaApp : public CMwNod {
-  enum ELinkType {
+  enum class ELinkType {
     ExternalBrowser = 0,
     ManialinkBrowser = 1,
   };
-  enum ESystemPlatform {
+  enum class ESystemPlatform {
     None = 0,
     Steam = 1,
     UPlay = 2,
     PS4 = 3,
     XBoxOne = 4,
   };
-  enum ESystemSkuIdentifier {
+  enum class ESystemSkuIdentifier {
     Unknown = 0,
     EU = 1,
     US = 2,
@@ -8915,13 +8915,13 @@ struct CGameManiaApp : public CMwNod {
 };
 
 struct CGameManiaAppScriptEvent : public CScriptBaseConstEvent {
-  enum EType {
+  enum class EType {
     LayerCustomEvent = 0,
     KeyPress = 1,
     ExternalCustomEvent = 2,
     MenuNavigation = 3,
   };
-  enum EMenuNavAction {
+  enum class EMenuNavAction {
     Up = 0,
     Right = 1,
     Left = 2,
@@ -9026,12 +9026,12 @@ struct CGameManiaAppBrowser : public CGameManiaApp {
 
 // Description: "API for titles menus to control the main loop."
 struct CGameManiaTitleControlScriptAPI : public CMwNod {
-  enum ESplitScreenLayout {
+  enum class ESplitScreenLayout {
     Horizontal = 0,
     Vertical = 1,
     Four = 2,
   };
-  enum EResult {
+  enum class EResult {
     Success = 0,
     Error_Internal = 1,
     Error_DataMgr = 2,
@@ -9043,7 +9043,7 @@ struct CGameManiaTitleControlScriptAPI : public CMwNod {
     Error_Network_ServerFull = 8,
     Error_Abort = 9,
   };
-  enum EEditorType {
+  enum class EEditorType {
     ActionMaker = 0,
     ChallengeEditor = 1,
     ItemEditor = 2,
@@ -9128,7 +9128,7 @@ struct CGameEditorPluginMapLayerScriptHandler : public CGameManialinkScriptHandl
 
 // Description: "A Notification."
 struct CGameScriptNotificationsConsumerNotification : public CMwNod {
-  enum ENotificationPriority {
+  enum class ENotificationPriority {
     Memo = 0,
     Notice = 1,
     Alarm = 2,
@@ -9145,12 +9145,12 @@ struct CGameScriptNotificationsConsumerNotification : public CMwNod {
 
 // Description: "Notifications Producing manager."
 struct CGameScriptNotificationsProducer : public CMwNod {
-  enum ENotificationLifeSpan {
+  enum class ENotificationLifeSpan {
     Game = 0,
     Session = 1,
     NeverEnding = 2,
   };
-  enum ENotificationPriority {
+  enum class ENotificationPriority {
     Memo = 0,
     Notice = 1,
     Alarm = 2,
@@ -9161,7 +9161,7 @@ struct CGameScriptNotificationsProducer : public CMwNod {
 
 // Description: "Manager of buddies instant messaging."
 struct CGameScriptNotificationsConsumer : public CMwNod {
-  enum EFilterPriority {
+  enum class EFilterPriority {
     All = 0,
     MoreThanMemo = 1,
     MoreThanNotice = 2,
@@ -9174,7 +9174,7 @@ struct CGameScriptNotificationsConsumer : public CMwNod {
 
 // Description: "An event."
 struct CGameScriptNotificationsProducerEvent : public CMwNod {
-  enum EType {
+  enum class EType {
     NotificationHasBeenActivated = 0,
   };
   const EType Type; // Maniascript
@@ -9182,7 +9182,7 @@ struct CGameScriptNotificationsProducerEvent : public CMwNod {
 
 // Description: "An event."
 struct CGameScriptNotificationsConsumerEvent : public CMwNod {
-  enum EType {
+  enum class EType {
     NewNotification = 0,
     NotificationChanged = 1,
   };
@@ -9192,7 +9192,7 @@ struct CGameScriptNotificationsConsumerEvent : public CMwNod {
 
 // Description: "Manialink entry."
 struct CGameManialinkTextEdit : public CGameManialinkControl {
-  enum EControlScriptEditorTextFormat {
+  enum class EControlScriptEditorTextFormat {
     Basic = 0,
     Script = 1,
     Password = 2,
@@ -9263,7 +9263,7 @@ struct CGameGhostScript : public CMwNod {
 
 // Description: "Description of a race run."
 struct CTmRaceResultNod : public CMwNod {
-  enum ETmRaceResultCriteria {
+  enum class ETmRaceResultCriteria {
     Time = 0,
     Stunts = 1,
     NbRespawns = 2,
@@ -9280,7 +9280,7 @@ struct CTmRaceResultNod : public CMwNod {
 
 // Description: ""
 struct CGameEditorModule : public CGameCtnEditor {
-  enum EModuleType {
+  enum class EModuleType {
     Undefined = 0,
     Hud = 1,
     Inventory = 2,
@@ -9382,7 +9382,7 @@ struct CGameAchievementScriptManager : public CMwNod {
 
 // Description: "Event concerning achievements."
 struct CGameAchievementScriptEvent : public CScriptBaseConstEvent {
-  enum EType {
+  enum class EType {
     NewAchievement = 0,
   };
   const EType Type; // Maniascript
@@ -9413,7 +9413,7 @@ struct CGamePlaygroundModuleManagerClient : public CMwNod {
 };
 
 struct CGameManiaAppPlaygroundScriptEvent : public CGameManiaAppScriptEvent {
-  enum Type {
+  enum class Type {
     LayerCustomEvent = 0,
     KeyPress = 1,
     MenuNavigation = 3,
@@ -9512,7 +9512,7 @@ struct CGameManiaAppPlayground : public CGameManiaAppPlaygroundCommon {
 
 // Description: "This is a video playback handle."
 struct CGameVideoScriptVideo : public CMwNod {
-  enum ETextureFilter {
+  enum class ETextureFilter {
     Default = 0,
     Point = 1,
   };
@@ -9638,7 +9638,7 @@ struct CGameModuleMenuBase : public CGameManiaAppTitle {
 };
 
 struct CGameModuleMenuBrowser : public CGameModuleMenuComponent {
-  enum EFileType {
+  enum class EFileType {
     Maps = 0,
     Skins = 1,
     Items = 2,
@@ -9652,7 +9652,7 @@ struct CGameModuleMenuBrowser : public CGameModuleMenuComponent {
     Meshes = 10,
     Replays = 11,
   };
-  enum EFileAction {
+  enum class EFileAction {
     Select = 0,
     Save = 1,
     MultiSelect = 2,
@@ -9741,7 +9741,7 @@ struct CGameCtnMasterServerTask_GetCampaignMapRecords : public CNetMasterServerR
 };
 
 struct CGameEditorPluginModuleScriptEvent : public CGameManiaAppScriptEvent {
-  enum Type {
+  enum class Type {
     LayerCustomEvent = 0,
     KeyPress = 1,
     MenuNavigation = 3,
@@ -9905,7 +9905,7 @@ struct CGamePlaygroundModuleServerInventory : public CGamePlaygroundModuleServer
 };
 
 struct CGamePlaygroundModuleServerScoresTable : public CGamePlaygroundModuleServer {
-  enum EColumnType {
+  enum class EColumnType {
     CustomString = 0,
     CustomNatural = 1,
     CustomInteger = 2,
@@ -9927,7 +9927,7 @@ struct CGamePlaygroundModuleServerScoresTable : public CGamePlaygroundModuleServ
     SMPoints = 18,
     SMRoundPoints = 19,
   };
-  enum EScoreSortOrder {
+  enum class EScoreSortOrder {
     Default = 0,
     Name = 1,
     LadderRanking = 2,
@@ -9978,13 +9978,13 @@ struct CGameScoreTask_GetCampaignMapRecordGhost : public CWebServicesTaskSequenc
 
 // Description: "Score and leaderboard manager."
 struct CGameScoreAndLeaderBoardManagerScript : public CMwNod {
-  enum ELocalScoreStatus {
+  enum class ELocalScoreStatus {
     None = 0,
     Loading = 1,
     NotLoaded = 2,
     Loaded = 3,
   };
-  enum EMasterServerScoreStatus {
+  enum class EMasterServerScoreStatus {
     None = 0,
     Synchronizing = 1,
     NotSynchronized = 2,
@@ -10169,7 +10169,7 @@ struct CGameMasterServerRichPresenceTask_UpdatePresence : public CWebServicesTas
 
 // Description: "User privileges manager."
 struct CGameUserPrivilegesManagerScript : public CMwNod {
-  enum EPrivilege {
+  enum class EPrivilege {
     PlayMultiplayerMode = 0,
     PlayMultiplayerSession = 1,
     UploadUserCreatedContent = 2,
@@ -10216,7 +10216,7 @@ struct CGameMasterServerRichPresenceTaskResult_PlayerOnlinePresenceList : public
 };
 
 struct CGameMasterServerRichPresenceManagerScript : public CMwNod {
-  enum ERichPresence {
+  enum class ERichPresence {
     Undefined = 0,
     MainMenu = 1,
     Solo = 2,
@@ -10352,7 +10352,7 @@ struct CGameCtnMasterServerTask_GetRealLeaderBoardSummaries : public CNetMasterS
 };
 
 struct CGameEditorMainPlugin : public CGameEditorPlugin {
-  enum EMeshEditorAPI {
+  enum class EMeshEditorAPI {
     Materials = 0,
     Interactions = 1,
     Display = 2,
@@ -10379,7 +10379,7 @@ struct CGameMgrConstraintPhy : public CSceneMgrPhy {
 
 // Description: "UIConfig Event"
 struct CGamePlaygroundUIConfigEvent : public CScriptBaseEvent {
-  enum EType {
+  enum class EType {
     Unknown = 0,
     OnModuleCustomEvent = 1,
     OnModuleShowRequest = 2,
@@ -10389,7 +10389,7 @@ struct CGamePlaygroundUIConfigEvent : public CScriptBaseEvent {
     OnModuleInventoryEquip = 6,
     OnLayerCustomEvent = 7,
   };
-  enum EModuleType {
+  enum class EModuleType {
     Undefined = 0,
     Hud = 1,
     Inventory = 2,
@@ -10498,7 +10498,7 @@ struct CGameModuleMenuPage : public CMwNod {
 
 // Description: "API for editor plugins."
 struct CGameEditorPlugin : public CGameManiaApp {
-  enum EInteractionStatus {
+  enum class EInteractionStatus {
     Active = 0,
     Closed = 1,
     Aborted = 2,
@@ -10511,7 +10511,7 @@ struct CGameEditorPlugin : public CGameManiaApp {
 };
 
 struct CGameManialinkAnimManager : public CMwNod {
-  enum EAnimManagerEasing {
+  enum class EAnimManagerEasing {
     Linear = 0,
     QuadIn = 1,
     QuadOut = 2,
@@ -10629,7 +10629,7 @@ struct CGameScriptChatHistory : public CMwNod {
 
 // Description: "An message from the history."
 struct CGameScriptChatHistoryEntry : public CMwNod {
-  enum EDirection {
+  enum class EDirection {
     Sent = 0,
     Recieved = 1,
   };
@@ -10666,23 +10666,23 @@ struct CGameEditorPluginMapManager : public CMwNod {
 
 // Description: "API for the mesh modeler."
 struct CGameEditorMesh : public CGameEditorAsset {
-  enum EEdgesDisplay {
+  enum class EEdgesDisplay {
     Any = 0,
     Borders = 1,
     None = 2,
   };
-  enum EEdgesConstraint {
+  enum class EEdgesConstraint {
     Any = 0,
     Adjacent = 1,
     Closed = 2,
   };
-  enum EElemType {
+  enum class EElemType {
     Vertex = 0,
     Edge = 1,
     Face = 2,
     Any = 3,
   };
-  enum EInteraction {
+  enum class EInteraction {
     Creation = 0,
     Pick = 1,
     PickJoint = 2,
@@ -10710,25 +10710,25 @@ struct CGameEditorMesh : public CGameEditorAsset {
     BlocTransformation = 24,
     None = 25,
   };
-  enum ETexCoordLayer {
+  enum class ETexCoordLayer {
     Lightmap = 0,
   };
-  enum EMaterialFilterCriterion {
+  enum class EMaterialFilterCriterion {
     IsAutomatic = 0,
     IsBadForHorizontalFaces = 1,
     IsBadForVerticalFaces = 2,
   };
-  enum EFilterKind {
+  enum class EFilterKind {
     NoFilter = 0,
     PassIfMatches = 1,
     CutIfMatches = 2,
   };
-  enum EUVEditorMode {
+  enum class EUVEditorMode {
     UV = 0,
     Atlas_ApplyOnClic = 1,
     Atlas_SelectOnClic = 2,
   };
-  enum EUVEditorProjectionType {
+  enum class EUVEditorProjectionType {
     Planar = 0,
     Curve2D = 1,
     Cylindrical2D = 2,
@@ -10737,7 +10737,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
     Cylindrical = 5,
     ApplyOnlyMaterial = 6,
   };
-  enum ELayerType {
+  enum class ELayerType {
     AddGeometry = 0,
     SubdivideSmooth = 1,
     Translation = 2,
@@ -10757,7 +10757,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
     Sector = 16,
     None = 17,
   };
-  enum ETitleCoreType {
+  enum class ETitleCoreType {
     TrackMania = 0,
     ShootMania = 1,
   };
@@ -11041,7 +11041,7 @@ struct CGameEditorMesh : public CGameEditorAsset {
 };
 
 struct CGameEditorEvent : public CGameManiaAppScriptEvent {
-  enum Type {
+  enum class Type {
     LayerCustomEvent = 0,
     KeyPress = 1,
     MenuNavigation = 3,
@@ -11155,7 +11155,7 @@ struct CGameDataFileTask_UserDataCacheUpdate : public CWebServicesTaskSequence {
 
 // Description: "Script API to manage game data."
 struct CGameDataFileManagerScript : public CMwNod {
-  enum EMediaType {
+  enum class EMediaType {
     Image = 0,
     Sound = 1,
     Script = 2,
@@ -11388,16 +11388,16 @@ struct CGameGameModeInfoScript : public CMwNod {
 
 // Description: "Local profile settings."
 struct CGameUserProfileWrapper : public CMwNod {
-  enum EMapEditorMode {
+  enum class EMapEditorMode {
     Ask = 0,
     Advanced = 1,
   };
-  enum ECustomPlayerModels {
+  enum class ECustomPlayerModels {
     All = 0,
     OnlyTextures = 1,
     None = 2,
   };
-  enum EInputMouseReleaseKey {
+  enum class EInputMouseReleaseKey {
     LeftAlt = 0,
     RightAlt = 1,
     LeftCtrl = 2,
@@ -11493,7 +11493,7 @@ struct CGameEditorMaterial : public CGameEditorParent {
 };
 
 struct CGameMgrAction : public CSceneMgrPhy {
-  enum EActionSlot {
+  enum class EActionSlot {
     Slot_A = 0,
     Slot_B = 1,
     Slot_C = 2,
@@ -11515,7 +11515,7 @@ struct CGameMgrArenaPhy : public CSceneMgrPhy {
 };
 
 struct CGameScriptVehicle : public CGameScriptEntity {
-  enum ESlotType {
+  enum class ESlotType {
     Driver = 0,
     Passenger = 1,
   };
@@ -11536,14 +11536,14 @@ struct CGameScriptVehicle : public CGameScriptEntity {
 };
 
 struct CGameScriptMgrVehicle : public CMwNod {
-  enum EArmorUse {
+  enum class EArmorUse {
     Self = 0,
     Group = 1,
     Owner = 2,
     Children = 3,
     Mine = 4,
   };
-  enum ESlotType {
+  enum class ESlotType {
     Driver = 0,
     Passenger = 1,
   };
@@ -11669,7 +11669,7 @@ struct CGameMasterServerRichPresenceTaskResult_NextPresence : public CWebService
 };
 
 struct CWebServicesTaskResult_PlanetsTransaction_Bill : public CWebServicesTaskResult {
-  enum EState {
+  enum class EState {
     Void = 0,
     CreatingTransaction = 1,
     Issued = 2,
@@ -11831,12 +11831,12 @@ struct CGameEditorPluginCursorManager : public CMwNod {
 struct CGameEditorPluginCameraAPI : public CMwNod {
   CGameEditorPluginCameraAPI();
 
-  enum EZoomLevel {
+  enum class EZoomLevel {
     Close = 0,
     Medium = 1,
     Far = 2,
   };
-  enum ECameraVStep {
+  enum class ECameraVStep {
     Low = 0,
     MediumLow = 1,
     Medium = 2,
@@ -12857,20 +12857,20 @@ struct CHmsCorpusLight : public CHmsZoneElem {
 };
 
 struct CHmsViewport : public CMwNod {
-  enum ERenderDevice {
+  enum class ERenderDevice {
     PC0 = 0,
     PC1 = 1,
     PC2 = 2,
     PC3 = 3,
   };
-  enum EPC3Quality {
+  enum class EPC3Quality {
     VeryFast = 0,
     Fast = 1,
     Nice = 2,
     VeryNice = 3,
     Ultra = 4,
   };
-  enum EBitmapQuality {
+  enum class EBitmapQuality {
     PC0 = 0,
     PC1 = 1,
     PC2 = 2,
@@ -14052,34 +14052,34 @@ struct CPlugVisualSprite : public CPlugVisual3D {
 struct CPlugBitmap : public CPlug {
   CPlugBitmap();
 
-  enum ERenderTech {
+  enum class ERenderTech {
     Unknown = 0,
     Tech3 = 1,
   };
-  enum ETexFilter {
+  enum class ETexFilter {
     Point = 0,
     Bilinear = 1,
     Trilinear = 2,
     Anisotropic = 3,
     AnisoPoint = 4,
   };
-  enum ETexAddress {
+  enum class ETexAddress {
     Wrap = 0,
     Mirror = 1,
     Clamp = 2,
     Border = 3,
   };
-  enum EColorSpace {
+  enum class EColorSpace {
     Linear = 0,
     sRGB = 1,
   };
-  enum EVideoTimer {
+  enum class EVideoTimer {
     Game = 0,
     Human = 1,
     Scene = 3,
     Default = 4,
   };
-  enum EGenerateUV {
+  enum class EGenerateUV {
     NoGenerate = 0,
     CameraVertex = 1,
     WorldVertex = 2,
@@ -14108,7 +14108,7 @@ struct CPlugBitmap : public CPlug {
     DisableVshOutput = 25,
     WorldPos_PyPxz = 26,
   };
-  enum EUsage {
+  enum class EUsage {
     Color = 0,
     Light = 1,
     HeightNGDuDv = 2,
@@ -14149,12 +14149,12 @@ struct CPlugBitmap : public CPlug {
     RoughMetalNGBC1 = 37,
     Mask_BC4 = 38,
   };
-  enum EColorDepth {
+  enum class EColorDepth {
     DefaultColorDepth = 0,
     Color16b = 1,
     Color32b = 2,
   };
-  enum ECubeMapFace {
+  enum class ECubeMapFace {
     None = 0,
     XPos = 1,
     XNeg = 2,
@@ -14163,13 +14163,13 @@ struct CPlugBitmap : public CPlug {
     ZPos = 5,
     ZNeg = 6,
   };
-  enum EBumpCompressMode {
+  enum class EBumpCompressMode {
     None = 0,
     Pal8b = 1,
     DXT1 = 2,
     Pal16b = 3,
   };
-  enum EPixelUpdate {
+  enum class EPixelUpdate {
     None = 0,
     Render = 1,
     Shader = 2,
@@ -14177,34 +14177,34 @@ struct CPlugBitmap : public CPlug {
     Clear = 4,
     RenderVideo = 5,
   };
-  enum EDynamic {
+  enum class EDynamic {
     Off = 0,
     On = 1,
     On_2_Buffers = 2,
     On_GPU_Only = 3,
   };
-  enum ENormalRotate {
+  enum class ENormalRotate {
     None = 0,
     Px_Pz_Ny = 1,
   };
-  enum EEdCustomSaveOp {
+  enum class EEdCustomSaveOp {
     None = 0,
     Conv_Diffuse = 1,
     CubeHdrScaleA2_DXT5 = 2,
     CubeHdr = 3,
     Cube_EquirectExr = 4,
   };
-  enum ECompressor {
+  enum class ECompressor {
     NVidia = 0,
     DirectX = 1,
   };
-  enum EForceBorderSize {
+  enum class EForceBorderSize {
     _1_texel = 0,
     _2_texels = 1,
     _3_texels = 2,
     _4_texels = 3,
   };
-  enum EMipMapAlpha01 {
+  enum class EMipMapAlpha01 {
     HalfBinary = 0,
     ForceBinary = 1,
     ShadeOfGray = 2,
@@ -14350,7 +14350,7 @@ struct CPlugFilePack : public CPlugFileFidContainer {
 struct CPlugSound : public CPlugAudio {
   CPlugSound();
 
-  enum EAudioBalanceGroup {
+  enum class EAudioBalanceGroup {
     Auto = 0,
     Music = 1,
     Menus = 2,
@@ -14367,7 +14367,7 @@ struct CPlugSound : public CPlugAudio {
     ImpactWarning = 13,
     Environment = 14,
   };
-  enum EAudioRoomFx {
+  enum class EAudioRoomFx {
     None = 0,
     Low = 1,
     Mid = 2,
@@ -14375,13 +14375,13 @@ struct CPlugSound : public CPlugAudio {
     Music = 4,
     UI = 5,
   };
-  enum EAudioPitchFromDistMode {
+  enum class EAudioPitchFromDistMode {
     Auto = 0,
     CurvePlayer = 1,
     CurveGun = 2,
     Disabled = 3,
   };
-  enum EAudioIgnoreSourceProperties {
+  enum class EAudioIgnoreSourceProperties {
     None = 0,
     Ignore_All = 1,
     Ignore_Pitch = 2,
@@ -15208,7 +15208,7 @@ struct CPlugTreeLight : public CPlugTree {
 struct CPlugSoundMulti : public CPlugSound {
   CPlugSoundMulti();
 
-  enum ESoundInputMapping {
+  enum class ESoundInputMapping {
     Direct = 0,
     ForceRandom = 1,
     Distance = 2,
@@ -16441,7 +16441,7 @@ struct CPlugShieldEmitterModel : public CMwNod {
 struct CPlugBulletModel : public CMwNod {
   CPlugBulletModel();
 
-  enum EBulletType {
+  enum class EBulletType {
     Projectile = 0,
     Laser = 1,
     Beam = 2,
@@ -16452,11 +16452,11 @@ struct CPlugBulletModel : public CMwNod {
     ProjectileGuidedKeyboard = 7,
     ProjectileHovering = 8,
   };
-  enum EExplosionOccultationTest {
+  enum class EExplosionOccultationTest {
     Binary = 0,
     Smoother = 1,
   };
-  enum EFireBulletPatternMode {
+  enum class EFireBulletPatternMode {
     NoPattern = 0,
     GrowingOffset = 1,
     Spiral = 2,
@@ -16826,13 +16826,13 @@ struct CPlugCharPhyModelCustom : public CMwNod {
 struct CPlugMaterialUserInst : public CMwNod {
   CPlugMaterialUserInst();
 
-  enum ETexAddress {
+  enum class ETexAddress {
     Wrap = 0,
     Mirror = 1,
     Clamp = 2,
     Border = 3,
   };
-  enum EMaterialModelStatic {
+  enum class EMaterialModelStatic {
     TDSN = 0,
     TDOSN = 1,
     TDOBSN = 2,
@@ -16841,7 +16841,7 @@ struct CPlugMaterialUserInst : public CMwNod {
     TDSNI_Night = 5,
     TIAdd = 6,
   };
-  enum EMaterialModelDyna0 {
+  enum class EMaterialModelDyna0 {
     ZOnly_Water = 0,
     TDSNI = 1,
     TI = 2,
@@ -16851,7 +16851,7 @@ struct CPlugMaterialUserInst : public CMwNod {
     TIce = 6,
     TShield = 7,
   };
-  enum EMaterialModelChar {
+  enum class EMaterialModelChar {
     TDSNEM = 0,
     TE = 1,
     TDOSNEM = 2,
@@ -16861,7 +16861,7 @@ struct CPlugMaterialUserInst : public CMwNod {
     Part = 6,
     Body = 7,
   };
-  enum EMaterialModelVehicle {
+  enum class EMaterialModelVehicle {
     Skin = 0,
     SkinDmg = 1,
     SkinNoSkelDmg = 2,
@@ -17108,12 +17108,12 @@ struct CPlugVehicleCarPhyShape : public CMwNod {
 struct CPlugTurret : public CMwNod {
   CPlugTurret();
 
-  enum ETurretFixedAngleSignal {
+  enum class ETurretFixedAngleSignal {
     Constant = 0,
     Linear = 1,
     PingPong = 2,
   };
-  enum EOnArmorEmtpy {
+  enum class EOnArmorEmtpy {
     Destroy = 0,
     Disable = 1,
   };
@@ -18624,14 +18624,14 @@ struct CSystemFidMemory : public CSystemFid {
 };
 
 struct CSystemPlatformScript : public CMwNod {
-  enum ESystemPlatform {
+  enum class ESystemPlatform {
     None = 0,
     Steam = 1,
     UPlay = 2,
     PS4 = 3,
     XBoxOne = 4,
   };
-  enum ESystemSkuIdentifier {
+  enum class ESystemSkuIdentifier {
     Unknown = 0,
     EU = 1,
     US = 2,
@@ -19088,7 +19088,7 @@ struct CAudioZone : public CMwNod {
 };
 
 struct CAudioScriptManager : public CMwNod {
-  enum ELibSound {
+  enum class ELibSound {
     Alert = 0,
     ShowDialog = 1,
     HideDialog = 2,
@@ -19141,7 +19141,7 @@ struct CAudioScriptSound : public CMwNod {
 };
 
 struct CAudioScriptMusic : public CAudioScriptSound {
-  enum EUpdateMode {
+  enum class EUpdateMode {
     Cut = 0,
     OnNextBar = 1,
     OnNextHalfBar = 2,
@@ -19174,7 +19174,7 @@ struct CAudioScriptMusic : public CAudioScriptSound {
 };
 
 struct CAudioZoneSource : public CMwNod {
-  enum EAudioBalanceGroup {
+  enum class EAudioBalanceGroup {
     Auto = 0,
     Music = 1,
     Menus = 2,
@@ -19214,7 +19214,7 @@ struct CAudioZoneSource : public CMwNod {
 };
 
 struct CAudioSource : public CMwNod {
-  enum EAudioBalanceGroup {
+  enum class EAudioBalanceGroup {
     Auto = 0,
     Music = 1,
     Menus = 2,
@@ -19963,19 +19963,19 @@ struct CNetFormNewPing : public CNetNod {
 
 // Description: "Masterserver user info."
 struct CNetMasterServerUserInfo : public CMwNod {
-  enum EFirstPartySignInState {
+  enum class EFirstPartySignInState {
     Unknown = 0,
     NotSignedUp = 1,
     SignedOut = 2,
     SignedIn = 3,
   };
-  enum EMasterServerConnectionStatus {
+  enum class EMasterServerConnectionStatus {
     NotConnected = 0,
     Connecting = 1,
     Connected = 2,
     Disconnecting = 3,
   };
-  enum EMasterServerConnectionDetailedStatus {
+  enum class EMasterServerConnectionDetailedStatus {
     NotConnected = 0,
     CheckingNetworkAvailability = 1,
     CheckingMasterServerConnexion = 2,
@@ -20002,7 +20002,7 @@ struct CNetMasterServerUserInfo : public CMwNod {
     Connected = 23,
     Disconnecting = 24,
   };
-  enum EMasterServerConnectionError {
+  enum class EMasterServerConnectionError {
     NetworkNotAvailable = 0,
     FirstPartySignedOut = 1,
     NoUbiServicesSession = 2,
@@ -20195,7 +20195,7 @@ struct CWebServicesTaskResult_StringIntList : public CWebServicesTaskResult {
 
 // Description: "An HTTP event."
 struct CNetScriptHttpEvent : public CMwNod {
-  enum EType {
+  enum class EType {
     RequestComplete = 0,
   };
   const EType Type; // Maniascript
@@ -20342,10 +20342,10 @@ struct CInputPortNull : public CInputPort {
 };
 
 struct CInputScriptEvent : public CMwNod {
-  enum EType {
+  enum class EType {
     PadButtonPress = 0,
   };
-  enum EButton {
+  enum class EButton {
     Left = 0,
     Right = 1,
     Up = 2,
@@ -20425,7 +20425,7 @@ struct CInputReplay : public CMwNod {
 
 // Description: "Input devices."
 struct CInputScriptManager : public CMwNod {
-  enum EButton {
+  enum class EButton {
     Left = 0,
     Right = 1,
     Up = 2,
@@ -20478,7 +20478,7 @@ struct CInputScriptManager : public CMwNod {
 
 // Description: "game controller."
 struct CInputScriptPad : public CMwNod {
-  enum EButton {
+  enum class EButton {
     Left = 0,
     Right = 1,
     Up = 2,
@@ -20505,7 +20505,7 @@ struct CInputScriptPad : public CMwNod {
     R2 = 23,
     None = 24,
   };
-  enum EPadType {
+  enum class EPadType {
     Keyboard = 0,
     Mouse = 1,
     Generic = 2,
@@ -20608,7 +20608,7 @@ struct CXmlScriptParsingDocumentJson : public CMwNod {
 };
 
 struct CXmlScriptParsingNodeJson : public CMwNod {
-  enum ENodeType {
+  enum class ENodeType {
     Object = 0,
     Array = 1,
     Value = 2,
@@ -20722,7 +20722,7 @@ struct CTrackManiaRaceNew : public CTrackManiaRace {
 
 // Description: "Rules API for TrackMania gamemodes."
 struct CTrackManiaRaceRules : public CGamePlaygroundScript {
-  enum ETmScoreSortOrder {
+  enum class ETmScoreSortOrder {
     TotalPoints = 0,
     BestRace_Time = 1,
     BestRace_Stunts = 2,
@@ -20732,19 +20732,19 @@ struct CTrackManiaRaceRules : public CGamePlaygroundScript {
     Name = 6,
     LadderRankSortValue = 7,
   };
-  enum ETMRespawnBehaviour {
+  enum class ETMRespawnBehaviour {
     Normal = 0,
     DoNothing = 1,
     GiveUpBeforeFirstCheckPoint = 2,
     AlwaysGiveUp = 3,
   };
-  enum ETmRaceChronoBehaviour {
+  enum class ETmRaceChronoBehaviour {
     Auto = 0,
     Hidden = 1,
     CountDown = 2,
     Normal = 3,
   };
-  enum EPersonalGhost {
+  enum class EPersonalGhost {
     Disabled = 0,
     Latest = 1,
     FastestRace = 2,
@@ -21005,7 +21005,7 @@ struct CTrackManiaNetForm : public CGameNetForm {
 };
 
 struct CTrackManiaPlayer : public CGamePlayer {
-  enum ERaceState {
+  enum class ERaceState {
     BeforeStart = 0,
     Running = 1,
     Finished = 2,
@@ -21040,12 +21040,12 @@ struct CTrackManiaPlayer : public CGamePlayer {
 };
 
 struct CTrackManiaGameTerminal : public CGameTerminal {
-  enum SpectatorCameraType {
+  enum class SpectatorCameraType {
     _SpectatorCam_Replay = 0,
     _SpectatorCam_Follow = 1,
     _SpectatorCam_Free = 2,
   };
-  enum SpectatorCameraTarget {
+  enum class SpectatorCameraTarget {
     _SpectatorCam_Manual = 0,
     _SpectatorCam_Auto = 1,
   };
@@ -21058,7 +21058,7 @@ struct CTrackManiaGameTerminal : public CGameTerminal {
 };
 
 struct CTrackManiaNetworkServerInfo : public CGameCtnNetServerInfo {
-  enum EGameMode {
+  enum class EGameMode {
     _GameMode_Script = 0,
     _GameMode_Rounds = 1,
     _GameMode_Time_Attack = 2,
@@ -21067,7 +21067,7 @@ struct CTrackManiaNetworkServerInfo : public CGameCtnNetServerInfo {
     _GameMode_Cup = 5,
     _GameMode_Stunts = 6,
   };
-  enum EGameMode_Script {
+  enum class EGameMode_Script {
     Script = 0,
     Rounds = 1,
     TimeAttack = 2,
@@ -21141,12 +21141,12 @@ struct CTrackManiaRaceNetRounds : public CTrackManiaRaceNet {
 
 // Description: "Player for CTmMode."
 struct CTmRaceRulesPlayer : public CGameScriptPlayer {
-  enum ETmRacePlayerCoopMode {
+  enum class ETmRacePlayerCoopMode {
     None = 0,
     Symbiosys = 1,
     Checkpoint = 2,
   };
-  enum ETmJumpMode {
+  enum class ETmJumpMode {
     Disabled = 0,
     Simple = 1,
     Double = 2,
@@ -21255,7 +21255,7 @@ struct CTrackManiaRaceNetTimeAttack : public CTrackManiaRaceNet {
 };
 
 struct CTmRaceRulesEvent : public CMwNod {
-  enum EType {
+  enum class EType {
     Unknown = 0,
     StartLine = 1,
     WayPoint = 2,
@@ -21266,7 +21266,7 @@ struct CTmRaceRulesEvent : public CMwNod {
     OnPlayerRemoved = 7,
     OnCommand = 8,
   };
-  enum EStuntFigure {
+  enum class EStuntFigure {
     None = 0,
     StraightJump = 1,
     Flip = 2,
@@ -21544,7 +21544,7 @@ struct CTmEditorPluginMapType : public CGameEditorPluginMapMapType {
 };
 
 struct CTmRaceClientEvent : public CMwNod {
-  enum EType {
+  enum class EType {
     Unknown = 0,
     WayPoint = 1,
     Respawn = 2,
@@ -21612,31 +21612,31 @@ struct CTmModuleScoresTable : public CGamePlaygroundModuleClientScoresTable {
 
 // Description: "Player for CTmMlScriptIngame."
 struct CTrackManiaScriptPlayer : public CGameScriptPlayer {
-  enum ERaceState {
+  enum class ERaceState {
     BeforeStart = 0,
     Running = 1,
     Finished = 2,
     Eliminated = 3,
   };
-  enum ETmRacePlayerCoopMode {
+  enum class ETmRacePlayerCoopMode {
     None = 0,
     Symbiosys = 1,
     Checkpoint = 2,
   };
-  enum ETmJumpMode {
+  enum class ETmJumpMode {
     Disabled = 0,
     Simple = 1,
     Double = 2,
     Infinite = 3,
   };
-  enum ETmBonusModeEventType {
+  enum class ETmBonusModeEventType {
     None = 0,
     Bumps = 1,
     LowGravity = 2,
     FreeWheeling = 3,
     LockedDirections = 4,
   };
-  enum ESceneVehiclePhyStuntFigure {
+  enum class ESceneVehiclePhyStuntFigure {
     None = 0,
     StraightJump = 1,
     Flip = 2,
@@ -21948,12 +21948,12 @@ struct CSmNetForm : public CGameNetForm {
 };
 
 struct CSmPlayer : public CGamePlayer {
-  enum ESpawnStatus {
+  enum class ESpawnStatus {
     NotSpawned = 0,
     Spawning = 1,
     Spawned = 2,
   };
-  enum EPost {
+  enum class EPost {
     None = 0,
     Char = 1,
     CarDriver = 2,
@@ -21983,7 +21983,7 @@ struct CSmArenaInterfaceUI : public CGamePlaygroundInterface {
 };
 
 struct CSmPlayerDriver : public CMwNod {
-  enum ESmDriverBehaviour {
+  enum class ESmDriverBehaviour {
     Static = 0,
     Turret = 1,
     Scripted = 2,
@@ -21992,12 +21992,12 @@ struct CSmPlayerDriver : public CMwNod {
     Escape = 5,
     Saunter = 6,
   };
-  enum ESmDriverPatrolMode {
+  enum class ESmDriverPatrolMode {
     OneTrip = 0,
     BackAndForth = 1,
     Loop = 2,
   };
-  enum ESmAttackFilter {
+  enum class ESmAttackFilter {
     All = 0,
     AllPlayers = 1,
     AllBots = 2,
@@ -22043,7 +22043,7 @@ struct CSmPlayerDriver : public CMwNod {
 
 // Description: "An action event"
 struct CSmActionInstanceEvent : public CScriptBaseConstEvent {
-  enum EType {
+  enum class EType {
     OnHitPlayer = 0,
     OnProjectileEnd = 1,
     OnProjectileDestroyed = 2,
@@ -22070,7 +22070,7 @@ struct CSmActionInstanceEvent : public CScriptBaseConstEvent {
 };
 
 struct CSmArenaRules : public CMwNod {
-  enum EGameplay {
+  enum class EGameplay {
     Default = 0,
     Mp3Beta0 = 1,
   };
@@ -22130,7 +22130,7 @@ struct CSmScriptBotSpawn : public CSmScriptLandmark {
 
 // Description: "An instance of an object."
 struct CSmObject : public CGameScriptEntity {
-  enum EStatus {
+  enum class EStatus {
     OnPlayer = 0,
     OnAnchor = 1,
     InWorld = 2,
@@ -22210,14 +22210,14 @@ struct CSmArena : public CMwNod {
 
 // Description: "Rules API for ShootMania gamemodes."
 struct CSmArenaRulesMode : public CGamePlaygroundScript {
-  enum EWeapon {
+  enum class EWeapon {
     Laser = 0,
     Rocket = 1,
     Nucleus = 2,
     Arrow = 3,
     Missile = 4,
   };
-  enum EActionSlot {
+  enum class EActionSlot {
     Slot_A = 0,
     Slot_B = 1,
     Slot_C = 2,
@@ -22227,7 +22227,7 @@ struct CSmArenaRulesMode : public CGamePlaygroundScript {
     Slot_G = 6,
     Slot_H = 7,
   };
-  enum EActionInput {
+  enum class EActionInput {
     Weapon = 0,
     Movement = 1,
     Activable1 = 2,
@@ -22238,7 +22238,7 @@ struct CSmArenaRulesMode : public CGamePlaygroundScript {
     Consumable2 = 7,
     None = 8,
   };
-  enum EGameplay {
+  enum class EGameplay {
     Default = 0,
     Mp3Beta0 = 1,
   };
@@ -22384,7 +22384,7 @@ struct CSmServer : public CMwNod {
 
 // Description: "Event recieved by ShootMania gamemodes."
 struct CSmArenaRulesEvent : public CScriptBaseEvent {
-  enum EType {
+  enum class EType {
     Unknown = 0,
     OnShoot = 1,
     OnHit = 2,
@@ -22409,7 +22409,7 @@ struct CSmArenaRulesEvent : public CScriptBaseEvent {
     OnVehicleVsVehicleCollision = 21,
     OnVehicleLanding = 22,
   };
-  enum EActionSlot {
+  enum class EActionSlot {
     Slot_A = 0,
     Slot_B = 1,
     Slot_C = 2,
@@ -22419,7 +22419,7 @@ struct CSmArenaRulesEvent : public CScriptBaseEvent {
     Slot_G = 6,
     Slot_H = 7,
   };
-  enum EActionInput {
+  enum class EActionInput {
     Weapon = 0,
     Movement = 1,
     Activable1 = 2,
@@ -22430,7 +22430,7 @@ struct CSmArenaRulesEvent : public CScriptBaseEvent {
     Consumable2 = 7,
     None = 8,
   };
-  enum EActionSlots {
+  enum class EActionSlots {
     Weapon = 0,
     Movement = 1,
     Activable1 = 2,
@@ -22631,12 +22631,12 @@ struct CSmScriptMapLandmark : public CGameScriptMapLandmark {
 
 // Description: "A Shootmania player."
 struct CSmScriptPlayer : public CGameScriptPlayer {
-  enum ESpawnStatus {
+  enum class ESpawnStatus {
     NotSpawned = 0,
     Spawning = 1,
     Spawned = 2,
   };
-  enum EPost {
+  enum class EPost {
     None = 0,
     Char = 1,
     CarDriver = 2,
@@ -22739,7 +22739,7 @@ namespace GameData {
 struct CGameCtnCollector : public CMwNod {
   CGameCtnCollector();
 
-  enum EProdState {
+  enum class EProdState {
     Aborted = 0,
     GameBox = 1,
     DevBuild = 2,
@@ -22768,7 +22768,7 @@ struct CGameCtnCollector : public CMwNod {
 struct CGameItemModel : public CGameCtnCollector {
   CGameItemModel();
 
-  enum EnumItemType {
+  enum class EnumItemType {
     Undefined = 0,
     Ornament = 1,
     PickUp = 2,
@@ -22783,7 +22783,7 @@ struct CGameItemModel : public CGameCtnCollector {
     Block = 11,
     EntitySpawner = 12,
   };
-  enum EnumWaypointType {
+  enum class EnumWaypointType {
     Start = 0,
     Finish = 1,
     Checkpoint = 2,
@@ -22791,7 +22791,7 @@ struct CGameItemModel : public CGameCtnCollector {
     StartFinish = 4,
     Dispenser = 5,
   };
-  enum EnumDefaultCam {
+  enum class EnumDefaultCam {
     None = 0,
     Default = 1,
     Free = 2,
@@ -22818,13 +22818,13 @@ struct CGameItemModel : public CGameCtnCollector {
     Decals = 23,
     Snap = 24,
   };
-  enum EnumInventoryItemClass {
+  enum class EnumInventoryItemClass {
     Weapon = 0,
     Movement = 1,
     Consumable = 2,
     Armor = 3,
   };
-  enum EnumItemClipType {
+  enum class EnumItemClipType {
     Not_a_clip = 0,
     Complex = 1,
     Rectangular = 2,
@@ -22891,12 +22891,12 @@ struct CGameItemModel : public CGameCtnCollector {
 
 // Description: ""
 struct CGameModulePlaygroundPlayerStateComponentModel : public CMwNod {
-  enum Type {
+  enum class Type {
     Invalid = 0,
     Gauge = 1,
     List = 2,
   };
-  enum Model {
+  enum class Model {
     Invalid = 0,
     WeaponGauge = 1,
     ArmorGauge = 2,
@@ -23247,7 +23247,7 @@ struct CGameModuleMenuPageModel : public CGameModuleModelCommon {
 struct CGameEditorModel : public CMwNod {
   CGameEditorModel();
 
-  enum EEditorType {
+  enum class EEditorType {
     ActionMaker = 0,
     ChallengeEditor = 1,
     ItemEditor = 2,
@@ -23302,7 +23302,7 @@ struct CGameModulePlaygroundChronoModel : public CGameModulePlaygroundModel {
 struct CGameModulePlaygroundSpeedMeterModel : public CGameModulePlaygroundModel {
   CGameModulePlaygroundSpeedMeterModel();
 
-  enum ESpeedUnit {
+  enum class ESpeedUnit {
     Undefined = 0,
     MetersPerSecond = 1,
     KmPerHour = 2,
@@ -23391,7 +23391,7 @@ struct CGameModulePlaygroundPlayerStateModel : public CGameModulePlaygroundModel
 struct CGameModulePlaygroundTeamStateModel : public CGameModulePlaygroundModel {
   CGameModulePlaygroundTeamStateModel();
 
-  enum ECardAlign {
+  enum class ECardAlign {
     Vertical = 0,
     Horizontal = 1,
     Custom = 2,
@@ -23470,7 +23470,7 @@ struct CGameModulePlaygroundTeamStateModel : public CGameModulePlaygroundModel {
 struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlaygroundPlayerStateComponentModel {
   CGameModulePlaygroundPlayerStateGaugeModel();
 
-  enum Source {
+  enum class Source {
     Weapon_current = 0,
     Weapon_max = 1,
     Weapon_grading = 2,
@@ -23494,19 +23494,19 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
     Reserved17 = 20,
     Constant = 21,
   };
-  enum DistanceUnit {
+  enum class DistanceUnit {
     Default = 0,
     Meter = 1,
     Kilometer = 2,
     Mile = 3,
   };
-  enum SpeedUnit {
+  enum class SpeedUnit {
     Default = 0,
     m_s = 1,
     km_h = 2,
     Mi_h = 3,
   };
-  enum Direction {
+  enum class Direction {
     Right = 0,
     Top_right = 1,
     Top = 2,
@@ -23614,7 +23614,7 @@ struct CGameBlockItem : public CMwNod {
 struct CGameCommonItemEntityModelEdition : public CMwNod {
   CGameCommonItemEntityModelEdition();
 
-  enum EnumItemType {
+  enum class EnumItemType {
     Undefined = 0,
     Ornament = 1,
     PickUp = 2,
@@ -23629,7 +23629,7 @@ struct CGameCommonItemEntityModelEdition : public CMwNod {
     Block = 11,
     EntitySpawner = 12,
   };
-  enum EnumInventoryItemClass {
+  enum class EnumInventoryItemClass {
     Weapon = 0,
     Movement = 1,
     Consumable = 2,
@@ -23681,7 +23681,7 @@ struct SHudModule {
 struct CGameModulePlaygroundPlayerStateListModel : public CGameModulePlaygroundPlayerStateComponentModel {
   CGameModulePlaygroundPlayerStateListModel();
 
-  enum Source {
+  enum class Source {
     Weapon_current = 0,
     Weapon_max = 1,
     Weapon_grading = 2,
@@ -23705,13 +23705,13 @@ struct CGameModulePlaygroundPlayerStateListModel : public CGameModulePlaygroundP
     Reserved17 = 20,
     Constant = 21,
   };
-  enum DistanceUnit {
+  enum class DistanceUnit {
     Default = 0,
     Meter = 1,
     Kilometer = 2,
     Mile = 3,
   };
-  enum SpeedUnit {
+  enum class SpeedUnit {
     Default = 0,
     m_s = 1,
     km_h = 2,
