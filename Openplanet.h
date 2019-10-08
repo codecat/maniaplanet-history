@@ -18522,12 +18522,12 @@ struct CSystemConfig : public CMwNod {
   string ProfileName;
   void SetProfileNameUnassigned();
   uint PlayerInfoDisplaySize; // Range: 1 - 5
-  enum class _EUnnamedEnum_5391423032 {
+  enum class _EUnnamedEnum {
     Name = 0,
     Avatar = 1,
     Avatar_and_Name = 2,
   };
-  _EUnnamedEnum_5391423032 PlayerInfoDisplayType;
+  _EUnnamedEnum PlayerInfoDisplayType;
   bool EdDontConnect;
   bool DisableReplayRecording;
   bool Dynamic_ParentalLock_IsLocked;
