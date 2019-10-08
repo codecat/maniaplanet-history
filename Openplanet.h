@@ -4909,10 +4909,14 @@ struct CGameDialogShootParams : public CMwNod {
   void SetQualityPreset_High();
 };
 
+// Description: "Manialink filename entry."
 struct CGameManialinkFileEntry : public CGameManialinkEntry {
   void OnFileChoosen();
-  void ClearFileName(); // Maniascript
+  bool OnlyUserFiles; // Maniascript
+  void ClearFileNames(); // Maniascript
   const wstring FullFileName; // Maniascript
+  const wstring RelativeNameToRoot; // Maniascript
+  const wstring RelativeNameToTypeFolder; // Maniascript
   const wstring RelativeFileName; // Maniascript
 };
 
