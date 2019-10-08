@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 1.13.0 (v4, Public)
+// Generated with Openplanet 1.13.1 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -4911,7 +4911,9 @@ struct CGameDialogShootParams : public CMwNod {
 
 struct CGameManialinkFileEntry : public CGameManialinkEntry {
   void OnFileChoosen();
+  void ClearFileName(); // Maniascript
   const wstring FullFileName; // Maniascript
+  const wstring RelativeFileName; // Maniascript
 };
 
 struct CGameNetDataDownload : public CMwNod {
@@ -8988,8 +8990,8 @@ struct CGameManiaAppTitle : public CGameManiaApp {
   const MwBuffer<wstring> ExternalRequest_Data; // Maniascript
   void ExternalRequest_Clear(); // Maniascript
   CGameAchievementScriptManager* const AchievementsManager; // Maniascript
-  CGameManagerBadgeScript* BadgeManager; // Maniascript
-  CGameMatchSettingsManagerScript* MatchSettingsManager; // Maniascript
+  CGameManagerBadgeScript* const BadgeManager; // Maniascript
+  CGameMatchSettingsManagerScript* const MatchSettingsManager; // Maniascript
   void Authentication_GetToken(MwId UserId, string AppLogin); // Maniascript
   const bool Authentication_GetTokenResponseReceived; // Maniascript
   const uint Authentication_ErrorCode; // Maniascript
