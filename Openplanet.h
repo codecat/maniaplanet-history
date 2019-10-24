@@ -1,5 +1,5 @@
 // Maniaplanet engine classes documentation
-// Generated with Openplanet 1.13.1 (v4, Public)
+// Generated with Openplanet 1.13.2 (v4, Public)
 // https://openplanet.nl/
 
 using namespace MwFoundations;
@@ -7197,10 +7197,12 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   void TestMapFromStart(); // Maniascript
   void TestMapFromCoord(int3 Coord, CardinalDirections Dir); // Maniascript
   void TestMapWithMode(wstring RulesModeName); // Maniascript
+  void TestMapWithMode2(wstring RulesModeName, string SettingsXml); // Maniascript
   void TestMapWithMode_SplitScreen(wstring RulesModeName); // Maniascript
   void TestMapWithMode_SplitScreen_n(wstring RulesModeName, uint ScreenCount); // Maniascript
-  void TestMapWithMode_SplitScreen_n_m(wstring RulesModeName, uint ScreenCount, uint FakeCount); // Maniascript
+  void TestMapWithMode_SplitScreen_n_m(wstring RulesModeName, uint ScreenCount, uint FakeCount, string SettingsXml); // Maniascript
   void StartTestMapWithMode(wstring RulesModeName); // Maniascript
+  bool EnableMapTypeStartTest; // Maniascript
   void SaveMap(wstring FileName); // Maniascript
   void SaveMapCompat(wstring FileName, wstring Path); // Maniascript
   PlaceMode PlaceMode; // Maniascript
@@ -20659,7 +20661,6 @@ struct CTrackManiaRace : public CGameRace {
   float VehicleFadeDistMinBoxCoef;
   float VehicleFadeDistMaxBoxCoef;
   void ResetForParam();
-  void OnPlayerPositionSend();
   MwBuffer<CGameCtnGhost*> RaceGhosts;
   bool IsBestRaceGhostVisible;
   bool ForceDisplayNames;
@@ -20803,7 +20804,9 @@ struct CTrackManiaRaceRules : public CGamePlaygroundScript {
   bool MedalGhost_ShowSilver; // Maniascript
   bool MedalGhost_ShowBronze; // Maniascript
   EPersonalGhost PersonalGhost; // Maniascript
-  bool ValidationGhost_Show; // Maniascript
+  bool ValidationGhost_Use; // Maniascript
+  bool ValidationGhost_Visible; // Maniascript
+  const MwId ValidationGhost_Id; // Maniascript
   bool StuntModel_EnableCustomisation; // Maniascript
   bool StuntModel_MP3Combo; // Maniascript
   bool StuntModel_MP3Points; // Maniascript
