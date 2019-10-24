@@ -573,8 +573,8 @@ struct CGameTerminal : public CMwNod {
   CGameCtnMediaClipPlayer* const MediaAmbianceClipPlayer;
   void GetNextWantedCameraType();
   void GetNextWantedCameraTarget();
-  SpectatorCameraType SpectatorCameraType;
-  SpectatorCameraTarget SpectatorCameraTarget;
+  ESpectatorCameraType SpectatorCameraType;
+  ESpectatorCameraTarget SpectatorCameraTarget;
 };
 
 struct CGameApp : public CMwNod {
@@ -738,7 +738,7 @@ struct CGameNetPlayerInfo : public CMwNod {
   const bool Live_RetrievingTimeLeft;
   const uint Live_UpdateLastTime;
   const uint LiveUpdate_Counter;
-  const PlayerType PlayerType;
+  const EPlayerType PlayerType;
   const uint State;
   const uint ChallengeSequenceNumber;
   const uint LatestNetUpdate;
@@ -746,7 +746,7 @@ struct CGameNetPlayerInfo : public CMwNod {
   const uint UploadRate;
   bool CustomDataDeactivated;
   const uint NbSpectators;
-  SpectatorMode SpectatorMode;
+  ESpectatorMode SpectatorMode;
 };
 
 struct CGameNetwork : public CMwNod {
@@ -1025,13 +1025,13 @@ struct CGameRemoteBuffer : public CMwNod {
   CMwNod* const LocalData;
   const string LastServerUpdate;
   const bool UseRefs;
-  enum class Mode {
+  enum class EMode {
     None = 0,
     Get = 1,
     Set = 2,
     Get_Set = 3,
   };
-  const Mode Mode;
+  const EMode Mode;
   const uint TotalCount;
   const uint SpecificCount;
   const uint PerPageCount;
@@ -1182,14 +1182,14 @@ struct CGameNetServerInfo : public CNetMasterHost {
   const uint LadderMatchId;
   const uint DownloadRate;
   const uint UploadRate;
-  enum class PingEnum {
+  enum class EPingEnum {
     ____ = 0,
     A___ = 1,
     AA__ = 2,
     AAA_ = 3,
     AAAA = 4,
   };
-  const PingEnum PingEnum;
+  const EPingEnum PingEnum;
   const uint Ping;
   string ServerHostName;
   const uint State;
@@ -1376,8 +1376,8 @@ struct CGameCtnBlockUnitInfo : public CMwNod {
   CGameCtnBlockUnitInfo* OriginalBlockUnitInfoCopy;
   const uint PlacedPillarIndex;
   const uint ReplacedPillarIndex;
-  CardinalDirEnum TopClipDir;
-  CardinalDirEnum BottomClipDir;
+  ECardinalDirEnum TopClipDir;
+  ECardinalDirEnum BottomClipDir;
   const nat3 Offset; // Maniascript
   const nat3 RelativeOffset; // Maniascript
   const MwArray<CGameCtnBlockInfoClip*> Clips; // Maniascript
@@ -1636,7 +1636,7 @@ struct CGameCtnChallenge : public CMwNod {
   CGameCtnCollection* Collection;
   const MwBuffer<CGameCtnBlock*> Blocks;
   const MwBuffer<CGameCtnBlock*> BakedBlocks;
-  const MwBuffer<BotPathTypeEnum> BotPathTypes;
+  const MwBuffer<EBotPathTypeEnum> BotPathTypes;
   void CheckPlayField();
   const uint VertexCount;
   uint TargetTime;
@@ -1697,7 +1697,7 @@ struct CGameCtnChallengeInfo : public CGameFid {
   const UnnamedEnum Kind;
   const bool LapRace;
   const uint DbgPackMask;
-  enum class Medal {
+  enum class EMedal {
     None = 0,
     Finished = 1,
     Bronze = 2,
@@ -1705,11 +1705,11 @@ struct CGameCtnChallengeInfo : public CGameFid {
     Gold = 4,
     Author = 5,
   };
-  const Medal Medal;
+  const EMedal Medal;
   const uint BestScore;
   const uint BestTime;
   const uint MinRespawnCount;
-  const Medal OfficialMedal;
+  const EMedal OfficialMedal;
   const uint OfficialBestScore;
   const uint OfficialBestTime;
   const uint OfficialMinRespawnCount;
@@ -1976,7 +1976,7 @@ struct CGameCtnBlockInfo : public CGameCtnCollector {
   MwId SymmetricalBlockInfoId;
   UnnamedEnum Dir;
   CGameCtnBlockInfo* SymmetricalBlockInfoConnected;
-  MultiDirEnum PillarShapeMultiDir;
+  EMultiDirEnum PillarShapeMultiDir;
   bool EdNoRespawn;
   bool IconAutoUseGround;
   CMwNod* IconMacroBlockInfo;
@@ -2057,7 +2057,7 @@ struct CGameCtnBlockInfoClip : public CGameCtnBlockInfo {
   bool IsFullFreeClip;
   bool IsExclusiveFreeClip;
   bool CanBeDeletedByFullFreeClip;
-  MultiDirEnum TopBottomMultiDir;
+  EMultiDirEnum TopBottomMultiDir;
 };
 
 // File extension: 'EDSlope.Gbx'
@@ -2097,7 +2097,7 @@ struct CGameCtnBlock : public CMwNod {
   uint CoordX;
   uint CoordY;
   uint CoordZ;
-  CardinalDirections BlockDir;
+  ECardinalDirections BlockDir;
   const bool IsGround;
   const uint BlockInfoVariantIndex;
   const uint MobilIndex;
@@ -2115,8 +2115,8 @@ struct CGameCtnBlock : public CMwNod {
   void UseDefaultAnchor(); // Maniascript
   void UseCustomAnchor(); // Maniascript
   const nat3 Coord; // Maniascript
-  const CardinalDirections Dir; // Maniascript
-  const CardinalDirections Direction; // Maniascript
+  const ECardinalDirections Dir; // Maniascript
+  const ECardinalDirections Direction; // Maniascript
   const MwArray<CGameCtnBlockUnit*> BlockUnits; // Maniascript
   CGameCtnBlockInfo* const BlockModel; // Maniascript
   wstring SubMapDataRefForEditor;
@@ -2968,12 +2968,12 @@ struct CGameCtnMediaClipViewer : public CGameSwitcherModule {
   CGameCtnMediaClipViewer();
 
   const bool DoInputs;
-  enum class Status {
+  enum class EStatus {
     Running = 0,
     Exit = 1,
     Next = 2,
   };
-  const Status ViewerStatus;
+  const EStatus ViewerStatus;
   CGameCtnMediaClip* const Clip;
   CGameCtnMediaClipPlayer* const ClipPlayer;
   float PlaySpeed;
@@ -3004,8 +3004,8 @@ struct CGameCursorBlock : public CMwNod {
   nat3 Coord;
   nat3 Subdiv;
   nat3 SubdivFactors;
-  CardinalDirEnum Dir;
-  AdditionalDirEnum AdditionalDir;
+  ECardinalDirEnum Dir;
+  EAdditionalDirEnum AdditionalDir;
   float Pitch;
   float Roll;
   vec3 Color;
@@ -3126,7 +3126,7 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   const bool ClipIsCycling;
   bool ClipIsInside;
   bool ClipStopOnRespawn;
-  enum class ClipTriggerCond {
+  enum class EClipTriggerCond {
     None = 0,
     RaceTime_L = 1,
     RaceTime_G = 2,
@@ -3138,7 +3138,7 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
     Random_once = 8,
     Random = 9,
   };
-  ClipTriggerCond ClipTriggerCond;
+  EClipTriggerCond ClipTriggerCond;
   float ClipTriggerCondValue;
   bool TrackKeepPlaying;
   bool TrackIsCycling;
@@ -3191,13 +3191,13 @@ struct CGameCtnMediaTracker : public CGameCtnEditor {
   float CamTargetPosXCamCustom;
   float CamTargetPosYCamCustom;
   float CamTargetPosZCamCustom;
-  enum class CamInterpCamCustom {
+  enum class ECamInterpCamCustom {
     _CameraInterp_None = 0,
     _CameraInterp_Hermite = 1,
     _CameraInterp_Linear = 2,
     _CameraInterp_FixedTangent = 3,
   };
-  CamInterpCamCustom CamInterpCamCustom;
+  ECamInterpCamCustom CamInterpCamCustom;
   float CamLeftTangentXCamCustom;
   float CamLeftTangentYCamCustom;
   float CamLeftTangentZCamCustom;
@@ -5089,7 +5089,7 @@ struct CGameManialinkScriptHandler : public CMwNod {
   void EnableMenuNavigation(bool EnableInputs, bool WithAutoFocus, CGameManialinkControl* AutoBackControl, int InputPriority); // Maniascript
   void EnableMenuNavigation2(bool EnableInputs, bool WithAutoFocus, bool WithManualScroll, CGameManialinkControl* AutoBackControl, int InputPriority); // Maniascript
   const bool IsMenuNavigationForeground; // Maniascript
-  void OpenLink(string Url, LinkType LinkType); // Maniascript
+  void OpenLink(string Url, ELinkType LinkType); // Maniascript
   void TriggerPageAction(string ActionString); // Maniascript
   CXmlScriptParsingManager* const Xml; // Maniascript
   CNetScriptHttpManager* const Http; // Maniascript
@@ -5554,8 +5554,8 @@ struct CGameManialinkControl : public CMwNod {
   const MwBuffer<string> ControlClasses; // Maniascript
   bool HasClass(string Class); // Maniascript
   vec2 Size; // Maniascript
-  AlignHorizontal HorizontalAlign; // Maniascript
-  AlignVertical VerticalAlign; // Maniascript
+  EAlignHorizontal HorizontalAlign; // Maniascript
+  EAlignVertical VerticalAlign; // Maniascript
   bool Visible; // Maniascript
   vec2 RelativePosition_V3; // Maniascript
   float ZIndex; // Maniascript
@@ -5982,7 +5982,7 @@ struct CGameCtnEditorDecals : public CMwNod {
   void BitmapDecalSetRemoveInvalidDecals();
   void BitmapDecalSetRemoveInvalidDecalsAllSets();
   CPlugBitmap* Bitmap;
-  SemanticsEnum EnumSemantics;
+  ESemanticsEnum EnumSemantics;
   const uint BitmapDecalSet;
   CPlugDecalModel* DecalModelMacro;
   const uint DecalModelMacroSet;
@@ -6699,7 +6699,7 @@ struct CGameCtnZoneTransition : public CGameCtnZone {
     Overlap = 2,
   };
   CGameCtnBlockInfoTransition* BlockInfoTransition;
-  ZoneTransitionType TransitionType;
+  EZoneTransitionType TransitionType;
   MwId FrontierId_0To1;
   MwId FrontierId_0To2;
   MwId FrontierId_1To2;
@@ -6775,7 +6775,7 @@ struct CGameEditorPluginMapMapType : public CGameEditorPluginMap {
   };
   bool CustomEditAnchorData; // Maniascript
   void ClearMapMetadata(); // Maniascript
-  ValidationStatus ValidationStatus; // Maniascript
+  EValidationStatus ValidationStatus; // Maniascript
   wstring ValidabilityRequirementsMessage; // Maniascript
   bool ValidationEndRequested; // Maniascript
   bool ValidationEndNoConfirm; // Maniascript
@@ -6983,7 +6983,7 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
   const bool HasVolumeSymmetryD2;
   const bool HasFreeClips;
   uint SymmetricalVariantIndex;
-  CardinalDirEnum CardinalDir;
+  ECardinalDirEnum CardinalDir;
   uint NoPillarBelowIndex;
   bool IsObsoleteVariant;
   bool IsFakeReplacement;
@@ -6991,7 +6991,7 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
   bool DontPlaySound1;
   bool DontPlaySound2;
   bool IsNoPillarBelowVariant;
-  MultiDirEnum MultiDir;
+  EMultiDirEnum MultiDir;
   vec3 SpawnTrans;
   float SpawnYaw; // Range: -180 - 180
   float SpawnPitch; // Range: -90 - 90
@@ -7012,17 +7012,17 @@ struct CGameCtnBlockInfoVariant : public CMwNod {
   MwBuffer<CMwNod*> Mobils12;
   MwBuffer<CMwNod*> Mobils13;
   MwBuffer<CMwNod*> Mobils14;
-  VariantBaseTypeEnum VariantBaseType;
+  EVariantBaseTypeEnum VariantBaseType;
   void AddNewReplacedPillar();
   MwBuffer<CGameCtnBlockInfo*> ReplacedPillarBlockInfo_List;
   MwBuffer<nat3> ReplacedPillarOffset2D_List;
-  MwBuffer<MultiDirEnum> ReplacedPillarMultiDir_List;
+  MwBuffer<EMultiDirEnum> ReplacedPillarMultiDir_List;
   MwBuffer<bool> ReplacedPillarIsOnFlyingBase_List;
   const MwBuffer<bool> IsNewPillarPlacedBelow_List;
   void AddNewPlacedPillar();
   MwBuffer<CGameCtnBlockInfo*> PlacedPillarBlockInfo_List;
   MwBuffer<nat3> PlacedPillarOffset_List;
-  MwBuffer<CardinalDirEnum> PlacedPillarDir_List;
+  MwBuffer<ECardinalDirEnum> PlacedPillarDir_List;
   CGameObjectPhyCompoundModel* CompoundModel;
   iso4 CompoundLoc;
   const MwBuffer<CGameCtnBlockUnitInfo*> BlockUnitModels; // Maniascript
@@ -7093,7 +7093,7 @@ struct CGameManialinkScriptEvent : public CScriptBaseConstEvent {
     ScrollUp = 11,
     ScrollDown = 12,
   };
-  const Type Type; // Maniascript
+  const EType Type; // Maniascript
   const uint KeyCode; // Maniascript
   const string KeyName; // Maniascript
   const string CharPressed; // Maniascript
@@ -7181,8 +7181,8 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   const bool IsEditorReadyForRequest; // Maniascript
   bool HoldLoadingScreen; // Maniascript
   void ComputeShadows(); // Maniascript
-  void ComputeShadows1(ShadowsQuality ShadowsQuality); // Maniascript
-  const ShadowsQuality CurrentShadowsQuality; // Maniascript
+  void ComputeShadows1(EShadowsQuality ShadowsQuality); // Maniascript
+  const EShadowsQuality CurrentShadowsQuality; // Maniascript
   const bool IsUltraShadowsQualityAvailable; // Maniascript
   void DisplayDefaultSetObjectivesDialog(); // Maniascript
   bool Undo(); // Maniascript
@@ -7195,7 +7195,7 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   void QuitAndSetResult(wstring Type, MwBuffer<wstring>& Data); // Maniascript
   void QuickQuitAndSetResult(wstring Type, MwBuffer<wstring>& Data); // Maniascript
   void TestMapFromStart(); // Maniascript
-  void TestMapFromCoord(int3 Coord, CardinalDirections Dir); // Maniascript
+  void TestMapFromCoord(int3 Coord, ECardinalDirections Dir); // Maniascript
   void TestMapWithMode(wstring RulesModeName); // Maniascript
   void TestMapWithMode2(wstring RulesModeName, string SettingsXml); // Maniascript
   void TestMapWithMode_SplitScreen(wstring RulesModeName); // Maniascript
@@ -7205,12 +7205,12 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   bool EnableMapTypeStartTest; // Maniascript
   void SaveMap(wstring FileName); // Maniascript
   void SaveMapCompat(wstring FileName, wstring Path); // Maniascript
-  PlaceMode PlaceMode; // Maniascript
+  EPlaceMode PlaceMode; // Maniascript
   EditMode EditMode; // Maniascript
   bool UndergroundMode; // Maniascript
   bool BlockStockMode; // Maniascript
   nat3 CursorCoord; // Maniascript
-  CardinalDirections CursorDir; // Maniascript
+  ECardinalDirections CursorDir; // Maniascript
   CGameCtnBlockInfo* CursorBlockModel; // Maniascript
   CGameCtnBlockInfo* CursorTerrainBlockModel; // Maniascript
   CGameCtnMacroBlockInfo* CursorMacroblockModel; // Maniascript
@@ -7246,25 +7246,25 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   void EditMediatrackIngame(); // Maniascript
   void PreloadAllBlocks(); // Maniascript
   void PreloadAllItems(); // Maniascript
-  bool CanPlaceBlock(CGameCtnBlockInfo* BlockModel, int3 Coord, CardinalDirections Dir, bool OnGround, uint VariantIndex); // Maniascript
-  bool PlaceBlock(CGameCtnBlockInfo* BlockModel, int3 Coord, CardinalDirections Dir); // Maniascript
-  bool CanPlaceBlock_NoDestruction(CGameCtnBlockInfo* BlockModel, int3 Coord, CardinalDirections Dir, bool OnGround, uint VariantIndex); // Maniascript
-  bool PlaceBlock_NoDestruction(CGameCtnBlockInfo* BlockModel, int3 Coord, CardinalDirections Dir); // Maniascript
+  bool CanPlaceBlock(CGameCtnBlockInfo* BlockModel, int3 Coord, ECardinalDirections Dir, bool OnGround, uint VariantIndex); // Maniascript
+  bool PlaceBlock(CGameCtnBlockInfo* BlockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
+  bool CanPlaceBlock_NoDestruction(CGameCtnBlockInfo* BlockModel, int3 Coord, ECardinalDirections Dir, bool OnGround, uint VariantIndex); // Maniascript
+  bool PlaceBlock_NoDestruction(CGameCtnBlockInfo* BlockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
   bool CanPlaceRoadBlocks(CGameCtnBlockInfo* BlockModel, int3 StartCoord, int3 EndCoord); // Maniascript
   bool PlaceRoadBlocks(CGameCtnBlockInfo* BlockModel, int3 StartCoord, int3 EndCoord); // Maniascript
   bool CanPlaceTerrainBlocks(CGameCtnBlockInfo* BlockModel, int3 StartCoord, int3 EndCoord); // Maniascript
   bool PlaceTerrainBlocks(CGameCtnBlockInfo* BlockModel, int3 StartCoord, int3 EndCoord); // Maniascript
   bool PlaceTerrainBlocks_NoDestruction(CGameCtnBlockInfo* BlockModel, int3 StartCoord, int3 EndCoord); // Maniascript
-  bool CanPlaceMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, CardinalDirections Dir); // Maniascript
-  bool PlaceMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, CardinalDirections Dir); // Maniascript
-  bool CanPlaceMacroblock_NoDestruction(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, CardinalDirections Dir); // Maniascript
-  bool PlaceMacroblock_NoDestruction(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, CardinalDirections Dir); // Maniascript
-  bool CanPlaceMacroblock_NoTerrain(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, CardinalDirections Dir); // Maniascript
-  bool PlaceMacroblock_NoTerrain(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, CardinalDirections Dir); // Maniascript
-  bool RemoveMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, CardinalDirections Dir); // Maniascript
-  bool RemoveMacroblock_NoTerrain(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, CardinalDirections Dir); // Maniascript
+  bool CanPlaceMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
+  bool PlaceMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
+  bool CanPlaceMacroblock_NoDestruction(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
+  bool PlaceMacroblock_NoDestruction(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
+  bool CanPlaceMacroblock_NoTerrain(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
+  bool PlaceMacroblock_NoTerrain(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
+  bool RemoveMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
+  bool RemoveMacroblock_NoTerrain(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
   CGameCtnBlock* GetBlock(int3 Coord); // Maniascript
-  CGameCtnBlock* GetBlockSafe(CGameCtnBlockInfo* BlockModel, int3 Coord, CardinalDirections Dir); // Maniascript
+  CGameCtnBlock* GetBlockSafe(CGameCtnBlockInfo* BlockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
   bool IsBlockModelSkinnable(CGameCtnBlockInfo* BlockModel); // Maniascript
   uint GetNbBlockModelSkins(CGameCtnBlockInfo* BlockModel); // Maniascript
   wstring GetBlockModelSkin(CGameCtnBlockInfo* BlockModel, uint SkinIndex); // Maniascript
@@ -7275,9 +7275,9 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   bool SetMacroblockSkin(CGameEditorMapMacroBlockInstance* Macroblock, wstring SkinFileName); // Maniascript
   bool OpenBlockSkinDialog(CGameCtnBlock* Block); // Maniascript
   bool RemoveBlock(int3 Coord); // Maniascript
-  bool RemoveBlockSafe(CGameCtnBlockInfo* BlockModel, int3 Coord, CardinalDirections Dir); // Maniascript
+  bool RemoveBlockSafe(CGameCtnBlockInfo* BlockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
   bool RemoveTerrainBlocks(int3 StartCoord, int3 EndCoord); // Maniascript
-  uint GetBlockGroundHeight(CGameCtnBlockInfo* BlockModel, int CoordX, int CoordZ, CardinalDirections Dir); // Maniascript
+  uint GetBlockGroundHeight(CGameCtnBlockInfo* BlockModel, int CoordX, int CoordZ, ECardinalDirections Dir); // Maniascript
   uint GetGroundHeight(int CoordX, int CoordZ); // Maniascript
   int3 GetMouseCoordOnGround(); // Maniascript
   int3 GetMouseCoordAtHeight(uint CoordY); // Maniascript
@@ -7295,8 +7295,8 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   void UnvalidateMetadata(); // Maniascript
   void UnvalidateGameplayInfo(); // Maniascript
   void UnvalidatePlayfield(); // Maniascript
-  bool RemoveMacroblock_NoTerrain_NoUnvalidate(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, CardinalDirections Dir); // Maniascript
-  bool PlaceMacroblock_NoTerrain_NoUnvalidate(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, CardinalDirections Dir); // Maniascript
+  bool RemoveMacroblock_NoTerrain_NoUnvalidate(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
+  bool PlaceMacroblock_NoTerrain_NoUnvalidate(CGameCtnMacroBlockInfo* MacroblockModel, int3 Coord, ECardinalDirections Dir); // Maniascript
   void GetConnectResults(CGameCtnBlock* ExistingBlock, CGameCtnBlockInfo* NewBlock); // Maniascript
   void GetConnectResultsBlockToMacroBlock(CGameCtnBlock* ExistingBlock, CGameCtnMacroBlockInfo* NewBlock); // Maniascript
   void GetConnectResultsMacroBlockToBlock(CGameEditorMapMacroBlockInstance* ExistingBlock, CGameCtnBlockInfo* NewBlock); // Maniascript
@@ -7305,10 +7305,10 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   int GetFinishBlockCount(bool IncludeMultilaps); // Maniascript
   int GetMultilapBlockCount(); // Maniascript
   int GetCheckpointBlockCount(); // Maniascript
-  CGameEditorMapMacroBlockInstance* CreateMacroblockInstance(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, CardinalDirections Dir); // Maniascript
-  CGameEditorMapMacroBlockInstance* CreateMacroblockInstanceWithUserData(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, CardinalDirections Dir, int UserData); // Maniascript
-  CGameEditorMapMacroBlockInstance* CreateMacroblockInstanceWithClipList(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, CardinalDirections Dir, CGameEditorMapScriptClipList* DefaultClipList); // Maniascript
-  CGameEditorMapMacroBlockInstance* CreateMacroblockInstanceWithClipListAndUserData(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, CardinalDirections Dir, CGameEditorMapScriptClipList* DefaultClipList, int UserData); // Maniascript
+  CGameEditorMapMacroBlockInstance* CreateMacroblockInstance(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, ECardinalDirections Dir); // Maniascript
+  CGameEditorMapMacroBlockInstance* CreateMacroblockInstanceWithUserData(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, ECardinalDirections Dir, int UserData); // Maniascript
+  CGameEditorMapMacroBlockInstance* CreateMacroblockInstanceWithClipList(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, ECardinalDirections Dir, CGameEditorMapScriptClipList* DefaultClipList); // Maniascript
+  CGameEditorMapMacroBlockInstance* CreateMacroblockInstanceWithClipListAndUserData(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, ECardinalDirections Dir, CGameEditorMapScriptClipList* DefaultClipList, int UserData); // Maniascript
   CGameEditorMapMacroBlockInstance* GetMacroblockInstanceFromOrder(uint Order); // Maniascript
   CGameEditorMapMacroBlockInstance* GetMacroblockInstanceFromUnitCoord(int3 Coord); // Maniascript
   CGameEditorMapMacroBlockInstance* GetLatestMacroblockInstance(); // Maniascript
@@ -7394,7 +7394,7 @@ struct CGameEditorPluginMap : public CGameManiaApp {
   const float CollectionSquareSize; // Maniascript
   const float CollectionSquareHeight; // Maniascript
   const uint CollectionGroundY; // Maniascript
-  const ValidationStatus ValidationStatus; // Maniascript
+  const EValidationStatus ValidationStatus; // Maniascript
   string ManialinkText; // Maniascript
   CGameManialinkPage* const ManialinkPage; // Maniascript
   uint GetInterfaceNumber(CGameCtnCollector* Collector); // Maniascript
@@ -7503,7 +7503,7 @@ struct CGameEditorPluginMapScriptEvent : public CGameManiaAppScriptEvent {
     MapStyle = 35,
     ClassicMapEditor = 36,
   };
-  const Type Type; // Maniascript
+  const EType Type; // Maniascript
   const EInput Input; // Maniascript
   const MwId EditedAnchorDataId; // Maniascript
   const bool IsFromPad; // Maniascript
@@ -9759,7 +9759,7 @@ struct CGameEditorPluginModuleScriptEvent : public CGameManiaAppScriptEvent {
     FileSave = 7,
     FileSaveAs = 8,
   };
-  const Type Type; // Maniascript
+  const EType Type; // Maniascript
   void Eat(); // Maniascript
 };
 
@@ -11069,7 +11069,7 @@ struct CGameEditorEvent : public CGameManiaAppScriptEvent {
     EnableRedo = 17,
     DisableRedo = 18,
   };
-  const Type Type; // Maniascript
+  const EType Type; // Maniascript
 };
 
 struct CGameMgrTurretPhy : public CSceneMgrPhy {
@@ -11720,12 +11720,12 @@ struct CWebServicesTask_PostConnect_UrlShortCutList : public CWebServicesTaskSeq
 struct CGameEditorMapScriptClipList : public CMwNod {
   const MwBuffer<CGameEditorMapScriptClip*> Clips; // Maniascript
   const nat3 Size; // Maniascript
-  bool SetClipListFromMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, CardinalDirections Dir); // Maniascript
+  bool SetClipListFromMacroblock(CGameCtnMacroBlockInfo* MacroblockModel, nat3 Coord, ECardinalDirections Dir); // Maniascript
   bool SetClipListFromMacroblockOnly(CGameCtnMacroBlockInfo* MacroblockModel); // Maniascript
-  bool SetClipListFromBlock(CGameCtnBlockInfo* BlockModel, nat3 Coord, CardinalDirections Dir); // Maniascript
+  bool SetClipListFromBlock(CGameCtnBlockInfo* BlockModel, nat3 Coord, ECardinalDirections Dir); // Maniascript
   bool SetClipListFromBlockOnly(CGameCtnBlockInfo* BlockModel); // Maniascript
-  void CreateAndAddClip(wstring Name, int3 Coord, int3 Offset, CardinalDirections Dir, int ClipId); // Maniascript
-  bool SetFromClipList(CGameEditorMapScriptClipList* ClipList, int3 Coord, CardinalDirections Dir); // Maniascript
+  void CreateAndAddClip(wstring Name, int3 Coord, int3 Offset, ECardinalDirections Dir, int ClipId); // Maniascript
+  bool SetFromClipList(CGameEditorMapScriptClipList* ClipList, int3 Coord, ECardinalDirections Dir); // Maniascript
   void RemoveClip(CGameEditorMapScriptClip* Clip); // Maniascript
   void ClearClips(); // Maniascript
   void Destroy(); // Maniascript
@@ -11736,7 +11736,7 @@ struct CWebServicesTask_PostConnect_Title : public CWebServicesTaskSequence {
 
 struct CGameEditorMapScriptClip : public CMwNod {
   const wstring Name; // Maniascript
-  CardinalDirections Dir; // Maniascript
+  ECardinalDirections Dir; // Maniascript
   const nat3 Coord; // Maniascript
   const nat3 Offset; // Maniascript
   int ClipId; // Maniascript
@@ -11818,7 +11818,7 @@ struct CGameMasterServerTask_GetAccountFromUplayUser : public CNetMasterServerRe
 struct CGameEditorMapMacroBlockInstance : public CMwNod {
   CGameCtnMacroBlockInfo* const MacroblockModel; // Maniascript
   CGameEditorMapScriptClipList* const ClipList; // Maniascript
-  CardinalDirections Dir; // Maniascript
+  ECardinalDirections Dir; // Maniascript
   const int3 Coord; // Maniascript
   uint Order; // Maniascript
   int UserData; // Maniascript
@@ -11866,7 +11866,7 @@ struct CGameEditorPluginCameraAPI : public CMwNod {
   void TurnH(bool Clockwise, bool HalfSteps, bool Smooth); // Maniascript
   void TurnV(bool UpOrElseDown); // Maniascript
   void TurnV(bool UpOrElseDown, bool Smooth); // Maniascript
-  void Move(RelativeDirections RelativeDir); // Maniascript
+  void Move(ERelativeDirections RelativeDir); // Maniascript
   void FollowCursor(bool Follow); // Maniascript
   void CenterOnCursor(bool Smooth); // Maniascript
   void MoveToMapCenter(bool Smooth); // Maniascript
@@ -11888,10 +11888,10 @@ struct CGameEditorPluginCameraAPI : public CMwNod {
   void ZoomOut(bool Loop, bool Smooth); // Maniascript
   void Zoom(UnnamedEnum Level); // Maniascript
   void Zoom(UnnamedEnum Level, bool Smooth); // Maniascript
-  void Look(CardinalDirections8 Direction); // Maniascript
-  void Look(CardinalDirections8 Direction, bool Smooth); // Maniascript
-  void Look(CardinalDirections Direction); // Maniascript
-  void Look(CardinalDirections Direction, bool Smooth); // Maniascript
+  void Look(ECardinalDirections8 Direction); // Maniascript
+  void Look(ECardinalDirections8 Direction, bool Smooth); // Maniascript
+  void Look(ECardinalDirections Direction); // Maniascript
+  void Look(ECardinalDirections Direction, bool Smooth); // Maniascript
   void SetVStep(UnnamedEnum Step); // Maniascript
   void WatchCustomSelection(bool WatchCustomSelection); // Maniascript
 };
@@ -11901,7 +11901,7 @@ struct CGameEditorPluginCursorAPI : public CMwNod {
 
   void ReleaseLock(); // Maniascript
   nat3 Coord; // Maniascript
-  CardinalDirections Dir; // Maniascript
+  ECardinalDirections Dir; // Maniascript
   CGameCtnBlockInfo* BlockModel; // Maniascript
   CGameCtnBlockInfo* TerrainBlockModel; // Maniascript
   CGameCtnMacroBlockInfo* MacroblockModel; // Maniascript
@@ -11915,9 +11915,9 @@ struct CGameEditorPluginCursorAPI : public CMwNod {
   bool Lower(); // Maniascript
   void FollowCameraTarget(bool Follow); // Maniascript
   void Rotate(bool CWOrCCW); // Maniascript
-  void Move(CardinalDirections CardinalDir); // Maniascript
-  void Move(CardinalDirections8 CardinalDir8); // Maniascript
-  void Move(RelativeDirections RelativeDir); // Maniascript
+  void Move(ECardinalDirections CardinalDir); // Maniascript
+  void Move(ECardinalDirections8 CardinalDir8); // Maniascript
+  void Move(ERelativeDirections RelativeDir); // Maniascript
   void DisableMouseDetection(bool Disable); // Maniascript
   bool CanPlace(); // Maniascript
   bool IsCustomRGBActivated(); // Maniascript
@@ -11929,7 +11929,7 @@ struct CGameEditorPluginMapConnectResults : public CMwNod {
 
   bool CanPlace; // Maniascript
   int3 Coord; // Maniascript
-  CardinalDirections Dir; // Maniascript
+  ECardinalDirections Dir; // Maniascript
 };
 
 struct CGameEditorGenericInventory : public CMwNod {
@@ -12125,7 +12125,7 @@ struct CFuncKeysTransQuat : public CFuncKeysTrans {
 struct CFuncKeysPath : public CFuncKeysTransQuat {
   CFuncKeysPath();
 
-  enum class CFuncKeysPath__EPathDrawMode {
+  enum class ECFuncKeysPath__EPathDrawMode {
     Line = 0,
     BSpline = 1,
     BSplineTension = 2,
@@ -12134,7 +12134,7 @@ struct CFuncKeysPath : public CFuncKeysTransQuat {
     BetaSpline = 5,
     Hermite = 6,
   };
-  CFuncKeysPath__EPathDrawMode DrawMode;
+  ECFuncKeysPath__EPathDrawMode DrawMode;
   float BSplineTension; // Range: -2 - 0
   float BSplineBias; // Range: -1 - 1
   float BetaSplineTension; // Range: 0 - 100
@@ -12197,7 +12197,7 @@ struct CFuncShaderLayerUV : public CFuncShader {
 
   string LayerName;
   UnnamedEnum LayerEnum;
-  enum class SignalType {
+  enum class ESignalType {
     TransLinear = 0,
     TransCircular = 1,
     Rotate = 2,
@@ -12210,7 +12210,7 @@ struct CFuncShaderLayerUV : public CFuncShader {
     _GComp = 9,
     TransLinearScaleRotate = 10,
   };
-  SignalType SignalType;
+  ESignalType SignalType;
   vec2 Base;
   vec2 Amplitude;
   vec2 Offset;
@@ -12237,28 +12237,28 @@ struct CFuncShaderLayerUV : public CFuncShader {
 struct CFuncShaderFxFactor : public CFuncShader {
   CFuncShaderFxFactor();
 
-  enum class CFuncShaderFxFactor__EMapFx {
+  enum class ECFuncShaderFxFactor__EMapFx {
     SelfIllumLuminance = 0,
     LightMapIntensity = 1,
   };
-  CFuncShaderFxFactor__EMapFx MapFx;
-  enum class CFuncShaderFxFactor__EFctType {
+  ECFuncShaderFxFactor__EMapFx MapFx;
+  enum class ECFuncShaderFxFactor__EFctType {
     Linear = 0,
     Smooth = 1,
     Refresh_glow = 2,
   };
-  CFuncShaderFxFactor__EFctType Type;
+  ECFuncShaderFxFactor__EFctType Type;
   float Base;
   float Amplitude;
   float Offset;
 };
 
 struct CFuncLight : public CFuncPlug {
-  enum class CFuncLight__EFctType {
+  enum class ECFuncLight__EFctType {
     Sinus = 0,
     Flick = 1,
   };
-  CFuncLight__EFctType FctType;
+  ECFuncLight__EFctType FctType;
   float FlickPeriod;
   uint FlickCount;
 };
@@ -12443,11 +12443,11 @@ struct CFuncEnvelope : public CFunc {
   float KeyFramePos2;
   float Frequency;
   float Amplitude;
-  enum class Modulation {
+  enum class EModulation {
     Cos = 0,
     Sin = 1,
   };
-  Modulation ModFunc;
+  EModulation ModFunc;
 };
 
 struct CFuncSegment : public CFunc {
@@ -13302,11 +13302,11 @@ struct CControlEnum : public CControlText {
 struct CControlSlider : public CControlBase {
   CControlSlider();
 
-  enum class Axis {
+  enum class EAxis {
     X = 0,
     Y = 1,
   };
-  Axis Axis;
+  EAxis Axis;
   float Ratio;
   MwId IconIdBar;
   MwId IconIdCursor;
@@ -14504,13 +14504,13 @@ struct CPlugFileDds : public CPlugFileImg {
 };
 
 struct CPlugFileImg : public CPlugFile {
-  enum class CPlugFileImg__EDimension {
+  enum class ECPlugFileImg__EDimension {
     _1D = 0,
     _2D = 1,
     _3D = 2,
     Cube = 3,
   };
-  const CPlugFileImg__EDimension Dimension;
+  const ECPlugFileImg__EDimension Dimension;
   const uint Width;
   const uint Height;
   const uint Depth;
@@ -14661,7 +14661,7 @@ struct CPlugFileFont : public CPlugFile {
 struct CPlugFileGen : public CPlugFileImg {
   CPlugFileGen();
 
-  enum class CPlugFileGen__EGenKind {
+  enum class ECPlugFileGen__EGenKind {
     Checker = 0,
     LightMap = 1,
     Plain = 2,
@@ -14714,7 +14714,7 @@ struct CPlugFileGen : public CPlugFileImg {
     Callback = 49,
     Noise = 50,
   };
-  const CPlugFileGen__EGenKind GenKind;
+  const ECPlugFileGen__EGenKind GenKind;
   const MwBuffer<CPlugFileImg*> ArrayOfImages;
 };
 
@@ -15511,12 +15511,12 @@ struct CPlugFileAudioMotors : public CPlugFile {
 };
 
 struct CPlugBitmapRender : public CPlug {
-  enum class CPlugBitmapRender__ETrigger {
+  enum class ECPlugBitmapRender__ETrigger {
     None = 0,
     Once = 1,
     EachFrame = 2,
   };
-  CPlugBitmapRender__ETrigger TriggerRender;
+  ECPlugBitmapRender__ETrigger TriggerRender;
   uint cFrameToSkip;
   UnnamedEnum RenderPath;
   enum class ERenderPathFails {
@@ -15599,7 +15599,7 @@ struct CPlugBitmapRender : public CPlug {
   bool InvertY;
   bool OnePixBorder;
   bool UseZBuffer;
-  CPlugBitmapRender__ETrigger TriggerClearRGBA;
+  ECPlugBitmapRender__ETrigger TriggerClearRGBA;
   vec3 ClearRGB;
   float ClearAlpha; // Range: 0 - 1
   UnnamedEnum ClearFogColor;
@@ -15632,11 +15632,11 @@ struct CPlugBitmapRender : public CPlug {
 struct CPlugBitmapRenderWater : public CPlugBitmapRender {
   CPlugBitmapRenderWater();
 
-  enum class CPlugBitmap____ {
+  enum class ECPlugBitmap____ {
     Refraction = 0,
     Reflection = 1,
   };
-  CPlugBitmap____ WaterType;
+  ECPlugBitmap____ WaterType;
   float FogMaxDepth;
   float FogClampAboveDist;
   float MaxDistPlaneToAlpha;
@@ -16031,11 +16031,11 @@ struct CPlugBitmapArray : public CPlug {
 struct CPlugSpriteParam : public CPlug {
   CPlugSpriteParam();
 
-  enum class CPlugVisualSprite__ERenderMode {
+  enum class ECPlugVisualSprite__ERenderMode {
     Quad = 0,
     RotatedQuad = 1,
   };
-  CPlugVisualSprite__ERenderMode RenderMode;
+  ECPlugVisualSprite__ERenderMode RenderMode;
   UnnamedEnum Usage;
   bool RadiusInScreen;
   bool UseGlobalDir;
@@ -16102,7 +16102,7 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   bool IsActive;
   bool IsSolo;
   float ActiveMinSpeedKmh;
-  enum class ParticleEmitterSubModel {
+  enum class EParticleEmitterSubModel {
     Standard = 0,
     MultiState = 1,
     OneParticle = 2,
@@ -16113,7 +16113,7 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
     Gpu = 7,
     Energy = 8,
   };
-  ParticleEmitterSubModel ParticleEmitterSubModel;
+  EParticleEmitterSubModel ParticleEmitterSubModel;
   uint MaxParticleCount;
   bool MultiState_IsAsyncLink;
   uint PartChain_MaxCount;
@@ -16140,7 +16140,7 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   float Life;
   float LifeVariation;
   uint LifePeriodMs_OnePart;
-  enum class MultiStateRenderMode {
+  enum class EMultiStateRenderMode {
     LineNormal = 0,
     LineWideWorld = 1,
     LineWideScreen = 2,
@@ -16150,8 +16150,8 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
     LightTrail = 6,
     GrassMarks = 7,
   };
-  MultiStateRenderMode MultiStateRenderMode;
-  enum class StandardRenderMode {
+  EMultiStateRenderMode MultiStateRenderMode;
+  enum class EStandardRenderMode {
     QuadCamera = 0,
     WaterSplash = 1,
     QuadSpeed = 2,
@@ -16161,7 +16161,7 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
     LightOnly = 6,
     Beam = 7,
   };
-  StandardRenderMode StandardRenderMode;
+  EStandardRenderMode StandardRenderMode;
   bool SortSprites;
   float ViewDistMax;
   CPlugMaterial* Material;
@@ -16169,11 +16169,11 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   CPlugSolid2Model* Mesh;
   wstring MeshRef;
   bool MeshUseInstancing;
-  enum class MeshInstanceType {
+  enum class EMeshInstanceType {
     Color_Iso4 = 0,
     VolumeExplosion = 1,
   };
-  MeshInstanceType MeshInstanceType;
+  EMeshInstanceType MeshInstanceType;
   CFuncKeysReal* MeshScaleOverLife;
   CFuncKeysReal* MeshRampMinOverLife;
   CFuncKeysReal* MeshRampMaxOverLife;
@@ -16184,14 +16184,14 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   bool LightTrail_Hack_ImmobileEmitter;
   float SizeBirthRatioXY;
   vec2 SpritePivotPoint;
-  enum class TextureAtlas {
+  enum class ETextureAtlas {
     None = 0,
     Fixed = 1,
     Random = 2,
     AnimatedRandom = 3,
     AnimatedSynchro = 4,
   };
-  TextureAtlas TextureAtlas;
+  ETextureAtlas TextureAtlas;
   uint TextureAtlasDimX;
   uint TextureAtlasDimY;
   uint TextureAtlasCount;
@@ -16215,11 +16215,11 @@ struct CPlugParticleEmitterSubModel : public CMwNod {
   float RollSpeedBirth;
   float RollSpeedBirthVariation;
   CFuncColorGradient* ColorGradient;
-  enum class ColorGradientUse {
+  enum class EColorGradientUse {
     RandomConstantColor = 0,
     ColorOverLife = 1,
   };
-  ColorGradientUse ColorGradientUse;
+  EColorGradientUse ColorGradientUse;
   bool ColorModulateWithTransparency;
   UnnamedEnum ColorType;
   bool ColorBirthUseIntensity;
@@ -16953,7 +16953,7 @@ struct CPlugBeamEmitterSubModel : public CMwNod {
   bool EdVisible;
   CPlugMaterial* Material;
   const MwBuffer<CPlugMaterial*> AdditionalMaterials;
-  enum class DisplayType {
+  enum class EDisplayType {
     LinesWide = 0,
     Cylinder = 1,
     Helix = 2,
@@ -16967,7 +16967,7 @@ struct CPlugBeamEmitterSubModel : public CMwNod {
     EnergyPrim = 10,
     LinesCurved = 11,
   };
-  DisplayType DisplayType;
+  EDisplayType DisplayType;
   float UVScale;
   uint CylinderSideCount;
   uint Duration;
@@ -18012,7 +18012,7 @@ struct CSceneMgrAnim : public CMwNod {
   float Params_EdForceLowerJawVal; // Range: 0 - 1
   bool Params_EdForceLayerWeight;
   float Params_EdForceLayerWeightVal; // Range: 0 - 1
-  NSceneAnim__EHandIKMode Params_HandIKParams_Mode;
+  ENSceneAnim__EHandIKMode Params_HandIKParams_Mode;
   float Params_HandIKParams_OffsetHand_Pen; // Range: 0 - 0.3
   float Params_HandIKParams_OffsetElbow_Pen; // Range: 0 - 0.3
   float Params_HandIKParams_Anticipation_Pen; // Range: 0 - 1
@@ -18021,8 +18021,8 @@ struct CSceneMgrAnim : public CMwNod {
   float Params_HandIKParams_OffsetY; // Range: -1 - 1
   float Params_HandIKParams_OffsetX; // Range: -1 - 1
   float Params_HandIKParams_WallOffset_Touch; // Range: 0 - 0.15
-  NSceneAnim__EAnimPartialMode Params_PartialAnimParams_Mode;
-  NSceneAnim__EPartialAnimBlendFunc Params_PartialAnimParams_BlendFunc;
+  ENSceneAnim__EAnimPartialMode Params_PartialAnimParams_Mode;
+  ENSceneAnim__EPartialAnimBlendFunc Params_PartialAnimParams_BlendFunc;
   MwBuffer<surf> Bindings;
 };
 
@@ -19283,7 +19283,7 @@ struct CAudioSourceEngine : public CAudioSource {
 };
 
 struct CAudioSourceSurface : public CAudioSource {
-  enum class SurfId {
+  enum class ESurfId {
     Concrete = 0,
     Pavement = 1,
     Grass = 2,
@@ -19360,7 +19360,7 @@ struct CAudioSourceSurface : public CAudioSource {
     NoBrakes = 73,
     CustomIce = 74,
   };
-  SurfId SurfaceId;
+  ESurfId SurfaceId;
   float SpeedNormalised; // Range: 0 - 1
   float SpeedKmh;
   float SkidIntensity; // Range: 0 - 1
@@ -19644,12 +19644,12 @@ struct CNetHttpClient : public CMwNod {
 struct CNetHttpResult : public CMwNod {
   const string Server;
   const string Path;
-  enum class Kind {
+  enum class EKind {
     Download = 0,
     Upload = 1,
   };
-  const Kind Kind;
-  const Status Status;
+  const EKind Kind;
+  const EStatus Status;
   const uint ExpectedTransfertSize;
   const string ContentType;
   const string ContentEncoding;
@@ -19937,21 +19937,21 @@ struct CNetMasterServerDownload : public CMwNod {
   const string Server;
   const string Path;
   const uint Port;
-  enum class Context {
+  enum class EContext {
     None = 0,
     Browser = 1,
     Menu = 2,
     Screen = 3,
     InGameInterface = 4,
   };
-  const Context Context;
+  const EContext Context;
   const uint Offset;
-  enum class UploadMethod {
+  enum class EUploadMethod {
     None = 0,
     Post = 1,
     Put = 2,
   };
-  const UploadMethod UploadMethod;
+  const EUploadMethod UploadMethod;
   const uint TotalSize;
   const uint DownloadStartTime;
   const uint DownloadingTime;
@@ -22912,7 +22912,7 @@ struct CGameModulePlaygroundPlayerStateComponentModel : public CMwNod {
     StaminaGauge = 3,
     WeaponList = 4,
   };
-  const Type Type; // Maniascript
+  const EType Type; // Maniascript
   string Name; // Maniascript
   vec2 Position;
   float PosX; // Maniascript
@@ -23387,8 +23387,8 @@ struct CGameModulePlaygroundPlayerStateModel : public CGameModulePlaygroundModel
   bool DynamicPreview; // Maniascript
   float PreviewSpeed; // Maniascript
   MwBuffer<CGameModulePlaygroundPlayerStateComponentModel*> Components;
-  MwId ComponentAddDefaultName(Model ComponentModel); // Maniascript
-  MwId ComponentAddCustomName(Model ComponentModel, string ComponentName); // Maniascript
+  MwId ComponentAddDefaultName(EModel ComponentModel); // Maniascript
+  MwId ComponentAddCustomName(EModel ComponentModel, string ComponentName); // Maniascript
   MwId ComponentSetNameAndId(MwId ComponentId, string NewComponentName); // Maniascript
   void ComponentRemove(MwId ComponentId); // Maniascript
   const MwBuffer<MwId> ComponentIds; // Maniascript
@@ -23526,13 +23526,13 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
     Bottom_right = 7,
     Center = 8,
   };
-  Source CurrentValueSource;
-  DistanceUnit CurrentValueDistanceUnit;
-  SpeedUnit CurrentValueSpeedUnit;
+  ESource CurrentValueSource;
+  EDistanceUnit CurrentValueDistanceUnit;
+  ESpeedUnit CurrentValueSpeedUnit;
   float CurrentValueCustom;
-  Source MaxValueSource;
-  DistanceUnit MaxValueDistanceUnit;
-  SpeedUnit MaxValueSpeedUnit;
+  ESource MaxValueSource;
+  EDistanceUnit MaxValueDistanceUnit;
+  ESpeedUnit MaxValueSpeedUnit;
   float MaxValueCustom;
   bool HideWhenFull;
   float HideDelay;
@@ -23540,14 +23540,14 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
   vec2 GaugePosition;
   float GaugeRotation;
   vec2 GaugeSize;
-  Source GradingSource;
-  DistanceUnit GradingDistanceUnit;
-  SpeedUnit GradingSpeedUnit;
+  ESource GradingSource;
+  EDistanceUnit GradingDistanceUnit;
+  ESpeedUnit GradingSpeedUnit;
   float GradingCustom;
   bool GaugeUseDefaultColor;
   vec3 GaugeCustomColor;
   bool ShowValue;
-  Direction ValuePosition;
+  EDirection ValuePosition;
   vec2 ValueRelativePosition;
   float ValueRotation;
   float CurrentValueSize;
@@ -23563,7 +23563,7 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
   bool BackgroundUseDefaultColor;
   vec3 BackgroundCustomColor;
   bool ShowIcon;
-  Direction IconPosition;
+  EDirection IconPosition;
   vec2 IconRelativePosition;
   float IconRotation;
   float IconScale;
@@ -23594,7 +23594,7 @@ struct CGameModulePlaygroundPlayerStateGaugeModel : public CGameModulePlayground
   DataRef StaminaScopeImage;
   bool ShowCustomText;
   string CustomText;
-  Direction CustomTextPosition;
+  EDirection CustomTextPosition;
   vec2 CustomTextRelativePosition;
   float CustomTextRotation;
   float CustomTextSize;
@@ -23754,7 +23754,7 @@ namespace Meta {
 
 // userName: 'AdnTag'
 struct SPlugAdnTag {
-  NPlugAdn__ETagType Type;
+  ENPlugAdn__ETagType Type;
   uint Value;
 };
 
@@ -23766,7 +23766,7 @@ struct CPlugAnimTimingFixedPeriod {
 
 struct STagFromName {
   string MatchName;
-  NPlugAdn__ETagCat Cat;
+  ENPlugAdn__ETagCat Cat;
   SPlugAdnTag Tag;
 };
 
